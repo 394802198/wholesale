@@ -90,7 +90,7 @@ public class SimpleMapperCreator {
 			
 			// SELECT ALL
 			context.append("\t<!-- SELECT AREA -->\n\n");
-			context.append("\t<select id=\"select"+this.getModel()+"s\" parameterType=\""+this.getModel()+"\" resultType=\""+this.getModel()+"\">\n");
+			context.append("\t<select id=\"select"+this.getModel()+"\" parameterType=\""+this.getModel()+"\" resultType=\""+this.getModel()+"\">\n");
 			context.append("\t\tselect * from "+this.getTable()+" as "+this.getAbbrModel()+"\n");
 			context.append("\t\t<include refid=\""+this.getLowerModel()+"Where\"/>\n");
 			context.append("\t</select>\n\n");
@@ -251,7 +251,7 @@ public class SimpleMapperCreator {
 		buff.append(" * \n");
 		buff.append("  */\n\n");
 		buff.append("\t/* SELECT AREA */\n\n");
-		buff.append("\tList<"+this.getModel()+"> select"+this.getModel()+"s("+this.getModel()+" "+this.getAbbrModel()+");\n");
+		buff.append("\tList<"+this.getModel()+"> select"+this.getModel()+"("+this.getModel()+" "+this.getAbbrModel()+");\n");
 		buff.append("\tList<"+this.getModel()+"> select"+this.getModel()+"sByPage(Page<"+this.getModel()+"> page);\n");
 		buff.append("\tint select"+this.getModel()+"sSum(Page<"+this.getModel()+"> page);\n\n");
 		buff.append("\t/* // END SELECT AREA */\n");
