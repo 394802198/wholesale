@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.tm.wholesale.util.SimpleMapperCreator;
+
 
 public class StevenTest {
 	
@@ -54,11 +56,11 @@ public class StevenTest {
 //		System.out.println(secondDecode);
 		
 		
-//		SimpleMapperCreator smc = new SimpleMapperCreator();
-//		smc.setAuthor("StevenChen");
-//		smc.setModel("TMSMaterialCategory");
-//		smc.setTable("tms_material_category");
-//		smc.initial();
+		SimpleMapperCreator smc = new SimpleMapperCreator();
+		smc.setAuthor("");
+		smc.setModel("Wholesaler");
+		smc.setTable("wholesaler");
+		smc.initial();
 		
 //		Calendar cal = Calendar.getInstance(Locale.CHINA);
 //		cal.setTime(new Date());

@@ -33,6 +33,7 @@
 	</listener>
 
 	<!-- spring mvc -->
+	
 	<servlet>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -48,6 +49,7 @@
 	</servlet-mapping>
 
 	<!-- kaptcha -->
+	
 	<servlet>
 		<servlet-name>Kaptcha</servlet-name>
 		<servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
@@ -69,14 +71,14 @@
 		<url-pattern>/kaptcha.jpg</url-pattern>
 	</servlet-mapping>
 
-	
-
 	<!-- session time -->
+	
 	<session-config>
 		<session-timeout>180</session-timeout>
 	</session-config>
 
 	<!-- filter Character Encoding -->
+	
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -91,18 +93,30 @@
 	</filter-mapping>
 	
 	<!-- ManagerSessionFilter -->
+	
 	<filter>
 		<filter-name>managerSessionFilter</filter-name>
-		<filter-class>com.tm.wholesale.filter</filter-class>
+		<filter-class>com.tm.wholesale.filter.ManagerSessionFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>managerSessionFilter</filter-name>
+		<url-pattern>/management/index</url-pattern>
+		<url-pattern>/management/system</url-pattern>
+		<url-pattern>/management/wholesale</url-pattern>
+		<url-pattern>/management/product</url-pattern>
+		<url-pattern>/management/provision</url-pattern>
+		<url-pattern>/management/billing</url-pattern>
+	</filter-mapping>
+	
+	<!-- WholesalerSessionFilter -->
+	
+	<filter>
+		<filter-name>wholesalerSessionFilter</filter-name>
+		<filter-class>com.tm.wholesale.filter.WholesalerSessionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>wholesalerSessionFilter</filter-name>
 		<url-pattern>/index</url-pattern>
-		<url-pattern>/system</url-pattern>
-		<url-pattern>/wholesale</url-pattern>
-		<url-pattern>/product</url-pattern>
-		<url-pattern>/provision</url-pattern>
-		<url-pattern>/billing</url-pattern>
 	</filter-mapping>
 
 	<error-page>

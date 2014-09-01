@@ -35,25 +35,25 @@ public class SystemController {
 	 */
 
 	@RequestMapping(value = { "/management", "/management/sign-in" })
-	public String managementHome(Model model) {
+	public String signin(Model model) {
 		model.addAttribute("title", "Wholesale Management System");
 		return "management/sign-in";
 	}
 
 	@RequestMapping(value = "/management/signout")
 	public String signout(HttpSession session) {
-		session.invalidate();
+		session.removeAttribute("managerSession");
 		return "redirect:/management/sign-in";
 	}
 	
 	@RequestMapping("/management/index/redirect")
-	public String redirectIndex(RedirectAttributes attr) {
+	public String indexRedirect(RedirectAttributes attr) {
 		attr.addFlashAttribute("success", "Welcome to Wholesale Management System.");
 		return "redirect:/management/index";
 	}
 
 	@RequestMapping(value = "/management/index")
-	public String managementIndex(Model model) {
+	public String index(Model model) {
 		model.addAttribute("title", "Home - Wholesale Management System");
 		return "management/index";
 	}
