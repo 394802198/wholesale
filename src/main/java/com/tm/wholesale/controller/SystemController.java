@@ -66,7 +66,7 @@ public class SystemController {
 	 * BEGIN Wholesaler
 	 */
 
-	@RequestMapping(value = "/management/system/wholesaler/create")
+	@RequestMapping(value = "/management/wholesale/wholesaler/create")
 	public String toWholesaleCreate(Model model) {
 		
 		Wholesaler wholesalerQuery = new Wholesaler();
@@ -77,10 +77,10 @@ public class SystemController {
 		model.addAttribute("panelheading", "Wholesale Create");
 		model.addAttribute("action", "/management/system/wholesaler/create");
 
-		return "management/system/wholesaler";
+		return "management/wholesale/wholesaler";
 	}
 
-	@RequestMapping(value = "/management/system/wholesaler/create", method=RequestMethod.POST)
+	@RequestMapping(value = "/management/wholesale/wholesaler/create", method=RequestMethod.POST)
 	public String doWholesaleCreate(Model model,
 			@ModelAttribute("wholesaler") Wholesaler wholesaler,
 			RedirectAttributes attr,
@@ -117,10 +117,10 @@ public class SystemController {
 
 		attr.addFlashAttribute("success", "Successfully create new wholesaler account.");
 
-		return "redirect:/management/system/wholesaler/view";
+		return "redirect:/management/wholesale/wholesaler/view";
 	}
 
-	@RequestMapping(value = "/management/system/wholesaler/edit/{id}")
+	@RequestMapping(value = "/management/wholesale/wholesaler/edit/{id}")
 	public String toWholesaleEdit(Model model,
 			@PathVariable("id") Integer id) {
 		
@@ -135,12 +135,12 @@ public class SystemController {
 		
 		model.addAttribute("wholesaler", wholesaler);
 		model.addAttribute("panelheading", "Wholesale Update");
-		model.addAttribute("action", "/management/system/wholesaler/edit");
+		model.addAttribute("action", "/management/wholesale/wholesaler/edit");
 
-		return "management/system/wholesaler";
+		return "management/wholesale/wholesaler";
 	}
 
-	@RequestMapping(value = "/management/system/wholesaler/edit", method=RequestMethod.POST)
+	@RequestMapping(value = "/management/wholesale/wholesaler/edit", method=RequestMethod.POST)
 	public String doWholesaleEdit(Model model,
 			@ModelAttribute("wholesaler") Wholesaler wholesaler,
 			RedirectAttributes attr) {
@@ -160,12 +160,12 @@ public class SystemController {
 
 		attr.addFlashAttribute("success", "Successfully update wholesaler details.");
 
-		return "redirect:/management/system/wholesaler/view";
+		return "redirect:/management/wholesale/wholesaler/view";
 	}
 
-	@RequestMapping(value = "/management/system/wholesaler/view")
+	@RequestMapping(value = "/management/wholesale/wholesaler/view")
 	public String toWholesaleView(Model model) {
-		return "management/system/wholesaler-view";
+		return "management/wholesale/wholesaler-view";
 	}
 	
 	/**

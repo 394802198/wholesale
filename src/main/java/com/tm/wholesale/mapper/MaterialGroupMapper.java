@@ -8,6 +8,13 @@ import com.tm.wholesale.model.Page;
 
 public interface MaterialGroupMapper {
 
+/**
+ * mapping material_group, materialGroup DAO component
+ * 
+ * @author CyberPark
+ * 
+  */
+
 	/* SELECT AREA */
 
 	List<MaterialGroup> selectMaterialGroups(MaterialGroup mg);

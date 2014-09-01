@@ -1,9 +1,8 @@
 package com.tm.wholesale.test;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+
+import com.tm.wholesale.util.SimpleMapperCreator;
 
 import com.tm.wholesale.util.SimpleMapperCreator;
 
@@ -57,7 +56,7 @@ public class StevenTest {
 		
 		
 		SimpleMapperCreator smc = new SimpleMapperCreator();
-		smc.setAuthor("");
+		smc.setAuthor("CyberPark");
 		smc.setModel("Wholesaler");
 		smc.setTable("wholesaler");
 		smc.initial();

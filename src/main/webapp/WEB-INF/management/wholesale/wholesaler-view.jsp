@@ -79,7 +79,7 @@
 	
 	$.getWholesalerPage = function(pageNo) {
 		
-		$.get('${ctx}/broadband-wholesale/system/wholesaler/view/'+pageNo, function(page){
+		$.get('${ctx}/management/wholesale/wholesaler/view/'+pageNo, function(page){
 			page.ctx = '${ctx}';
 			page.userId = '${userSession.id}';
 			page.wholesalerId = '${wholesalerSession.id}';
@@ -96,7 +96,7 @@
 				$('#deleteWholesalerModal').modal('show');
 			});
 			$('button[data-name="deleteWholesalerBtn"]').click(function(){
-				$.post('${ctx}/broadband-wholesale/system/wholesaler/remove/'+this.id, function(json){
+				$.post('${ctx}/management/wholesale/wholesaler/remove/'+this.id, function(json){
 			   		$.jsonValidation(json, 'right');
 				});
 			});

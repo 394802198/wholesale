@@ -8,6 +8,13 @@ import com.tm.wholesale.model.Page;
 
 public interface WholesalerMapper {
 
+/**
+ * mapping wholesaler, wholesaler DAO component
+ * 
+ * @author CyberPark
+ * 
+  */
+
 	/* SELECT AREA */
 
 	List<Wholesaler> selectWholesalers(Wholesaler w);

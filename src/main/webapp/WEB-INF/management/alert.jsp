@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<div class="container" id="alertContainer">
+<div class="container-fluid" id="alertContainer">
 	<c:if test="${success != null }">
 		<div class="alert alert-info alert-dismissable fade in">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

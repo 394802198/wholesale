@@ -8,9 +8,16 @@ import com.tm.wholesale.model.Page;
 
 public interface MaterialMapper {
 
+/**
+ * mapping material, material DAO component
+ * 
+ * @author CyberPark
+ * 
+  */
+
 	/* SELECT AREA */
 
-	List<Material> selectMaterials(Material material);
+	List<Material> selectMaterials(Material m);
 	List<Material> selectMaterialsByPage(Page<Material> page);
 	int selectMaterialsSum(Page<Material> page);
 
@@ -18,13 +25,13 @@ public interface MaterialMapper {
 	/* =================================================================================== */
 	/* INSERT AREA */
 
-	void insertMaterial(Material material);
+	void insertMaterial(Material m);
 
 	/* // END INSERT AREA */
 	/* =================================================================================== */
 	/* UPDATE AREA */
 
-	void updateMaterial(Material material);
+	void updateMaterial(Material m);
 
 	/* // END UPDATE AREA */
 	/* =================================================================================== */

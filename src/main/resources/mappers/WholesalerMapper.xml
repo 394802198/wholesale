@@ -100,11 +100,11 @@
 		INSERT INTO `wholesaler`(
 			`id`, `company_name`, `wholesaler_id`, `name`, `login_name`, 
 			`login_password`, `role`, `cellphone`, `email`, `auth`, 
-			`memo`, `status`, `params`, `authArray`
+			`memo`, `status`
 		) VALUES (
 			#{id}, #{company_name}, #{wholesaler_id}, #{name}, #{login_name}, 
 			#{login_password}, #{role}, #{cellphone}, #{email}, #{auth}, 
-			#{memo}, #{status}, #{params}, #{authArray}
+			#{memo}, #{status}
 		)
 	</insert>
 
