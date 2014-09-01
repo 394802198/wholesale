@@ -15,12 +15,14 @@ import com.tm.wholesale.model.Wholesaler;
 @Service
 public class SystemService {
 	
-	private WholesalerMapper WholesalerMapper;
+	private WholesalerMapper wholesalerMapper;
 	private ManagerMapper managerMapper;
 
 	@Autowired
-	public SystemService(ManagerMapper managerMapper) {
+	public SystemService(ManagerMapper managerMapper,
+			WholesalerMapper wholesalerMapper) {
 		this.managerMapper = managerMapper;
+		this.wholesalerMapper = wholesalerMapper;
 	}
 	
 	@Transactional
@@ -34,28 +36,28 @@ public class SystemService {
 	 */
 	
 	public List<Wholesaler> queryWholesalers(Wholesaler w){
-		return this.WholesalerMapper.selectWholesalers(w);
+		return this.wholesalerMapper.selectWholesalers(w);
 	}
 	
 	public Page<Wholesaler> queryWholesalerByPage(Page<Wholesaler> page){
-		page.setResults(this.WholesalerMapper.selectWholesalersByPage(page));
-		page.setTotalRecord(this.WholesalerMapper.selectWholesalersSum(page));
+		page.setResults(this.wholesalerMapper.selectWholesalersByPage(page));
+		page.setTotalRecord(this.wholesalerMapper.selectWholesalersSum(page));
 		return page;
 	}
 	
 	@Transactional
 	public void editWholesaler(Wholesaler w){
-		this.WholesalerMapper.updateWholesaler(w);
+		this.wholesalerMapper.updateWholesaler(w);
 	}
 	
 	@Transactional
 	public void removeWholesalerById(int id){
-		this.WholesalerMapper.deleteWholesalerById(id);
+		this.wholesalerMapper.deleteWholesalerById(id);
 	}
 	
 	@Transactional
 	public void createWholesaler(Wholesaler w){
-		this.WholesalerMapper.insertWholesaler(w);
+		this.wholesalerMapper.insertWholesaler(w);
 	}
 	
 	/**

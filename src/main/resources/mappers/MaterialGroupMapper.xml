@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DEFINITION AREA --><!-- // DEFINITION AREA -->
+<!-- =================================================================================== -->
+<!-- SELECT AREA --><!-- // END SELECT AREA -->
+<!-- =================================================================================== -->
+<!-- INSERT AREA --><!-- // END INSERT AREA -->
+<!-- =================================================================================== -->
+<!-- UPDATE AREA --><!-- // END UPDATE AREA -->
+<!-- =================================================================================== -->
+<!-- DELETE AREA --><!-- // END DELETE AREA -->
+
+<mapper namespace="com.tm.wholesale.mapper.MaterialGroupMapper">
+
+	<!-- DEFINITION AREA -->
+
+	<sql id="materialGroupColumns">
+		mg.`id`				as mg_id,
+		mg.`group_name`				as mg_group_name
+	</sql>
+
+	<resultMap type="MaterialGroup" id="materialGroupResultMap">
+		<id property="id" column="mg_id" />
+		<result property="group_name" column="mg_group_name" />
+	</resultMap>
+
+	<sql id="materialGroupWhere">
+		<where>
+			<if test="params.id != null">mg.id = #{params.id}</if>
+			<if test="params.group_name != null">and mg.group_name = #{params.group_name}</if>
+		</where>
+	</sql>
+
+	<!-- // DEFINITION AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- SELECT AREA -->
+
+	<select id="selectMaterialGroups" parameterType="MaterialGroup" resultType="MaterialGroup">
+		select * from material_group as mg
+		<include refid="materialGroupWhere"/>
+	</select>
+
+	<!-- select materialGroup page -->
+	<select id="selectMaterialGroupsByPage" parameterType="Page" resultMap="materialGroupResultMap">
+		select 
+			<include refid="materialGroupColumns"/>
+			from material_group as mg
+			<include refid="materialGroupWhere"/>
+			<if test="params.orderby != null">${params.orderby}</if>
+			limit #{pageOffset}, #{pageSize}
+	</select>
+
+	<!-- select materialGroup amount -->
+	<select id="selectMaterialGroupsSum" parameterType="Page" resultType="int">
+		select count(*) from material_group as mg
+		<include refid="materialGroupWhere"/>
+	</select>
+
+	<!-- // END SELECT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- INSERT AREA -->
+
+	<insert id="insertMaterialGroup" parameterType="MaterialGroup" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `material_group`(
+			`id`, `group_name`
+		) VALUES (
+			#{id}, #{group_name}
+		)
+	</insert>
+
+	<!-- // END INSERT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- UPDATE AREA -->
+
+	<!-- update materialGroup -->
+	<update id="updateMaterialGroup" parameterType="MaterialGroup">
+		update material_group
+		<set>
+			<if test="group_name != null">group_name = #{group_name}</if>
+		</set>
+		<where>
+			<if test="params.id != null">id = #{params.id}</if>
+		</where>
+	</update>
+
+	<!-- // END UPDATE AREA -->
+
+	<!-- =================================================================================== -->
+	<!-- DELETE AREA -->
+
+	<delete id="deleteMaterialGroupById" parameterType="int">
+		DELETE FROM material_group WHERE id = #{0}
+	</delete>
+
+	<!-- // END DELETE AREA -->
+
+</mapper>

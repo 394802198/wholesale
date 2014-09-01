@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DEFINITION AREA --><!-- // DEFINITION AREA -->
+<!-- =================================================================================== -->
+<!-- SELECT AREA --><!-- // END SELECT AREA -->
+<!-- =================================================================================== -->
+<!-- INSERT AREA --><!-- // END INSERT AREA -->
+<!-- =================================================================================== -->
+<!-- UPDATE AREA --><!-- // END UPDATE AREA -->
+<!-- =================================================================================== -->
+<!-- DELETE AREA --><!-- // END DELETE AREA -->
+
+<mapper namespace="com.tm.wholesale.mapper.WholesalerMapper">
+
+	<!-- DEFINITION AREA -->
+
+	<sql id="wholesalerColumns">
+		w.`id`				as w_id,
+		w.`company_name`				as w_company_name,
+		w.`wholesaler_id`				as w_wholesaler_id,
+		w.`name`				as w_name,
+		w.`login_name`				as w_login_name,
+		w.`login_password`				as w_login_password,
+		w.`role`				as w_role,
+		w.`cellphone`				as w_cellphone,
+		w.`email`				as w_email,
+		w.`auth`				as w_auth,
+		w.`memo`				as w_memo,
+		w.`status`				as w_status
+	</sql>
+
+	<resultMap type="Wholesaler" id="wholesalerResultMap">
+		<id property="id" column="w_id" />
+		<result property="company_name" column="w_company_name" />
+		<result property="wholesaler_id" column="w_wholesaler_id" />
+		<result property="name" column="w_name" />
+		<result property="login_name" column="w_login_name" />
+		<result property="login_password" column="w_login_password" />
+		<result property="role" column="w_role" />
+		<result property="cellphone" column="w_cellphone" />
+		<result property="email" column="w_email" />
+		<result property="auth" column="w_auth" />
+		<result property="memo" column="w_memo" />
+		<result property="status" column="w_status" />
+	</resultMap>
+
+	<sql id="wholesalerWhere">
+		<where>
+			<if test="params.id != null">w.id = #{params.id}</if>
+			<if test="params.company_name != null">and w.company_name = #{params.company_name}</if>
+			<if test="params.wholesaler_id != null">and w.wholesaler_id = #{params.wholesaler_id}</if>
+			<if test="params.name != null">and w.name = #{params.name}</if>
+			<if test="params.login_name != null">and w.login_name = #{params.login_name}</if>
+			<if test="params.login_password != null">and w.login_password = #{params.login_password}</if>
+			<if test="params.role != null">and w.role = #{params.role}</if>
+			<if test="params.cellphone != null">and w.cellphone = #{params.cellphone}</if>
+			<if test="params.email != null">and w.email = #{params.email}</if>
+			<if test="params.auth != null">and w.auth = #{params.auth}</if>
+			<if test="params.memo != null">and w.memo = #{params.memo}</if>
+			<if test="params.status != null">and w.status = #{params.status}</if>
+		</where>
+	</sql>
+
+	<!-- // DEFINITION AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- SELECT AREA -->
+
+	<select id="selectWholesalers" parameterType="Wholesaler" resultType="Wholesaler">
+		select * from wholesaler as w
+		<include refid="wholesalerWhere"/>
+	</select>
+
+	<!-- select wholesaler page -->
+	<select id="selectWholesalersByPage" parameterType="Page" resultMap="wholesalerResultMap">
+		select 
+			<include refid="wholesalerColumns"/>
+			from wholesaler as w
+			<include refid="wholesalerWhere"/>
+			<if test="params.orderby != null">${params.orderby}</if>
+			limit #{pageOffset}, #{pageSize}
+	</select>
+
+	<!-- select wholesaler amount -->
+	<select id="selectWholesalersSum" parameterType="Page" resultType="int">
+		select count(*) from wholesaler as w
+		<include refid="wholesalerWhere"/>
+	</select>
+
+	<!-- // END SELECT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- INSERT AREA -->
+
+	<insert id="insertWholesaler" parameterType="Wholesaler" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `wholesaler`(
+			`id`, `company_name`, `wholesaler_id`, `name`, `login_name`, 
+			`login_password`, `role`, `cellphone`, `email`, `auth`, 
+			`memo`, `status`
+		) VALUES (
+			#{id}, #{company_name}, #{wholesaler_id}, #{name}, #{login_name}, 
+			#{login_password}, #{role}, #{cellphone}, #{email}, #{auth}, 
+			#{memo}, #{status}
+		)
+	</insert>
+
+	<!-- // END INSERT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- UPDATE AREA -->
+
+	<!-- update wholesaler -->
+	<update id="updateWholesaler" parameterType="Wholesaler">
+		update wholesaler
+		<set>
+			<if test="company_name != null">company_name = #{company_name},</if>
+			<if test="wholesaler_id != null">wholesaler_id = #{wholesaler_id},</if>
+			<if test="name != null">name = #{name},</if>
+			<if test="login_name != null">login_name = #{login_name},</if>
+			<if test="login_password != null">login_password = #{login_password},</if>
+			<if test="role != null">role = #{role},</if>
+			<if test="cellphone != null">cellphone = #{cellphone},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="auth != null">auth = #{auth},</if>
+			<if test="memo != null">memo = #{memo},</if>
+			<if test="status != null">status = #{status}</if>
+		</set>
+		<where>
+			<if test="params.id != null">id = #{params.id}</if>
+		</where>
+	</update>
+
+	<!-- // END UPDATE AREA -->
+
+	<!-- =================================================================================== -->
+	<!-- DELETE AREA -->
+
+	<delete id="deleteWholesalerById" parameterType="int">
+		DELETE FROM wholesaler WHERE id = #{0}
+	</delete>
+
+	<!-- // END DELETE AREA -->
+
+</mapper>

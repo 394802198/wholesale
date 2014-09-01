@@ -79,7 +79,7 @@ public class SystemRestController {
 	 * BEGIN Wholesaler
 	 */
 
-	@RequestMapping(value = "/management/system/wholesaler/view/{pageNo}")
+	@RequestMapping(value = "/management/wholesale/wholesaler/view/{pageNo}")
 	public Page<Wholesaler> toWholesaleView(Model model,
 			@PathVariable("pageNo") Integer pageNo,
 			HttpServletRequest req) {
@@ -89,10 +89,8 @@ public class SystemRestController {
 		page.setPageSize(30);
 		
 		Wholesaler wholesalerSession = (Wholesaler) req.getSession().getAttribute("wholesalerSession");
-		if(wholesalerSession.getWholesaler_id()==null){
+		if(wholesalerSession!=null && wholesalerSession.getWholesaler_id()==null){
 			page.getParams().put("where", "query_by_wholesaler_id");
-			page.getParams().put("id", wholesalerSession.getId());
-		} else {
 			page.getParams().put("id", wholesalerSession.getId());
 		}
 		
@@ -101,7 +99,7 @@ public class SystemRestController {
 		return page;
 	}
 
-	@RequestMapping(value = "/management/system/wholesaler/remove/{id}", method=RequestMethod.POST)
+	@RequestMapping(value = "/management/wholesale/wholesaler/remove/{id}", method=RequestMethod.POST)
 	public JSONBean<Wholesaler> doWholesaleRemove(Model model,
 			@PathVariable("id") Integer id,
 			RedirectAttributes attr) {

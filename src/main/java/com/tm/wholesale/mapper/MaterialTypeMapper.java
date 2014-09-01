@@ -8,6 +8,13 @@ import com.tm.wholesale.model.Page;
 
 public interface MaterialTypeMapper {
 
+/**
+ * mapping material_type, materialType DAO component
+ * 
+ * @author CyberPark
+ * 
+  */
+
 	/* SELECT AREA */
 
 	List<MaterialType> selectMaterialTypes(MaterialType mt);

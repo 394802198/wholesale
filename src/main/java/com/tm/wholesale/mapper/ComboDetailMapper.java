@@ -8,6 +8,13 @@ import com.tm.wholesale.model.Page;
 
 public interface ComboDetailMapper {
 
+/**
+ * mapping combo_detail, comboDetail DAO component
+ * 
+ * @author CyberPark
+ * 
+  */
+
 	/* SELECT AREA */
 
 	List<ComboDetail> selectComboDetails(ComboDetail cd);

@@ -140,7 +140,7 @@
 				<span class="glyphicon glyphicon-user"></span> 
 				<a href="javascript:void(0);" class="navbar-link" >${managerSession.username}</a> 
 				<c:if test="${managerSession != null }">
-					<a href="${ctx}/broadband-user/signout" data-toggle="tooltip" data-placement="bottom" data-original-title="Sign out">
+					<a href="${ctx}/management/signout" data-toggle="tooltip" data-placement="bottom" data-original-title="Sign out">
 						<span class="glyphicon glyphicon-log-out" ></span>
 					</a>
 				</c:if>

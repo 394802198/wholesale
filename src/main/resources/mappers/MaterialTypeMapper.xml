@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DEFINITION AREA --><!-- // DEFINITION AREA -->
+<!-- =================================================================================== -->
+<!-- SELECT AREA --><!-- // END SELECT AREA -->
+<!-- =================================================================================== -->
+<!-- INSERT AREA --><!-- // END INSERT AREA -->
+<!-- =================================================================================== -->
+<!-- UPDATE AREA --><!-- // END UPDATE AREA -->
+<!-- =================================================================================== -->
+<!-- DELETE AREA --><!-- // END DELETE AREA -->
+
+<mapper namespace="com.tm.wholesale.mapper.MaterialTypeMapper">
+
+	<!-- DEFINITION AREA -->
+
+	<sql id="materialTypeColumns">
+		mt.`id`				as mt_id,
+		mt.`group_id`				as mt_group_id,
+		mt.`type_name`				as mt_type_name
+	</sql>
+
+	<resultMap type="MaterialType" id="materialTypeResultMap">
+		<id property="id" column="mt_id" />
+		<result property="group_id" column="mt_group_id" />
+		<result property="type_name" column="mt_type_name" />
+	</resultMap>
+
+	<sql id="materialTypeWhere">
+		<where>
+			<if test="params.id != null">mt.id = #{params.id}</if>
+			<if test="params.group_id != null">and mt.group_id = #{params.group_id}</if>
+			<if test="params.type_name != null">and mt.type_name = #{params.type_name}</if>
+		</where>
+	</sql>
+
+	<!-- // DEFINITION AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- SELECT AREA -->
+
+	<select id="selectMaterialTypes" parameterType="MaterialType" resultType="MaterialType">
+		select * from material_type as mt
+		<include refid="materialTypeWhere"/>
+	</select>
+
+	<!-- select materialType page -->
+	<select id="selectMaterialTypesByPage" parameterType="Page" resultMap="materialTypeResultMap">
+		select 
+			<include refid="materialTypeColumns"/>
+			from material_type as mt
+			<include refid="materialTypeWhere"/>
+			<if test="params.orderby != null">${params.orderby}</if>
+			limit #{pageOffset}, #{pageSize}
+	</select>
+
+	<!-- select materialType amount -->
+	<select id="selectMaterialTypesSum" parameterType="Page" resultType="int">
+		select count(*) from material_type as mt
+		<include refid="materialTypeWhere"/>
+	</select>
+
+	<!-- // END SELECT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- INSERT AREA -->
+
+	<insert id="insertMaterialType" parameterType="MaterialType" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `material_type`(
+			`id`, `group_id`, `type_name`
+		) VALUES (
+			#{id}, #{group_id}, #{type_name}
+		)
+	</insert>
+
+	<!-- // END INSERT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- UPDATE AREA -->
+
+	<!-- update materialType -->
+	<update id="updateMaterialType" parameterType="MaterialType">
+		update material_type
+		<set>
+			<if test="group_id != null">group_id = #{group_id},</if>
+			<if test="type_name != null">type_name = #{type_name}</if>
+		</set>
+		<where>
+			<if test="params.id != null">id = #{params.id}</if>
+		</where>
+	</update>
+
+	<!-- // END UPDATE AREA -->
+
+	<!-- =================================================================================== -->
+	<!-- DELETE AREA -->
+
+	<delete id="deleteMaterialTypeById" parameterType="int">
+		DELETE FROM material_type WHERE id = #{0}
+	</delete>
+
+	<!-- // END DELETE AREA -->
+
+</mapper>

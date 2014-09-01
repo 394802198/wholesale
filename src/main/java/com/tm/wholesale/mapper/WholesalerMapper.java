@@ -8,9 +8,16 @@ import com.tm.wholesale.model.Page;
 
 public interface WholesalerMapper {
 
+/**
+ * mapping wholesaler, wholesaler DAO component
+ * 
+ * @author CyberPark
+ * 
+  */
+
 	/* SELECT AREA */
 
-	List<Wholesaler> selectWholesalers(Wholesaler wholesaler);
+	List<Wholesaler> selectWholesalers(Wholesaler w);
 	List<Wholesaler> selectWholesalersByPage(Page<Wholesaler> page);
 	int selectWholesalersSum(Page<Wholesaler> page);
 
@@ -18,13 +25,13 @@ public interface WholesalerMapper {
 	/* =================================================================================== */
 	/* INSERT AREA */
 
-	void insertWholesaler(Wholesaler wholesaler);
+	void insertWholesaler(Wholesaler w);
 
 	/* // END INSERT AREA */
 	/* =================================================================================== */
 	/* UPDATE AREA */
 
-	void updateWholesaler(Wholesaler wholesaler);
+	void updateWholesaler(Wholesaler w);
 
 	/* // END UPDATE AREA */
 	/* =================================================================================== */

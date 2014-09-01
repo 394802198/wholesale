@@ -8,9 +8,16 @@ import com.tm.wholesale.model.Page;
 
 public interface ComboMapper {
 
+/**
+ * mapping combo, combo DAO component
+ * 
+ * @author CyberPark
+ * 
+  */
+
 	/* SELECT AREA */
 
-	List<Combo> selectCombos(Combo combo);
+	List<Combo> selectCombos(Combo c);
 	List<Combo> selectCombosByPage(Page<Combo> page);
 	int selectCombosSum(Page<Combo> page);
 
@@ -18,13 +25,13 @@ public interface ComboMapper {
 	/* =================================================================================== */
 	/* INSERT AREA */
 
-	void insertCombo(Combo combo);
+	void insertCombo(Combo c);
 
 	/* // END INSERT AREA */
 	/* =================================================================================== */
 	/* UPDATE AREA */
 
-	void updateCombo(Combo combo);
+	void updateCombo(Combo c);
 
 	/* // END UPDATE AREA */
 	/* =================================================================================== */

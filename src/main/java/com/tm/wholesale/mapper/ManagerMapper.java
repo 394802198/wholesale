@@ -8,6 +8,13 @@ import com.tm.wholesale.model.Page;
 
 public interface ManagerMapper {
 
+/**
+ * mapping manager, manager DAO component
+ * 
+ * @author CyberPark
+ * 
+  */
+
 	/* SELECT AREA */
 
 	List<Manager> selectManagers(Manager m);

@@ -17,10 +17,10 @@
 	<!-- DEFINITION AREA -->
 
 	<sql id="managerColumns">
-		m.`id`					as m_id,
-		m.`login_name`			as m_login_name,
-		m.`password`			as m_password,
-		m.`username`			as m_username,
+		m.`id`				as m_id,
+		m.`login_name`				as m_login_name,
+		m.`password`				as m_password,
+		m.`username`				as m_username,
 		m.`role`				as m_role,
 		m.`mobile`				as m_mobile,
 		m.`email`				as m_email,

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DEFINITION AREA --><!-- // DEFINITION AREA -->
+<!-- =================================================================================== -->
+<!-- SELECT AREA --><!-- // END SELECT AREA -->
+<!-- =================================================================================== -->
+<!-- INSERT AREA --><!-- // END INSERT AREA -->
+<!-- =================================================================================== -->
+<!-- UPDATE AREA --><!-- // END UPDATE AREA -->
+<!-- =================================================================================== -->
+<!-- DELETE AREA --><!-- // END DELETE AREA -->
+
+<mapper namespace="com.tm.wholesale.mapper.MaterialWholesalerMapper">
+
+	<!-- DEFINITION AREA -->
+
+	<sql id="materialWholesalerColumns">
+		mw.`id`				as mw_id,
+		mw.`name`				as mw_name,
+		mw.`material_group`				as mw_material_group,
+		mw.`material_type`				as mw_material_type,
+		mw.`material_category`				as mw_material_category,
+		mw.`description`				as mw_description,
+		mw.`wholesaler_id`				as mw_wholesaler_id,
+		mw.`wholesale_price`				as mw_wholesale_price,
+		mw.`selling_price`				as mw_selling_price,
+		mw.`earned_price`				as mw_earned_price
+	</sql>
+
+	<resultMap type="MaterialWholesaler" id="materialWholesalerResultMap">
+		<id property="id" column="mw_id" />
+		<result property="name" column="mw_name" />
+		<result property="material_group" column="mw_material_group" />
+		<result property="material_type" column="mw_material_type" />
+		<result property="material_category" column="mw_material_category" />
+		<result property="description" column="mw_description" />
+		<result property="wholesaler_id" column="mw_wholesaler_id" />
+		<result property="wholesale_price" column="mw_wholesale_price" />
+		<result property="selling_price" column="mw_selling_price" />
+		<result property="earned_price" column="mw_earned_price" />
+	</resultMap>
+
+	<sql id="materialWholesalerWhere">
+		<where>
+			<if test="params.id != null">mw.id = #{params.id}</if>
+			<if test="params.name != null">and mw.name = #{params.name}</if>
+			<if test="params.material_group != null">and mw.material_group = #{params.material_group}</if>
+			<if test="params.material_type != null">and mw.material_type = #{params.material_type}</if>
+			<if test="params.material_category != null">and mw.material_category = #{params.material_category}</if>
+			<if test="params.description != null">and mw.description = #{params.description}</if>
+			<if test="params.wholesaler_id != null">and mw.wholesaler_id = #{params.wholesaler_id}</if>
+			<if test="params.wholesale_price != null">and mw.wholesale_price = #{params.wholesale_price}</if>
+			<if test="params.selling_price != null">and mw.selling_price = #{params.selling_price}</if>
+			<if test="params.earned_price != null">and mw.earned_price = #{params.earned_price}</if>
+		</where>
+	</sql>
+
+	<!-- // DEFINITION AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- SELECT AREA -->
+
+	<select id="selectMaterialWholesalers" parameterType="MaterialWholesaler" resultType="MaterialWholesaler">
+		select * from material_wholesaler as mw
+		<include refid="materialWholesalerWhere"/>
+	</select>
+
+	<!-- select materialWholesaler page -->
+	<select id="selectMaterialWholesalersByPage" parameterType="Page" resultMap="materialWholesalerResultMap">
+		select 
+			<include refid="materialWholesalerColumns"/>
+			from material_wholesaler as mw
+			<include refid="materialWholesalerWhere"/>
+			<if test="params.orderby != null">${params.orderby}</if>
+			limit #{pageOffset}, #{pageSize}
+	</select>
+
+	<!-- select materialWholesaler amount -->
+	<select id="selectMaterialWholesalersSum" parameterType="Page" resultType="int">
+		select count(*) from material_wholesaler as mw
+		<include refid="materialWholesalerWhere"/>
+	</select>
+
+	<!-- // END SELECT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- INSERT AREA -->
+
+	<insert id="insertMaterialWholesaler" parameterType="MaterialWholesaler" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `material_wholesaler`(
+			`id`, `name`, `material_group`, `material_type`, `material_category`, 
+			`description`, `wholesaler_id`, `wholesale_price`, `selling_price`, `earned_price`
+		) VALUES (
+			#{id}, #{name}, #{material_group}, #{material_type}, #{material_category}, 
+			#{description}, #{wholesaler_id}, #{wholesale_price}, #{selling_price}, #{earned_price}
+		)
+	</insert>
+
+	<!-- // END INSERT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- UPDATE AREA -->
+
+	<!-- update materialWholesaler -->
+	<update id="updateMaterialWholesaler" parameterType="MaterialWholesaler">
+		update material_wholesaler
+		<set>
+			<if test="name != null">name = #{name},</if>
+			<if test="material_group != null">material_group = #{material_group},</if>
+			<if test="material_type != null">material_type = #{material_type},</if>
+			<if test="material_category != null">material_category = #{material_category},</if>
+			<if test="description != null">description = #{description},</if>
+			<if test="wholesaler_id != null">wholesaler_id = #{wholesaler_id},</if>
+			<if test="wholesale_price != null">wholesale_price = #{wholesale_price},</if>
+			<if test="selling_price != null">selling_price = #{selling_price},</if>
+			<if test="earned_price != null">earned_price = #{earned_price}</if>
+		</set>
+		<where>
+			<if test="params.id != null">id = #{params.id}</if>
+		</where>
+	</update>
+
+	<!-- // END UPDATE AREA -->
+
+	<!-- =================================================================================== -->
+	<!-- DELETE AREA -->
+
+	<delete id="deleteMaterialWholesalerById" parameterType="int">
+		DELETE FROM material_wholesaler WHERE id = #{0}
+	</delete>
+
+	<!-- // END DELETE AREA -->
+
+</mapper>

@@ -18,13 +18,13 @@ import com.tm.wholesale.service.MaterialService;
 import com.tm.wholesale.service.SystemService;
 
 @Controller
-public class MaterialController {
+public class ProductController {
 
 	private MaterialService MaterialService;
 	private SystemService SystemService;
 
 	@Autowired
-	public MaterialController(MaterialService MaterialService, SystemService SystemService) {
+	public ProductController(MaterialService MaterialService, SystemService SystemService) {
 		this.MaterialService = MaterialService;
 		this.SystemService = SystemService;
 	}
@@ -33,13 +33,13 @@ public class MaterialController {
 	 * BEGIN Material
 	 */
 	
-	@RequestMapping("/management/material/material-combo/view")
+	@RequestMapping("/management/product/material-combo/view")
 	public String toMaterialComboView(Model model){
 		
-		return "management/material/material-combo";
+		return "management/product/material-combo";
 	}
 	
-	@RequestMapping("/management/material/create")
+	@RequestMapping("/management/product/material/create")
 	public String toMaterialCreate(Model model) {
 		
 		List<MaterialGroup> mgs = this.MaterialService.queryMaterialGroups(new MaterialGroup());
@@ -52,10 +52,10 @@ public class MaterialController {
 		model.addAttribute("mcs", mcs);
 		model.addAttribute("m", new Material());
 		
-		return "management/material/material";
+		return "management/product/material";
 	}
 	
-	@RequestMapping("/management/material/edit/{id}")
+	@RequestMapping("/management/product/material/edit/{id}")
 	public String toMaterialEdit(Model model,
 			@PathVariable("id") Integer id){
 		
@@ -84,7 +84,7 @@ public class MaterialController {
 		model.addAttribute("mts", mts);
 		model.addAttribute("m", m);
 		
-		return "management/material/material";
+		return "management/product/material";
 	}
 	
 	/**

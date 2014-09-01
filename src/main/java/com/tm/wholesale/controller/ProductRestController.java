@@ -20,19 +20,19 @@ import com.tm.wholesale.model.MaterialType;
 import com.tm.wholesale.service.MaterialService;
 
 @RestController
-public class MaterialRestController {
+public class ProductRestController {
 
 	private MaterialService MaterialService;
 
 	@Autowired
-	public MaterialRestController(MaterialService MaterialService) {
+	public ProductRestController(MaterialService MaterialService) {
 		this.MaterialService = MaterialService;
 	}
 	
 	/**
 	 * BEGIN MaterialGroup
 	 */	
-	@RequestMapping(value="/management/material/group-type/create", method=RequestMethod.POST)
+	@RequestMapping(value="/management/product/material/group-type/create", method=RequestMethod.POST)
 	public JSONBean<String> doMaterialGroupCreate(Model model,
 			@RequestParam("group_id") String group_id,
 			@RequestParam("group_or_type") String group_or_type,
@@ -76,7 +76,7 @@ public class MaterialRestController {
 		return json;
 	}
 	
-	@RequestMapping(value="/management/material/group-type/edit", method=RequestMethod.POST)
+	@RequestMapping(value="/management/product/material/group-type/edit", method=RequestMethod.POST)
 	public JSONBean<MaterialType> doMaterialGroupTypeEdit(Model model,
 			MaterialType mt) {
 		
@@ -89,7 +89,7 @@ public class MaterialRestController {
 		return json;
 	}
 
-	@RequestMapping(value="/management/material/groups/show")
+	@RequestMapping(value="/management/product/material/groups/show")
 	public JSONBean<MaterialGroup> showMaterialGroups(Model model) {
 		
 		JSONBean<MaterialGroup> json = new JSONBean<MaterialGroup>();
@@ -107,7 +107,7 @@ public class MaterialRestController {
 	/**
 	 * BEGIN MaterialType
 	 */
-	@RequestMapping("/management/material/type/show")
+	@RequestMapping("/management/product/material/type/show")
 	public JSONBean<MaterialType> showMaterialTypes(Model model,
 			@RequestParam("group_id") Integer group_id) {
 		
@@ -131,7 +131,7 @@ public class MaterialRestController {
 	 * BEGIN Material
 	 */
 	
-	@RequestMapping(value="/management/material/update_create",method=RequestMethod.POST)
+	@RequestMapping(value="/management/product/material/update_create",method=RequestMethod.POST)
 	public JSONBean<Material> doMaterialCreate(Model model,
 			Material m,
 			@RequestParam("submit_type") String submit_type,
@@ -165,7 +165,7 @@ public class MaterialRestController {
 		return json;
 	}
 	
-	@RequestMapping("/management/material/view/{pageNo}")
+	@RequestMapping("/management/product/material/view/{pageNo}")
 	public Page<Material> toMaterialView(Model model,
 			@PathVariable("pageNo") Integer pageNo){
 		
@@ -179,7 +179,7 @@ public class MaterialRestController {
 		return page;
 	}
 	
-	@RequestMapping("/management/material/combo/view/{pageNo}")
+	@RequestMapping("/management/product/combo/view/{pageNo}")
 	public Page<Combo> toComboView(Model model,
 			@PathVariable("pageNo") Integer pageNo){
 		

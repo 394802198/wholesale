@@ -8,6 +8,13 @@ import com.tm.wholesale.model.Page;
 
 public interface ComboWholesalerMapper {
 
+/**
+ * mapping combo_wholesaler, comboWholesaler DAO component
+ * 
+ * @author CyberPark
+ * 
+  */
+
 	/* SELECT AREA */
 
 	List<ComboWholesaler> selectComboWholesalers(ComboWholesaler cw);

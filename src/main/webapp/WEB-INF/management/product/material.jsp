@@ -37,8 +37,8 @@
 							<label for="name" class="control-label col-md-2">Choose Wholesaler</label>
 							<div class="col-md-10">
 								<p class="form-control-static">
-									<c:forEach var="tmsw" items="${tmsws}">
-										<label class="labelCheck"><input type="checkbox" name="wholesaler_id" value="${tmsw.id}"/>&nbsp;${tmsw.company_name}</label>&nbsp;&nbsp;
+									<c:forEach var="w" items="${ws}">
+										<label class="labelCheck"><input type="checkbox" name="wholesaler_id" value="${w.id}"/>&nbsp;${w.company_name}</label>&nbsp;&nbsp;
 									</c:forEach>
 								</p>
 							</div>
@@ -53,12 +53,12 @@
 									<option></option>
 									<option disabled="disabled">--- Choose A Group --- </option>
 									<option>All</option>
-									<c:forEach var="tmsmg" items="${tmsmgs}">
-										<c:if test="${tmsmg.group_name==m.material_group}">
-											<option value="${tmsmg.id}" selected="selected">${tmsmg.group_name}</option>
+									<c:forEach var="mg" items="${mgs}">
+										<c:if test="${mg.group_name==m.material_group}">
+											<option value="${mg.id}" selected="selected">${mg.group_name}</option>
 										</c:if>
-										<c:if test="${tmsmg.group_name!=m.material_group}">
-											<option value="${tmsmg.id}">${tmsmg.group_name}</option>
+										<c:if test="${mg.group_name!=m.material_group}">
+											<option value="${mg.id}">${mg.group_name}</option>
 										</c:if>
 									</c:forEach>
 								</select>
@@ -66,12 +66,12 @@
 							<label id="type_label" for="material_type" class="control-label col-md-2" ${ m.material_type==null ? 'style="display:none;"' : '' } >Type</label>
 							<div data-name="material_type" class="col-md-2" ${ m.material_type==null ? 'style="display:none;"' : '' }>
 								<select name="material_type" class="form-control input-sm">
-									<c:forEach var="tmsmt" items="${tmsmts}">
-										<c:if test="${tmsmt.type_name==m.material_type}">
-											<option value="${tmsmt.id}" selected="selected">${tmsmt.type_name}</option>
+									<c:forEach var="mt" items="${mts}">
+										<c:if test="${mt.type_name==m.material_type}">
+											<option value="${mt.id}" selected="selected">${mt.type_name}</option>
 										</c:if>
-										<c:if test="${tmsmt.type_name!=m.material_type}">
-											<option value="${tmsmt.id}">${tmsmt.type_name}</option>
+										<c:if test="${mt.type_name!=m.material_type}">
+											<option value="${mt.id}">${mt.type_name}</option>
 										</c:if>
 									</c:forEach>
 								</select>
@@ -79,12 +79,12 @@
 							<label id="type_label" for="material_category" class="control-label col-md-2">Category</label>
 							<div class="col-md-2">
 								<select name="material_category" class="form-control input-sm">
-									<c:forEach var="tmsmc" items="${tmsmcs}">
-										<c:if test="${tmsmc.category_name==m.material_category}">
-											<option value="${tmsmc.id}" selected="selected">${tmsmc.category_name}</option>
+									<c:forEach var="mc" items="${mcs}">
+										<c:if test="${mc.category_name==m.material_category}">
+											<option value="${mc.id}" selected="selected">${mc.category_name}</option>
 										</c:if>
-										<c:if test="${tmsmc.category_name!=m.material_category}">
-											<option value="${tmsmc.id}">${tmsmc.category_name}</option>
+										<c:if test="${mc.category_name!=m.material_category}">
+											<option value="${mc.id}">${mc.category_name}</option>
 										</c:if>
 									</c:forEach>
 								</select>
@@ -206,7 +206,7 @@
 			'group_id':group_id
 		};
 		
-		$.get('${ctx}/broadband-wholesale/material/type/show', data, function(json){
+		$.get('${ctx}/management/product/material/type/show', data, function(json){
 			var oSelectType = $('select[name="material_type"]');
 			oSelectType.empty();
 			for(var i=0; i<json.models.length; i++){
@@ -279,7 +279,7 @@
 			'submit_type':$(this).attr('data-type')
 		};
 		
-		$.post('${ctx}/broadband-wholesale/material/update_create', data, function(json){
+		$.post('${ctx}/management/product/material/update_create', data, function(json){
 	   		$.jsonValidation(json, 'right');
 		});
 		
