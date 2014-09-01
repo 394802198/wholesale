@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+	<context:property-placeholder location="classpath:spring/data-access.properties" system-properties-mode="OVERRIDE" />
+
+	<!-- wholesale data source ========================================================================== -->
+	
+	<bean id="wholesaleDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${wholesale.driverClassName}" />
+		<property name="url" value="${wholesale.url}" />
+		<property name="username" value="${wholesale.username}" />
+		<property name="password" value="${wholesale.password}" />
+		
+		<property name="maxActive" value="${wholesale.maxActive}" />
+		<property name="initialSize" value="${wholesale.initialSize}" />
+		<property name="maxWait" value="${wholesale.maxWait}" />
+		<property name="maxIdle" value="${wholesale.maxIdle}" />
+		<property name="minIdle" value="${wholesale.minIdle}" />
+		<property name="removeAbandoned" value="${wholesale.removeAbandoned}" />
+		<property name="removeAbandonedTimeout" value="${wholesale.removeAbandonedTimeout}" />
+		<property name="connectionProperties" value="${wholesale.connectionProperties}" />
+
+		<property name="validationQuery" value="${wholesale.validationQuery}"/>
+		<property name="testWhileIdle" value="${wholesale.testWhileIdle}" /><!-- 打开检查,用异步线程evict进行检查 -->
+		<property name="testOnBorrow" value="${wholesale.testOnBorrow}" />
+		<property name="testOnReturn" value="${wholesale.testOnReturn}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${wholesale.timeBetweenEvictionRunsMillis}" />
+		<property name="numTestsPerEvictionRun" value="${wholesale.numTestsPerEvictionRun}" />
+	</bean>
+    
+</beans>
