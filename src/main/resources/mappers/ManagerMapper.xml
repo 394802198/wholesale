@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DEFINITION AREA --><!-- // DEFINITION AREA -->
+<!-- =================================================================================== -->
+<!-- SELECT AREA --><!-- // END SELECT AREA -->
+<!-- =================================================================================== -->
+<!-- INSERT AREA --><!-- // END INSERT AREA -->
+<!-- =================================================================================== -->
+<!-- UPDATE AREA --><!-- // END UPDATE AREA -->
+<!-- =================================================================================== -->
+<!-- DELETE AREA --><!-- // END DELETE AREA -->
+
+<mapper namespace="com.tm.wholesale.mapper.ManagerMapper">
+
+	<!-- DEFINITION AREA -->
+
+	<sql id="managerColumns">
+		m.`id`					as m_id,
+		m.`login_name`			as m_login_name,
+		m.`password`			as m_password,
+		m.`username`			as m_username,
+		m.`role`				as m_role,
+		m.`mobile`				as m_mobile,
+		m.`email`				as m_email,
+		m.`auth`				as m_auth
+	</sql>
+
+	<resultMap type="Manager" id="managerResultMap">
+		<id property="id" column="m_id" />
+		<result property="login_name" column="m_login_name" />
+		<result property="password" column="m_password" />
+		<result property="username" column="m_username" />
+		<result property="role" column="m_role" />
+		<result property="mobile" column="m_mobile" />
+		<result property="email" column="m_email" />
+		<result property="auth" column="m_auth" />
+	</resultMap>
+
+	<sql id="managerWhere">
+		<where>
+			<if test="params.id != null">m.id = #{params.id}</if>
+			<if test="params.login_name != null">and m.login_name = #{params.login_name}</if>
+			<if test="params.password != null">and m.password = #{params.password}</if>
+			<if test="params.username != null">and m.username = #{params.username}</if>
+			<if test="params.role != null">and m.role = #{params.role}</if>
+			<if test="params.mobile != null">and m.mobile = #{params.mobile}</if>
+			<if test="params.email != null">and m.email = #{params.email}</if>
+			<if test="params.auth != null">and m.auth = #{params.auth}</if>
+		</where>
+	</sql>
+
+	<!-- // DEFINITION AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- SELECT AREA -->
+
+	<select id="selectManagers" parameterType="Manager" resultType="Manager">
+		select * from manager as m
+		<include refid="managerWhere"/>
+	</select>
+
+	<!-- select manager page -->
+	<select id="selectManagersByPage" parameterType="Page" resultMap="managerResultMap">
+		select 
+			<include refid="managerColumns"/>
+			from manager as m
+			<include refid="managerWhere"/>
+			<if test="params.orderby != null">${params.orderby}</if>
+			limit #{pageOffset}, #{pageSize}
+	</select>
+
+	<!-- select manager amount -->
+	<select id="selectManagersSum" parameterType="Page" resultType="int">
+		select count(*) from manager as m
+		<include refid="managerWhere"/>
+	</select>
+
+	<!-- // END SELECT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- INSERT AREA -->
+
+	<insert id="insertManager" parameterType="Manager" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `manager`(
+			`id`, `login_name`, `password`, `username`, `role`, 
+			`mobile`, `email`, `auth`
+		) VALUES (
+			#{id}, #{login_name}, #{password}, #{username}, #{role}, 
+			#{mobile}, #{email}, #{auth}
+		)
+	</insert>
+
+	<!-- // END INSERT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- UPDATE AREA -->
+
+	<!-- update manager -->
+	<update id="updateManager" parameterType="Manager">
+		update manager
+		<set>
+			<if test="login_name != null">login_name = #{login_name},</if>
+			<if test="password != null">password = #{password},</if>
+			<if test="username != null">username = #{username},</if>
+			<if test="role != null">role = #{role},</if>
+			<if test="mobile != null">mobile = #{mobile},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="auth != null">auth = #{auth}</if>
+		</set>
+		<where>
+			<if test="params.id != null">id = #{params.id}</if>
+		</where>
+	</update>
+
+	<!-- // END UPDATE AREA -->
+
+	<!-- =================================================================================== -->
+	<!-- DELETE AREA -->
+
+	<delete id="deleteManagerById" parameterType="int">
+		DELETE FROM manager WHERE id = #{0}
+	</delete>
+
+	<!-- // END DELETE AREA -->
+
+</mapper>
