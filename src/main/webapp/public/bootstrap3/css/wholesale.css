@@ -1,58 +1,9 @@
 @CHARSET "UTF-8";
 
-html {
-	background-color: #222;
-	height: 100%;
-}
-
-.navbar-inverse .navbar-nav>.active>a {
-	color: #e79213;
-}
-
-a[title="cyberpark"]
-, a[title="facebook"]
-, a[title="twitter"]
-, a[title="googleplus"] {
-	display: inline-block;
-	width: 64px;
-	height: 64px;
-	background-size: contain;
-	opacity: 0.5;
-}
-a[title="cyberpark"] {
-	width: 111px;
-	height: 50px;
-	background: url("../images/cyberpark-logo.png") no-repeat;
-}
-a[title="facebook"] {
-	background: url("../images/facebook-icon.png") no-repeat;
-}
-a[title="twitter"] {
-	background: url("../images/twitter-icon.png") no-repeat;
-}
-a[title="googleplus"] {
-	background: url("../images/google-plus-icon.png") no-repeat;
-}
-
-a[title="cyberpark"]:hover
-, a[title="facebook"]:hover
-, a[title="twitter"]:hover
-, a[title="googleplus"]:hover {
-	opacity: 1;
-}
- 
-.home-bg {
-	margin-top: -20px;
-	height: 250px;
-	background: url("../images/home-bg.jpg");
-}
-
-.media {
-	height: 157px;
-	background: rgb(248, 248, 248);
-}
-.media a:first-child {
-	width: 132px;
-	height: inherit;
-	background: rgb(242, 173, 11);
+#scrollUp {
+	bottom: 20px;
+	right: 20px;
+	height: 38px;
+	width: 38px;
+	background: url("../images/top.png") no-repeat;
 }

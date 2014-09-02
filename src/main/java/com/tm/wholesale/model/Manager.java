@@ -7,7 +7,7 @@ import java.util.Map;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.tm.wholesale.validation.ManagerLoginValiatedMark;
+import com.tm.wholesale.validation.ManagerLoginValidatedMark;
 
 public class Manager implements Serializable {
 
@@ -18,11 +18,11 @@ public class Manager implements Serializable {
 	 */
 	
 	private Integer id;
-	@NotEmpty(groups = { ManagerLoginValiatedMark.class })
-	@Length(min = 0, max = 20, groups = { ManagerLoginValiatedMark.class })
+	@NotEmpty(groups = { ManagerLoginValidatedMark.class })
+	@Length(min = 0, max = 20, groups = { ManagerLoginValidatedMark.class })
 	private String login_name;
-	@NotEmpty(groups = { ManagerLoginValiatedMark.class })
-	@Length(min = 0, max = 20, groups = { ManagerLoginValiatedMark.class })
+	@NotEmpty(groups = { ManagerLoginValidatedMark.class })
+	@Length(min = 0, max = 20, groups = { ManagerLoginValidatedMark.class })
 	private String password;
 	private String username;
 	private String role;

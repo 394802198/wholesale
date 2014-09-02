@@ -21,7 +21,7 @@ import com.tm.wholesale.model.Page;
 import com.tm.wholesale.model.Wholesaler;
 import com.tm.wholesale.service.MaterialService;
 import com.tm.wholesale.service.SystemService;
-import com.tm.wholesale.validation.ManagerLoginValiatedMark;
+import com.tm.wholesale.validation.ManagerLoginValidatedMark;
 
 @RestController
 public class SystemRestController {
@@ -41,8 +41,8 @@ public class SystemRestController {
 	 */
 	
 	@RequestMapping(value = "/management/sign-in", method = RequestMethod.POST)
-	public JSONBean<Manager> login(
-			@Validated(ManagerLoginValiatedMark.class) Manager manager, BindingResult result,
+	public JSONBean<Manager> doSignin(
+			@Validated(ManagerLoginValidatedMark.class) Manager manager, BindingResult result,
 			HttpSession session) {
 		
 		JSONBean<Manager> json = new JSONBean<Manager>();

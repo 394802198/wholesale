@@ -17,14 +17,14 @@
 	<!-- DEFINITION AREA -->
 
 	<sql id="wholesalerColumns">
-		w.`id`				as w_id,
-		w.`company_name`				as w_company_name,
-		w.`wholesaler_id`				as w_wholesaler_id,
+		w.`id`					as w_id,
+		w.`company_name`		as w_company_name,
+		w.`wholesaler_id`		as w_wholesaler_id,
 		w.`name`				as w_name,
-		w.`login_name`				as w_login_name,
-		w.`login_password`				as w_login_password,
+		w.`login_name`			as w_login_name,
+		w.`login_password`		as w_login_password,
 		w.`role`				as w_role,
-		w.`cellphone`				as w_cellphone,
+		w.`cellphone`			as w_cellphone,
 		w.`email`				as w_email,
 		w.`auth`				as w_auth,
 		w.`memo`				as w_memo,
