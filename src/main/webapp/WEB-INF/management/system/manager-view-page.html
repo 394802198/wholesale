@@ -1,62 +1,50 @@
 <div class="panel-heading">
-	<h4 class="panel-title">Wholesaler View</h4>
+	<h4 class="panel-title">Manager View</h4>
 </div>
 <. if(results.length > 0) { .>
 <table class="table" style="font-size:12px;">
 	<thead >
 		<tr>
-			<th><input type="checkbox" id="checkbox_wholesalers_top" /></th>
-			<th>Company Name</th>
+			<th><input type="checkbox" id="checkbox_managers_top" /></th>
 			<th>Login Name</th>
 			<th>Password</th>
+			<th>User Name</th>
+			<th>Role</th>
 			<th>Cellphone</th>
 			<th>Email</th>
-			<th>Memo</th>
-			<th>Operations</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody>
 	<. for (var i=0; i < results.length; i++) { 
-		var w = results[i];
+		var m = results[i];
 	.>
 		<tr class="">
 			<td>
-				<input type="checkbox" name="checkbox_wholesalers" value="<.= w.id .>"/>
+				<input type="checkbox" name="checkbox_managers" value="<.= m.id .>"/>
 			</td>
 			<td>
-				<.= w.company_name .>
+				<.= m.login_name .>
 			</td>
 			<td>
-				<a href="<.= ctx .>/management/system/wholesaler/edit/<.= w.id .>">
-					<.= w.login_name .>
+				<a href="<.= ctx .>/management/system/manager/edit/<.= m.id .>">
+					<.= m.login_name .>
 				</a>
 			</td>
 			<td>
-				<.= w.login_password .>
+				<.= m.password .>
 			</td>
 			<td>
-				<.= w.cellphone .>
+				<.= m.username .>
 			</td>
 			<td>
-				<.= w.email .>
+				<.= m.role .>
 			</td>
 			<td>
-				<.= w.memo .>
+				<.= m.mobile .>
 			</td>
 			<td>
-				<. if(userId != null){ .>
-					<a href="javascript:void(0);" class="btn-<.= w.wholesaler_id==null ? 'danger' : 'warning' .> btn-xs" data-name="deleteWholesaler" id="<.= w.id .>" style="padding:4px 6px;"
-					 data-toggle="tooltip" data-placement="right" data-original-title="<.= w.wholesaler_id==null ? 'Primary' : 'Secondary' .>">
-						<span class="glyphicon glyphicon-trash"></span>
-					</a>
-				<. } else if(wholesalerId == w.wholesaler_id){ .>
-					<a href="javascript:void(0);" class="btn-warning btn-xs" data-name="deleteWholesaler" id="<.= w.id .>" style="padding:4px 6px;">
-						<span class="glyphicon glyphicon-trash"></span>
-					</a>
-				<. } else { .>
-				&nbsp;
-				<. }.>
+				<.= m.email .>
 			</td>
 			<td>&nbsp;</td>
 		</tr>

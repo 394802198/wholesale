@@ -2,15 +2,15 @@
 <table class="table" style="font-size:12px;">
 	<thead >
 		<tr>
-			<th><input type="checkbox" id="checkbox_tmsm_top" /></th>
+			<th><input type="checkbox" id="checkbox_ms_top" /></th>
 			<th>Name</th>
 			<th>Group</th>
 			<th>Type</th>
 			<th>Category</th>
 			<th>Description</th>
 			<th class="align-right">Wholesale Price</th>
-			<th class="align-right">Selling Price</th>
-			<th class="align-right">Earned Price</th>
+			<!-- <th class="align-right">Selling Price</th>
+			<th class="align-right">Earned Price</th> -->
 		</tr>
 	</thead>
 	<tbody>
@@ -19,7 +19,7 @@
 	.>
 			<tr>
 				<td>
-					<input type="checkbox" name="checkbox_tmsm" value="<.= m.id .>"/>
+					<input type="checkbox" name="checkbox_ms" value="<.= m.id .>"/>
 				</td>
 				<td>
 					<a href="<.= ctx .>/management/product/material/edit/<.= m.id .>"><.= m.name .></a>
@@ -39,12 +39,12 @@
 				<td class="align-right">
 					<.= new Number(m.wholesale_price).toFixed(2) .>
 				</td>
-				<td class="align-right">
+				<!-- <td class="align-right">
 					<.= new Number(m.selling_price).toFixed(2) .>
 				</td>
 				<td class="align-right">
 					<.= new Number(m.earned_price).toFixed(2) .>
-				</td>
+				</td> -->
 			</tr>
 	<. }.>
 	</tbody>

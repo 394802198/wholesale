@@ -1,8 +1,6 @@
 package com.tm.wholesale.model;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MaterialWholesaler implements Serializable {
 
@@ -18,10 +16,9 @@ public class MaterialWholesaler implements Serializable {
 	private String material_type;
 	private String material_category;
 	private String description;
-	private Integer wholesaler_id;
 	private Double wholesale_price;
-	private Double selling_price;
-	private Double earned_price;
+	private Integer wholesaler_id;
+	private String status;
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -31,7 +28,7 @@ public class MaterialWholesaler implements Serializable {
 	 * RELATED PROPERTIES
 	 */
 
-	private Map<String, Object> params = new HashMap<String, Object>();
+//	private Map<String, Object> params = new HashMap<String, Object>();
 
 	/*
 	 * END RELATED PROPERTIES
@@ -101,27 +98,15 @@ public class MaterialWholesaler implements Serializable {
 		this.wholesale_price = wholesale_price;
 	}
 
-	public Double getSelling_price() {
-		return selling_price;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setSelling_price(Double selling_price) {
-		this.selling_price = selling_price;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public Double getEarned_price() {
-		return earned_price;
-	}
-
-	public void setEarned_price(Double earned_price) {
-		this.earned_price = earned_price;
-	}
-
-	public Map<String, Object> getParams() {
-		return params;
-	}
-
-	public void setParams(Map<String, Object> params) {
-		this.params = params;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }

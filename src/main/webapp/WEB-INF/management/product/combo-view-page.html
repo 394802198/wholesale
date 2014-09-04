@@ -1,0 +1,55 @@
+<. if(results.length > 0) { .>
+<form id="comboForm" method="post">
+	<table class="table" style="font-size:12px;">
+		<thead >
+			<tr>
+				<th><input type="checkbox" id="checkbox_cs_top" /></th>
+				<th>Name</th>
+				<th>Material(s)</th>
+			</tr>
+		</thead>
+		<tbody>
+		<. for (var i=0; i < results.length; i++) { 
+			var c = results[i];
+		.>
+					<td>
+						<input type="checkbox" name="checkbox_cs" value="<.= c.id .>"/>
+					</td>
+					<td>
+						<a target="_blank" href="<.= ctx .>/broadband-user/crm/customer/edit/<.= c.id .>"><.= c.name .></a>
+					</td>
+					<td>
+						<. var mIds = c.material_ids.split(','); .>
+						<. for(var j=0; j < mIds.length; j++){ .>
+							<. for(var m=0; m < ms.length; m++){ .>
+								<. if(mIds[j]==ms[m].id){ .>
+						<span class="badge">
+									<.= ms[m].name .>&nbsp;
+						</span>
+								<. } .>
+							<. } .>
+						<. } .>
+					</td>
+				</tr>
+		<. } .>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="11">
+					<ul class="pagination">
+						<. for (var i = 1; i <= totalPage; i++) { .>
+							<li class="<.= pageNo == i ? 'active' : ''.>">
+								<a href="javascript:void(0);" data-pageNo="<.=i.>"><.=i.></a>
+							</li>
+						<. }.>
+					</ul>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</form>
+<. } else { .>
+<div class="panel-body">
+	<div class="alert alert-warning">No records have been found.</div>
+</div>
+<. } .>

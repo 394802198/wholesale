@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tm.wholesale.model.JSONBean;
-import com.tm.wholesale.model.Manager;
 import com.tm.wholesale.model.Wholesaler;
 import com.tm.wholesale.service.WholesalerService;
-import com.tm.wholesale.validation.ManagerLoginValidatedMark;
 import com.tm.wholesale.validation.WholesalerLoginValidatedMark;
 
 @RestController

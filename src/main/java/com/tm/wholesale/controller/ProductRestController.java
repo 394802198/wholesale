@@ -2,31 +2,38 @@ package com.tm.wholesale.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.tm.wholesale.model.JSONBean;
-import com.tm.wholesale.model.Page;
 import com.tm.wholesale.model.Combo;
+import com.tm.wholesale.model.JSONBean;
 import com.tm.wholesale.model.Material;
 import com.tm.wholesale.model.MaterialCategory;
 import com.tm.wholesale.model.MaterialGroup;
 import com.tm.wholesale.model.MaterialType;
-import com.tm.wholesale.service.MaterialService;
+import com.tm.wholesale.model.Page;
+import com.tm.wholesale.service.ProductService;
+import com.tm.wholesale.test.Console;
 
 @RestController
+@SessionAttributes("materialFilter")
 public class ProductRestController {
 
-	private MaterialService MaterialService;
+	private ProductService productService;
 
 	@Autowired
-	public ProductRestController(MaterialService MaterialService) {
-		this.MaterialService = MaterialService;
+	public ProductRestController(ProductService productService) {
+		this.productService = productService;
 	}
 	
 	/**
@@ -43,31 +50,31 @@ public class ProductRestController {
 		if("group".equals(group_or_type)){
 			MaterialGroup group = new MaterialGroup();
 			group.getParams().put("group_name", group_or_type_name);
-			if(this.MaterialService.queryMaterialGroups(group)!=null && this.MaterialService.queryMaterialGroups(group).size() > 0){
+			if(this.productService.queryMaterialGroups(group)!=null && this.productService.queryMaterialGroups(group).size() > 0){
 				json.getErrorMap().put("alert-error", "Group name existed, can't be recreate!");
 				return json;
 			}
 			group.setGroup_name(group_or_type_name);
-			this.MaterialService.createMaterialGroup(group);
+			this.productService.createMaterialGroup(group);
 		} else if("type".equals(group_or_type)) {
 			MaterialType type = new MaterialType();
 			type.getParams().put("type_name", group_or_type_name);
-			if(this.MaterialService.queryMaterialTypes(type)!=null && this.MaterialService.queryMaterialTypes(type).size() > 0){
+			if(this.productService.queryMaterialTypes(type)!=null && this.productService.queryMaterialTypes(type).size() > 0){
 				json.getErrorMap().put("alert-error", "Type name existed, can't be recreate!");
 				return json;
 			}
 			type.setGroup_id(Integer.parseInt(group_id));
 			type.setType_name(group_or_type_name);
-			this.MaterialService.createMaterialType(type);
+			this.productService.createMaterialType(type);
 		} else {
 			MaterialCategory category = new MaterialCategory();
 			category.getParams().put("category_name", group_or_type_name);
-			if(this.MaterialService.queryMaterialCategorys(category)!=null && this.MaterialService.queryMaterialCategorys(category).size() > 0){
+			if(this.productService.queryMaterialCategorys(category)!=null && this.productService.queryMaterialCategorys(category).size() > 0){
 				json.getErrorMap().put("alert-error", "Category name existed, can't be recreate!");
 				return json;
 			}
 			category.setCategory_name(group_or_type_name);
-			this.MaterialService.createMaterialCategory(category);
+			this.productService.createMaterialCategory(category);
 		}
 		
 		
@@ -82,7 +89,7 @@ public class ProductRestController {
 		
 		JSONBean<MaterialType> json = new JSONBean<MaterialType>();
 		
-		this.MaterialService.createMaterialType(mt);
+		this.productService.createMaterialType(mt);
 		
 		json.getSuccessMap().put("alert-success", "New Material Type has just been created!");
 		
@@ -94,7 +101,7 @@ public class ProductRestController {
 		
 		JSONBean<MaterialGroup> json = new JSONBean<MaterialGroup>();
 		
-		List<MaterialGroup> groups = this.MaterialService.queryMaterialGroups(new MaterialGroup());
+		List<MaterialGroup> groups = this.productService.queryMaterialGroups(new MaterialGroup());
 		
 		json.setModels(groups);
 		
@@ -116,7 +123,7 @@ public class ProductRestController {
 		MaterialType type = new MaterialType();
 		type.getParams().put("group_id", group_id);
 		
-		List<MaterialType> types = this.MaterialService.queryMaterialTypes(type);
+		List<MaterialType> types = this.productService.queryMaterialTypes(type);
 		
 		json.setModels(types);
 		
@@ -126,7 +133,6 @@ public class ProductRestController {
 	 * END MaterialType
 	 */
 
-	
 	/**
 	 * BEGIN Material
 	 */
@@ -139,19 +145,19 @@ public class ProductRestController {
 		
 		JSONBean<Material> json = new JSONBean<Material>();
 		
-		if(m.getName().trim().equals("")){
+		if(m.getName()!=null && !m.getName().trim().equals("")){
 			
 			if("All".equals(m.getMaterial_group())){
 				MaterialGroup groupQuery = new MaterialGroup();
 				groupQuery.getParams().put("id", material_group_id);
-				m.setMaterial_group(this.MaterialService.queryMaterialGroups(groupQuery).get(0).getGroup_name());
+				m.setMaterial_group(this.productService.queryMaterialGroups(groupQuery).get(0).getGroup_name());
 			}
 			
 			if("update".equals(submit_type)){
 				m.getParams().put("id", m.getId());
-				this.MaterialService.editMaterial(m);
+				this.productService.editMaterial(m);
 			} else {
-				this.MaterialService.createMaterial(m);
+				this.productService.createMaterial(m);
 			}
 			
 			json.getSuccessMap().put("alert-success", "Successfully "+("update".equals(submit_type)?"update current":"create new")+" material!");
@@ -167,17 +173,77 @@ public class ProductRestController {
 	
 	@RequestMapping("/management/product/material/view/{pageNo}")
 	public Page<Material> toMaterialView(Model model,
-			@PathVariable("pageNo") Integer pageNo){
+			@PathVariable("pageNo") Integer pageNo,
+			HttpServletRequest req){
 		
 		Page<Material> page = new Page<Material>();
 		page.setPageNo(pageNo);
 		page.setPageSize(30);
 		page.getParams().put("orderby", "ORDER BY material_category ASC");
 		
-		this.MaterialService.queryMaterialsByPage(page);
+		Material materialFilter = (Material) req.getSession().getAttribute("materialFilter");
+		if (materialFilter != null) {
+			if (!"".equals(materialFilter.getMaterial_group()))
+				page.getParams().put("material_group", materialFilter.getMaterial_group());
+			if (!"".equals(materialFilter.getMaterial_category()))
+				page.getParams().put("material_category", materialFilter.getMaterial_category());
+		}
+		
+		this.productService.queryMaterialsByPage(page);
 		
 		return page;
 	}
+	
+	@RequestMapping(value = "/management/product/material/view/filter")
+	public void doMaterialViewFilter(Model model, Material material) {
+		model.addAttribute("materialFilter", material);
+		System.out.println("do material filter");
+	}
+	
+	@RequestMapping(value = "/management/product/material/delete", method = RequestMethod.POST)
+	public JSONBean<Material> deleteMaterials(Model model,
+			@RequestParam(value = "material_ids", required = false) String[] material_ids) {
+		
+		JSONBean<Material> json = new JSONBean<Material>();
+
+		if (material_ids==null || material_ids.length==0) {
+			json.getErrorMap().put("alert-error", "Please choose one material at least.");
+			return json;
+		} else {
+			this.productService.removeMaterialsById(material_ids);
+			json.getSuccessMap().put("alert-success", "Selected material(s) has(have) been removed!");
+		}
+		
+		return json;
+	}
+
+	@RequestMapping(value = "/management/product/material/material-combine", method = RequestMethod.POST)
+	public JSONBean<Material> combineMaterialsByIds(Model model,
+			 @RequestBody Combo c) {
+		
+		JSONBean<Material> json = new JSONBean<Material>();
+		
+		if (c.getMaterial_ids()==null || "".equals(c.getMaterial_ids())) {
+			json.getErrorMap().put("alert-error", "Please choose one material at least.");
+			return json;
+		} else if (c.getName()==null || "".equals(c.getName())){
+			json.getErrorMap().put("alert-error", "Please give combination a name.");
+			return json;
+		} else {
+			this.productService.createCombo(c);
+			json.getSuccessMap().put("alert-success", "Combo has been created!");
+		}
+		return json;
+	}
+	
+	/**
+	 * END Material
+	 */
+
+	
+	/**
+	 * BEGIN Combo
+	 */
 	
 	@RequestMapping("/management/product/combo/view/{pageNo}")
 	public Page<Combo> toComboView(Model model,
@@ -187,13 +253,29 @@ public class ProductRestController {
 		page.setPageNo(pageNo);
 		page.setPageSize(30);
 		
-		this.MaterialService.queryCombosByPage(page);
+		this.productService.queryCombosByPage(page);
 		
 		return page;
 	}
 	
-	/**
-	 * END Material
-	 */
+	@RequestMapping(value = "/management/product/combo/delete", method = RequestMethod.POST)
+	public JSONBean<Combo> deleteCombos(
+			Model model, @RequestParam(value = "combo_ids", required = false) String[] combo_ids,
+			HttpServletRequest req, RedirectAttributes attr) {
+		
+		JSONBean<Combo> json = new JSONBean<Combo>();
+		
+		if (combo_ids==null || combo_ids.length==0) {
+			json.getErrorMap().put("alert-error", "Please choose one combo at least.");
+			return json;
+		} else {
+			this.productService.removeCombosById(combo_ids);
+			json.getSuccessMap().put("alert-success", "Selected combo(s) has(have) been removed!");
+		}
+		return json;
+	}
 	
+	/**
+	 * END Combo
+	 */
 }

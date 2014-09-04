@@ -20,8 +20,6 @@ public class Material implements Serializable {
 	private String material_category;
 	private String description;
 	private Double wholesale_price;
-	private Double selling_price;
-	private Double earned_price;
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -74,17 +72,11 @@ public class Material implements Serializable {
 	public void setWholesale_price(Double wholesale_price) {
 		this.wholesale_price = wholesale_price;
 	}
-	public Double getSelling_price() {
-		return selling_price;
+	public String getDescription() {
+		return description;
 	}
-	public void setSelling_price(Double selling_price) {
-		this.selling_price = selling_price;
-	}
-	public Double getEarned_price() {
-		return earned_price;
-	}
-	public void setEarned_price(Double earned_price) {
-		this.earned_price = earned_price;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public Map<String, Object> getParams() {
 		return params;
@@ -92,10 +84,7 @@ public class Material implements Serializable {
 	public void setParams(Map<String, Object> params) {
 		this.params = params;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }
