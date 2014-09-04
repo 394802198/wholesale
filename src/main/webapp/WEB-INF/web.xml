@@ -117,6 +117,7 @@
 	<filter-mapping>
 		<filter-name>wholesalerSessionFilter</filter-name>
 		<url-pattern>/index</url-pattern>
+		<url-pattern>/system/*</url-pattern>
 	</filter-mapping>
 
 	<error-page>

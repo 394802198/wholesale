@@ -18,11 +18,11 @@ import com.tm.wholesale.service.SystemService;
 @Controller
 public class SystemController {
 	
-	private SystemService SystemService;
+	private SystemService systemService;
 
 	@Autowired
-	public SystemController(SystemService SystemService) {
-		this.SystemService = SystemService;
+	public SystemController(SystemService systemService) {
+		this.systemService = systemService;
 	}
 	
 	/**
@@ -88,7 +88,7 @@ public class SystemController {
 		// Set authorizations
 		manager.setAuth(String.valueOf(buff));
 		
-		this.SystemService.createManager(manager);
+		this.systemService.createManager(manager);
 
 		attr.addFlashAttribute("success", "Successfully create new manager account.");
 
@@ -101,7 +101,7 @@ public class SystemController {
 		
 		Manager manager = new Manager();
 		manager.getParams().put("id", id);
-		manager = this.SystemService.queryManagers(manager).get(0);
+		manager = this.systemService.queryManagers(manager).get(0);
 		
 		// iterating auths of this wholesaler
 		if (manager.getAuth() != null && !"".equals(manager.getAuth())) {
@@ -131,7 +131,7 @@ public class SystemController {
 		manager.setAuth(String.valueOf(buff));
 		manager.getParams().put("id", manager.getId());
 		
-		this.SystemService.editManager(manager);
+		this.systemService.editManager(manager);
 
 		attr.addFlashAttribute("success", "Successfully update manager's details.");
 

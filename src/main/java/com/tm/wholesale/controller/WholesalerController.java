@@ -1,7 +1,10 @@
 package com.tm.wholesale.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,5 +27,39 @@ public class WholesalerController {
 	public String index(Model model){
 		model.addAttribute("title", "Home - Wholesale Portal");
 		return "wholesale/index";
+	}
+	
+	@RequestMapping(value = "/signout")
+	public String signout(HttpSession session) {
+		session.removeAttribute("wholesalerSession");
+		return "redirect:/sign-in";
+	}
+	
+	@RequestMapping("/system/user/view")
+	public String systemUserView(Model model) {
+		model.addAttribute("title", "View User - System");
+		return "wholesale/system/user-view";
+	}
+	
+	@RequestMapping("/system/user/create")
+	public String systemUserCreate(Model model) {
+		model.addAttribute("title", "Create User - System");
+		model.addAttribute("action", "create");
+		return "wholesale/system/user";
+	}
+	
+	@RequestMapping("/system/user/edit/{id}")
+	public String systemUserEdit(Model model,
+			@PathVariable("id") int id) {
+		model.addAttribute("title", "Create Edit - System");
+		model.addAttribute("action", "edit");
+		model.addAttribute("id", id);
+		return "wholesale/system/user";
+	}
+	
+	@RequestMapping("/system/user/change-password")
+	public String systemUserChangePassword(Model model) {
+		model.addAttribute("title", "Change Password - System");
+		return "wholesale/system/user-change-password";
 	}
 }

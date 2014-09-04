@@ -1,17 +1,26 @@
 package com.tm.wholesale.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tm.wholesale.model.JSONBean;
+import com.tm.wholesale.model.Manager;
+import com.tm.wholesale.model.Material;
+import com.tm.wholesale.model.Page;
 import com.tm.wholesale.model.Wholesaler;
 import com.tm.wholesale.service.WholesalerService;
+import com.tm.wholesale.validation.ManagerLoginValidatedMark;
+import com.tm.wholesale.validation.WholesalerCreateValidatedMark;
+import com.tm.wholesale.validation.WholesalerEditValidatedMark;
 import com.tm.wholesale.validation.WholesalerLoginValidatedMark;
 
 @RestController
@@ -49,9 +58,116 @@ public class WholesalerRestController {
 		
 		session.setAttribute("wholesalerSession", wholesalerSession);
 		
-		String url = "/index/redirect";
-		json.setUrl(url);
+		json.setUrl("/index/redirect");
 
+		return json;
+	}
+	
+	@RequestMapping(value = "/system/user/view/{pageNo}")
+	public Page<Wholesaler> systemUserView(
+			@PathVariable("pageNo") int pageNo, HttpSession session){
+		
+		Wholesaler wholesalerSession = (Wholesaler) session.getAttribute("wholesalerSession");
+		
+		Page<Wholesaler> page = new Page<Wholesaler>();
+		page.setPageNo(pageNo);
+		page.setPageSize(30);
+		page.getParams().put("orderby", "order by id");
+		
+		page.getParams().put("where", "query_wholesale_users");
+		page.getParams().put("id", wholesalerSession.getId());
+		
+		this.wholesalerService.queryWholesalersByPage(page);
+		
+		return page;
+	}
+	
+	@RequestMapping(value = "/system/user/create", method = RequestMethod.POST)
+	public JSONBean<Wholesaler> systemUserCreate(
+			@Validated(WholesalerCreateValidatedMark.class) Wholesaler wholesaler, BindingResult result, 
+			HttpSession session) {
+		
+		JSONBean<Wholesaler> json = new JSONBean<Wholesaler>();
+		json.setModel(wholesaler);
+		
+		if (result.hasErrors()) {
+			json.setJSONErrorMap(result);
+			return json;
+		}
+
+		wholesaler.getParams().put("login_name", wholesaler.getLogin_name());
+		
+		int count = this.wholesalerService.queryExistWholesaler(wholesaler);
+		if (count > 0) {
+			json.getErrorMap().put("login_name", "duplicate");
+			return json;
+		}
+		
+		Wholesaler wholesalerSession = (Wholesaler) session.getAttribute("wholesalerSession");
+		
+		wholesaler.setCompany_name(wholesalerSession.getCompany_name());
+		wholesaler.setWholesaler_id(wholesalerSession.getId());
+		
+		this.wholesalerService.createWholesaler(wholesaler);
+		
+		json.setUrl("/system/user/view");
+		
+		return json;
+	}
+	
+	@RequestMapping(value = "/system/user/edit/{id}/query")
+	public Wholesaler systemUserEditQuery(
+			@PathVariable("id") int id,
+			HttpSession session) {
+		
+		Wholesaler wholesalerSession = (Wholesaler) session.getAttribute("wholesalerSession");
+		
+		Wholesaler wQ = new Wholesaler();
+		wQ.getParams().put("id", id);
+		if (id != wholesalerSession.getId())
+			wQ.getParams().put("wholesaler_id", wholesalerSession.getId());
+		
+		Wholesaler w = this.wholesalerService.queryWholesaler(wQ);
+		
+		return w;
+	}
+	
+	@RequestMapping(value = "/system/user/edit", method = RequestMethod.POST)
+	public JSONBean<Wholesaler> systemUserEdit(
+			@Validated(WholesalerEditValidatedMark.class) Wholesaler wholesaler, BindingResult result, 
+			HttpSession session) {
+		
+		Wholesaler wholesalerSession = (Wholesaler) session.getAttribute("wholesalerSession");
+		
+		JSONBean<Wholesaler> json = new JSONBean<Wholesaler>();
+		json.setModel(wholesaler);
+		
+		if (result.hasErrors()) {
+			json.setJSONErrorMap(result);
+			return json;
+		}
+
+		wholesaler.getParams().put("id_false", wholesaler.getId());
+		wholesaler.getParams().put("login_name", wholesaler.getLogin_name());
+		
+		int count = this.wholesalerService.queryExistWholesaler(wholesaler);
+		if (count > 0) {
+			json.getErrorMap().put("login_name", "duplicate");
+			return json;
+		}
+		
+		wholesaler.getParams().put("id", wholesaler.getId());
+		if (wholesaler.getId() != wholesalerSession.getId()) {
+			wholesaler.getParams().put("wholesaler_id", wholesalerSession.getId());
+		} else {
+			wholesalerSession.setName(wholesaler.getName());
+		}
+			
+		
+		this.wholesalerService.editWholesaler(wholesaler);
+		
+		json.setUrl("/system/user/view");
+		
 		return json;
 	}
 }
