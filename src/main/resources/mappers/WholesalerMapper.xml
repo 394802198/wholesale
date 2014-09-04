@@ -48,18 +48,27 @@
 
 	<sql id="wholesalerWhere">
 		<where>
-			<if test="params.id != null">w.id = #{params.id}</if>
-			<if test="params.company_name != null">and w.company_name = #{params.company_name}</if>
-			<if test="params.wholesaler_id != null">and w.wholesaler_id = #{params.wholesaler_id}</if>
-			<if test="params.name != null">and w.name = #{params.name}</if>
-			<if test="params.login_name != null">and w.login_name = #{params.login_name}</if>
-			<if test="params.login_password != null">and w.login_password = #{params.login_password}</if>
-			<if test="params.role != null">and w.role = #{params.role}</if>
-			<if test="params.cellphone != null">and w.cellphone = #{params.cellphone}</if>
-			<if test="params.email != null">and w.email = #{params.email}</if>
-			<if test="params.auth != null">and w.auth = #{params.auth}</if>
-			<if test="params.memo != null">and w.memo = #{params.memo}</if>
-			<if test="params.status != null">and w.status = #{params.status}</if>
+			<choose>
+				<when test="params.where == 'query_wholesale_users'">
+					<if test="params.id != null">w.id = #{params.id} or w.wholesaler_id = #{params.id}</if>
+				</when>
+				<otherwise>
+					<if test="params.id != null">w.id = #{params.id}</if>
+					<if test="params.id_false != null">and w.id != #{params.id_false}</if>
+					<if test="params.company_name != null">and w.company_name = #{params.company_name}</if>
+					<if test="params.wholesaler_id != null">and w.wholesaler_id = #{params.wholesaler_id}</if>
+					<if test="params.name != null">and w.name = #{params.name}</if>
+					<if test="params.login_name != null">and w.login_name = #{params.login_name}</if>
+					<if test="params.login_password != null">and w.login_password = #{params.login_password}</if>
+					<if test="params.role != null">and w.role = #{params.role}</if>
+					<if test="params.cellphone != null">and w.cellphone = #{params.cellphone}</if>
+					<if test="params.email != null">and w.email = #{params.email}</if>
+					<if test="params.auth != null">and w.auth = #{params.auth}</if>
+					<if test="params.memo != null">and w.memo = #{params.memo}</if>
+					<if test="params.status != null">and w.status = #{params.status}</if>
+				</otherwise>
+			</choose>
+			
 		</where>
 	</sql>
 
@@ -86,6 +95,11 @@
 
 	<!-- select wholesaler amount -->
 	<select id="selectWholesalersSum" parameterType="Page" resultType="int">
+		select count(*) from wholesaler as w
+		<include refid="wholesalerWhere"/>
+	</select>
+	
+	<select id="selectExistWholesaler" parameterType="Wholesaler" resultType="int">
 		select count(*) from wholesaler as w
 		<include refid="wholesalerWhere"/>
 	</select>
@@ -132,6 +146,7 @@
 		</set>
 		<where>
 			<if test="params.id != null">id = #{params.id}</if>
+			<if test="params.wholesaler_id != null">and wholesaler_id = #{params.wholesaler_id}</if>
 		</where>
 	</update>
 

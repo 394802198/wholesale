@@ -3,5 +3,10 @@
 <script type="text/javascript" src="${ctx}/public/bootstrap3/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="${ctx}/public/bootstrap3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${ctx}/public/bootstrap3/js/jquery.scrollUp.min.js"></script>
-<script type="text/javascript" src="${ctx}/public/bootstrap3/js/management.js?ver=201491830"></script>
+<script type="text/javascript" src="${ctx}/public/bootstrap3/js/jTmpl.js"></script>
+<script type="text/javascript" src="${ctx}/public/bootstrap3/js/spin.min.js"></script>
+<script type="text/javascript" src="${ctx}/public/bootstrap3/js/ladda.min.js"></script>
+<script type="text/javascript" src="${ctx}/public/bootstrap3/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="${ctx}/public/bootstrap3/js/wholesale.js?ver=201491830"></script>
+
 

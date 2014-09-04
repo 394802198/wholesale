@@ -4,6 +4,18 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.tm.wholesale.validation.ManagerLoginValidatedMark;
+import com.tm.wholesale.validation.WholesalerChangePasswordValidatedMark;
+import com.tm.wholesale.validation.WholesalerCreateValidatedMark;
+import com.tm.wholesale.validation.WholesalerEditValidatedMark;
+import com.tm.wholesale.validation.WholesalerLoginValidatedMark;
+
 public class Wholesaler implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -12,14 +24,26 @@ public class Wholesaler implements Serializable {
 	 * TABLE MAPPING PROPERTIES
 	 */
 
+	@NotNull(groups = { WholesalerEditValidatedMark.class })
 	private Integer id;
 	private String company_name;
 	private Integer wholesaler_id;
+	@NotEmpty(groups = { WholesalerCreateValidatedMark.class, WholesalerEditValidatedMark.class })
+	@Length(min = 0, max = 20, groups = { WholesalerCreateValidatedMark.class, WholesalerEditValidatedMark.class })
 	private String name;
+	@NotEmpty(groups = { WholesalerLoginValidatedMark.class, WholesalerCreateValidatedMark.class, WholesalerEditValidatedMark.class })
+	@Length(min = 0, max = 20, groups = { WholesalerLoginValidatedMark.class, WholesalerCreateValidatedMark.class, WholesalerEditValidatedMark.class })
 	private String login_name;
+	@NotEmpty(groups = { WholesalerLoginValidatedMark.class, WholesalerCreateValidatedMark.class, WholesalerEditValidatedMark.class, WholesalerChangePasswordValidatedMark.class })
+	@Length(min = 0, max = 20, groups = { WholesalerLoginValidatedMark.class, WholesalerCreateValidatedMark.class, WholesalerEditValidatedMark.class, WholesalerChangePasswordValidatedMark.class  })
 	private String login_password;
 	private String role;
+	@NotEmpty(groups = { WholesalerCreateValidatedMark.class, WholesalerEditValidatedMark.class })
+	@Length(min = 0, max = 20, groups = { WholesalerCreateValidatedMark.class, WholesalerEditValidatedMark.class })
 	private String cellphone;
+	@NotEmpty(groups = { WholesalerCreateValidatedMark.class, WholesalerEditValidatedMark.class })
+	@Length(min = 0, max = 30, groups = { WholesalerCreateValidatedMark.class, WholesalerEditValidatedMark.class })
+	@Email(groups = { WholesalerCreateValidatedMark.class, WholesalerEditValidatedMark.class })
 	private String email;
 	private String auth;
 	private String memo;
@@ -35,6 +59,12 @@ public class Wholesaler implements Serializable {
 
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private String[] authArray;
+	@NotEmpty(groups = { WholesalerChangePasswordValidatedMark.class })
+	@Length(min = 0, max = 20, groups = { WholesalerChangePasswordValidatedMark.class  })
+	private String old_password;
+	@NotEmpty(groups = { WholesalerChangePasswordValidatedMark.class })
+	@Length(min = 0, max = 20, groups = { WholesalerChangePasswordValidatedMark.class  })
+	private String confirm_password;
 
 	/*
 	 * END TABLE RELATED PROPERTIES
@@ -151,5 +181,27 @@ public class Wholesaler implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public String getOld_password() {
+		return old_password;
+	}
+
+	public void setOld_password(String old_password) {
+		this.old_password = old_password;
+	}
+
+	public String getConfirm_password() {
+		return confirm_password;
+	}
+
+	public void setConfirm_password(String confirm_password) {
+		this.confirm_password = confirm_password;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 
 }

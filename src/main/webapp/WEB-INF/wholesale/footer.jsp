@@ -4,7 +4,7 @@
     <hr>
     <footer>
         <p>
-        	&copy; TMS Wholesale Management System 2014 &middot; 
+        	&copy; Wholesale Portal System 2014 &middot; Total Mobile Solution
         </p>
     </footer>
 </div>

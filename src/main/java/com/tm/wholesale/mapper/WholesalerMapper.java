@@ -20,6 +20,7 @@ public interface WholesalerMapper {
 	List<Wholesaler> selectWholesalers(Wholesaler w);
 	List<Wholesaler> selectWholesalersByPage(Page<Wholesaler> page);
 	int selectWholesalersSum(Page<Wholesaler> page);
+	int selectExistWholesaler(Wholesaler wholesaler);
 
 	/* // END SELECT AREA */
 	/* =================================================================================== */
