@@ -12,7 +12,7 @@
 }
 </style>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-info">
@@ -108,14 +108,14 @@
 							<div class="col-md-2">
 								<input type="text" name="wholesale_price" value="${m.wholesale_price}" class="form-control input-sm"/>
 							</div>
-							<label for="selling_price" class="control-label col-md-2">Selling Price</label>
+							<%-- <label for="selling_price" class="control-label col-md-2">Selling Price</label>
 							<div class="col-md-2">
 								<input type="text" name="selling_price" value="${m.selling_price}" class="form-control input-sm"/>
 							</div>
 							<label for="wholesaler_earning" class="control-label col-md-2">Wholesaler Earned</label>
 							<div class="col-md-2">
 								<input type="text" name="wholesaler_earning" value="${m.earned_price!=null ? m.earned_price : '0.00'}" class="form-control input-sm" disabled="disabled"/>
-							</div>
+							</div> --%>
 						</div>
 						
 						<!-- button -->
@@ -217,13 +217,13 @@
 	// END MaterialGroup & Type Selector
 	
 	// BEGIN WholesalerEarningRatesSelector
-	for(var i=1; i<50; i++){
+	/* for(var i=1; i<50; i++){
 		$('#wholesaler_earning_rates').append('<option value="'+i+'">'+i+'%</option>');
-	}
+	} */
 	// END WholesalerEarningRatesSelector
 	
 	// BEGIN CalculateWholesalerEarning
-	var oWholesalerEarning = $('input[name="wholesaler_earning"]');
+	/* var oWholesalerEarning = $('input[name="wholesaler_earning"]');
 	var oWholesalePrice = $('input[name="wholesale_price"]');
 	var oSellingPrice = $('input[name="selling_price"]');
 	
@@ -249,7 +249,7 @@
 		} else {
 			oWholesalerEarning.val('0.00');
 		}
-	});
+	}); */
 	// END CalculateWholesalerEarning
 	
 	// BEGIN CreateMaterialSubmit
@@ -258,23 +258,26 @@
 	});
 	$('#create_update_material_btn').click(function(){
 		var name = $('input[name="name"]').val();
+		console.log(name);
 		var material_group = $('select[name="material_group"]').find('option:selected').text();
 		var material_group_id = $('select[name="material_type"]').find('option:selected').val();
 		var material_type = $('select[name="material_type"]').find('option:selected').text();
+		var material_category = $('select[name="material_category"]').find('option:selected').text();
 		var description = $('input[name="description"]').val();
 		var wholesale_price = $('input[name="wholesale_price"]').val();
-		var selling_price = $('input[name="selling_price"]').val();
-		var wholesaler_earning = $('input[name="wholesaler_earning"]').val();
+		/* var selling_price = $('input[name="selling_price"]').val();
+		var wholesaler_earning = $('input[name="wholesaler_earning"]').val(); */
 		
 		var data = {
 			'id':${m.id}+'',
 			'name':name,
 			'material_group':material_group,
 			'material_type':material_type,
+			'material_category':material_category,
 			'description':description,
 			'wholesale_price':wholesale_price,
-			'selling_price':selling_price,
-			'earned_price':wholesaler_earning,
+			/* 'selling_price':selling_price,
+			'earned_price':wholesaler_earning, */
 			'material_group_id':material_group_id,
 			'submit_type':$(this).attr('data-type')
 		};

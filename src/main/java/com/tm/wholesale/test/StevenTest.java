@@ -4,8 +4,6 @@ import java.text.ParseException;
 
 import com.tm.wholesale.util.SimpleMapperCreator;
 
-import com.tm.wholesale.util.SimpleMapperCreator;
-
 
 public class StevenTest {
 	
@@ -53,13 +51,6 @@ public class StevenTest {
 //		// Second Decode
 //		String secondDecode = secondEncode.substring(3, secondEncode.length()-3);
 //		System.out.println(secondDecode);
-		
-		
-		SimpleMapperCreator smc = new SimpleMapperCreator();
-		smc.setAuthor("CyberPark");
-		smc.setModel("Wholesaler");
-		smc.setTable("wholesaler");
-		smc.initial();
 		
 //		Calendar cal = Calendar.getInstance(Locale.CHINA);
 //		cal.setTime(new Date());
@@ -165,5 +156,12 @@ public class StevenTest {
 //		for (String country : fix_mobile_country) {
 //			System.out.println(country);
 //		}
+		
+		
+		SimpleMapperCreator smc = new SimpleMapperCreator();
+		smc.setAuthor("CyberPark");
+		smc.setModel("MaterialWholesaler");
+		smc.setTable("material_wholesaler");
+		smc.initial();
 	}
 }

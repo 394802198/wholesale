@@ -17,15 +17,13 @@
 	<!-- DEFINITION AREA -->
 
 	<sql id="materialColumns">
-		m.`id`				as m_id,
+		m.`id`					as m_id,
 		m.`name`				as m_name,
-		m.`material_group`				as m_material_group,
-		m.`material_type`				as m_material_type,
-		m.`material_category`				as m_material_category,
-		m.`description`				as m_description,
-		m.`wholesale_price`				as m_wholesale_price,
-		m.`selling_price`				as m_selling_price,
-		m.`earned_price`				as m_earned_price
+		m.`material_group`		as m_material_group,
+		m.`material_type`		as m_material_type,
+		m.`material_category`	as m_material_category,
+		m.`description`			as m_description,
+		m.`wholesale_price`		as m_wholesale_price
 	</sql>
 
 	<resultMap type="Material" id="materialResultMap">
@@ -36,8 +34,6 @@
 		<result property="material_category" column="m_material_category" />
 		<result property="description" column="m_description" />
 		<result property="wholesale_price" column="m_wholesale_price" />
-		<result property="selling_price" column="m_selling_price" />
-		<result property="earned_price" column="m_earned_price" />
 	</resultMap>
 
 	<sql id="materialWhere">
@@ -49,8 +45,6 @@
 			<if test="params.material_category != null">and m.material_category = #{params.material_category}</if>
 			<if test="params.description != null">and m.description = #{params.description}</if>
 			<if test="params.wholesale_price != null">and m.wholesale_price = #{params.wholesale_price}</if>
-			<if test="params.selling_price != null">and m.selling_price = #{params.selling_price}</if>
-			<if test="params.earned_price != null">and m.earned_price = #{params.earned_price}</if>
 		</where>
 	</sql>
 
@@ -90,10 +84,10 @@
 	<insert id="insertMaterial" parameterType="Material" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `material`(
 			`id`, `name`, `material_group`, `material_type`, `material_category`, 
-			`description`, `wholesale_price`, `selling_price`, `earned_price`
+			`description`, `wholesale_price`
 		) VALUES (
 			#{id}, #{name}, #{material_group}, #{material_type}, #{material_category}, 
-			#{description}, #{wholesale_price}, #{selling_price}, #{earned_price}
+			#{description}, #{wholesale_price}
 		)
 	</insert>
 
@@ -112,9 +106,7 @@
 			<if test="material_type != null">material_type = #{material_type},</if>
 			<if test="material_category != null">material_category = #{material_category},</if>
 			<if test="description != null">description = #{description},</if>
-			<if test="wholesale_price != null">wholesale_price = #{wholesale_price},</if>
-			<if test="selling_price != null">selling_price = #{selling_price},</if>
-			<if test="earned_price != null">earned_price = #{earned_price}</if>
+			<if test="wholesale_price != null">wholesale_price = #{wholesale_price}</if>
 		</set>
 		<where>
 			<if test="params.id != null">id = #{params.id}</if>

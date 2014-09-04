@@ -17,7 +17,7 @@
 }
 </style>
 
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-info" id="wholesaler_view" ></div>
@@ -86,7 +86,7 @@
 	   		var $table = $('#wholesaler_view');
 			$table.html(tmpl('wholesaler_view_table_tmpl', page));
 			$table.find('tfoot a').click(function(){
-				$.getMaterialPage($(this).attr('data-pageNo'));
+				$.getWholesalerPage($(this).attr('data-pageNo'));
 			});
 			
 			$('a[data-toggle="tooltip"]').tooltip();

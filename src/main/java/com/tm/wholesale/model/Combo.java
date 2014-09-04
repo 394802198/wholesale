@@ -14,9 +14,7 @@ public class Combo implements Serializable {
 
 	private Integer id;
 	private String name;
-	private Double wholesale_price;
-	private Double selling_price;
-	private Double earned_price;
+	private String material_ids;
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -31,51 +29,31 @@ public class Combo implements Serializable {
 	/*
 	 * END RELATED PROPERTIES
 	 */
-
+	
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Double getWholesale_price() {
-		return wholesale_price;
+	public String getMaterial_ids() {
+		return material_ids;
 	}
-
-	public void setWholesale_price(Double wholesale_price) {
-		this.wholesale_price = wholesale_price;
+	public void setMaterial_ids(String material_ids) {
+		this.material_ids = material_ids;
 	}
-
-	public Double getSelling_price() {
-		return selling_price;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
-
-	public void setSelling_price(Double selling_price) {
-		this.selling_price = selling_price;
-	}
-
-	public Double getEarned_price() {
-		return earned_price;
-	}
-
-	public void setEarned_price(Double earned_price) {
-		this.earned_price = earned_price;
-	}
-
 	public Map<String, Object> getParams() {
 		return params;
 	}
-
 	public void setParams(Map<String, Object> params) {
 		this.params = params;
 	}

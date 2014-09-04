@@ -7,7 +7,7 @@
 <jsp:include page="../header.jsp" />
 <jsp:include page="../alert.jsp" />
 
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-info">

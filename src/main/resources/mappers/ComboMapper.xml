@@ -18,27 +18,21 @@
 
 	<sql id="comboColumns">
 		c.`id`				as c_id,
-		c.`name`				as c_name,
-		c.`wholesale_price`				as c_wholesale_price,
-		c.`selling_price`				as c_selling_price,
-		c.`earned_price`				as c_earned_price
+		c.`name`			as c_name,
+		c.`material_ids`	as c_material_ids
 	</sql>
 
 	<resultMap type="Combo" id="comboResultMap">
 		<id property="id" column="c_id" />
 		<result property="name" column="c_name" />
-		<result property="wholesale_price" column="c_wholesale_price" />
-		<result property="selling_price" column="c_selling_price" />
-		<result property="earned_price" column="c_earned_price" />
+		<result property="material_ids" column="c_material_ids" />
 	</resultMap>
 
 	<sql id="comboWhere">
 		<where>
 			<if test="params.id != null">c.id = #{params.id}</if>
 			<if test="params.name != null">and c.name = #{params.name}</if>
-			<if test="params.wholesale_price != null">and c.wholesale_price = #{params.wholesale_price}</if>
-			<if test="params.selling_price != null">and c.selling_price = #{params.selling_price}</if>
-			<if test="params.earned_price != null">and c.earned_price = #{params.earned_price}</if>
+			<if test="params.material_ids != null">and c.material_ids = #{params.material_ids}</if>
 		</where>
 	</sql>
 
@@ -77,9 +71,9 @@
 
 	<insert id="insertCombo" parameterType="Combo" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `combo`(
-			`id`, `name`, `wholesale_price`, `selling_price`, `earned_price`
+			`id`, `name`, `material_ids`
 		) VALUES (
-			#{id}, #{name}, #{wholesale_price}, #{selling_price}, #{earned_price}
+			#{id}, #{name}, #{material_ids}
 		)
 	</insert>
 
@@ -94,9 +88,7 @@
 		update combo
 		<set>
 			<if test="name != null">name = #{name},</if>
-			<if test="wholesale_price != null">wholesale_price = #{wholesale_price},</if>
-			<if test="selling_price != null">selling_price = #{selling_price},</if>
-			<if test="earned_price != null">earned_price = #{earned_price}</if>
+			<if test="material_ids != null">material_ids = #{material_ids}</if>
 		</set>
 		<where>
 			<if test="params.id != null">id = #{params.id}</if>

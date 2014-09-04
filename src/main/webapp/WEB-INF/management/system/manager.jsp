@@ -15,51 +15,7 @@
 					<h4 class="panel-title">${panelheading }</h4>
 				</div>
 				<div class="panel-body">
-					<form:form modelAttribute="wholesaler" method="post" action="${ctx}${action }" class="form-horizontal">
-						<form:hidden path="id"/>
-						<c:if test="${wholesaler.id!=null && wholesalerSession.wholesaler_id==null}">
-						<div class="form-group">
-							<label class="control-label col-md-4">Account Level</label>
-							<div class="col-md-3">
-								<p class="form-control-static">
-									<span class="badge" style="background:${wholesaler.wholesaler_id==null ? '#5cb85c' : '#c8c8c8'};">${wholesaler.wholesaler_id==null ? 'Primary' : 'Secondary'}</span>
-								</p>
-							</div>
-						</div>
-						</c:if>
-						<c:if test="${userSession!=null}">
-						<c:if test="${primaryWholesalers!=null}">
-						<div class="form-group">
-							<label for="company_name" class="control-label col-md-4"></label>
-							<div class="col-md-6">
-								<label><input type="radio" data-name="company_type" data-type="new" checked="checked" /> New Company</label>
-								<c:if test="${fn:length(primaryWholesalers) > 0}">
-									<label><input type="radio" data-name="company_type" data-type="existed" /> Existed Company</label>
-								</c:if>
-							</div>
-						</div>
-						</c:if>
-						<div class="form-group">
-							<label for="company_name" class="control-label col-md-4">Company Name</label>
-							<div class="col-md-3">
-								<form:input data-type="company_input" path="company_name" class="form-control" placeholder="Company Name"/>
-								<select data-type="company_select" name="company_name" class="form-control" style="display:none;" disabled="disabled" >
-									<c:forEach var="pw" items="${primaryWholesalers}">
-										<option value="${pw.company_name}">${pw.company_name}</option>
-									</c:forEach>
-								</select>
-							</div>
-						</div>
-						</c:if>
-						<div class="form-group">
-							<label for="name" class="control-label col-md-4">Name</label>
-							<div class="col-md-3">
-								<form:input path="name" class="form-control" placeholder="Name" />
-							</div>
-							<p class="help-block">
-								<form:errors path="name" cssErrorClass="error"/>
-							</p>
-						</div>
+					<form:form modelAttribute="manager" method="post" action="${ctx}${action }" class="form-horizontal">
 						<div class="form-group">
 							<label for="login_name" class="control-label col-md-4">Login Name</label>
 							<div class="col-md-3">
@@ -70,22 +26,41 @@
 							</p>
 						</div>
 						<div class="form-group">
-							<label for="login_password" class="control-label col-md-4">Login Password</label>
+							<label for="password" class="control-label col-md-4">Password</label>
 							<div class="col-md-3">
-								<form:input path="login_password" class="form-control" placeholder="Login Password" />
+								<form:input path="password" class="form-control" placeholder="Password" />
 							</div>
 							<p class="help-block">
-								<form:errors path="login_password" cssErrorClass="error"/>
+								<form:errors path="password" cssErrorClass="error"/>
 							</p>
 						</div>
 						<div class="form-group">
-							<label for="role" class="control-label col-md-4">Wholesaler Permission</label>
+							<label for="username" class="control-label col-md-4">User Name</label>
 							<div class="col-md-3">
-								<form:select path="role" class="form-control" data-name="wholesaler_permission_selector">
+								<form:input path="username" class="form-control" placeholder="User Name" />
+							</div>
+							<p class="help-block">
+								<form:errors path="username" cssErrorClass="error"/>
+							</p>
+						</div>
+						<div class="form-group">
+							<label for="role" class="control-label col-md-4">Manager Permission</label>
+							<div class="col-md-3">
+								<form:select path="role" class="form-control" data-name="manager_permission_selector">
 									<form:option value="">--- Please assign a role ---</form:option>
-									<form:option value="chief-wholesaler">Chief Wholesaler</form:option>
+									<form:option value="administrator">Administrator</form:option>
+									<form:option value="system-developer">System Developer</form:option>
 								</form:select>
 							</div>
+						</div>
+						<div class="form-group">
+							<label for="mobile" class="control-label col-md-4">Mobile</label>
+							<div class="col-md-3">
+								<form:input path="mobile" class="form-control" placeholder="Mobile" />
+							</div>
+							<p class="help-block">
+								<form:errors path="mobile" cssErrorClass="error"/>
+							</p>
 						</div>
 						<div class="form-group">
 							<label for="email" class="control-label col-md-4">Email</label>
@@ -97,34 +72,22 @@
 							</p>
 						</div>
 						<div class="form-group">
-							<label for="cellphone" class="control-label col-md-4">Cellphone</label>
-							<div class="col-md-3">
-								<form:input path="cellphone" class="form-control" placeholder="Cellphone" />
+							<label class="control-label col-md-4">Manager Status</label>
+							<div class="col-md-6">
+								<p class="form-control-static">
+									<label><form:radiobutton path="status" value="active" checked="checked"/>Active</label>
+									<label><form:radiobutton path="status" value="disabled"/>Disabled</label>
+									<label><form:radiobutton path="status" value="pending"/>Pending</label>
+								</p>
 							</div>
-							<p class="help-block">
-								<form:errors path="cellphone" cssErrorClass="error"/>
-							</p>
 						</div>
-						<c:if test="${userSession!=null || (wholesalerSession.wholesaler_id==null && wholesalerSession.id!=id)}">
-							<div class="form-group">
-								<label class="control-label col-md-4">Wholesaler Status</label>
-								<div class="col-md-6">
-									<p class="form-control-static">
-										<label><form:radiobutton path="status" value="active" checked="checked"/>Active</label>
-										<label><form:radiobutton path="status" value="disabled"/>Disabled</label>
-										<label><form:radiobutton path="status" value="pending"/>Pending</label>
-									</p>
-								</div>
-							</div>
-						</c:if>
 						<hr/>
-						<c:if test="${userSession!=null || (wholesalerSession.wholesaler_id==null && wholesalerSession.id!=id)}">
-						<h4>Wholesaler Authentication</h4>
+						<h4>Manager Authentication</h4>
 						<div class="form-group" data-module="administrator">
-							<div class="col-md-2" data-module="material">
+							<div class="col-md-2" data-module="product">
 								<ul class="list-unstyled">
 									<li>
-										<h3>Material & Combo</h3>
+										<h3>Product</h3>
 									</li>
 									<li>
 										<label> 
@@ -140,17 +103,9 @@
 							</div>
 						</div>
 						<hr/>
-						</c:if>
 						<div class="form-group">
 							<div class="col-md-offset-5">
 								<button type="submit" class="btn btn-primary">${wholesaler.id!=null ? 'Update' : 'Save'}</button>
-							</div>
-						</div>
-						<hr/>
-						<div class="form-group">
-							<label for="memo" class="control-label col-md-4">Memo</label>
-							<div class="col-md-6">
-								<form:textarea path="memo" class="form-control" rows="6"/>
 							</div>
 						</div>
 					</form:form>
@@ -179,16 +134,11 @@
 		radioClass : 'iradio_square-blue'
 	});
 	
-	$('select[data-name="wholesaler_permission_selector"]').change(function(){
+	$('select[data-name="manager_permission_selector"]').change(function(){
 		var permission = $(this).find('option:selected').val();
 		$('div[data-module="administrator"]').find('input').iCheck("uncheck");
 		
-		if("chief-wholesaler"==permission){	// Chief Operator
-			
-			$('div[data-module="administrator"]').find('input').iCheck("check");
-			$('div[data-module="system"]').find('input').iCheck("uncheck");
-			
-		} else if("administrator"==permission){	// Administrator
+		if("administrator"==permission){	// Administrator
 			
 			$('div[data-module="administrator"]').find('input').iCheck("check");
 			

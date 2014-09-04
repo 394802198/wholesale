@@ -30,6 +30,27 @@
 			</div>
 		</div>
 		
+		<!-- Product -->
+		<div class="col-md-3">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title text-info">Product</h3>
+				</div>
+				<div class="panel-body">
+					<ul class="list-unstyled">
+						<li>
+							<span class="glyphicon glyphicon-plus" ></span>&nbsp;
+							<a href="${ctx }/management/product/material/create">Create Material</a>
+						</li>
+						<li>
+							<span class="glyphicon glyphicon-list" ></span>&nbsp;
+							<a href="${ctx }/management/product/material-combo/view">View Material & Combo</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
 		<!-- Wholesale -->
 		<div class="col-md-3">
 			<div class="panel panel-info">
@@ -45,31 +66,6 @@
 						<li>
 							<span class="glyphicon glyphicon-plus"></span>&nbsp;
 							<a href="${ctx }/management/wholesale/wholesaler/create">Create Wholesaler</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		
-		<!-- Product -->
-		<div class="col-md-3">
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					<h3 class="panel-title text-info">Product</h3>
-				</div>
-				<div class="panel-body">
-					<ul class="list-unstyled">
-						<li>
-							<span class="glyphicon glyphicon-plus" ></span>&nbsp;
-							<a href="${ctx }/management/product/material/create">Create Material</a>
-						</li>
-						<li>
-							<span class="glyphicon glyphicon-plus" ></span>&nbsp;
-							<a href="${ctx }/management/product/combo/create">Create Combo</a>
-						</li>
-						<li>
-							<span class="glyphicon glyphicon-list" ></span>&nbsp;
-							<a href="${ctx }/management/product/material-combo/view">View Material & Combo</a>
 						</li>
 					</ul>
 				</div>

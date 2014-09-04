@@ -1,7 +1,5 @@
 package com.tm.wholesale.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,22 +16,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.tm.wholesale.model.JSONBean;
 import com.tm.wholesale.model.Manager;
 import com.tm.wholesale.model.Page;
-import com.tm.wholesale.model.Wholesaler;
-import com.tm.wholesale.service.MaterialService;
 import com.tm.wholesale.service.SystemService;
 import com.tm.wholesale.validation.ManagerLoginValidatedMark;
 
 @RestController
 public class SystemRestController {
 	
-	private MaterialService MaterialService;
-	private SystemService SystemService;
+	private SystemService systemService;
 
 	@Autowired
-	public SystemRestController(MaterialService MaterialService,
-			SystemService SystemService) {
-		this.MaterialService = MaterialService;
-		this.SystemService = SystemService;
+	public SystemRestController(SystemService systemService) {
+		this.systemService = systemService;
 	}
 	
 	/**
@@ -56,7 +49,7 @@ public class SystemRestController {
 		manager.getParams().put("login_name", manager.getLogin_name());
 		manager.getParams().put("password", manager.getPassword());
 		
-		Manager managerSession = this.SystemService.queryManager(manager);
+		Manager managerSession = this.systemService.queryManager(manager);
 
 		if (managerSession == null) {
 			json.getErrorMap().put("alert-error", "Incorrect account or password");
@@ -76,45 +69,39 @@ public class SystemRestController {
 	 */
 	
 	/**
-	 * BEGIN Wholesaler
+	 * BEGIN Manager
 	 */
 
-	@RequestMapping(value = "/management/wholesale/wholesaler/view/{pageNo}")
-	public Page<Wholesaler> toWholesaleView(Model model,
+	@RequestMapping(value = "/management/system/manager/view/{pageNo}")
+	public Page<Manager> toManagerView(Model model,
 			@PathVariable("pageNo") Integer pageNo,
 			HttpServletRequest req) {
 		
-		Page<Wholesaler> page = new Page<Wholesaler>();
+		Page<Manager> page = new Page<Manager>();
 		page.setPageNo(pageNo);
 		page.setPageSize(30);
 		
-		Wholesaler wholesalerSession = (Wholesaler) req.getSession().getAttribute("wholesalerSession");
-		if(wholesalerSession!=null && wholesalerSession.getWholesaler_id()==null){
-			page.getParams().put("where", "query_by_wholesaler_id");
-			page.getParams().put("id", wholesalerSession.getId());
-		}
-		
-		this.SystemService.queryWholesalerByPage(page);
+		this.systemService.queryManagerByPage(page);
 
 		return page;
 	}
 
-	@RequestMapping(value = "/management/wholesale/wholesaler/remove/{id}", method=RequestMethod.POST)
-	public JSONBean<Wholesaler> doWholesaleRemove(Model model,
+	@RequestMapping(value = "/management/system/manager/remove/{id}", method=RequestMethod.POST)
+	public JSONBean<Manager> doWholesaleRemove(Model model,
 			@PathVariable("id") Integer id,
 			RedirectAttributes attr) {
 		
-		JSONBean<Wholesaler> json = new JSONBean<Wholesaler>();
+		JSONBean<Manager> json = new JSONBean<Manager>();
 		
-		this.SystemService.removeWholesalerById(id);
+		this.systemService.removeManagerById(id);
 		
-		json.getSuccessMap().put("alert-success", "Successfully remove wholesaler account.");
+		json.getSuccessMap().put("alert-success", "Successfully remove manager account.");
 
 		return json;
 	}
 	
 	/**
-	 * END Wholesaler
+	 * END Manager
 	 */
 
 }

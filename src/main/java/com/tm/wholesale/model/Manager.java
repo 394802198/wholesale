@@ -29,6 +29,7 @@ public class Manager implements Serializable {
 	private String mobile;
 	private String email;
 	private String auth;
+	private String status;
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -39,6 +40,7 @@ public class Manager implements Serializable {
 	 */
 
 	private Map<String, Object> params = new HashMap<String, Object>();
+	private String[] authArray;
 	
 	/*
 	 * END RELATED PROPERTIES
@@ -119,8 +121,21 @@ public class Manager implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
 
-	
+	public String[] getAuthArray() {
+		return authArray;
+	}
+
+	public void setAuthArray(String[] authArray) {
+		this.authArray = authArray;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	
 }

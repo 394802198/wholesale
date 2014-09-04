@@ -20,13 +20,13 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-info" id="wholesaler_view" ></div>
+			<div class="panel panel-info" id="manager_view" ></div>
 		</div>
 	</div>
 </div>
 
-<!-- Create Material Modal -->
-<div class="modal fade" id="deleteWholesalerModal" tabindex="-1" role="dialog" aria-labelledby="deleteWholesalerModalLabel" aria-hidden="true">
+<!-- DELETE MANAGER Modal -->
+<div class="modal fade" id="deleteManagerModal" tabindex="-1" role="dialog" aria-labelledby="deleteManagerModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
@@ -35,17 +35,17 @@
 						<div class="panel-heading">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 							<h3 class="panel-title">
-								<strong>DELETE WHOLESALER</strong>
+								<strong>DELETE MANAGER</strong>
 							</h3>
 						</div>
 						<div class="panel-body">
 							<p>
-								Delete this wholesaler?
+								Delete this manager?
 							</p>
 						</div>
 						<div class="panel-footer">
 							<div class="form-group">
-								<button data-name="deleteWholesalerBtn" type="button" class="btn btn-xs btn-info col-md-2 col-md-offset-5" data-dismiss="modal">Delete</button>
+								<button data-name="deleteManagerBtn" type="button" class="btn btn-xs btn-info col-md-2 col-md-offset-5" data-dismiss="modal">Delete</button>
 							</div>
 						</div>
 					</div>
@@ -55,9 +55,9 @@
 	</div>
 </div>
 
-<!-- Wholesaler View Template -->
-<script type="text/html" id="wholesaler_view_table_tmpl">
-<jsp:include page="wholesaler-view-page.html" />
+<!-- Manager View Template -->
+<script type="text/html" id="manager_view_table_tmpl">
+<jsp:include page="manager-view-page.html" />
 </script>
 <jsp:include page="../footer.jsp" />
 <jsp:include page="../script.jsp" />
@@ -68,47 +68,46 @@
 	
 	$('.selectpicker').selectpicker();
 	
-	$('#checkbox_wholesalers_top').click(function(){
+	$('#checkbox_managers_top').click(function(){
 		var b = $(this).prop("checked");
 		if (b) {
-			$('input[name="checkbox_wholesalers"]').prop("checked", true);
+			$('input[name="checkbox_managers"]').prop("checked", true);
 		} else {
-			$('input[name="checkbox_wholesalers"]').prop("checked", false);
+			$('input[name="checkbox_managers"]').prop("checked", false);
 		}
 	});
 	
-	$.getWholesalerPage = function(pageNo) {
+	$.getManagerPage = function(pageNo) {
 		
-		$.get('${ctx}/management/system/wholesaler/view/'+pageNo, function(page){
+		$.get('${ctx}/management/system/manager/view/'+pageNo, function(page){
 			page.ctx = '${ctx}';
-			page.userId = '${userSession.id}';
-			page.wholesalerId = '${wholesalerSession.id}';
-	   		var $table = $('#wholesaler_view');
-			$table.html(tmpl('wholesaler_view_table_tmpl', page));
+			page.managerId = '${managerSession.id}';
+	   		var $table = $('#manager_view');
+			$table.html(tmpl('manager_view_table_tmpl', page));
 			$table.find('tfoot a').click(function(){
-				$.getMaterialPage($(this).attr('data-pageNo'));
+				$.getManagerPage($(this).attr('data-pageNo'));
 			});
 			
 			$('a[data-toggle="tooltip"]').tooltip();
 			
-			$('a[data-name="deleteWholesaler"]').click(function(){
-				$('button[data-name="deleteWholesalerBtn"]').attr('id',this.id);
-				$('#deleteWholesalerModal').modal('show');
+			$('a[data-name="deleteManager"]').click(function(){
+				$('button[data-name="deleteManagerBtn"]').attr('id',this.id);
+				$('#deleteManagerModal').modal('show');
 			});
-			$('button[data-name="deleteWholesalerBtn"]').click(function(){
-				$.post('${ctx}/management/system/wholesaler/remove/'+this.id, function(json){
+			$('button[data-name="deleteManagerBtn"]').click(function(){
+				$.post('${ctx}/management/system/manager/remove/'+this.id, function(json){
 			   		$.jsonValidation(json, 'right');
 				});
 			});
-			$('#deleteWholesalerModal').on('hidden.bs.modal',function(){
-				$.getWholesalerPage(1);
+			$('#deleteManagerModal').on('hidden.bs.modal',function(){
+				$.getManagerPage(1);
 			});
 
 			
 		}, "json");
 	}
 	
-	$.getWholesalerPage(1);
+	$.getManagerPage(1);
 	
 })(jQuery);
 </script>

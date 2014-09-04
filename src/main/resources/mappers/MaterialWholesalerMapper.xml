@@ -17,16 +17,15 @@
 	<!-- DEFINITION AREA -->
 
 	<sql id="materialWholesalerColumns">
-		mw.`id`				as mw_id,
+		mw.`id`					as mw_id,
 		mw.`name`				as mw_name,
-		mw.`material_group`				as mw_material_group,
-		mw.`material_type`				as mw_material_type,
-		mw.`material_category`				as mw_material_category,
-		mw.`description`				as mw_description,
-		mw.`wholesaler_id`				as mw_wholesaler_id,
-		mw.`wholesale_price`				as mw_wholesale_price,
-		mw.`selling_price`				as mw_selling_price,
-		mw.`earned_price`				as mw_earned_price
+		mw.`material_group`		as mw_material_group,
+		mw.`material_type`		as mw_material_type,
+		mw.`material_category`	as mw_material_category,
+		mw.`description`		as mw_description,
+		mw.`wholesale_price`	as mw_wholesale_price,
+		mw.`wholesaler_id`		as mw_wholesaler_id,
+		mw.`status`				as mw_status
 	</sql>
 
 	<resultMap type="MaterialWholesaler" id="materialWholesalerResultMap">
@@ -36,10 +35,9 @@
 		<result property="material_type" column="mw_material_type" />
 		<result property="material_category" column="mw_material_category" />
 		<result property="description" column="mw_description" />
-		<result property="wholesaler_id" column="mw_wholesaler_id" />
 		<result property="wholesale_price" column="mw_wholesale_price" />
-		<result property="selling_price" column="mw_selling_price" />
-		<result property="earned_price" column="mw_earned_price" />
+		<result property="wholesaler_id" column="mw_wholesaler_id" />
+		<result property="status" column="mw_status" />
 	</resultMap>
 
 	<sql id="materialWholesalerWhere">
@@ -50,10 +48,9 @@
 			<if test="params.material_type != null">and mw.material_type = #{params.material_type}</if>
 			<if test="params.material_category != null">and mw.material_category = #{params.material_category}</if>
 			<if test="params.description != null">and mw.description = #{params.description}</if>
-			<if test="params.wholesaler_id != null">and mw.wholesaler_id = #{params.wholesaler_id}</if>
 			<if test="params.wholesale_price != null">and mw.wholesale_price = #{params.wholesale_price}</if>
-			<if test="params.selling_price != null">and mw.selling_price = #{params.selling_price}</if>
-			<if test="params.earned_price != null">and mw.earned_price = #{params.earned_price}</if>
+			<if test="params.wholesaler_id != null">and mw.wholesaler_id = #{params.wholesaler_id}</if>
+			<if test="params.status != null">and mw.status = #{params.status}</if>
 		</where>
 	</sql>
 
@@ -93,10 +90,10 @@
 	<insert id="insertMaterialWholesaler" parameterType="MaterialWholesaler" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `material_wholesaler`(
 			`id`, `name`, `material_group`, `material_type`, `material_category`, 
-			`description`, `wholesaler_id`, `wholesale_price`, `selling_price`, `earned_price`
+			`description`, `wholesale_price`, `wholesaler_id`, `status`
 		) VALUES (
 			#{id}, #{name}, #{material_group}, #{material_type}, #{material_category}, 
-			#{description}, #{wholesaler_id}, #{wholesale_price}, #{selling_price}, #{earned_price}
+			#{description}, #{wholesale_price}, #{wholesaler_id}, #{status}
 		)
 	</insert>
 
@@ -115,10 +112,9 @@
 			<if test="material_type != null">material_type = #{material_type},</if>
 			<if test="material_category != null">material_category = #{material_category},</if>
 			<if test="description != null">description = #{description},</if>
-			<if test="wholesaler_id != null">wholesaler_id = #{wholesaler_id},</if>
 			<if test="wholesale_price != null">wholesale_price = #{wholesale_price},</if>
-			<if test="selling_price != null">selling_price = #{selling_price},</if>
-			<if test="earned_price != null">earned_price = #{earned_price}</if>
+			<if test="wholesaler_id != null">wholesaler_id = #{wholesaler_id},</if>
+			<if test="status != null">status = #{status}</if>
 		</set>
 		<where>
 			<if test="params.id != null">id = #{params.id}</if>
