@@ -1,6 +1,8 @@
 package com.tm.wholesale.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MaterialWholesaler implements Serializable {
 
@@ -11,6 +13,7 @@ public class MaterialWholesaler implements Serializable {
 	 */
 
 	private Integer id;
+	private Integer material_id;
 	private String name;
 	private String material_group;
 	private String material_type;
@@ -28,7 +31,7 @@ public class MaterialWholesaler implements Serializable {
 	 * RELATED PROPERTIES
 	 */
 
-//	private Map<String, Object> params = new HashMap<String, Object>();
+	private Map<String, Object> params = new HashMap<String, Object>();
 
 	/*
 	 * END RELATED PROPERTIES
@@ -108,5 +111,21 @@ public class MaterialWholesaler implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Integer getMaterial_id() {
+		return material_id;
+	}
+
+	public void setMaterial_id(Integer material_id) {
+		this.material_id = material_id;
+	}
+
+	public Map<String, Object> getParams() {
+		return params;
+	}
+
+	public void setParams(Map<String, Object> params) {
+		this.params = params;
 	}
 }

@@ -1,7 +1,5 @@
 package com.tm.wholesale.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,25 +59,17 @@ public class WholesaleController {
 		// Set authorizations
 		wholesaler.setAuth(String.valueOf(buff));
 		
-		Wholesaler wholesalerSession = (Wholesaler) req.getSession().getAttribute("wholesalerSession");
-		
-		// If not create by user then use current wholesaler's company name as new wholesaler's company name
-		if(wholesalerSession!=null){
-			wholesaler.setCompany_name(wholesalerSession.getCompany_name());
-			wholesaler.setWholesaler_id(wholesalerSession.getId());
-		} else {
-			Wholesaler wholesalerQuery = new Wholesaler();
-			wholesalerQuery.getParams().put("where", "query_primary_wholesaler_by_company_name");
-			wholesalerQuery.getParams().put("company_name", wholesaler.getCompany_name());
-			List<Wholesaler> wholesalers = this.wholesaleService.queryWholesalers(wholesalerQuery);
-			if(wholesalers!=null && wholesalers.size()>0){
-				wholesaler.setWholesaler_id(wholesalers.get(0).getId());
-			}
-		}
-		
 		this.wholesaleService.createWholesaler(wholesaler);
+		
+		Wholesaler w = new Wholesaler();
+		w.setWholesaler_id(wholesaler.getId());
+		w.getParams().put("id", wholesaler.getId());
+		
+		wholesaler = null;
+		w = null;
+		buff = null;
 
-		attr.addFlashAttribute("success", "Successfully create new wholesaler account.");
+		attr.addFlashAttribute("success", "New wholesaler has been created!");
 
 		return "redirect:/management/wholesale/wholesaler/view";
 	}

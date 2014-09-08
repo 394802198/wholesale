@@ -11,7 +11,7 @@ public interface MaterialWholesalerMapper {
 /**
  * mapping material_wholesaler, materialWholesaler DAO component
  * 
- * @author CyberPark
+ * @author Total Mobile Solution
  * 
   */
 

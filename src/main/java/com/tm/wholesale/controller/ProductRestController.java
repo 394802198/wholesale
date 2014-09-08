@@ -23,7 +23,6 @@ import com.tm.wholesale.model.MaterialGroup;
 import com.tm.wholesale.model.MaterialType;
 import com.tm.wholesale.model.Page;
 import com.tm.wholesale.service.ProductService;
-import com.tm.wholesale.test.Console;
 
 @RestController
 @SessionAttributes("materialFilter")
@@ -272,6 +271,35 @@ public class ProductRestController {
 			this.productService.removeCombosById(combo_ids);
 			json.getSuccessMap().put("alert-success", "Selected combo(s) has(have) been removed!");
 		}
+		return json;
+	}
+	
+	@RequestMapping(value="/management/product/combo/update",method=RequestMethod.POST)
+	public JSONBean<Material> doComboUpdate(Model model, Combo c){
+		
+		JSONBean<Material> json = new JSONBean<Material>();
+		
+		if(c.getName()==null || c.getName().trim().equals("")){
+
+			json.getErrorMap().put("alert-error", "Please give combo a name!");
+			return json;
+			
+		} else if(c.getMaterial_ids()==null || c.getMaterial_ids().trim().equals("")){
+
+			json.getErrorMap().put("alert-error", "Please give combo one material at lease!");
+			return json;
+			
+		} else {
+			
+			Combo cUpdate = new Combo();
+			cUpdate.getParams().put("id", c.getId());
+			cUpdate.setName(c.getName());
+			cUpdate.setMaterial_ids(c.getMaterial_ids());
+			this.productService.editCombo(cUpdate);
+			json.getSuccessMap().put("alert-success", "Recombine Combo Succeccfully!");
+			
+		}
+		
 		return json;
 	}
 	

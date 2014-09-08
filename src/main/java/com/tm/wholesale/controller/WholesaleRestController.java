@@ -37,12 +37,7 @@ public class WholesaleRestController {
 		Page<Wholesaler> page = new Page<Wholesaler>();
 		page.setPageNo(pageNo);
 		page.setPageSize(30);
-		
-		Wholesaler wholesalerSession = (Wholesaler) req.getSession().getAttribute("wholesalerSession");
-		if(wholesalerSession!=null && wholesalerSession.getWholesaler_id()==null){
-			page.getParams().put("where", "query_by_wholesaler_id");
-			page.getParams().put("id", wholesalerSession.getId());
-		}
+		page.getParams().put("where", "query_primary_wholesalers");
 		
 		this.wholesaleService.queryWholesalerByPage(page);
 

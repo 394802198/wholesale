@@ -59,6 +59,10 @@
 		<include refid="materialWhere"/>
 	</select>
 
+	<select id="selectMaterialCategories" resultType="String">
+		select distinct material_category from material
+	</select>
+
 	<!-- select material page -->
 	<select id="selectMaterialsByPage" parameterType="Page" resultMap="materialResultMap">
 		select 

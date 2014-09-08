@@ -2,17 +2,13 @@ package com.tm.wholesale.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.tm.wholesale.model.Combo;
 import com.tm.wholesale.model.Material;
 import com.tm.wholesale.model.MaterialCategory;
 import com.tm.wholesale.model.MaterialGroup;
@@ -54,7 +50,6 @@ public class ProductController {
 		model.addAttribute("ws", this.wholesaleService.queryWholesalers(wQuery));
 		model.addAttribute("mgs", mgs);
 		model.addAttribute("mcs", mcs);
-		model.addAttribute("m", new Material());
 		
 		return "management/product/material";
 	}
@@ -99,6 +94,22 @@ public class ProductController {
 	/**
 	 * BEGIN Combo
 	 */
+	
+	@RequestMapping("/management/product/combo/edit/{id}")
+	public String toComboEdit(Model model,
+			@PathVariable("id") Integer id){
+		
+		Combo cQuery = new Combo();
+		cQuery.getParams().put("id", id);
+		cQuery = this.productService.queryCombo(cQuery);
+		cQuery.setMidArr(cQuery.getMaterial_ids().split(","));
+		
+		model.addAttribute("c", cQuery);
+		model.addAttribute("ms", this.productService.queryMaterials(new Material()));
+		model.addAttribute("mcs", this.productService.queryMaterialCategories());
+		
+		return "management/product/combo";
+	}
 	
 	/**
 	 * END Combo

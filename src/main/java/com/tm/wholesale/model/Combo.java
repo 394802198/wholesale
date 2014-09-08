@@ -24,6 +24,7 @@ public class Combo implements Serializable {
 	 * RELATED PROPERTIES
 	 */
 
+	private String[] midArr;
 	private Map<String, Object> params = new HashMap<String, Object>();
 
 	/*
@@ -56,5 +57,11 @@ public class Combo implements Serializable {
 	}
 	public void setParams(Map<String, Object> params) {
 		this.params = params;
+	}
+	public String[] getMidArr() {
+		return midArr;
+	}
+	public void setMidArr(String[] midArr) {
+		this.midArr = midArr;
 	}
 }

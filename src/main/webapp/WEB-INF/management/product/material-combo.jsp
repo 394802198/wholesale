@@ -154,6 +154,68 @@ tbody td {text-align:center;}
 </form>
 
 <form class="form-horizontal">
+	<div class="modal fade" id="comboDeleteModal" tabindex="-1" role="dialog" aria-labelledby="comboDeleteModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="panel-title">
+								<strong>DELETE SELECTED COMBO(S)</strong>
+							</h3>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<p class="form-control-static col-md-12">
+									Delete Selected Combo(s)?
+								</p>
+							</div>
+						</div>
+						<div class="panel-footer">
+							<div class="form-group">
+								<button id="combo_delete_btn" type="button" class="btn btn-xs btn-danger col-md-2 col-md-offset-5" data-dismiss="modal">Delete</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<form class="form-horizontal">
+	<div class="modal fade" id="materialDeleteModal" tabindex="-1" role="dialog" aria-labelledby="materialDeleteModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="panel-title">
+								<strong>DELETE SELECTED MATERIAL(S)</strong>
+							</h3>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<p class="form-control-static col-md-12">
+									Delete Selected Material(s)?
+								</p>
+							</div>
+						</div>
+						<div class="panel-footer">
+							<div class="form-group">
+								<button id="material_delete_btn" type="button" class="btn btn-xs btn-danger col-md-2 col-md-offset-5" data-dismiss="modal">Delete</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<form class="form-horizontal">
 	<div class="modal fade" id="materialCombineModal" tabindex="-1" role="dialog" aria-labelledby="materialCombineModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -203,6 +265,7 @@ tbody td {text-align:center;}
 <script type="text/javascript">
 (function($){
 	
+	// BEGIN Material Group & Type
 	$('a[data-name="create_material_group_type"]').click(function(){
 		
 		if($(this).attr('data-type')=='group'){
@@ -256,12 +319,23 @@ tbody td {text-align:center;}
 	   		$.jsonValidation(json, 'right');
 		});
 	});
+	// END Material Group & Type
 
 	// BEGIN Material Operations
 	$('#material_select_operations').change(function(){
 		var $this = $(this);
-		var val = this.value;
 		var type = $this.find('option:selected').attr('data-type');
+		if(type=='material-delete'){
+			$('#materialDeleteModal').modal('show');
+		} else if(type=='material-combine'){
+			$(this).selectpicker('refresh');
+			$('#materialCombineModal').modal('show');
+		}
+		$(this).selectpicker('deselectAll');
+	});
+	
+	
+	$('#material_delete_btn').click(function(){
 		var material_ids = '';
 		$('input[name="checkbox_ms"]:checked').each(function(){
 			material_ids += $(this).val()+',';
@@ -270,16 +344,10 @@ tbody td {text-align:center;}
 		var data = {
 			material_ids:material_ids
 		};
-		if(type=='material-delete'){
-			$.post('${ctx}/management/product/material/delete', data, function(json){
-		   		$.jsonValidation(json, 'right');
-		   		$.getMaterialPage(1);
-			});
-		} else if(type=='material-combine'){
-			$(this).selectpicker('refresh');
-			$('#materialCombineModal').modal('show');
-		}
-		$(this).selectpicker('deselectAll');
+		$.post('${ctx}/management/product/material/delete', data, function(json){
+	   		$.jsonValidation(json, 'right');
+	   		$.getMaterialPage(1);
+		});
 	});
 	
 	$('#material_combine_btn').click(function(){
@@ -306,7 +374,6 @@ tbody td {text-align:center;}
 	});
 	// END Material Operations
 	
-
 	// BEGIN Material Filter
 	$('#material_filter_operations').change(function(){
 		var $this = $(this);
@@ -332,8 +399,14 @@ tbody td {text-align:center;}
 	// BEGIN Combo Operations
 	$('#combo_select_operations').change(function(){
 		var $this = $(this);
-		var val = this.value;
 		var type = $this.find('option:selected').attr('data-type');
+		if(type=='combo-delete'){
+			$('#comboDeleteModal').modal('show');
+		}
+		$(this).selectpicker('deselectAll');
+	});
+	
+	$('#combo_delete_btn').click(function(){
 		var combo_ids = '';
 		$('input[name="checkbox_cs"]:checked').each(function(){
 			combo_ids += $(this).val()+',';
@@ -342,16 +415,14 @@ tbody td {text-align:center;}
 		var data = {
 			combo_ids:combo_ids
 		};
-		if(type=='combo-delete'){
-			$(this).selectpicker('deselectAll');
-			$.post('${ctx}/management/product/combo/delete', data, function(json){
-		   		$.jsonValidation(json, 'right');
-		   		$.getComboPage(1);
-			});
-		}
+		$.post('${ctx}/management/product/combo/delete', data, function(json){
+	   		$.jsonValidation(json, 'right');
+	   		$.getComboPage(1);
+		});
 	});
+	// END Combo Operations
 	
-	// Material||Combo Tab
+	// BEGIN Material||Combo Tab
 	$('li[data-name="tab-li"]').click(function(){
 		if($(this).attr('data-type')=='material'){
 			$('#material_selector').css('display', '');
@@ -361,7 +432,9 @@ tbody td {text-align:center;}
 			$('#material_selector').css('display', 'none');
 		}
 	});
+	// END Material||Combo Tab
 	
+	// BEGIN Material Page
 	$.getMaterialPage = function(pageNo) {
 		
 		$.get('${ctx}/management/product/material/view/'+pageNo, function(page){
@@ -383,7 +456,9 @@ tbody td {text-align:center;}
 			
 		}, "json");
 	}
+	// END Material Page
 	
+	// BEGIN Combo Page
 	$.getComboPage = function(pageNo) {
 		
 		$.get('${ctx}/management/product/combo/view/'+pageNo, function(page){
@@ -403,6 +478,7 @@ tbody td {text-align:center;}
 			
 		}, "json");
 	}
+	// END Combo Page
 
 	$.getMaterialPage(1);
 	$.getComboPage(1);

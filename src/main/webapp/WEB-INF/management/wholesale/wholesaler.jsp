@@ -17,28 +17,6 @@
 				<div class="panel-body">
 					<form:form modelAttribute="wholesaler" method="post" action="${ctx}${action }" class="form-horizontal">
 						<form:hidden path="id"/>
-						<c:if test="${wholesaler.id!=null && wholesalerSession.wholesaler_id==null}">
-						<div class="form-group">
-							<label class="control-label col-md-4">Account Level</label>
-							<div class="col-md-3">
-								<p class="form-control-static">
-									<span class="badge" style="background:${wholesaler.wholesaler_id==null ? '#5cb85c' : '#c8c8c8'};">${wholesaler.wholesaler_id==null ? 'Primary' : 'Secondary'}</span>
-								</p>
-							</div>
-						</div>
-						</c:if>
-						<c:if test="${managerSession!=null}">
-						<c:if test="${primaryWholesalers!=null}">
-						<div class="form-group">
-							<label for="company_name" class="control-label col-md-4"></label>
-							<div class="col-md-6">
-								<label><input type="radio" data-name="company_type" data-type="new" checked="checked" /> New Company</label>
-								<c:if test="${fn:length(primaryWholesalers) > 0}">
-									<label><input type="radio" data-name="company_type" data-type="existed" /> Existed Company</label>
-								</c:if>
-							</div>
-						</div>
-						</c:if>
 						<div class="form-group">
 							<label for="company_name" class="control-label col-md-4">Company Name</label>
 							<div class="col-md-3">
@@ -50,7 +28,6 @@
 								</select>
 							</div>
 						</div>
-						</c:if>
 						<div class="form-group">
 							<label for="name" class="control-label col-md-4">Name</label>
 							<div class="col-md-3">
@@ -105,42 +82,18 @@
 								<form:errors path="cellphone" cssErrorClass="error"/>
 							</p>
 						</div>
-						<c:if test="${userSession!=null || (wholesalerSession.wholesaler_id==null && wholesalerSession.id!=id)}">
-							<div class="form-group">
-								<label class="control-label col-md-4">Wholesaler Status</label>
-								<div class="col-md-6">
-									<p class="form-control-static">
-										<label><form:radiobutton path="status" value="active" checked="checked"/>Active</label>
-										<label><form:radiobutton path="status" value="disabled"/>Disabled</label>
-										<label><form:radiobutton path="status" value="pending"/>Pending</label>
-									</p>
-								</div>
-							</div>
-						</c:if>
-						<hr/>
-						<c:if test="${userSession!=null || (wholesalerSession.wholesaler_id==null && wholesalerSession.id!=id)}">
-						<h4>Wholesaler Authentication</h4>
-						<div class="form-group" data-module="administrator">
-							<div class="col-md-2" data-module="material">
-								<ul class="list-unstyled">
-									<li>
-										<h3>Material & Combo</h3>
-									</li>
-									<li>
-										<label> 
-											<input type="checkbox" data-name="checkbox_all" data-type="checkbox_plan" /> All
-										</label>
-									</li>
-									<li>
-										<label> 
-											<form:checkbox path="authArray" value="material/view" data-type="checkbox_plan" /> View Material
-										</label>
-									</li>
-								</ul>
+						<div class="form-group">
+							<label class="control-label col-md-4">Wholesaler Status</label>
+							<div class="col-md-6">
+								<p class="form-control-static">
+									<label><form:radiobutton path="status" value="active" checked="checked"/>Active</label>
+									<label><form:radiobutton path="status" value="disabled"/>Disabled</label>
+									<label><form:radiobutton path="status" value="pending"/>Pending</label>
+								</p>
 							</div>
 						</div>
 						<hr/>
-						</c:if>
+						<hr/>
 						<div class="form-group">
 							<div class="col-md-offset-5">
 								<button type="submit" class="btn btn-primary">${wholesaler.id!=null ? 'Update' : 'Save'}</button>

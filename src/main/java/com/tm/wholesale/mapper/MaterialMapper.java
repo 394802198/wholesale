@@ -20,6 +20,7 @@ public interface MaterialMapper {
 	List<Material> selectMaterials(Material m);
 	List<Material> selectMaterialsByPage(Page<Material> page);
 	int selectMaterialsSum(Page<Material> page);
+	String[] selectMaterialCategories();
 
 	/* // END SELECT AREA */
 	/* =================================================================================== */
