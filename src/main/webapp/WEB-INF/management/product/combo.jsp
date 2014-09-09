@@ -6,102 +6,72 @@
 <jsp:include page="../header.jsp" />
 <jsp:include page="../alert.jsp" />
 
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<h4 class="panel-title"><strong>Create Material</strong></h4>
+					<h4 class="panel-title">Combo Update</h4>
 				</div>
 				<div class="panel-body">
-			
-					<form class="form-horizontal">
+					<form:form modelAttribute="c" class="form-horizontal">
 						<h4 class="text-success">Essential Detail</h4>
 						<hr />
 						<div class="form-group">
-							<label for="material_group" class="control-label col-md-2">Group</label>
+							<label for="id" class="control-label col-md-2">Id</label>
 							<div class="col-md-2">
-								<select name="material_group" class="form-control input-sm">
-									<option></option>
-									<option disabled="disabled">--- Choose A Group --- </option>
-									<option>All</option>
-									<c:forEach var="tmsmg" items="${tmsmgs}">
-										<c:if test="${tmsmg.group_name==m.material_group}">
-											<option value="${tmsmg.id}" selected="selected">${tmsmg.group_name}</option>
-										</c:if>
-										<c:if test="${tmsmg.group_name!=m.material_group}">
-											<option value="${tmsmg.id}">${tmsmg.group_name}</option>
-										</c:if>
-									</c:forEach>
-								</select>
-							</div>
-							<label id="type_label" for="material_type" class="control-label col-md-2" ${ m.material_type==null ? 'style="display:none;"' : '' } >Type</label>
-							<div data-name="material_type" class="col-md-2" ${ m.material_type==null ? 'style="display:none;"' : '' }>
-								<select name="material_type" class="form-control input-sm">
-									<c:forEach var="tmsmt" items="${tmsmts}">
-										<c:if test="${tmsmt.type_name==m.material_type}">
-											<option value="${tmsmt.id}" selected="selected">${tmsmt.type_name}</option>
-										</c:if>
-										<c:if test="${tmsmt.type_name!=m.material_type}">
-											<option value="${tmsmt.id}">${tmsmt.type_name}</option>
-										</c:if>
-									</c:forEach>
-								</select>
-							</div>
-							<label id="type_label" for="material_category" class="control-label col-md-2">Category</label>
-							<div class="col-md-2">
-								<select name="material_category" class="form-control input-sm">
-									<c:forEach var="tmsmc" items="${tmsmcs}">
-										<c:if test="${tmsmc.category_name==m.material_category}">
-											<option value="${tmsmc.id}" selected="selected">${tmsmc.category_name}</option>
-										</c:if>
-										<c:if test="${tmsmc.category_name!=m.material_category}">
-											<option value="${tmsmc.id}">${tmsmc.category_name}</option>
-										</c:if>
-									</c:forEach>
-								</select>
+								<p class="form-control-static">${c.id}</p>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="name" class="control-label col-md-2">Name</label>
-							<div class="col-md-2">
-								<input type="text" name="name" value="${m.name}" class="form-control input-sm"/>
+							<div class="col-md-4">
+								<input type="text" name="name" value="${c.name}" class="form-control input-sm"/>
 							</div>
+						</div>
+						<div class="form-group">
 							<label for="description" class="control-label col-md-2">Description</label>
-							<div class="col-md-2">
-								<input type="text" name="description" value="${m.description}" class="form-control input-sm"/>
+							<div class="col-md-6">
+								<textarea name="description" rows="6" class="form-control">${c.description}</textarea>
 							</div>
 						</div>
 						<hr/>
-						<h4 class="text-success">Price Setting</h4>
-						<hr />
 						<div class="form-group">
-							<label for="wholesale_price" class="control-label col-md-2">Wholesale Price</label>
-							<div class="col-md-2">
-								<input type="text" name="wholesale_price" value="${m.wholesale_price}" class="form-control input-sm"/>
-							</div>
-							<label for="selling_price" class="control-label col-md-2">Selling Price</label>
-							<div class="col-md-2">
-								<input type="text" name="selling_price" value="${m.selling_price}" class="form-control input-sm"/>
-							</div>
-							<label for="wholesaler_earning" class="control-label col-md-2">Wholesaler Earned</label>
-							<div class="col-md-2">
-								<input type="text" name="wholesaler_earning" value="${m.earned_price!=null ? m.earned_price : '0.00'}" class="form-control input-sm" disabled="disabled"/>
-							</div>
+							<c:forEach var="mc" items="${mcs}">
+								<div class="col-md-2" data-module="${mc}">
+									<ul class="list-unstyled">
+										<li>
+											<h3>${mc}</h3>
+										</li>
+										<li>
+											<label> 
+												<input type="checkbox" data-name="checkbox_all" data-type="checkbox_${mc}" /> All
+											</label>
+										</li>
+										<c:forEach var="m" items="${ms}">
+											<c:if test="${m.material_category==mc}">
+												<li>
+													<label>
+														<form:checkbox path="midArr" value="${m.id}" data-name="checkbox_ms" data-type="checkbox_${mc}" /> ${m.name}
+													</label>
+												</li>
+											</c:if>
+										</c:forEach>
+									</ul>
+								</div>
+							</c:forEach>
 						</div>
 						
 						<!-- button -->
-						<hr/>
 						<div class="form-group">
 							<div class="col-md-4"></div>
 							<div class="col-md-3">
-								<a href="javascript:void(0);" class="btn btn-primary btn-xs btn-block" id="${m.material_type!=null ? 'updateMaterialBtn' : 'createMaterialBtn' }">
-									${m.material_type!=null ? 'Update Material' : 'Create Material' }
+								<a href="javascript:void(0);" class="btn btn-primary btn-xs btn-block" id="updateComboBtn">
+									Update Material
 								</a>
 							</div>
 						</div>
-					</form>
-			
+					</form:form>
 				</div>
 			</div>
 		</div>
@@ -109,8 +79,8 @@
 </div>
 
 
-<!-- Create Material Modal -->
-<div class="modal fade" id="createMaterialModal" tabindex="-1" role="dialog" aria-labelledby="createMaterialModalLabel" aria-hidden="true">
+<!-- Update Combo Modal -->
+<div class="modal fade" id="updateComboModal" tabindex="-1" role="dialog" aria-labelledby="updateComboModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
@@ -119,17 +89,17 @@
 						<div class="panel-heading">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 							<h3 class="panel-title">
-								<strong>CREATE NEW MATERIAL</strong>
+								<strong>UPDATE CURRENT COMBO</strong>
 							</h3>
 						</div>
 						<div class="panel-body">
 							<p>
-								Create a new Material?
+								Update Current Combo?
 							</p>
 						</div>
 						<div class="panel-footer">
 							<div class="form-group">
-								<button id="create_material_btn" type="button" class="btn btn-xs btn-primary col-md-2 col-md-offset-5" data-dismiss="modal">Create</button>
+								<button id="update_combo_btn" type="button" class="btn btn-xs btn-primary col-md-2 col-md-offset-5" data-dismiss="modal">Update</button>
 							</div>
 						</div>
 					</div>
@@ -142,98 +112,45 @@
 <jsp:include page="../footer.jsp" />
 <jsp:include page="../script.jsp" />
 <script type="text/javascript" src="${ctx}/public/bootstrap3/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="${ctx}/public/bootstrap3/js/icheck.min.js"></script>
 <script>
 (function($){
 	
-	// BEGIN MaterialGroup & Type Selector
-	$('select[name="material_group"]').change(function(){
-		$('#type_label').css('display','');
-		oDivType = $('div[data-name="material_type"]');
-		oDivType.css('display','');
-		
-		var group_id = $(this).find('option:selected').val();
-		var group_name = $(this).find('option:selected').text();
-		
-		if(group_name=='All'){
-			group_id = null;
-		}
-		
-		var data = {
-			'group_id':group_id
-		};
-		
-		$.get('${ctx}/broadband-wholesale/material/type/show', data, function(json){
-			var oSelectType = $('select[name="material_type"]');
-			oSelectType.empty();
-			for(var i=0; i<json.models.length; i++){
-				oSelectType.append('<option value="'+json.models[i].group_id+'">'+json.models[i].type_name+'</option>');
-			}
-		});
-	});
-	// END MaterialGroup & Type Selector
-	
-	// BEGIN WholesalerEarningRatesSelector
-	for(var i=1; i<50; i++){
-		$('#wholesaler_earning_rates').append('<option value="'+i+'">'+i+'%</option>');
-	}
-	// END WholesalerEarningRatesSelector
-	
-	// BEGIN CalculateWholesalerEarning
-	var oWholesalerEarning = $('input[name="wholesaler_earning"]');
-	var oWholesalePrice = $('input[name="wholesale_price"]');
-	var oSellingPrice = $('input[name="selling_price"]');
-	
-	oWholesalePrice.blur(function(){
-		if($(this).val() > 0){
-			$(this).val(new Number($(this).val()).toFixed(2));
-		} else {
-			$(this).val('');
-		}
+	$(':radio,:checkbox').iCheck({
+		checkboxClass : 'icheckbox_square-blue',
+		radioClass : 'iradio_square-blue'
 	});
 	
-	oSellingPrice.blur(function(){
-		if($(this).val() > 0){
-			$(this).val(new Number($(this).val()).toFixed(2));
-		} else {
-			$(this).val('');
-		}
-		
-		var wholesalePrice = new Number(oWholesalePrice.val());
-		var sellingPrice = new Number(oSellingPrice.val());
-		if(sellingPrice > 0 && sellingPrice > wholesalePrice){
-			oWholesalerEarning.val(new Number(sellingPrice-wholesalePrice).toFixed(2));
-		} else {
-			oWholesalerEarning.val('0.00');
-		}
+	$('input[data-name="checkbox_all"]').on('ifChecked',function(){
+		var type = $(this).attr("data-type");
+		$('input[data-type='+type+']').iCheck("check");
 	});
-	// END CalculateWholesalerEarning
+	$('input[data-name="checkbox_all"]').on('ifUnchecked',function(){
+		var type = $(this).attr("data-type");
+		$('input[data-type='+type+']').iCheck("uncheck");
+	});
 	
 	// BEGIN CreateMaterialSubmit
-	$('#createMaterialBtn').click(function(){
-		$('#createMaterialModal').modal('show');
+	$('#updateComboBtn').click(function(){
+		$('#updateComboModal').modal('show');
 	});
-	$('#create_material_btn').click(function(){
+	$('#update_combo_btn').click(function(){
 		var name = $('input[name="name"]').val();
-		var material_group = $('select[name="material_group"]').find('option:selected').text();
-		var material_group_id = $('select[name="material_type"]').find('option:selected').val();
-		var material_type = $('select[name="material_type"]').find('option:selected').text();
-		var description = $('input[name="description"]').val();
-		var wholesale_price = $('input[name="wholesale_price"]').val();
-		var selling_price = $('input[name="selling_price"]').val();
-		var wholesaler_earning = $('input[name="wholesaler_earning"]').val();
+		var description = $('textarea[name="description"]').val();
+		var material_ids = '';
+		$('input[data-name="checkbox_ms"]:checked').each(function(){
+			material_ids += $(this).val()+',';
+		});
+		material_ids = material_ids.substring(0, material_ids.length-1);
 		
-		var data = {
+		var combo = {
+			'id':${c.id},
 			'name':name,
-			'material_group':material_group,
-			'material_type':material_type,
 			'description':description,
-			'wholesale_price':wholesale_price,
-			'selling_price':selling_price,
-			'earned_price':wholesaler_earning,
-			'material_group_id':material_group_id
+			'material_ids':material_ids
 		};
 		
-		$.post('${ctx}/broadband-wholesale/material/create', data, function(json){
+		$.post('${ctx}/management/product/combo/update', combo, function(json){
 	   		$.jsonValidation(json, 'right');
 		});
 		

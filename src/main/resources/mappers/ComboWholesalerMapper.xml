@@ -17,34 +17,34 @@
 	<!-- DEFINITION AREA -->
 
 	<sql id="comboWholesalerColumns">
-		cw.`id`				as cw_id,
+		cw.`id`					as cw_id,
+		cw.`combo_id`			as cw_combo_id,
 		cw.`name`				as cw_name,
-		cw.`wholesaler_id`				as cw_wholesaler_id,
-		cw.`wholesale_price`				as cw_wholesale_price,
-		cw.`selling_price`				as cw_selling_price,
-		cw.`earned_price`				as cw_earned_price,
-		cw.`is_official_combo`				as cw_is_official_combo
+		cw.`material_ids`		as cw_material_ids,
+		cw.`wholesaler_id`		as cw_wholesaler_id,
+		cw.`status`				as cw_status,
+		cw.`description`		as cw_description
 	</sql>
 
 	<resultMap type="ComboWholesaler" id="comboWholesalerResultMap">
 		<id property="id" column="cw_id" />
+		<result property="combo_id" column="cw_combo_id" />
 		<result property="name" column="cw_name" />
+		<result property="material_ids" column="cw_material_ids" />
 		<result property="wholesaler_id" column="cw_wholesaler_id" />
-		<result property="wholesale_price" column="cw_wholesale_price" />
-		<result property="selling_price" column="cw_selling_price" />
-		<result property="earned_price" column="cw_earned_price" />
-		<result property="is_official_combo" column="cw_is_official_combo" />
+		<result property="status" column="cw_status" />
+		<result property="description" column="cw_description" />
 	</resultMap>
 
 	<sql id="comboWholesalerWhere">
 		<where>
 			<if test="params.id != null">cw.id = #{params.id}</if>
+			<if test="params.combo_id != null">and cw.combo_id = #{params.combo_id}</if>
 			<if test="params.name != null">and cw.name = #{params.name}</if>
+			<if test="params.material_ids != null">and cw.material_ids = #{params.material_ids}</if>
 			<if test="params.wholesaler_id != null">and cw.wholesaler_id = #{params.wholesaler_id}</if>
-			<if test="params.wholesale_price != null">and cw.wholesale_price = #{params.wholesale_price}</if>
-			<if test="params.selling_price != null">and cw.selling_price = #{params.selling_price}</if>
-			<if test="params.earned_price != null">and cw.earned_price = #{params.earned_price}</if>
-			<if test="params.is_official_combo != null">and cw.is_official_combo = #{params.is_official_combo}</if>
+			<if test="params.status != null">and cw.status = #{params.status}</if>
+			<if test="params.description != null">and cw.description = #{params.description}</if>
 		</where>
 	</sql>
 
@@ -83,11 +83,11 @@
 
 	<insert id="insertComboWholesaler" parameterType="ComboWholesaler" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `combo_wholesaler`(
-			`id`, `name`, `wholesaler_id`, `wholesale_price`, `selling_price`, 
-			`earned_price`, `is_official_combo`
+			`id`, `combo_id`, `name`, `material_ids`, `wholesaler_id`, 
+			`status`, `description`
 		) VALUES (
-			#{id}, #{name}, #{wholesaler_id}, #{wholesale_price}, #{selling_price}, 
-			#{earned_price}, #{is_official_combo}
+			#{id}, #{combo_id}, #{name}, #{material_ids}, #{wholesaler_id}, 
+			#{status}, #{description}
 		)
 	</insert>
 
@@ -101,12 +101,12 @@
 	<update id="updateComboWholesaler" parameterType="ComboWholesaler">
 		update combo_wholesaler
 		<set>
+			<if test="combo_id != null">combo_id = #{combo_id},</if>
 			<if test="name != null">name = #{name},</if>
+			<if test="material_ids != null">material_ids = #{material_ids},</if>
 			<if test="wholesaler_id != null">wholesaler_id = #{wholesaler_id},</if>
-			<if test="wholesale_price != null">wholesale_price = #{wholesale_price},</if>
-			<if test="selling_price != null">selling_price = #{selling_price},</if>
-			<if test="earned_price != null">earned_price = #{earned_price},</if>
-			<if test="is_official_combo != null">is_official_combo = #{is_official_combo}</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="description != null">description = #{description}</if>
 		</set>
 		<where>
 			<if test="params.id != null">id = #{params.id}</if>
@@ -120,6 +120,10 @@
 
 	<delete id="deleteComboWholesalerById" parameterType="int">
 		DELETE FROM combo_wholesaler WHERE id = #{0}
+	</delete>
+
+	<delete id="deleteComboWholesalerByWholesalerId" parameterType="int">
+		DELETE FROM combo_wholesaler WHERE wholesaler_id = #{0}
 	</delete>
 
 	<!-- // END DELETE AREA -->

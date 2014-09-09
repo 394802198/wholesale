@@ -17,12 +17,12 @@
 		<div class="col-md-12">
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<h4 class="panel-title"><strong>Create Material</strong></h4>
+					<h4 class="panel-title">${m!=null ? 'Material Update' : 'Material Create'}</h4>
 				</div>
 				<div class="panel-body">
 			
 					<form class="form-horizontal">
-						<h4 class="text-success">Price Setting</h4>
+						<%-- <h4 class="text-success">Price Setting</h4>
 						<hr />
 						<div class="form-group">
 							<label for="name" class="control-label col-md-2">Publish For</label>
@@ -43,7 +43,7 @@
 								</p>
 							</div>
 						</div>
-						<hr />
+						<hr /> --%>
 						<h4 class="text-success">Essential Detail</h4>
 						<hr />
 						<div class="form-group">
@@ -124,7 +124,7 @@
 							<div class="col-md-4"></div>
 							<div class="col-md-3">
 								<a href="javascript:void(0);" class="btn btn-primary btn-xs btn-block" id="createUpdateMaterialBtn">
-									${m.material_type!=null ? 'Update Material' : 'Create Material' }
+									${m!=null ? 'Update Material' : 'Create Material' }
 								</a>
 							</div>
 						</div>
@@ -147,17 +147,17 @@
 						<div class="panel-heading">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 							<h3 class="panel-title">
-								<strong>${m.material_type!=null ? 'UPDATE CURRENT MATERIAL' : 'CREATE NEW MATERIAL'}</strong>
+								<strong>${m!=null ? 'UPDATE CURRENT MATERIAL' : 'CREATE NEW MATERIAL'}</strong>
 							</h3>
 						</div>
 						<div class="panel-body">
 							<p>
-								${m.material_type!=null ? 'Update this Material?' : 'Create a new Material?'}
+								${m!=null ? 'Update this Material?' : 'Create a new Material?'}
 							</p>
 						</div>
 						<div class="panel-footer">
 							<div class="form-group">
-								<button id="create_update_material_btn" type="button" data-type="${m.material_type!=null ? 'update' : 'create'}" class="btn btn-xs btn-primary col-md-2 col-md-offset-5" data-dismiss="modal">${m.material_type!=null ? 'Update' : 'Create'}</button>
+								<button id="create_update_material_btn" type="button" data-type="${m!=null ? 'update' : 'create'}" class="btn btn-xs btn-primary col-md-2 col-md-offset-5" data-dismiss="modal">${m.material_type!=null ? 'Update' : 'Create'}</button>
 							</div>
 						</div>
 					</div>
@@ -265,8 +265,10 @@
 		var material_category = $('select[name="material_category"]').find('option:selected').text();
 		var description = $('input[name="description"]').val();
 		var wholesale_price = $('input[name="wholesale_price"]').val();
-		/* var selling_price = $('input[name="selling_price"]').val();
-		var wholesaler_earning = $('input[name="wholesaler_earning"]').val(); */
+		/*
+		var selling_price = $('input[name="selling_price"]').val();
+		var wholesaler_earning = $('input[name="wholesaler_earning"]').val();
+		*/
 		
 		var data = {
 			'id':${m.id}+'',

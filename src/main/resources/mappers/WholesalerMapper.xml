@@ -49,6 +49,9 @@
 	<sql id="wholesalerWhere">
 		<where>
 			<choose>
+				<when test="params.where == 'query_primary_wholesalers'">
+					w.wholesaler_id IS NULL
+				</when>
 				<when test="params.where == 'query_wholesale_users'">
 					<if test="params.id != null">w.id = #{params.id} or w.wholesaler_id = #{params.id}</if>
 				</when>

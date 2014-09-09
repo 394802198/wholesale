@@ -5,6 +5,7 @@
 			<tr>
 				<th><input type="checkbox" id="checkbox_cs_top" /></th>
 				<th>Name</th>
+				<th>Description</th>
 				<th>Material(s)</th>
 			</tr>
 		</thead>
@@ -16,7 +17,10 @@
 						<input type="checkbox" name="checkbox_cs" value="<.= c.id .>"/>
 					</td>
 					<td>
-						<a target="_blank" href="<.= ctx .>/broadband-user/crm/customer/edit/<.= c.id .>"><.= c.name .></a>
+						<a target="_blank" href="<.= ctx .>/management/product/combo/edit/<.= c.id .>"><.= c.name .></a>
+					</td>
+					<td>
+						<.= c.description .>
 					</td>
 					<td>
 						<. var mIds = c.material_ids.split(','); .>

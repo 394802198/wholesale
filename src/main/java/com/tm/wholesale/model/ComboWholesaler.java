@@ -13,12 +13,12 @@ public class ComboWholesaler implements Serializable {
 	 */
 
 	private Integer id;
+	private Integer combo_id;
 	private String name;
+	private String description;
+	private String material_ids;
 	private Integer wholesaler_id;
-	private Double wholesale_price;
-	private Double selling_price;
-	private Double earned_price;
-	private Boolean is_official_combo;
+	private String status;
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -58,36 +58,40 @@ public class ComboWholesaler implements Serializable {
 		this.wholesaler_id = wholesaler_id;
 	}
 
-	public Double getWholesale_price() {
-		return wholesale_price;
+	public Integer getCombo_id() {
+		return combo_id;
 	}
 
-	public void setWholesale_price(Double wholesale_price) {
-		this.wholesale_price = wholesale_price;
+	public void setCombo_id(Integer combo_id) {
+		this.combo_id = combo_id;
 	}
 
-	public Double getSelling_price() {
-		return selling_price;
+	public String getMaterial_ids() {
+		return material_ids;
 	}
 
-	public void setSelling_price(Double selling_price) {
-		this.selling_price = selling_price;
+	public void setMaterial_ids(String material_ids) {
+		this.material_ids = material_ids;
 	}
 
-	public Double getEarned_price() {
-		return earned_price;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setEarned_price(Double earned_price) {
-		this.earned_price = earned_price;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public Boolean getIs_official_combo() {
-		return is_official_combo;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
-	public void setIs_official_combo(Boolean is_official_combo) {
-		this.is_official_combo = is_official_combo;
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Map<String, Object> getParams() {

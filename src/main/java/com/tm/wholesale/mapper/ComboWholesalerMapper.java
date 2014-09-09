@@ -38,7 +38,8 @@ public interface ComboWholesalerMapper {
 	/* DELETE AREA */
 
 	void deleteComboWholesalerById(int id);
-
+	void deleteComboWholesalerByWholesalerId(int id);
+	
 	/* // END DELETE AREA */
 
 }

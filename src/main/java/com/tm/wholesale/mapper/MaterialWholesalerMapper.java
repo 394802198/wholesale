@@ -11,7 +11,7 @@ public interface MaterialWholesalerMapper {
 /**
  * mapping material_wholesaler, materialWholesaler DAO component
  * 
- * @author CyberPark
+ * @author Total Mobile Solution
  * 
   */
 
@@ -38,6 +38,7 @@ public interface MaterialWholesalerMapper {
 	/* DELETE AREA */
 
 	void deleteMaterialWholesalerById(int id);
+	void deleteMaterialWholesalerByWholesalerId(int id);
 
 	/* // END DELETE AREA */
 

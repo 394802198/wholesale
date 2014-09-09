@@ -64,6 +64,10 @@ public class ProductService {
 		return page;
 	}
 	
+	public String[] queryMaterialCategories(){
+		return this.materialMapper.selectMaterialCategories();
+	}
+	
 	@Transactional
 	public void editMaterial(Material m){
 		this.materialMapper.updateMaterial(m);
@@ -214,6 +218,11 @@ public class ProductService {
 	}
 	
 	@Transactional
+	public void removeMaterialWholesalerByWholesalerId(int id){
+		this.materialWholesalerMapper.deleteMaterialWholesalerByWholesalerId(id);
+	}
+	
+	@Transactional
 	public void createMaterialWholesaler(MaterialWholesaler mw){
 		this.materialWholesalerMapper.insertMaterialWholesaler(mw);
 	}
@@ -225,6 +234,10 @@ public class ProductService {
 	/**
 	 * BEGIN Combo
 	 */
+	
+	public Combo queryCombo(Combo c){
+		return this.comboMapper.selectCombos(c)!=null&&this.comboMapper.selectCombos(c).size()>0 ?  this.comboMapper.selectCombos(c).get(0) : null;
+	}
 	
 	public List<Combo> queryCombos(Combo c){
 		return this.comboMapper.selectCombos(c);
@@ -284,6 +297,11 @@ public class ProductService {
 	@Transactional
 	public void removeComboWholesalerById(int id){
 		this.comboWholesalerMapper.deleteComboWholesalerById(id);
+	}
+	
+	@Transactional
+	public void removeComboWholesalerByWholesalerId(int id){
+		this.comboWholesalerMapper.deleteComboWholesalerByWholesalerId(id);
 	}
 	
 	@Transactional
