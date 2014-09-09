@@ -27,6 +27,16 @@
 					</ul>
 				</li>
 			</ul>
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						Order <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu" >
+						<li><a href="${ctx }/order/check-address"><span class="glyphicon glyphicon-pencil"></span> Order Entry</a></li>
+					</ul>
+				</li>
+			</ul>
 			<p class="navbar-text navbar-right">
 				<span class="glyphicon glyphicon-user"></span> 
 				<a href="javascript:void(0);" class="navbar-link" >${wholesalerSession.name}</a> 

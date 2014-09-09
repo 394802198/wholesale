@@ -11,7 +11,7 @@
 		<div class="panel-heading">
 			<div class="row">
 				<div class="col-md-6">
-					<h3 class="panel-title" id="heading"></h3>
+					<h3 class="panel-title" id="heading">Change Password</h3>
 				</div>
 			</div>
 		</div>
@@ -57,8 +57,8 @@
 		};
 		
 		var l = Ladda.create(this); l.start();
-		$.post('${ctx}/system/user/change-password', wholesaler, function(json){
-			if (!$.jsonValidation(json, 'right')) window.location.href = ctx + json.url;
+		$.post('${ctx}/system/user/change-password', w, function(json){
+			if (!$.jsonValidation(json, 'right')) window.location.href = '${ctx}' + json.url;
 		}, 'json').always(function () { l.stop(); });
 		
 	});
