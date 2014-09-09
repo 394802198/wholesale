@@ -294,6 +294,7 @@ public class ProductRestController {
 			Combo cUpdate = new Combo();
 			cUpdate.getParams().put("id", c.getId());
 			cUpdate.setName(c.getName());
+			cUpdate.setDescription(c.getDescription());
 			cUpdate.setMaterial_ids(c.getMaterial_ids());
 			this.productService.editCombo(cUpdate);
 			json.getSuccessMap().put("alert-success", "Recombine Combo Succeccfully!");

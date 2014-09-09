@@ -27,7 +27,6 @@
 		mw.`wholesale_price`				as mw_wholesale_price,
 		mw.`wholesaler_id`				as mw_wholesaler_id,
 		mw.`status`				as mw_status,
-		mw.`params`				as mw_params
 	</sql>
 
 	<resultMap type="MaterialWholesaler" id="materialWholesalerResultMap">
@@ -41,7 +40,6 @@
 		<result property="wholesale_price" column="mw_wholesale_price" />
 		<result property="wholesaler_id" column="mw_wholesaler_id" />
 		<result property="status" column="mw_status" />
-		<result property="params" column="mw_params" />
 	</resultMap>
 
 	<sql id="materialWholesalerWhere">
@@ -56,7 +54,6 @@
 			<if test="params.wholesale_price != null">and mw.wholesale_price = #{params.wholesale_price}</if>
 			<if test="params.wholesaler_id != null">and mw.wholesaler_id = #{params.wholesaler_id}</if>
 			<if test="params.status != null">and mw.status = #{params.status}</if>
-			<if test="params.params != null">and mw.params = #{params.params}</if>
 		</where>
 	</sql>
 
@@ -96,12 +93,10 @@
 	<insert id="insertMaterialWholesaler" parameterType="MaterialWholesaler" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `material_wholesaler`(
 			`id`, `material_id`, `name`, `material_group`, `material_type`, 
-			`material_category`, `description`, `wholesale_price`, `wholesaler_id`, `status`, 
-			`params`
+			`material_category`, `description`, `wholesale_price`, `wholesaler_id`, `status`
 		) VALUES (
 			#{id}, #{material_id}, #{name}, #{material_group}, #{material_type}, 
-			#{material_category}, #{description}, #{wholesale_price}, #{wholesaler_id}, #{status}, 
-			#{params}
+			#{material_category}, #{description}, #{wholesale_price}, #{wholesaler_id}, #{status}
 		)
 	</insert>
 
@@ -123,8 +118,7 @@
 			<if test="description != null">description = #{description},</if>
 			<if test="wholesale_price != null">wholesale_price = #{wholesale_price},</if>
 			<if test="wholesaler_id != null">wholesaler_id = #{wholesaler_id},</if>
-			<if test="status != null">status = #{status},</if>
-			<if test="params != null">params = #{params}</if>
+			<if test="status != null">status = #{status}</if>
 		</set>
 		<where>
 			<if test="params.id != null">id = #{params.id}</if>
@@ -138,6 +132,9 @@
 
 	<delete id="deleteMaterialWholesalerById" parameterType="int">
 		DELETE FROM material_wholesaler WHERE id = #{0}
+	</delete>
+	<delete id="deleteMaterialWholesalerByWholesalerId" parameterType="int">
+		DELETE FROM material_wholesaler WHERE wholesaler_id = #{0}
 	</delete>
 
 	<!-- // END DELETE AREA -->

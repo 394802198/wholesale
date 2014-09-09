@@ -22,9 +22,17 @@
 							<div class="col-md-2">
 								<p class="form-control-static">${c.id}</p>
 							</div>
+						</div>
+						<div class="form-group">
 							<label for="name" class="control-label col-md-2">Name</label>
 							<div class="col-md-4">
 								<input type="text" name="name" value="${c.name}" class="form-control input-sm"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="description" class="control-label col-md-2">Description</label>
+							<div class="col-md-6">
+								<textarea name="description" rows="6" class="form-control">${c.description}</textarea>
 							</div>
 						</div>
 						<hr/>
@@ -128,6 +136,7 @@
 	});
 	$('#update_combo_btn').click(function(){
 		var name = $('input[name="name"]').val();
+		var description = $('textarea[name="description"]').val();
 		var material_ids = '';
 		$('input[data-name="checkbox_ms"]:checked').each(function(){
 			material_ids += $(this).val()+',';
@@ -137,6 +146,7 @@
 		var combo = {
 			'id':${c.id},
 			'name':name,
+			'description':description,
 			'material_ids':material_ids
 		};
 		

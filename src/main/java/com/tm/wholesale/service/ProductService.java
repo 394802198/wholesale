@@ -218,6 +218,11 @@ public class ProductService {
 	}
 	
 	@Transactional
+	public void removeMaterialWholesalerByWholesalerId(int id){
+		this.materialWholesalerMapper.deleteMaterialWholesalerByWholesalerId(id);
+	}
+	
+	@Transactional
 	public void createMaterialWholesaler(MaterialWholesaler mw){
 		this.materialWholesalerMapper.insertMaterialWholesaler(mw);
 	}
@@ -292,6 +297,11 @@ public class ProductService {
 	@Transactional
 	public void removeComboWholesalerById(int id){
 		this.comboWholesalerMapper.deleteComboWholesalerById(id);
+	}
+	
+	@Transactional
+	public void removeComboWholesalerByWholesalerId(int id){
+		this.comboWholesalerMapper.deleteComboWholesalerByWholesalerId(id);
 	}
 	
 	@Transactional

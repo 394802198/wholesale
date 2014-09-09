@@ -15,6 +15,7 @@ public class Combo implements Serializable {
 	private Integer id;
 	private String name;
 	private String material_ids;
+	private String description;
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -63,5 +64,11 @@ public class Combo implements Serializable {
 	}
 	public void setMidArr(String[] midArr) {
 		this.midArr = midArr;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

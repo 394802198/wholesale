@@ -22,7 +22,8 @@
 		cw.`name`				as cw_name,
 		cw.`material_ids`		as cw_material_ids,
 		cw.`wholesaler_id`		as cw_wholesaler_id,
-		cw.`status`				as cw_status
+		cw.`status`				as cw_status,
+		cw.`description`		as cw_description
 	</sql>
 
 	<resultMap type="ComboWholesaler" id="comboWholesalerResultMap">
@@ -32,6 +33,7 @@
 		<result property="material_ids" column="cw_material_ids" />
 		<result property="wholesaler_id" column="cw_wholesaler_id" />
 		<result property="status" column="cw_status" />
+		<result property="description" column="cw_description" />
 	</resultMap>
 
 	<sql id="comboWholesalerWhere">
@@ -42,6 +44,7 @@
 			<if test="params.material_ids != null">and cw.material_ids = #{params.material_ids}</if>
 			<if test="params.wholesaler_id != null">and cw.wholesaler_id = #{params.wholesaler_id}</if>
 			<if test="params.status != null">and cw.status = #{params.status}</if>
+			<if test="params.description != null">and cw.description = #{params.description}</if>
 		</where>
 	</sql>
 
@@ -81,10 +84,10 @@
 	<insert id="insertComboWholesaler" parameterType="ComboWholesaler" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `combo_wholesaler`(
 			`id`, `combo_id`, `name`, `material_ids`, `wholesaler_id`, 
-			`status`
+			`status`, `description`
 		) VALUES (
 			#{id}, #{combo_id}, #{name}, #{material_ids}, #{wholesaler_id}, 
-			#{status}
+			#{status}, #{description}
 		)
 	</insert>
 
@@ -102,7 +105,8 @@
 			<if test="name != null">name = #{name},</if>
 			<if test="material_ids != null">material_ids = #{material_ids},</if>
 			<if test="wholesaler_id != null">wholesaler_id = #{wholesaler_id},</if>
-			<if test="status != null">status = #{status}</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="description != null">description = #{description}</if>
 		</set>
 		<where>
 			<if test="params.id != null">id = #{params.id}</if>
@@ -116,6 +120,10 @@
 
 	<delete id="deleteComboWholesalerById" parameterType="int">
 		DELETE FROM combo_wholesaler WHERE id = #{0}
+	</delete>
+
+	<delete id="deleteComboWholesalerByWholesalerId" parameterType="int">
+		DELETE FROM combo_wholesaler WHERE wholesaler_id = #{0}
 	</delete>
 
 	<!-- // END DELETE AREA -->

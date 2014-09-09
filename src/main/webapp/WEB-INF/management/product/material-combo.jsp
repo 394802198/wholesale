@@ -229,11 +229,19 @@ tbody td {text-align:center;}
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<div class="col-md-5">
+								<div class="col-md-4">
 									<label for="combo_name" class="control-label pull-right">Combo Name&nbsp;&nbsp;</label>
 								</div>
-								<div class="col-md-4">
+								<div class="col-md-8">
 									<input type="text" id="modal_combo_name" class="form-control input-sm" />
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-4">
+									<label for="combo_description" class="control-label pull-right">Combo Description&nbsp;&nbsp;</label>
+								</div>
+								<div class="col-md-8">
+									<textarea rows="6" id="modal_combo_description" class="form-control input-sm"></textarea>
 								</div>
 							</div>
 						</div>
@@ -358,6 +366,7 @@ tbody td {text-align:center;}
 		material_ids = material_ids.substring(0, material_ids.length-1);
 		var combo = {
 			name:$('#modal_combo_name').val(),
+			description:$('#modal_combo_description').val(),
 			material_ids:material_ids
 		};
 		$.ajax({

@@ -1,7 +1,9 @@
 package com.tm.wholesale.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.constraints.NotNull;
@@ -10,7 +12,6 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.tm.wholesale.validation.ManagerLoginValidatedMark;
 import com.tm.wholesale.validation.WholesalerChangePasswordValidatedMark;
 import com.tm.wholesale.validation.WholesalerCreateValidatedMark;
 import com.tm.wholesale.validation.WholesalerEditValidatedMark;
@@ -59,12 +60,19 @@ public class Wholesaler implements Serializable {
 
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private String[] authArray;
+	private String[] midArr;
+	private String[] cidArr;
 	@NotEmpty(groups = { WholesalerChangePasswordValidatedMark.class })
 	@Length(min = 0, max = 20, groups = { WholesalerChangePasswordValidatedMark.class  })
 	private String old_password;
 	@NotEmpty(groups = { WholesalerChangePasswordValidatedMark.class })
 	@Length(min = 0, max = 20, groups = { WholesalerChangePasswordValidatedMark.class  })
 	private String confirm_password;
+	
+	private List<MaterialWholesaler> mws = new ArrayList<MaterialWholesaler>();
+	private List<ComboWholesaler> cws = new ArrayList<ComboWholesaler>();
+	private Map<Integer, MaterialWholesaler> mwMaps = new HashMap<Integer, MaterialWholesaler>();
+	private Map<Integer, ComboWholesaler> cwMaps = new HashMap<Integer, ComboWholesaler>();
 
 	/*
 	 * END TABLE RELATED PROPERTIES
@@ -200,6 +208,54 @@ public class Wholesaler implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String[] getMidArr() {
+		return midArr;
+	}
+
+	public void setMidArr(String[] midArr) {
+		this.midArr = midArr;
+	}
+
+	public String[] getCidArr() {
+		return cidArr;
+	}
+
+	public void setCidArr(String[] cidArr) {
+		this.cidArr = cidArr;
+	}
+
+	public List<MaterialWholesaler> getMws() {
+		return mws;
+	}
+
+	public void setMws(List<MaterialWholesaler> mws) {
+		this.mws = mws;
+	}
+
+	public List<ComboWholesaler> getCws() {
+		return cws;
+	}
+
+	public void setCws(List<ComboWholesaler> cws) {
+		this.cws = cws;
+	}
+
+	public Map<Integer, MaterialWholesaler> getMwMaps() {
+		return mwMaps;
+	}
+
+	public void setMwMaps(Map<Integer, MaterialWholesaler> mwMaps) {
+		this.mwMaps = mwMaps;
+	}
+
+	public Map<Integer, ComboWholesaler> getCwMaps() {
+		return cwMaps;
+	}
+
+	public void setCwMaps(Map<Integer, ComboWholesaler> cwMaps) {
+		this.cwMaps = cwMaps;
 	}
 	
 	

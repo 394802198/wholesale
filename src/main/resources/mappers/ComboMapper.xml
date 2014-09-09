@@ -19,13 +19,15 @@
 	<sql id="comboColumns">
 		c.`id`				as c_id,
 		c.`name`			as c_name,
-		c.`material_ids`	as c_material_ids
+		c.`material_ids`	as c_material_ids,
+		c.`description`		as c_description
 	</sql>
 
 	<resultMap type="Combo" id="comboResultMap">
 		<id property="id" column="c_id" />
 		<result property="name" column="c_name" />
 		<result property="material_ids" column="c_material_ids" />
+		<result property="description" column="c_description" />
 	</resultMap>
 
 	<sql id="comboWhere">
@@ -33,6 +35,7 @@
 			<if test="params.id != null">c.id = #{params.id}</if>
 			<if test="params.name != null">and c.name = #{params.name}</if>
 			<if test="params.material_ids != null">and c.material_ids = #{params.material_ids}</if>
+			<if test="params.description != null">and c.description = #{params.description}</if>
 		</where>
 	</sql>
 
@@ -71,9 +74,9 @@
 
 	<insert id="insertCombo" parameterType="Combo" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `combo`(
-			`id`, `name`, `material_ids`
+			`id`, `name`, `material_ids`, `description`
 		) VALUES (
-			#{id}, #{name}, #{material_ids}
+			#{id}, #{name}, #{material_ids}, #{description}
 		)
 	</insert>
 
@@ -88,6 +91,7 @@
 		update combo
 		<set>
 			<if test="name != null">name = #{name},</if>
+			<if test="description != null">description = #{description},</if>
 			<if test="material_ids != null">material_ids = #{material_ids}</if>
 		</set>
 		<where>

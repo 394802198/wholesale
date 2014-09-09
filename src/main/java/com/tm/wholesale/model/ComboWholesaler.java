@@ -1,6 +1,8 @@
 package com.tm.wholesale.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ComboWholesaler implements Serializable {
 
@@ -13,6 +15,7 @@ public class ComboWholesaler implements Serializable {
 	private Integer id;
 	private Integer combo_id;
 	private String name;
+	private String description;
 	private String material_ids;
 	private Integer wholesaler_id;
 	private String status;
@@ -25,7 +28,7 @@ public class ComboWholesaler implements Serializable {
 	 * RELATED PROPERTIES
 	 */
 
-//	private Map<String, Object> params = new HashMap<String, Object>();
+	private Map<String, Object> params = new HashMap<String, Object>();
 
 	/*
 	 * END RELATED PROPERTIES
@@ -81,5 +84,21 @@ public class ComboWholesaler implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Map<String, Object> getParams() {
+		return params;
+	}
+
+	public void setParams(Map<String, Object> params) {
+		this.params = params;
 	}
 }
