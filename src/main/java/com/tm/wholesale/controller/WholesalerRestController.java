@@ -19,6 +19,7 @@ import com.tm.wholesale.model.Page;
 import com.tm.wholesale.model.Wholesaler;
 import com.tm.wholesale.service.WholesalerService;
 import com.tm.wholesale.validation.ManagerLoginValidatedMark;
+import com.tm.wholesale.validation.WholesalerChangePasswordValidatedMark;
 import com.tm.wholesale.validation.WholesalerCreateValidatedMark;
 import com.tm.wholesale.validation.WholesalerEditValidatedMark;
 import com.tm.wholesale.validation.WholesalerLoginValidatedMark;
@@ -124,7 +125,7 @@ public class WholesalerRestController {
 		
 		Wholesaler wQ = new Wholesaler();
 		wQ.getParams().put("id", id);
-		if (id != wholesalerSession.getId())
+		if (id != wholesalerSession.getId().intValue())
 			wQ.getParams().put("wholesaler_id", wholesalerSession.getId());
 		
 		Wholesaler w = this.wholesalerService.queryWholesaler(wQ);
@@ -157,7 +158,9 @@ public class WholesalerRestController {
 		}
 		
 		wholesaler.getParams().put("id", wholesaler.getId());
-		if (wholesaler.getId() != wholesalerSession.getId()) {
+		if (wholesaler.getId().intValue() != wholesalerSession.getId().intValue()) {
+			System.out.println("wholesaler.getId(): " + wholesaler.getId());
+			System.out.println("wholesalerSession.getId(): " + wholesalerSession.getId());
 			wholesaler.getParams().put("wholesaler_id", wholesalerSession.getId());
 		} else {
 			wholesalerSession.setName(wholesaler.getName());
@@ -167,6 +170,41 @@ public class WholesalerRestController {
 		this.wholesalerService.editWholesaler(wholesaler);
 		
 		json.setUrl("/system/user/view");
+		
+		return json;
+	}
+	
+	@RequestMapping(value = "/system/user/change-password", method = RequestMethod.POST)
+	public JSONBean<Wholesaler> systemUserPasswordChange(
+			@Validated(WholesalerChangePasswordValidatedMark.class) Wholesaler wholesaler, BindingResult result, 
+			HttpSession session) {
+		
+		Wholesaler wholesalerSession = (Wholesaler) session.getAttribute("wholesalerSession");
+		
+		JSONBean<Wholesaler> json = new JSONBean<Wholesaler>();
+		json.setModel(wholesaler);
+		
+		if (result.hasErrors()) {
+			json.setJSONErrorMap(result);
+			return json;
+		}
+
+		if (!wholesaler.getLogin_password().equals(wholesaler.getConfirm_password())) {
+			json.getErrorMap().put("login_password", "new password and confirm password is different");
+			return json;
+		}
+		
+		if (!wholesaler.getOld_password().equals(wholesalerSession.getLogin_password())) {
+			json.getErrorMap().put("old_password", "old password is wrong");
+			return json;
+		}
+		
+		wholesaler.getParams().put("id", wholesalerSession.getId());
+			
+		this.wholesalerService.editWholesaler(wholesaler);
+		
+		wholesalerSession.setLogin_password(wholesaler.getLogin_password());
+		json.setUrl("/system/user/change-password/redirect");
 		
 		return json;
 	}

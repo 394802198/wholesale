@@ -62,4 +62,10 @@ public class WholesalerController {
 		model.addAttribute("title", "Change Password - System");
 		return "wholesale/system/user-change-password";
 	}
+	
+	@RequestMapping("/system/user/change-password/redirect")
+	public String systemUserChangePasswordRedirect(RedirectAttributes attr) {
+		attr.addFlashAttribute("success", "Change passowrd is successful.");
+		return "redirect:/system/user/change-password";
+	}
 }
