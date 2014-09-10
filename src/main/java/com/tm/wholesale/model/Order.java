@@ -14,12 +14,13 @@ public class Order implements Serializable {
 	 */
 
 	private Integer id;
+	private Integer company_id;
 	private Integer wholesaler_id;
-	private Integer maker_id;
+	private Integer manager_id;
 	private Double total_price;
 	private Date inservice_date;
 	private String status;
-	private String type;
+	private String customer_type;
 	private String broadband_type;
 	private String transition_provider_name;
 	private String transition_account_holder_name;
@@ -34,7 +35,7 @@ public class Order implements Serializable {
 	private String broadband_asid;
 	private Date rfs_date;
 	private Date disconnected_date;
-	private String connection_date;
+	private String preferred_connection_date;
 	private String previous_provider_invoice;
 	private Date next_invoice_create_date;
 	private Date next_invoice_create_date_flag;
@@ -58,7 +59,7 @@ public class Order implements Serializable {
 
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private Broadband broadband = new Broadband();
-	
+
 	/*
 	 * END RELATED PROPERTIES
 	 */
@@ -80,14 +81,6 @@ public class Order implements Serializable {
 
 	public void setWholesaler_id(Integer wholesaler_id) {
 		this.wholesaler_id = wholesaler_id;
-	}
-
-	public Integer getMaker_id() {
-		return maker_id;
-	}
-
-	public void setMaker_id(Integer maker_id) {
-		this.maker_id = maker_id;
 	}
 
 	public Double getTotal_price() {
@@ -114,12 +107,12 @@ public class Order implements Serializable {
 		this.status = status;
 	}
 
-	public String getType() {
-		return type;
+	public String getCustomer_type() {
+		return customer_type;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setCustomer_type(String customer_type) {
+		this.customer_type = customer_type;
 	}
 
 	public String getBroadband_type() {
@@ -235,12 +228,28 @@ public class Order implements Serializable {
 		this.disconnected_date = disconnected_date;
 	}
 
-	public String getConnection_date() {
-		return connection_date;
+	public Integer getCompany_id() {
+		return company_id;
 	}
 
-	public void setConnection_date(String connection_date) {
-		this.connection_date = connection_date;
+	public void setCompany_id(Integer company_id) {
+		this.company_id = company_id;
+	}
+
+	public Integer getManager_id() {
+		return manager_id;
+	}
+
+	public void setManager_id(Integer manager_id) {
+		this.manager_id = manager_id;
+	}
+
+	public String getPreferred_connection_date() {
+		return preferred_connection_date;
+	}
+
+	public void setPreferred_connection_date(String preferred_connection_date) {
+		this.preferred_connection_date = preferred_connection_date;
 	}
 
 	public String getPrevious_provider_invoice() {
@@ -359,7 +368,5 @@ public class Order implements Serializable {
 	public void setBroadband(Broadband broadband) {
 		this.broadband = broadband;
 	}
-	
-	
-	
+
 }
