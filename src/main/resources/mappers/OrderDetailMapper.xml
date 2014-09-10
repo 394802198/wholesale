@@ -18,6 +18,7 @@
 
 	<sql id="orderDetailColumns">
 		od.`id`					as od_id,
+		od.`order_id`			as od_order_id,
 		od.`name`				as od_name,
 		od.`desc`				as od_desc,
 		od.`price`				as od_price,
@@ -38,6 +39,7 @@
 
 	<resultMap type="OrderDetail" id="orderDetailResultMap">
 		<id property="id" column="od_id" />
+		<id property="order_id" column="od_order_id" />
 		<result property="name" column="od_name" />
 		<result property="desc" column="od_desc" />
 		<result property="price" column="od_price" />
@@ -59,6 +61,7 @@
 	<sql id="orderDetailWhere">
 		<where>
 			<if test="params.id != null">od.id = #{params.id}</if>
+			<if test="params.order_id != null">od.order_id = #{params.order_id}</if>
 			<if test="params.name != null">and od.name = #{params.name}</if>
 			<if test="params.desc != null">and od.desc = #{params.desc}</if>
 			<if test="params.price != null">and od.price = #{params.price}</if>
@@ -113,12 +116,12 @@
 
 	<insert id="insertOrderDetail" parameterType="OrderDetail" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `order_detail`(
-			`id`, `name`, `desc`, `price`, `material_type`, 
+			`id`, `order_id`, `name`, `desc`, `price`, `material_type`, 
 			`type`, `status`, `unit`, `number`, `password`, 
 			`assign_date`, `calling_mins`, `track_code`, `is_post`, `expire_date`, 
 			`manager_id`, `memo`
 		) VALUES (
-			#{id}, #{name}, #{desc}, #{price}, #{material_type}, 
+			#{id}, #{order_id}, #{name}, #{desc}, #{price}, #{material_type}, 
 			#{type}, #{status}, #{unit}, #{number}, #{password}, 
 			#{assign_date}, #{calling_mins}, #{track_code}, #{is_post}, #{expire_date}, 
 			#{manager_id}, #{memo}
@@ -135,6 +138,7 @@
 	<update id="updateOrderDetail" parameterType="OrderDetail">
 		update order_detail
 		<set>
+			<if test="order_id != null">order_id = #{order_id},</if>
 			<if test="name != null">name = #{name},</if>
 			<if test="desc != null">desc = #{desc},</if>
 			<if test="price != null">price = #{price},</if>

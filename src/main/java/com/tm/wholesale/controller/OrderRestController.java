@@ -1,5 +1,7 @@
 package com.tm.wholesale.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tm.wholesale.model.Broadband;
+import com.tm.wholesale.model.Combo;
 import com.tm.wholesale.model.Order;
 import com.tm.wholesale.util.broadband.BroadbandCapability;
 
@@ -53,6 +56,11 @@ public class OrderRestController {
 		broadband.setServices_available(services_available);
 	
 		return broadband;
+	}
+	
+	@RequestMapping("/order/select-combo/combo-loading")
+	public List<Combo> orderComboLoading(HttpSession session) {
+		return null;
 	}
 
 }

@@ -14,6 +14,7 @@ public class OrderDetail implements Serializable {
 	 */
 
 	private Integer id;
+	private Integer order_id;
 	private String name;
 	private String desc;
 	private Double price;
@@ -194,6 +195,14 @@ public class OrderDetail implements Serializable {
 
 	public void setManager_id(Integer manager_id) {
 		this.manager_id = manager_id;
+	}
+
+	public Integer getOrder_id() {
+		return order_id;
+	}
+
+	public void setOrder_id(Integer order_id) {
+		this.order_id = order_id;
 	}
 
 }
