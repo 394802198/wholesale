@@ -122,10 +122,11 @@
 									<td class="bg-info"><label>Status</label></td>
 								</tr>
 								<c:forEach var="c" items="${cs}">
+								<input type="hidden" data-name="c_material_ids_${c.id}" value="${c.material_ids}"/>
 								<tr>
 									<td>
 									<label>
-										<form:checkbox id="${c.id}" path="cidArr" data-combo="true" value="${c.id}" data-c-name="${wholesaler.cwMaps[c.id].name!=null ? wholesaler.cwMaps[c.id].name : c.name}" data-name="checkbox_cs" data-type="checkbox_combo" />${wholesaler.cwMaps[c.id].name!=null ? wholesaler.cwMaps[c.id].name : c.name}
+										<form:checkbox id="${c.id}" path="cidArr" data-combo="true" value="${c.id}" data-c-material_ids="${wholesaler.cwMaps[c.id].material_ids!=null ? wholesaler.cwMaps[c.id].material_ids : c.material_ids}" data-c-name="${wholesaler.cwMaps[c.id].name!=null ? wholesaler.cwMaps[c.id].name : c.name}" data-name="checkbox_cs" data-type="checkbox_combo" />${wholesaler.cwMaps[c.id].name!=null ? wholesaler.cwMaps[c.id].name : c.name}
 									</label>
 									</td>
 									<td colspan="2"><input class="form-control" data-name="c_description_${c.id}" value="${wholesaler.cwMaps[c.id].description!=null ? wholesaler.cwMaps[c.id].description : c.description}"/></td>
@@ -260,6 +261,7 @@
 			cellphone: $('input[name="cellphone"]').val(),
 			status: $('input[name="status"]:checked').val(),
 			memo: $('textarea[name="memo"]').val(),
+			company_id: '${wholesaler.company_id}',
 			mws: [],
 			cws: []
 		};
@@ -285,6 +287,7 @@
 			var cData = {
 				combo_id:this.id,
 				name: c.attr('data-c-name'),
+				material_ids: c.attr('data-c-material_ids'),
 				description: $('input[data-name="c_description_'+this.id+'"]').val(),
 				status: $('select[data-name="c_status_'+this.id+'"]').val()
 			};

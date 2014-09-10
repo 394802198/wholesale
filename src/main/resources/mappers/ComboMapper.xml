@@ -107,6 +107,9 @@
 	<delete id="deleteComboById" parameterType="int">
 		DELETE FROM combo WHERE id = #{0}
 	</delete>
+	<delete id="deleteComboByMaterialId" parameterType="int">
+		DELETE FROM combo WHERE material_ids LIKE CONCAT('%', '#{0}', '%')
+	</delete>
 
 	<!-- // END DELETE AREA -->
 

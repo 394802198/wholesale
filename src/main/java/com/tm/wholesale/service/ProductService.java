@@ -82,6 +82,9 @@ public class ProductService {
 	public void removeMaterialsById(String[] ids){
 		for (String id : ids) {
 			this.materialMapper.deleteMaterialById(Integer.parseInt(id));
+			this.materialWholesalerMapper.deleteMaterialWholesalerByMaterialId(Integer.parseInt(id));
+			this.comboMapper.deleteComboByMaterialId(Integer.parseInt(id));
+			this.comboWholesalerMapper.deleteComboWholesalerByMaterialId(Integer.parseInt(id));
 		}
 	}
 	
@@ -218,7 +221,7 @@ public class ProductService {
 	}
 	
 	@Transactional
-	public void removeMaterialWholesalerByWholesalerId(int id){
+	public void removeMaterialWholesalerByCompanyId(int id){
 		this.materialWholesalerMapper.deleteMaterialWholesalerByCompanyId(id);
 	}
 	
@@ -263,6 +266,7 @@ public class ProductService {
 	public void removeCombosById(String[] ids){
 		for (String id : ids) {
 			this.comboMapper.deleteComboById(Integer.parseInt(id));
+			this.comboWholesalerMapper.deleteComboWholesalerByComboId(Integer.parseInt(id));
 		}
 	}
 	
@@ -300,7 +304,7 @@ public class ProductService {
 	}
 	
 	@Transactional
-	public void removeComboWholesalerByWholesalerId(int id){
+	public void removeComboWholesalerByCompanyId(int id){
 		this.comboWholesalerMapper.deleteComboWholesalerByCompanyId(id);
 	}
 	

@@ -136,6 +136,9 @@
 	<delete id="deleteMaterialWholesalerByCompanyId" parameterType="int">
 		DELETE FROM material_wholesaler WHERE company_id = #{0}
 	</delete>
+	<delete id="deleteMaterialWholesalerByMaterialId" parameterType="int">
+		DELETE FROM material_wholesaler WHERE material_id = #{0}
+	</delete>
 
 	<!-- // END DELETE AREA -->
 

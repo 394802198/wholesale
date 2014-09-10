@@ -24,12 +24,12 @@
 					<ul class="dropdown-menu">
 						<li>
 							<a href="${ctx}/management/system/manager/view">
-								<span class="glyphicon glyphicon-list" ></span>View Manager
+								<span class="glyphicon glyphicon-list" ></span> View Manager
 							</a>
 						</li>
 						<li>
 							<a href="${ctx}/management/system/manager/create">
-								<span class="glyphicon glyphicon-plus" ></span>Create Manager
+								<span class="glyphicon glyphicon-plus" ></span> Create Manager
 							</a>
 						</li>
 					</ul>
@@ -41,12 +41,12 @@
 					<ul class="dropdown-menu">
 						<li>
 							<a href="${ctx}/management/product/material-combo/view">
-								<span class="glyphicon glyphicon-list" ></span>View Material & Combo
+								<span class="glyphicon glyphicon-list" ></span> View Material & Combo
 							</a>
 						</li>
 						<li>
 							<a href="${ctx}/management/product/material/create">
-								<span class="glyphicon glyphicon-plus" ></span>Create Material
+								<span class="glyphicon glyphicon-plus" ></span> Create Material
 							</a>
 						</li>
 					</ul>
@@ -58,12 +58,12 @@
 					<ul class="dropdown-menu">
 						<li>
 							<a href="${ctx}/management/wholesale/wholesaler/view">
-								<span class="glyphicon glyphicon-list" ></span>View Wholesaler
+								<span class="glyphicon glyphicon-list" ></span> View Wholesaler
 							</a>
 						</li>
 						<li>
 							<a href="${ctx}/management/wholesale/wholesaler/create">
-								<span class="glyphicon glyphicon-plus" ></span>Create Wholesaler
+								<span class="glyphicon glyphicon-plus" ></span> Create Wholesaler
 							</a>
 						</li>
 					</ul>
@@ -75,7 +75,7 @@
 					<ul class="dropdown-menu">
 						<li>
 							<a href="${ctx}/management/wholesale/wholesaler/view">
-								<span class="glyphicon glyphicon-list" ></span>View Wholesaler
+								<span class="glyphicon glyphicon-list" ></span> View Wholesaler
 							</a>
 						</li>
 					</ul>
@@ -87,7 +87,7 @@
 					<ul class="dropdown-menu">
 						<li>
 							<a href="${ctx}/management/wholesale/wholesaler/view">
-								<span class="glyphicon glyphicon-list" ></span>View Wholesaler
+								<span class="glyphicon glyphicon-list" ></span> View Wholesaler
 							</a>
 						</li>
 					</ul>

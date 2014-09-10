@@ -45,18 +45,9 @@
 				<.= w.memo .>
 			</td>
 			<td>
-				<. if(userId != null){ .>
-					<a href="javascript:void(0);" class="btn-<.= w.wholesaler_id==null ? 'danger' : 'warning' .> btn-xs" data-name="deleteWholesaler" id="<.= w.id .>" style="padding:4px 6px;"
-					 data-toggle="tooltip" data-placement="right" data-original-title="<.= w.wholesaler_id==null ? 'Primary' : 'Secondary' .>">
-						<span class="glyphicon glyphicon-trash"></span>
-					</a>
-				<. } else if(wholesalerId == w.wholesaler_id){ .>
-					<a href="javascript:void(0);" class="btn-warning btn-xs" data-name="deleteWholesaler" id="<.= w.id .>" style="padding:4px 6px;">
-						<span class="glyphicon glyphicon-trash"></span>
-					</a>
-				<. } else { .>
-				&nbsp;
-				<. }.>
+				<a href="javascript:void(0);" class="btn-warning btn-xs" data-name="deleteWholesaler" id="<.= w.id .>" style="padding:4px 6px;">
+					<span class="glyphicon glyphicon-trash"></span>
+				</a>
 			</td>
 			<td>&nbsp;</td>
 		</tr>
