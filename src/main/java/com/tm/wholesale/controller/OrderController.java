@@ -15,5 +15,11 @@ public class OrderController {
 		model.addAttribute("title", "Check Address - Order");
 		return "wholesale/order/address-check";
 	}
+	
+	@RequestMapping("/order/select-combo")
+	public String orderSelectCombo(Model model) {
+		model.addAttribute("title", "Select One Combo - Order");
+		return "wholesale/order/select-combo";
+	}
 
 }
