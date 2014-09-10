@@ -49,6 +49,7 @@ public class Wholesaler implements Serializable {
 	private String memo;
 	private String status;
 	private Integer company_id;
+	private Boolean is_primary;
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -256,6 +257,14 @@ public class Wholesaler implements Serializable {
 
 	public void setCompany_id(Integer company_id) {
 		this.company_id = company_id;
+	}
+
+	public Boolean getIs_primary() {
+		return is_primary;
+	}
+
+	public void setIs_primary(Boolean is_primary) {
+		this.is_primary = is_primary;
 	}
 	
 	

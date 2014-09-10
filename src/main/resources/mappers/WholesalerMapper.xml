@@ -28,7 +28,8 @@
 		w.`auth`				as w_auth,
 		w.`memo`				as w_memo,
 		w.`status`				as w_status,
-		w.`company_id`			as w_company_id
+		w.`company_id`			as w_company_id,
+		w.`is_primary`			as w_is_primary
 	</sql>
 
 	<resultMap type="Wholesaler" id="wholesalerResultMap">
@@ -44,6 +45,7 @@
 		<result property="memo" column="w_memo" />
 		<result property="status" column="w_status" />
 		<result property="company_id" column="w_company_id" />
+		<result property="is_primary" column="w_is_primary" />
 	</resultMap>
 
 	<sql id="wholesalerWhere">
@@ -69,6 +71,7 @@
 					<if test="params.memo != null">and w.memo = #{params.memo}</if>
 					<if test="params.status != null">and w.status = #{params.status}</if>
 					<if test="params.company_id != null">and w.company_id = #{params.company_id}</if>
+					<if test="params.is_primary != null">and w.is_primary = #{params.is_primary}</if>
 				</otherwise>
 			</choose>
 			
@@ -117,11 +120,11 @@
 		INSERT INTO `wholesaler`(
 			`id`, `company_name`, `name`, `login_name`, 
 			`login_password`, `role`, `cellphone`, `email`, `auth`, 
-			`memo`, `status`, `company_id`
+			`memo`, `status`, `company_id`, `is_primary`
 		) VALUES (
 			#{id}, #{company_name}, #{name}, #{login_name}, 
 			#{login_password}, #{role}, #{cellphone}, #{email}, #{auth}, 
-			#{memo}, #{status}, #{company_id}
+			#{memo}, #{status}, #{company_id}, #{is_primary}
 		)
 	</insert>
 
@@ -144,8 +147,9 @@
 			<if test="email != null">email = #{email},</if>
 			<if test="auth != null">auth = #{auth},</if>
 			<if test="memo != null">memo = #{memo},</if>
-			<if test="status != null">status = #{status}</if>
-			<if test="company_id != null">company_id = #{company_id}</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="company_id != null">company_id = #{company_id},</if>
+			<if test="is_primary != null">is_primary = #{is_primary}</if>
 		</set>
 		<where>
 			<if test="params.id != null">id = #{params.id}</if>
