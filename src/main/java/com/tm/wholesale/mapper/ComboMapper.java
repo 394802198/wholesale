@@ -38,6 +38,7 @@ public interface ComboMapper {
 	/* DELETE AREA */
 
 	void deleteComboById(int id);
+	void deleteComboByMaterialId(int id);
 
 	/* // END DELETE AREA */
 
