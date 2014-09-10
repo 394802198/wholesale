@@ -17,7 +17,7 @@ public class ComboWholesaler implements Serializable {
 	private String name;
 	private String description;
 	private String material_ids;
-	private Integer wholesaler_id;
+	private Integer company_id;
 	private String status;
 
 	/*
@@ -50,12 +50,12 @@ public class ComboWholesaler implements Serializable {
 		this.name = name;
 	}
 
-	public Integer getWholesaler_id() {
-		return wholesaler_id;
+	public Integer getCompany_id() {
+		return company_id;
 	}
 
-	public void setWholesaler_id(Integer wholesaler_id) {
-		this.wholesaler_id = wholesaler_id;
+	public void setCompany_id(Integer company_id) {
+		this.company_id = company_id;
 	}
 
 	public Integer getCombo_id() {

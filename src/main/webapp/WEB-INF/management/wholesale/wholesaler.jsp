@@ -62,7 +62,7 @@
 								</p>
 							</div>
 						</div>
-						<hr/><h3><span class="text-info">Materials</span><span class="pull-right">ALL COMBOS: <label><input type="radio" name="material-shelf-radio" data-shelf-status="on-shelf" />On Shelf</label>&nbsp;&nbsp;&nbsp;&nbsp;<label><input type="radio" name="material-shelf-radio" data-shelf-status="off-shelf" />Off Shelf</label></span></h3><hr/>
+						<hr/><h3><span class="text-info">Materials</span><span class="pull-right">ALL MATERIALS: <label><input type="radio" name="material-shelf-radio" data-shelf-status="on-shelf" />On Shelf</label>&nbsp;&nbsp;&nbsp;&nbsp;<label><input type="radio" name="material-shelf-radio" data-shelf-status="off-shelf" />Off Shelf</label></span></h3><hr/>
 						<div class="form-group">
 							<table class="table table-hover table-bordered table-condensed">
 								<tr>

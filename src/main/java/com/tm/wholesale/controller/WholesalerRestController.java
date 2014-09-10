@@ -1,7 +1,5 @@
 package com.tm.wholesale.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tm.wholesale.model.JSONBean;
-import com.tm.wholesale.model.Manager;
-import com.tm.wholesale.model.Material;
 import com.tm.wholesale.model.Page;
 import com.tm.wholesale.model.Wholesaler;
 import com.tm.wholesale.service.WholesalerService;
+
 import com.tm.wholesale.validation.ManagerLoginValidatedMark;
 import com.tm.wholesale.validation.WholesalerChangePasswordValidatedMark;
 import com.tm.wholesale.validation.WholesalerCreateValidatedMark;
@@ -76,7 +73,7 @@ public class WholesalerRestController {
 		page.getParams().put("orderby", "order by id");
 		
 		page.getParams().put("where", "query_wholesale_users");
-		page.getParams().put("id", wholesalerSession.getId());
+		page.getParams().put("company_id", wholesalerSession.getCompany_id());
 		
 		this.wholesalerService.queryWholesalersByPage(page);
 		
@@ -107,7 +104,7 @@ public class WholesalerRestController {
 		Wholesaler wholesalerSession = (Wholesaler) session.getAttribute("wholesalerSession");
 		
 		wholesaler.setCompany_name(wholesalerSession.getCompany_name());
-		wholesaler.setWholesaler_id(wholesalerSession.getId());
+		wholesaler.setCompany_id(wholesalerSession.getCompany_id());
 		
 		this.wholesalerService.createWholesaler(wholesaler);
 		
@@ -125,8 +122,9 @@ public class WholesalerRestController {
 		
 		Wholesaler wQ = new Wholesaler();
 		wQ.getParams().put("id", id);
-		if (id != wholesalerSession.getId().intValue())
-			wQ.getParams().put("wholesaler_id", wholesalerSession.getId());
+		if (id != wholesalerSession.getId())
+			wQ.getParams().put("company_id", wholesalerSession.getCompany_id());
+
 		
 		Wholesaler w = this.wholesalerService.queryWholesaler(wQ);
 		
@@ -161,7 +159,7 @@ public class WholesalerRestController {
 		if (wholesaler.getId().intValue() != wholesalerSession.getId().intValue()) {
 			System.out.println("wholesaler.getId(): " + wholesaler.getId());
 			System.out.println("wholesalerSession.getId(): " + wholesalerSession.getId());
-			wholesaler.getParams().put("wholesaler_id", wholesalerSession.getId());
+			wholesaler.getParams().put("company_id", wholesalerSession.getCompany_id());
 		} else {
 			wholesalerSession.setName(wholesaler.getName());
 		}

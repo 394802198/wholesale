@@ -219,7 +219,7 @@ public class ProductService {
 	
 	@Transactional
 	public void removeMaterialWholesalerByWholesalerId(int id){
-		this.materialWholesalerMapper.deleteMaterialWholesalerByWholesalerId(id);
+		this.materialWholesalerMapper.deleteMaterialWholesalerByCompanyId(id);
 	}
 	
 	@Transactional
@@ -301,7 +301,7 @@ public class ProductService {
 	
 	@Transactional
 	public void removeComboWholesalerByWholesalerId(int id){
-		this.comboWholesalerMapper.deleteComboWholesalerByWholesalerId(id);
+		this.comboWholesalerMapper.deleteComboWholesalerByCompanyId(id);
 	}
 	
 	@Transactional

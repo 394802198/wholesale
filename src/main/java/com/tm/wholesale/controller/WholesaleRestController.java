@@ -84,15 +84,22 @@ public class WholesaleRestController {
 		List<ComboWholesaler> cws = wholesaler.getCws();
 		List<MaterialWholesaler> mws = wholesaler.getMws();
 		
+		wholesaler.setRole("Administrator");
+		wholesaler.setIs_primary(true);
 		this.wholesaleService.createWholesaler(wholesaler);
 		
+		Wholesaler wUpdate = new Wholesaler();
+		wUpdate.getParams().put("id", wholesaler.getId());
+		wUpdate.setCompany_id(wholesaler.getId());
+		this.wholesaleService.editWholesaler(wUpdate);
+		
 		for (ComboWholesaler cw : cws) {
-			cw.setWholesaler_id(wholesaler.getId());
+			cw.setCompany_id(wholesaler.getCompany_id());
 			this.productService.createComboWholesaler(cw);
 		}
 		
 		for (MaterialWholesaler mw : mws) {
-			mw.setWholesaler_id(wholesaler.getId());
+			mw.setCompany_id(wholesaler.getCompany_id());
 			this.productService.createMaterialWholesaler(mw);
 		}
 		
@@ -122,12 +129,12 @@ public class WholesaleRestController {
 		List<ComboWholesaler> cws = wholesaler.getCws();
 		List<MaterialWholesaler> mws = wholesaler.getMws();
 		for (ComboWholesaler cw : cws) {
-			cw.setWholesaler_id(wholesaler.getId());
+			cw.setCompany_id(wholesaler.getCompany_id());
 			this.productService.createComboWholesaler(cw);
 		}
 		
 		for (MaterialWholesaler mw : mws) {
-			mw.setWholesaler_id(wholesaler.getId());
+			mw.setCompany_id(wholesaler.getCompany_id());
 			this.productService.createMaterialWholesaler(mw);
 		}
 		

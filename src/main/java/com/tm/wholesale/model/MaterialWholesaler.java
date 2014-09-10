@@ -20,7 +20,7 @@ public class MaterialWholesaler implements Serializable {
 	private String material_category;
 	private String description;
 	private Double wholesale_price;
-	private Integer wholesaler_id;
+	private Integer company_id;
 	private String status;
 
 	/*
@@ -85,12 +85,12 @@ public class MaterialWholesaler implements Serializable {
 		this.description = description;
 	}
 
-	public Integer getWholesaler_id() {
-		return wholesaler_id;
+	public Integer getCompany_id() {
+		return company_id;
 	}
 
-	public void setWholesaler_id(Integer wholesaler_id) {
-		this.wholesaler_id = wholesaler_id;
+	public void setCompany_id(Integer company_id) {
+		this.company_id = company_id;
 	}
 
 	public Double getWholesale_price() {

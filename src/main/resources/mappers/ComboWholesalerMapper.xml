@@ -21,7 +21,7 @@
 		cw.`combo_id`			as cw_combo_id,
 		cw.`name`				as cw_name,
 		cw.`material_ids`		as cw_material_ids,
-		cw.`wholesaler_id`		as cw_wholesaler_id,
+		cw.`company_id`			as cw_company_id,
 		cw.`status`				as cw_status,
 		cw.`description`		as cw_description
 	</sql>
@@ -31,7 +31,7 @@
 		<result property="combo_id" column="cw_combo_id" />
 		<result property="name" column="cw_name" />
 		<result property="material_ids" column="cw_material_ids" />
-		<result property="wholesaler_id" column="cw_wholesaler_id" />
+		<result property="company_id" column="cw_company_id" />
 		<result property="status" column="cw_status" />
 		<result property="description" column="cw_description" />
 	</resultMap>
@@ -42,7 +42,7 @@
 			<if test="params.combo_id != null">and cw.combo_id = #{params.combo_id}</if>
 			<if test="params.name != null">and cw.name = #{params.name}</if>
 			<if test="params.material_ids != null">and cw.material_ids = #{params.material_ids}</if>
-			<if test="params.wholesaler_id != null">and cw.wholesaler_id = #{params.wholesaler_id}</if>
+			<if test="params.company_id != null">and cw.company_id = #{params.company_id}</if>
 			<if test="params.status != null">and cw.status = #{params.status}</if>
 			<if test="params.description != null">and cw.description = #{params.description}</if>
 		</where>
@@ -83,10 +83,10 @@
 
 	<insert id="insertComboWholesaler" parameterType="ComboWholesaler" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `combo_wholesaler`(
-			`id`, `combo_id`, `name`, `material_ids`, `wholesaler_id`, 
+			`id`, `combo_id`, `name`, `material_ids`, `company_id`, 
 			`status`, `description`
 		) VALUES (
-			#{id}, #{combo_id}, #{name}, #{material_ids}, #{wholesaler_id}, 
+			#{id}, #{combo_id}, #{name}, #{material_ids}, #{company_id}, 
 			#{status}, #{description}
 		)
 	</insert>
@@ -104,7 +104,7 @@
 			<if test="combo_id != null">combo_id = #{combo_id},</if>
 			<if test="name != null">name = #{name},</if>
 			<if test="material_ids != null">material_ids = #{material_ids},</if>
-			<if test="wholesaler_id != null">wholesaler_id = #{wholesaler_id},</if>
+			<if test="company_id != null">company_id = #{company_id},</if>
 			<if test="status != null">status = #{status},</if>
 			<if test="description != null">description = #{description}</if>
 		</set>
@@ -122,8 +122,8 @@
 		DELETE FROM combo_wholesaler WHERE id = #{0}
 	</delete>
 
-	<delete id="deleteComboWholesalerByWholesalerId" parameterType="int">
-		DELETE FROM combo_wholesaler WHERE wholesaler_id = #{0}
+	<delete id="deleteComboWholesalerByCompanyId" parameterType="int">
+		DELETE FROM combo_wholesaler WHERE company_id = #{0}
 	</delete>
 
 	<!-- // END DELETE AREA -->
