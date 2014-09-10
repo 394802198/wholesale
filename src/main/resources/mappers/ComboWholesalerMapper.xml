@@ -121,9 +121,14 @@
 	<delete id="deleteComboWholesalerById" parameterType="int">
 		DELETE FROM combo_wholesaler WHERE id = #{0}
 	</delete>
-
 	<delete id="deleteComboWholesalerByCompanyId" parameterType="int">
 		DELETE FROM combo_wholesaler WHERE company_id = #{0}
+	</delete>
+	<delete id="deleteComboWholesalerByMaterialId" parameterType="int">
+		DELETE FROM combo_wholesaler WHERE material_ids LIKE CONCAT('%', '#{0}', '%')
+	</delete>
+	<delete id="deleteComboWholesalerByComboId" parameterType="int">
+		DELETE FROM combo_wholesaler WHERE combo_id = #{0}
 	</delete>
 
 	<!-- // END DELETE AREA -->

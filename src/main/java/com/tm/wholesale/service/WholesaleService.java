@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tm.wholesale.mapper.ComboWholesalerMapper;
+import com.tm.wholesale.mapper.MaterialWholesalerMapper;
 import com.tm.wholesale.mapper.WholesalerMapper;
 import com.tm.wholesale.model.Page;
 import com.tm.wholesale.model.Wholesaler;
@@ -14,10 +16,16 @@ import com.tm.wholesale.model.Wholesaler;
 public class WholesaleService {
 	
 	private WholesalerMapper wholesalerMapper;
+	private ComboWholesalerMapper comboWholesalerMapper;
+	private MaterialWholesalerMapper materialWholesalerMapper;
 
 	@Autowired
-	public WholesaleService(WholesalerMapper wholesalerMapper) {
+	public WholesaleService(WholesalerMapper wholesalerMapper,
+			ComboWholesalerMapper comboWholesalerMapper,
+			MaterialWholesalerMapper materialWholesalerMapper) {
 		this.wholesalerMapper = wholesalerMapper;
+		this.comboWholesalerMapper = comboWholesalerMapper;
+		this.materialWholesalerMapper = materialWholesalerMapper;
 	}
 	
 	/**
@@ -46,6 +54,11 @@ public class WholesaleService {
 	
 	@Transactional
 	public void removeWholesalerById(int id){
+		Wholesaler wQuery = new Wholesaler();
+		wQuery.getParams().put("id", id);
+		wQuery = this.wholesalerMapper.selectWholesalers(wQuery).get(0);
+		this.materialWholesalerMapper.deleteMaterialWholesalerByCompanyId(wQuery.getCompany_id());
+		this.comboWholesalerMapper.deleteComboWholesalerByCompanyId(wQuery.getCompany_id());
 		this.wholesalerMapper.deleteWholesalerById(id);
 	}
 	

@@ -39,6 +39,7 @@ public interface MaterialWholesalerMapper {
 
 	void deleteMaterialWholesalerById(int id);
 	void deleteMaterialWholesalerByCompanyId(int id);
+	void deleteMaterialWholesalerByMaterialId(int id);
 
 	/* // END DELETE AREA */
 
