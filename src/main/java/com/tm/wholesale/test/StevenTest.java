@@ -160,8 +160,8 @@ public class StevenTest {
 		
 		SimpleMapperCreator smc = new SimpleMapperCreator();
 		smc.setAuthor("Total Mobile Solution");
-		smc.setModel("MaterialWholesaler");
-		smc.setTable("material_wholesaler");
+		smc.setModel("OrderLog");
+		smc.setTable("order_log");
 		smc.initial();
 	}
 }

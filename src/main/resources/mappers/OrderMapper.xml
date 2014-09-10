@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DEFINITION AREA --><!-- // DEFINITION AREA -->
+<!-- =================================================================================== -->
+<!-- SELECT AREA --><!-- // END SELECT AREA -->
+<!-- =================================================================================== -->
+<!-- INSERT AREA --><!-- // END INSERT AREA -->
+<!-- =================================================================================== -->
+<!-- UPDATE AREA --><!-- // END UPDATE AREA -->
+<!-- =================================================================================== -->
+<!-- DELETE AREA --><!-- // END DELETE AREA -->
+
+<mapper namespace="com.tm.wholesale.mapper.OrderMapper">
+
+	<!-- DEFINITION AREA -->
+
+	<sql id="orderColumns">
+		o.`id`									as o_id,
+		o.`company_id`							as o_company_id,
+		o.`wholesaler_id`						as o_wholesaler_id,
+		o.`manager_id`							as o_manager_id,
+		o.`total_price`							as o_total_price,
+		o.`inservice_date`						as o_inservice_date,
+		o.`status`								as o_status,
+		o.`customer_type`						as o_customer_type,
+		o.`broadband_type`						as o_broadband_type,
+		o.`transition_provider_name`			as o_transition_provider_name,
+		o.`transition_account_holder_name`		as o_transition_account_holder_name,
+		o.`transition_account_number`			as o_transition_account_number,
+		o.`transition_porting_number`			as o_transition_porting_number,
+		o.`svlan`								as o_svlan,
+		o.`cvlan`								as o_cvlan,
+		o.`pppoe_loginname`						as o_pppoe_loginname,
+		o.`pppoe_password`						as o_pppoe_password,
+		o.`order_pdf_path`						as o_order_pdf_path,
+		o.`memo`								as o_memo,
+		o.`broadband_asid`						as o_broadband_asid,
+		o.`rfs_date`							as o_rfs_date,
+		o.`disconnected_date`					as o_disconnected_date,
+		o.`preferred_connection_date`			as o_preferred_connection_date,
+		o.`previous_provider_invoice`			as o_previous_provider_invoice,
+		o.`next_invoice_create_date`			as o_next_invoice_create_date,
+		o.`next_invoice_create_date_flag`		as o_next_invoice_create_date_flag,
+		o.`first_name`							as o_first_name,
+		o.`last_name`							as o_last_name,
+		o.`address`								as o_address,
+		o.`email`								as o_email,
+		o.`phone`								as o_phone,
+		o.`mobile`								as o_mobile,
+		o.`create_date`							as o_create_date,
+		o.`company_name`						as o_company_name,
+		o.`trade_name`							as o_trade_name
+	</sql>
+
+	<resultMap type="Order" id="orderResultMap">
+		<id property="id" column="o_id" />
+		<result property="company_id" column="o_company_id" />
+		<result property="wholesaler_id" column="o_wholesaler_id" />
+		<result property="manager_id" column="o_manager_id" />
+		<result property="total_price" column="o_total_price" />
+		<result property="inservice_date" column="o_inservice_date" />
+		<result property="status" column="o_status" />
+		<result property="customer_type" column="o_customer_type" />
+		<result property="broadband_type" column="o_broadband_type" />
+		<result property="transition_provider_name" column="o_transition_provider_name" />
+		<result property="transition_account_holder_name" column="o_transition_account_holder_name" />
+		<result property="transition_account_number" column="o_transition_account_number" />
+		<result property="transition_porting_number" column="o_transition_porting_number" />
+		<result property="svlan" column="o_svlan" />
+		<result property="cvlan" column="o_cvlan" />
+		<result property="pppoe_loginname" column="o_pppoe_loginname" />
+		<result property="pppoe_password" column="o_pppoe_password" />
+		<result property="order_pdf_path" column="o_order_pdf_path" />
+		<result property="memo" column="o_memo" />
+		<result property="broadband_asid" column="o_broadband_asid" />
+		<result property="rfs_date" column="o_rfs_date" />
+		<result property="disconnected_date" column="o_disconnected_date" />
+		<result property="preferred_connection_date" column="o_preferred_connection_date" />
+		<result property="previous_provider_invoice" column="o_previous_provider_invoice" />
+		<result property="next_invoice_create_date" column="o_next_invoice_create_date" />
+		<result property="next_invoice_create_date_flag" column="o_next_invoice_create_date_flag" />
+		<result property="first_name" column="o_first_name" />
+		<result property="last_name" column="o_last_name" />
+		<result property="address" column="o_address" />
+		<result property="email" column="o_email" />
+		<result property="phone" column="o_phone" />
+		<result property="mobile" column="o_mobile" />
+		<result property="create_date" column="o_create_date" />
+		<result property="company_name" column="o_company_name" />
+		<result property="trade_name" column="o_trade_name" />
+	</resultMap>
+
+	<sql id="orderWhere">
+		<where>
+			<if test="params.id != null">o.id = #{params.id}</if>
+			<if test="params.company_id != null">and o.company_id = #{params.company_id}</if>
+			<if test="params.wholesaler_id != null">and o.wholesaler_id = #{params.wholesaler_id}</if>
+			<if test="params.manager_id != null">and o.manager_id = #{params.manager_id}</if>
+			<if test="params.total_price != null">and o.total_price = #{params.total_price}</if>
+			<if test="params.inservice_date != null">and o.inservice_date = #{params.inservice_date}</if>
+			<if test="params.status != null">and o.status = #{params.status}</if>
+			<if test="params.customer_type != null">and o.customer_type = #{params.customer_type}</if>
+			<if test="params.broadband_type != null">and o.broadband_type = #{params.broadband_type}</if>
+			<if test="params.transition_provider_name != null">and o.transition_provider_name = #{params.transition_provider_name}</if>
+			<if test="params.transition_account_holder_name != null">and o.transition_account_holder_name = #{params.transition_account_holder_name}</if>
+			<if test="params.transition_account_number != null">and o.transition_account_number = #{params.transition_account_number}</if>
+			<if test="params.transition_porting_number != null">and o.transition_porting_number = #{params.transition_porting_number}</if>
+			<if test="params.svlan != null">and o.svlan = #{params.svlan}</if>
+			<if test="params.cvlan != null">and o.cvlan = #{params.cvlan}</if>
+			<if test="params.pppoe_loginname != null">and o.pppoe_loginname = #{params.pppoe_loginname}</if>
+			<if test="params.pppoe_password != null">and o.pppoe_password = #{params.pppoe_password}</if>
+			<if test="params.order_pdf_path != null">and o.order_pdf_path = #{params.order_pdf_path}</if>
+			<if test="params.memo != null">and o.memo = #{params.memo}</if>
+			<if test="params.broadband_asid != null">and o.broadband_asid = #{params.broadband_asid}</if>
+			<if test="params.rfs_date != null">and o.rfs_date = #{params.rfs_date}</if>
+			<if test="params.disconnected_date != null">and o.disconnected_date = #{params.disconnected_date}</if>
+			<if test="params.preferred_connection_date != null">and o.preferred_connection_date = #{params.preferred_connection_date}</if>
+			<if test="params.previous_provider_invoice != null">and o.previous_provider_invoice = #{params.previous_provider_invoice}</if>
+			<if test="params.next_invoice_create_date != null">and o.next_invoice_create_date = #{params.next_invoice_create_date}</if>
+			<if test="params.next_invoice_create_date_flag != null">and o.next_invoice_create_date_flag = #{params.next_invoice_create_date_flag}</if>
+			<if test="params.first_name != null">and o.first_name = #{params.first_name}</if>
+			<if test="params.last_name != null">and o.last_name = #{params.last_name}</if>
+			<if test="params.address != null">and o.address = #{params.address}</if>
+			<if test="params.email != null">and o.email = #{params.email}</if>
+			<if test="params.phone != null">and o.phone = #{params.phone}</if>
+			<if test="params.mobile != null">and o.mobile = #{params.mobile}</if>
+			<if test="params.create_date != null">and o.create_date = #{params.create_date}</if>
+			<if test="params.company_name != null">and o.company_name = #{params.company_name}</if>
+			<if test="params.trade_name != null">and o.trade_name = #{params.trade_name}</if>
+		</where>
+	</sql>
+
+	<!-- // DEFINITION AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- SELECT AREA -->
+
+	<select id="selectOrders" parameterType="Order" resultType="Order">
+		select * from order as o
+		<include refid="orderWhere"/>
+	</select>
+
+	<!-- select order page -->
+	<select id="selectOrdersByPage" parameterType="Page" resultMap="orderResultMap">
+		select 
+			<include refid="orderColumns"/>
+			from order as o
+			<include refid="orderWhere"/>
+			<if test="params.orderby != null">${params.orderby}</if>
+			limit #{pageOffset}, #{pageSize}
+	</select>
+
+	<!-- select order amount -->
+	<select id="selectOrdersSum" parameterType="Page" resultType="int">
+		select count(*) from order as o
+		<include refid="orderWhere"/>
+	</select>
+
+	<!-- // END SELECT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- INSERT AREA -->
+
+	<insert id="insertOrder" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `order`(
+			`id`, `company_id`, `wholesaler_id`, `manager_id`, `total_price`, 
+			`inservice_date`, `status`, `customer_type`, `broadband_type`, `transition_provider_name`, 
+			`transition_account_holder_name`, `transition_account_number`, `transition_porting_number`, `svlan`, `cvlan`, 
+			`pppoe_loginname`, `pppoe_password`, `order_pdf_path`, `memo`, `broadband_asid`, 
+			`rfs_date`, `disconnected_date`, `preferred_connection_date`, `previous_provider_invoice`, `next_invoice_create_date`, 
+			`next_invoice_create_date_flag`, `first_name`, `last_name`, `address`, `email`, 
+			`phone`, `mobile`, `create_date`, `company_name`, `trade_name`
+		) VALUES (
+			#{id}, #{company_id}, #{wholesaler_id}, #{manager_id}, #{total_price}, 
+			#{inservice_date}, #{status}, #{customer_type}, #{broadband_type}, #{transition_provider_name}, 
+			#{transition_account_holder_name}, #{transition_account_number}, #{transition_porting_number}, #{svlan}, #{cvlan}, 
+			#{pppoe_loginname}, #{pppoe_password}, #{order_pdf_path}, #{memo}, #{broadband_asid}, 
+			#{rfs_date}, #{disconnected_date}, #{preferred_connection_date}, #{previous_provider_invoice}, #{next_invoice_create_date}, 
+			#{next_invoice_create_date_flag}, #{first_name}, #{last_name}, #{address}, #{email}, 
+			#{phone}, #{mobile}, #{create_date}, #{company_name}, #{trade_name}
+		)
+	</insert>
+
+	<!-- // END INSERT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- UPDATE AREA -->
+
+	<!-- update order -->
+	<update id="updateOrder" parameterType="Order">
+		update order
+		<set>
+			<if test="company_id != null">company_id = #{company_id},</if>
+			<if test="wholesaler_id != null">wholesaler_id = #{wholesaler_id},</if>
+			<if test="manager_id != null">manager_id = #{manager_id},</if>
+			<if test="total_price != null">total_price = #{total_price},</if>
+			<if test="inservice_date != null">inservice_date = #{inservice_date},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="customer_type != null">customer_type = #{customer_type},</if>
+			<if test="broadband_type != null">broadband_type = #{broadband_type},</if>
+			<if test="transition_provider_name != null">transition_provider_name = #{transition_provider_name},</if>
+			<if test="transition_account_holder_name != null">transition_account_holder_name = #{transition_account_holder_name},</if>
+			<if test="transition_account_number != null">transition_account_number = #{transition_account_number},</if>
+			<if test="transition_porting_number != null">transition_porting_number = #{transition_porting_number},</if>
+			<if test="svlan != null">svlan = #{svlan},</if>
+			<if test="cvlan != null">cvlan = #{cvlan},</if>
+			<if test="pppoe_loginname != null">pppoe_loginname = #{pppoe_loginname},</if>
+			<if test="pppoe_password != null">pppoe_password = #{pppoe_password},</if>
+			<if test="order_pdf_path != null">order_pdf_path = #{order_pdf_path},</if>
+			<if test="memo != null">memo = #{memo},</if>
+			<if test="broadband_asid != null">broadband_asid = #{broadband_asid},</if>
+			<if test="rfs_date != null">rfs_date = #{rfs_date},</if>
+			<if test="disconnected_date != null">disconnected_date = #{disconnected_date},</if>
+			<if test="preferred_connection_date != null">preferred_connection_date = #{preferred_connection_date},</if>
+			<if test="previous_provider_invoice != null">previous_provider_invoice = #{previous_provider_invoice},</if>
+			<if test="next_invoice_create_date != null">next_invoice_create_date = #{next_invoice_create_date},</if>
+			<if test="next_invoice_create_date_flag != null">next_invoice_create_date_flag = #{next_invoice_create_date_flag},</if>
+			<if test="first_name != null">first_name = #{first_name},</if>
+			<if test="last_name != null">last_name = #{last_name},</if>
+			<if test="address != null">address = #{address},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="phone != null">phone = #{phone},</if>
+			<if test="mobile != null">mobile = #{mobile},</if>
+			<if test="create_date != null">create_date = #{create_date},</if>
+			<if test="company_name != null">company_name = #{company_name},</if>
+			<if test="trade_name != null">trade_name = #{trade_name}</if>
+		</set>
+		<where>
+			<if test="params.id != null">id = #{params.id}</if>
+		</where>
+	</update>
+
+	<!-- // END UPDATE AREA -->
+
+	<!-- =================================================================================== -->
+	<!-- DELETE AREA -->
+
+	<delete id="deleteOrderById" parameterType="int">
+		DELETE FROM order WHERE id = #{0}
+	</delete>
+
+	<!-- // END DELETE AREA -->
+
+</mapper>

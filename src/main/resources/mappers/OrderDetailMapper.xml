@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DEFINITION AREA --><!-- // DEFINITION AREA -->
+<!-- =================================================================================== -->
+<!-- SELECT AREA --><!-- // END SELECT AREA -->
+<!-- =================================================================================== -->
+<!-- INSERT AREA --><!-- // END INSERT AREA -->
+<!-- =================================================================================== -->
+<!-- UPDATE AREA --><!-- // END UPDATE AREA -->
+<!-- =================================================================================== -->
+<!-- DELETE AREA --><!-- // END DELETE AREA -->
+
+<mapper namespace="com.tm.wholesale.mapper.OrderDetailMapper">
+
+	<!-- DEFINITION AREA -->
+
+	<sql id="orderDetailColumns">
+		od.`id`					as od_id,
+		od.`name`				as od_name,
+		od.`desc`				as od_desc,
+		od.`price`				as od_price,
+		od.`material_type`		as od_material_type,
+		od.`type`				as od_type,
+		od.`status`				as od_status,
+		od.`unit`				as od_unit,
+		od.`number`				as od_number,
+		od.`password`			as od_password,
+		od.`assign_date`		as od_assign_date,
+		od.`calling_mins`		as od_calling_mins,
+		od.`track_code`			as od_track_code,
+		od.`is_post`			as od_is_post,
+		od.`expire_date`		as od_expire_date,
+		od.`manager_id`			as od_manager_id,
+		od.`memo`				as od_memo
+	</sql>
+
+	<resultMap type="OrderDetail" id="orderDetailResultMap">
+		<id property="id" column="od_id" />
+		<result property="name" column="od_name" />
+		<result property="desc" column="od_desc" />
+		<result property="price" column="od_price" />
+		<result property="material_type" column="od_material_type" />
+		<result property="type" column="od_type" />
+		<result property="status" column="od_status" />
+		<result property="unit" column="od_unit" />
+		<result property="number" column="od_number" />
+		<result property="password" column="od_password" />
+		<result property="assign_date" column="od_assign_date" />
+		<result property="calling_mins" column="od_calling_mins" />
+		<result property="track_code" column="od_track_code" />
+		<result property="is_post" column="od_is_post" />
+		<result property="expire_date" column="od_expire_date" />
+		<result property="manager_id" column="od_manager_id" />
+		<result property="memo" column="od_memo" />
+	</resultMap>
+
+	<sql id="orderDetailWhere">
+		<where>
+			<if test="params.id != null">od.id = #{params.id}</if>
+			<if test="params.name != null">and od.name = #{params.name}</if>
+			<if test="params.desc != null">and od.desc = #{params.desc}</if>
+			<if test="params.price != null">and od.price = #{params.price}</if>
+			<if test="params.material_type != null">and od.material_type = #{params.material_type}</if>
+			<if test="params.type != null">and od.type = #{params.type}</if>
+			<if test="params.status != null">and od.status = #{params.status}</if>
+			<if test="params.unit != null">and od.unit = #{params.unit}</if>
+			<if test="params.number != null">and od.number = #{params.number}</if>
+			<if test="params.password != null">and od.password = #{params.password}</if>
+			<if test="params.assign_date != null">and od.assign_date = #{params.assign_date}</if>
+			<if test="params.calling_mins != null">and od.calling_mins = #{params.calling_mins}</if>
+			<if test="params.track_code != null">and od.track_code = #{params.track_code}</if>
+			<if test="params.is_post != null">and od.is_post = #{params.is_post}</if>
+			<if test="params.expire_date != null">and od.expire_date = #{params.expire_date}</if>
+			<if test="params.manager_id != null">and od.manager_id = #{params.manager_id}</if>
+			<if test="params.memo != null">and od.memo = #{params.memo}</if>
+		</where>
+	</sql>
+
+	<!-- // DEFINITION AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- SELECT AREA -->
+
+	<select id="selectOrderDetails" parameterType="OrderDetail" resultType="OrderDetail">
+		select * from order_detail as od
+		<include refid="orderDetailWhere"/>
+	</select>
+
+	<!-- select orderDetail page -->
+	<select id="selectOrderDetailsByPage" parameterType="Page" resultMap="orderDetailResultMap">
+		select 
+			<include refid="orderDetailColumns"/>
+			from order_detail as od
+			<include refid="orderDetailWhere"/>
+			<if test="params.orderby != null">${params.orderby}</if>
+			limit #{pageOffset}, #{pageSize}
+	</select>
+
+	<!-- select orderDetail amount -->
+	<select id="selectOrderDetailsSum" parameterType="Page" resultType="int">
+		select count(*) from order_detail as od
+		<include refid="orderDetailWhere"/>
+	</select>
+
+	<!-- // END SELECT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- INSERT AREA -->
+
+	<insert id="insertOrderDetail" parameterType="OrderDetail" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `order_detail`(
+			`id`, `name`, `desc`, `price`, `material_type`, 
+			`type`, `status`, `unit`, `number`, `password`, 
+			`assign_date`, `calling_mins`, `track_code`, `is_post`, `expire_date`, 
+			`manager_id`, `memo`
+		) VALUES (
+			#{id}, #{name}, #{desc}, #{price}, #{material_type}, 
+			#{type}, #{status}, #{unit}, #{number}, #{password}, 
+			#{assign_date}, #{calling_mins}, #{track_code}, #{is_post}, #{expire_date}, 
+			#{manager_id}, #{memo}
+		)
+	</insert>
+
+	<!-- // END INSERT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- UPDATE AREA -->
+
+	<!-- update orderDetail -->
+	<update id="updateOrderDetail" parameterType="OrderDetail">
+		update order_detail
+		<set>
+			<if test="name != null">name = #{name},</if>
+			<if test="desc != null">desc = #{desc},</if>
+			<if test="price != null">price = #{price},</if>
+			<if test="material_type != null">material_type = #{material_type},</if>
+			<if test="type != null">type = #{type},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="unit != null">unit = #{unit},</if>
+			<if test="number != null">number = #{number},</if>
+			<if test="password != null">password = #{password},</if>
+			<if test="assign_date != null">assign_date = #{assign_date},</if>
+			<if test="calling_mins != null">calling_mins = #{calling_mins},</if>
+			<if test="track_code != null">track_code = #{track_code},</if>
+			<if test="is_post != null">is_post = #{is_post},</if>
+			<if test="expire_date != null">expire_date = #{expire_date},</if>
+			<if test="manager_id != null">manager_id = #{manager_id},</if>
+			<if test="memo != null">memo = #{memo}</if>
+		</set>
+		<where>
+			<if test="params.id != null">id = #{params.id}</if>
+		</where>
+	</update>
+
+	<!-- // END UPDATE AREA -->
+
+	<!-- =================================================================================== -->
+	<!-- DELETE AREA -->
+
+	<delete id="deleteOrderDetailById" parameterType="int">
+		DELETE FROM order_detail WHERE id = #{0}
+	</delete>
+
+	<!-- // END DELETE AREA -->
+
+</mapper>

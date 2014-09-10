@@ -1,6 +1,7 @@
 package com.tm.wholesale.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,11 +17,18 @@ public class OrderDetail implements Serializable {
 	private String name;
 	private String desc;
 	private Double price;
+	private String material_type;
 	private String type;
 	private String status;
 	private Integer unit;
 	private String number;
+	private String password;
+	private Date assign_date;
 	private Integer calling_mins;
+	private String track_code;
+	private Boolean is_post;
+	private Date expire_date;
+	private Integer manager_id;
 	private String memo;
 
 	/*
@@ -130,6 +138,62 @@ public class OrderDetail implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getMaterial_type() {
+		return material_type;
+	}
+
+	public void setMaterial_type(String material_type) {
+		this.material_type = material_type;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Date getAssign_date() {
+		return assign_date;
+	}
+
+	public void setAssign_date(Date assign_date) {
+		this.assign_date = assign_date;
+	}
+
+	public String getTrack_code() {
+		return track_code;
+	}
+
+	public void setTrack_code(String track_code) {
+		this.track_code = track_code;
+	}
+
+	public Boolean getIs_post() {
+		return is_post;
+	}
+
+	public void setIs_post(Boolean is_post) {
+		this.is_post = is_post;
+	}
+
+	public Date getExpire_date() {
+		return expire_date;
+	}
+
+	public void setExpire_date(Date expire_date) {
+		this.expire_date = expire_date;
+	}
+
+	public Integer getManager_id() {
+		return manager_id;
+	}
+
+	public void setManager_id(Integer manager_id) {
+		this.manager_id = manager_id;
 	}
 
 }
