@@ -25,7 +25,7 @@
 		mw.`material_category`				as mw_material_category,
 		mw.`description`				as mw_description,
 		mw.`wholesale_price`				as mw_wholesale_price,
-		mw.`wholesaler_id`				as mw_wholesaler_id,
+		mw.`company_id`				as mw_company_id,
 		mw.`status`				as mw_status,
 	</sql>
 
@@ -38,7 +38,7 @@
 		<result property="material_category" column="mw_material_category" />
 		<result property="description" column="mw_description" />
 		<result property="wholesale_price" column="mw_wholesale_price" />
-		<result property="wholesaler_id" column="mw_wholesaler_id" />
+		<result property="company_id" column="mw_company_id" />
 		<result property="status" column="mw_status" />
 	</resultMap>
 
@@ -52,7 +52,7 @@
 			<if test="params.material_category != null">and mw.material_category = #{params.material_category}</if>
 			<if test="params.description != null">and mw.description = #{params.description}</if>
 			<if test="params.wholesale_price != null">and mw.wholesale_price = #{params.wholesale_price}</if>
-			<if test="params.wholesaler_id != null">and mw.wholesaler_id = #{params.wholesaler_id}</if>
+			<if test="params.company_id != null">and mw.company_id = #{params.company_id}</if>
 			<if test="params.status != null">and mw.status = #{params.status}</if>
 		</where>
 	</sql>
@@ -93,10 +93,10 @@
 	<insert id="insertMaterialWholesaler" parameterType="MaterialWholesaler" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `material_wholesaler`(
 			`id`, `material_id`, `name`, `material_group`, `material_type`, 
-			`material_category`, `description`, `wholesale_price`, `wholesaler_id`, `status`
+			`material_category`, `description`, `wholesale_price`, `company_id`, `status`
 		) VALUES (
 			#{id}, #{material_id}, #{name}, #{material_group}, #{material_type}, 
-			#{material_category}, #{description}, #{wholesale_price}, #{wholesaler_id}, #{status}
+			#{material_category}, #{description}, #{wholesale_price}, #{company_id}, #{status}
 		)
 	</insert>
 
@@ -117,7 +117,7 @@
 			<if test="material_category != null">material_category = #{material_category},</if>
 			<if test="description != null">description = #{description},</if>
 			<if test="wholesale_price != null">wholesale_price = #{wholesale_price},</if>
-			<if test="wholesaler_id != null">wholesaler_id = #{wholesaler_id},</if>
+			<if test="company_id != null">company_id = #{company_id},</if>
 			<if test="status != null">status = #{status}</if>
 		</set>
 		<where>
@@ -133,8 +133,8 @@
 	<delete id="deleteMaterialWholesalerById" parameterType="int">
 		DELETE FROM material_wholesaler WHERE id = #{0}
 	</delete>
-	<delete id="deleteMaterialWholesalerByWholesalerId" parameterType="int">
-		DELETE FROM material_wholesaler WHERE wholesaler_id = #{0}
+	<delete id="deleteMaterialWholesalerByCompanyId" parameterType="int">
+		DELETE FROM material_wholesaler WHERE company_id = #{0}
 	</delete>
 
 	<!-- // END DELETE AREA -->

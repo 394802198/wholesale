@@ -87,12 +87,12 @@ public class WholesaleRestController {
 		this.wholesaleService.createWholesaler(wholesaler);
 		
 		for (ComboWholesaler cw : cws) {
-			cw.setWholesaler_id(wholesaler.getId());
+			cw.setCompany_id(wholesaler.getCompany_id());
 			this.productService.createComboWholesaler(cw);
 		}
 		
 		for (MaterialWholesaler mw : mws) {
-			mw.setWholesaler_id(wholesaler.getId());
+			mw.setCompany_id(wholesaler.getCompany_id());
 			this.productService.createMaterialWholesaler(mw);
 		}
 		
@@ -122,12 +122,12 @@ public class WholesaleRestController {
 		List<ComboWholesaler> cws = wholesaler.getCws();
 		List<MaterialWholesaler> mws = wholesaler.getMws();
 		for (ComboWholesaler cw : cws) {
-			cw.setWholesaler_id(wholesaler.getId());
+			cw.setCompany_id(wholesaler.getCompany_id());
 			this.productService.createComboWholesaler(cw);
 		}
 		
 		for (MaterialWholesaler mw : mws) {
-			mw.setWholesaler_id(wholesaler.getId());
+			mw.setCompany_id(wholesaler.getCompany_id());
 			this.productService.createMaterialWholesaler(mw);
 		}
 		

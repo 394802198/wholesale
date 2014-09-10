@@ -28,7 +28,6 @@ public class Wholesaler implements Serializable {
 	@NotNull(groups = { WholesalerEditValidatedMark.class })
 	private Integer id;
 	private String company_name;
-	private Integer wholesaler_id;
 	@NotEmpty(groups = { WholesalerCreateValidatedMark.class, WholesalerEditValidatedMark.class })
 	@Length(min = 0, max = 20, groups = { WholesalerCreateValidatedMark.class, WholesalerEditValidatedMark.class })
 	private String name;
@@ -49,6 +48,7 @@ public class Wholesaler implements Serializable {
 	private String auth;
 	private String memo;
 	private String status;
+	private Integer company_id;
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -92,14 +92,6 @@ public class Wholesaler implements Serializable {
 
 	public void setCompany_name(String company_name) {
 		this.company_name = company_name;
-	}
-
-	public Integer getWholesaler_id() {
-		return wholesaler_id;
-	}
-
-	public void setWholesaler_id(Integer wholesaler_id) {
-		this.wholesaler_id = wholesaler_id;
 	}
 
 	public String getName() {
@@ -256,6 +248,14 @@ public class Wholesaler implements Serializable {
 
 	public void setCwMaps(Map<Integer, ComboWholesaler> cwMaps) {
 		this.cwMaps = cwMaps;
+	}
+
+	public Integer getCompany_id() {
+		return company_id;
+	}
+
+	public void setCompany_id(Integer company_id) {
+		this.company_id = company_id;
 	}
 	
 	

@@ -19,103 +19,65 @@
 			<ul class="nav navbar-nav">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						Material <b class="caret"></b>
-					</a>
-					<ul class="dropdown-menu">
-						<li>
-							<a href="javascript:void(0);" id="create_group_nav">
-								<span class="glyphicon glyphicon-plus"></span> Create Group
-							</a>
-						</li>
-						<li>
-							<a href="javascript:void(0);" id="create_type_nav">
-								<span class="glyphicon glyphicon-plus" ></span> Create type
-							</a>
-						</li>
-						<li class="divider"></li>
-						<li>
-							<a href="${ctx}/broadband-wholesale/material/create">
-								<span class="glyphicon glyphicon-plus" ></span> Create Material
-							</a>
-						</li>
-						<li>
-							<a href="${ctx}/broadband-wholesale/material-combo/view">
-								<span class="glyphicon glyphicon-list" ></span> View Material
-							</a>
-						</li>
-						<li>
-							<a href="${ctx}/broadband-wholesale/material/edit">
-								<span class="glyphicon glyphicon-plus" ></span> Modify Material
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						CRM <b class="caret"></b>
-					</a>
-					<ul class="dropdown-menu">
-						<li>
-							<a href="${ctx}/broadband-user/crm/customer/view">
-								<span class="glyphicon glyphicon-list" ></span> View Customer
-							</a>
-						</li>
-						<li>
-							<a href="${ctx}/broadband-user/crm/customer/personal/create">
-								<span class="glyphicon glyphicon-plus" ></span> Create Personal Customer
-							</a>
-						</li>
-						<li>
-							<a href="${ctx}/broadband-user/crm/customer/business/create">
-								<span class="glyphicon glyphicon-plus" ></span> Create Business Customer
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						Data <b class="caret"></b>
-					</a>
-					<ul class="dropdown-menu">
-						<li>
-	                   		<a href="${ctx }/broadband-user/data/operatre">
-	                   			<span class="glyphicon glyphicon-cloud" ></span> Data Operate
-	                   		</a>
-	                   	</li>
-	                   	<li>
-	                   		<a href="${ctx }/broadband-user/data/customer/view">
-	                   			<span class="glyphicon glyphicon-cloud" ></span> Data Customer View
-	                   		</a>
-	                   	</li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						System <b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
 						<li>
-							<a href="${ctx}/broadband-user/system/user/view/1">
-								<span class="glyphicon glyphicon-list" ></span> View User
+							<a href="${ctx}/management/system/manager/view">
+								<span class="glyphicon glyphicon-list" ></span>View Manager
 							</a>
 						</li>
 						<li>
-							<a href="${ctx}/broadband-user/system/user/create">
-								<span class="glyphicon glyphicon-plus" ></span> Create User
+							<a href="${ctx}/management/system/manager/create">
+								<span class="glyphicon glyphicon-plus" ></span>Create Manager
 							</a>
 						</li>
-						<li class="divider"></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						Product <b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
 						<li>
-							<a href="${ctx}/broadband-user/system/company-detail/edit">
-								<span class="glyphicon glyphicon-pencil" ></span> Edit Company Detail
+							<a href="${ctx}/management/product/material-combo/view">
+								<span class="glyphicon glyphicon-list" ></span>View Material & Combo
 							</a>
 						</li>
-						<li class="divider"></li>
-                    	<li>
-							<a href="${ctx}/broadband-user/system/chart/customer-register/0">
-								<span class="glyphicon glyphicon-picture" ></span> Chart(Register Customer)
+						<li>
+							<a href="${ctx}/management/product/material/create">
+								<span class="glyphicon glyphicon-plus" ></span>Create Material
 							</a>
-                    	</li>
+						</li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						Wholesale <b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="${ctx}/management/wholesale/wholesaler/view">
+								<span class="glyphicon glyphicon-list" ></span>View Wholesaler
+							</a>
+						</li>
+						<li>
+							<a href="${ctx}/management/wholesale/wholesaler/create">
+								<span class="glyphicon glyphicon-plus" ></span>Create Wholesaler
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						Provision <b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="${ctx}/management/wholesale/wholesaler/view">
+								<span class="glyphicon glyphicon-list" ></span>View Wholesaler
+							</a>
+						</li>
 					</ul>
 				</li>
 				<li class="dropdown">
@@ -124,13 +86,8 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li>
-							<a href="${ctx}/broadband-user/agent/billing/invoice/view/1/unpaid">
-								<span class="glyphicon glyphicon-list" ></span> View Invoice
-							</a>
-						</li>
-						<li>
-							<a href="${ctx}/broadband-user/agent/billing/chart/commission-statistic/0">
-								<span class="glyphicon glyphicon-list" ></span> Chart(Commission)
+							<a href="${ctx}/management/wholesale/wholesaler/view">
+								<span class="glyphicon glyphicon-list" ></span>View Wholesaler
 							</a>
 						</li>
 					</ul>
