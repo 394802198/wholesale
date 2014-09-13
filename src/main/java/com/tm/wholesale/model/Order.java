@@ -1,8 +1,10 @@
 package com.tm.wholesale.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Order implements Serializable {
@@ -48,6 +50,7 @@ public class Order implements Serializable {
 	private Date create_date;
 	private String company_name;
 	private String trade_name;
+	private String title;
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -59,6 +62,7 @@ public class Order implements Serializable {
 
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private Broadband broadband = new Broadband();
+	private List<OrderDetail> ods = new ArrayList<OrderDetail>();
 
 	/*
 	 * END RELATED PROPERTIES
@@ -367,6 +371,22 @@ public class Order implements Serializable {
 
 	public void setBroadband(Broadband broadband) {
 		this.broadband = broadband;
+	}
+
+	public List<OrderDetail> getOds() {
+		return ods;
+	}
+
+	public void setOds(List<OrderDetail> ods) {
+		this.ods = ods;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }

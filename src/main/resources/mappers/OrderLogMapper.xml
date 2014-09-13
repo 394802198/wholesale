@@ -17,13 +17,13 @@
 	<!-- DEFINITION AREA -->
 
 	<sql id="orderLogColumns">
-		ol.`id`					as ol_id,
-		ol.`operator`			as ol_operator,
+		ol.`id`				as ol_id,
+		ol.`operator`				as ol_operator,
 		ol.`status`				as ol_status,
-		ol.`status_desc`		as ol_status_desc,
-		ol.`commnet_date`		as ol_commnet_date,
-		ol.`comment`			as ol_comment,
-		ol.`order_id`			as ol_order_id
+		ol.`status_desc`				as ol_status_desc,
+		ol.`commnet_date`				as ol_commnet_date,
+		ol.`comment`				as ol_comment,
+		ol.`order_id`				as ol_order_id
 	</sql>
 
 	<resultMap type="OrderLog" id="orderLogResultMap">
@@ -84,10 +84,10 @@
 	<insert id="insertOrderLog" parameterType="OrderLog" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `order_log`(
 			`id`, `operator`, `status`, `status_desc`, `commnet_date`, 
-			`comment`, `order_id`, `params`
+			`comment`, `order_id`
 		) VALUES (
 			#{id}, #{operator}, #{status}, #{status_desc}, #{commnet_date}, 
-			#{comment}, #{order_id} 
+			#{comment}, #{order_id}
 		)
 	</insert>
 
