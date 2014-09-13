@@ -1,0 +1,20 @@
+
+<tr data-index="<.=index.>">
+	<td>
+		<select id="wholesale_detail<.=index.>" data-index="<.=index.>" class="selectpicker" data-live-search="true" title="Please Choose One">
+			<option></option>
+		<.for (var i = 0, len = wholesale_materials.length; i < len; i++) {
+			var material = wholesale_materials[i];.>
+			<option data-name="<.=material.name.>" data-wholesale_price="<.=material.wholesale_price.>"><.=material.name.></option>
+		<.}.>
+		</select>
+	</td>
+	<td>
+		<span id="wholesale_detail_price<.=index.>"></span>
+	</td>
+	<td>
+		<a href="javascript:void(0);" class="btn btn-danger btn-xs" id="wholesale_detail_delete<.=index.>" data-index="<.=index.>" data-toggle="tooltip" data-placement="bottom" data-original-title="Remove Details">
+			<span class="glyphicon glyphicon-trash"></span>
+		</a>
+	</td>
+</tr>

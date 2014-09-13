@@ -22,9 +22,11 @@
 		od.`name`				as od_name,
 		od.`desc`				as od_desc,
 		od.`price`				as od_price,
+		od.`price_enduser`		as od_price_enduser,
 		od.`material_type`		as od_material_type,
 		od.`type`				as od_type,
 		od.`status`				as od_status,
+		od.`data_flow`			as od_data_flow,
 		od.`unit`				as od_unit,
 		od.`number`				as od_number,
 		od.`password`			as od_password,
@@ -34,6 +36,8 @@
 		od.`is_post`			as od_is_post,
 		od.`expire_date`		as od_expire_date,
 		od.`manager_id`			as od_manager_id,
+		od.`is_wholesale`		as od_is_wholesale,
+		od.`is_enduser`			as od_is_enduser,
 		od.`memo`				as od_memo
 	</sql>
 
@@ -43,9 +47,11 @@
 		<result property="name" column="od_name" />
 		<result property="desc" column="od_desc" />
 		<result property="price" column="od_price" />
+		<result property="price_enduser" column="od_price_enduser" />
 		<result property="material_type" column="od_material_type" />
 		<result property="type" column="od_type" />
 		<result property="status" column="od_status" />
+		<result property="data_flow" column="od_data_flow" />
 		<result property="unit" column="od_unit" />
 		<result property="number" column="od_number" />
 		<result property="password" column="od_password" />
@@ -55,6 +61,8 @@
 		<result property="is_post" column="od_is_post" />
 		<result property="expire_date" column="od_expire_date" />
 		<result property="manager_id" column="od_manager_id" />
+		<result property="is_wholesale" column="od_is_wholesale" />
+		<result property="is_enduser" column="od_is_enduser" />
 		<result property="memo" column="od_memo" />
 	</resultMap>
 
@@ -65,9 +73,11 @@
 			<if test="params.name != null">and od.name = #{params.name}</if>
 			<if test="params.desc != null">and od.desc = #{params.desc}</if>
 			<if test="params.price != null">and od.price = #{params.price}</if>
+			<if test="params.price_enduser != null">and od.price_enduser = #{params.price_enduser}</if>
 			<if test="params.material_type != null">and od.material_type = #{params.material_type}</if>
 			<if test="params.type != null">and od.type = #{params.type}</if>
 			<if test="params.status != null">and od.status = #{params.status}</if>
+			<if test="params.data_flow != null">and od.data_flow = #{params.data_flow}</if>
 			<if test="params.unit != null">and od.unit = #{params.unit}</if>
 			<if test="params.number != null">and od.number = #{params.number}</if>
 			<if test="params.password != null">and od.password = #{params.password}</if>
@@ -77,6 +87,8 @@
 			<if test="params.is_post != null">and od.is_post = #{params.is_post}</if>
 			<if test="params.expire_date != null">and od.expire_date = #{params.expire_date}</if>
 			<if test="params.manager_id != null">and od.manager_id = #{params.manager_id}</if>
+			<if test="params.is_wholesale != null">and od.is_wholesale = #{params.is_wholesale}</if>
+			<if test="params.is_enduser != null">and od.is_enduser = #{params.is_enduser}</if>
 			<if test="params.memo != null">and od.memo = #{params.memo}</if>
 		</where>
 	</sql>
@@ -116,15 +128,15 @@
 
 	<insert id="insertOrderDetail" parameterType="OrderDetail" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `order_detail`(
-			`id`, `order_id`, `name`, `desc`, `price`, `material_type`, 
-			`type`, `status`, `unit`, `number`, `password`, 
+			`id`, `order_id`, `name`, `desc`, `price`, `price_enduser`, `material_type`, 
+			`type`, `status`, `data_flow`, `unit`, `number`, `password`, 
 			`assign_date`, `calling_mins`, `track_code`, `is_post`, `expire_date`, 
-			`manager_id`, `memo`
+			`manager_id`, `is_wholesale`, `is_enduser`, `memo`
 		) VALUES (
-			#{id}, #{order_id}, #{name}, #{desc}, #{price}, #{material_type}, 
-			#{type}, #{status}, #{unit}, #{number}, #{password}, 
+			#{id}, #{order_id}, #{name}, #{desc}, #{price}, #{price_enduser}, #{material_type}, 
+			#{type}, #{status}, #{data_flow}, #{unit}, #{number}, #{password}, 
 			#{assign_date}, #{calling_mins}, #{track_code}, #{is_post}, #{expire_date}, 
-			#{manager_id}, #{memo}
+			#{manager_id}, #{is_wholesale}, #{is_enduser}, #{memo}
 		)
 	</insert>
 
@@ -142,9 +154,11 @@
 			<if test="name != null">name = #{name},</if>
 			<if test="desc != null">desc = #{desc},</if>
 			<if test="price != null">price = #{price},</if>
+			<if test="price_enduser != null">price_enduser = #{price_enduser},</if>
 			<if test="material_type != null">material_type = #{material_type},</if>
 			<if test="type != null">type = #{type},</if>
 			<if test="status != null">status = #{status},</if>
+			<if test="data_flow != null">data_flow = #{data_flow},</if>
 			<if test="unit != null">unit = #{unit},</if>
 			<if test="number != null">number = #{number},</if>
 			<if test="password != null">password = #{password},</if>
@@ -154,6 +168,8 @@
 			<if test="is_post != null">is_post = #{is_post},</if>
 			<if test="expire_date != null">expire_date = #{expire_date},</if>
 			<if test="manager_id != null">manager_id = #{manager_id},</if>
+			<if test="is_wholesale != null">is_wholesale = #{is_wholesale},</if>
+			<if test="is_enduser != null">is_enduser = #{is_enduser},</if>
 			<if test="memo != null">memo = #{memo}</if>
 		</set>
 		<where>

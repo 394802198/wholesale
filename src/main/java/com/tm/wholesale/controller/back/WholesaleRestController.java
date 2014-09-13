@@ -1,4 +1,4 @@
-package com.tm.wholesale.controller;
+package com.tm.wholesale.controller.back;
 
 import java.util.List;
 
@@ -18,8 +18,8 @@ import com.tm.wholesale.model.JSONBean;
 import com.tm.wholesale.model.MaterialWholesaler;
 import com.tm.wholesale.model.Page;
 import com.tm.wholesale.model.Wholesaler;
-import com.tm.wholesale.service.ProductService;
-import com.tm.wholesale.service.WholesaleService;
+import com.tm.wholesale.service.back.ProductService;
+import com.tm.wholesale.service.back.WholesaleService;
 
 @RestController
 public class WholesaleRestController {

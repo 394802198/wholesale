@@ -10,7 +10,7 @@
 	
 	<ul class="nav nav-pills nav-wizard" style="">
 		<li class="active"><a href="javascript:void(0);"><span class="glyphicon glyphicon-search"></span> Check Address</a><div class="nav-arrow"></div></li>
-		<li><div class="nav-wedge"></div><a href="javascript:void(0);"><span class="glyphicon glyphicon-start"></span> Select a Combo</a><div class="nav-arrow"></div></li>
+		<li><div class="nav-wedge"></div><a href="javascript:void(0);"><span class="glyphicon glyphicon-star"></span> Select a Combo</a><div class="nav-arrow"></div></li>
 		<li><div class="nav-wedge"></div><a href="javascript:void(0);"><span class="glyphicon glyphicon-pencil"></span> Fill Customer Information</a><div class="nav-arrow"></div></li>
 		<li><div class="nav-wedge"></div><a href="javascript:void(0);"><span class="glyphicon glyphicon-eye-open"></span> Review Order</a></li>
 	</ul>
@@ -20,28 +20,23 @@
 		Address Verification Matches
 	</h2>
 	
-	
-	<form action="">
-	
 	<div class="row" style="margin-top:30px;">
 		<div class="col-md-6">
 		
+			<form action="">
 			
 			<div class="input-group">
 				<input id="address" value="" type="text" class="form-control input-lg" placeholder="Put address here" /> 
 				<span class="input-group-btn">
-					
-					<button class="btn btn-success btn-lg ladda-button" data-style="zoom-in" type="submit" id="goCheck">
+					<button class="btn btn-info btn-lg ladda-button" data-style="zoom-in" type="submit" id="goCheck">
 						<span class="ladda-label glyphicon glyphicon-search"></span>
 					</button>
-					</form>
 				</span>
 			</div>
 			
+			</form>
 		</div>
 	</div>
-	
-	</form>
 	
 	<div id="address-check-result" style="min-height:600px;margin-top:15px;"></div>
 	

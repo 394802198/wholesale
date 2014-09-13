@@ -13,17 +13,17 @@
 				$('#address-check-result').html(tmpl('address_check_result_tmpl', broadband));
 				if (broadband.adsl_available) { //alert('adsl');
 					$('#adsl').click(function(){
-						window.location.href = ctx + '';
+						window.location.href = ctx + '/order/select-combo/adsl';
 					});
 				}
 				if (broadband.vdsl_available) {
 					$('#vdsl').click(function(){ //alert('vdsl');
-						window.location.href = ctx + '';
+						window.location.href = ctx + '/order/select-combo/vdsl';
 					});
 				}
 				if (broadband.ufb_available) {
 					$('#ufb').click(function(){ //alert('ufb');
-						window.location.href = ctx + '/';
+						window.location.href = ctx + '/order/select-combo/ufb';
 					});
 				}
 		   	}).always(function(){ l.stop(); });

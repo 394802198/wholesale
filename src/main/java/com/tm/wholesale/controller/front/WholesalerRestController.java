@@ -1,4 +1,4 @@
-package com.tm.wholesale.controller;
+package com.tm.wholesale.controller.front;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tm.wholesale.model.JSONBean;
 import com.tm.wholesale.model.Page;
 import com.tm.wholesale.model.Wholesaler;
-import com.tm.wholesale.service.WholesalerService;
-
+import com.tm.wholesale.service.back.WholesalerService;
 import com.tm.wholesale.validation.ManagerLoginValidatedMark;
 import com.tm.wholesale.validation.WholesalerChangePasswordValidatedMark;
 import com.tm.wholesale.validation.WholesalerCreateValidatedMark;

@@ -1,0 +1,18 @@
+<div class="row">
+	<div class="col-md-5">
+		<table class="table">
+			<tr>
+				<td>Total Before GST</td>
+				<td><span id="total_before_gst"><.=total_before_gst.toFixed(2).></span></td>
+			</tr>
+			<tr>
+				<td>GST at 15%</td>
+				<td><span id="gst"><.=(total_before_gst * 0.15).toFixed(2).></span></td>
+			</tr>
+			<tr>
+				<td><strong>Order Total</strong></td>
+				<td><strong><span id="order_total" class="text-success"><.=(total_before_gst * 1.15).toFixed(2).></span></strong></td>
+			</tr>
+		</table>
+	</div>
+</div>

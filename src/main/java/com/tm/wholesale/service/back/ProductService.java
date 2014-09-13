@@ -1,4 +1,4 @@
-package com.tm.wholesale.service;
+package com.tm.wholesale.service.back;
 
 import java.util.List;
 
@@ -285,6 +285,28 @@ public class ProductService {
 	
 	public List<ComboWholesaler> queryComboWholesalers(ComboWholesaler cw){
 		return this.comboWholesalerMapper.selectComboWholesalers(cw);
+	}
+	
+	@Transactional
+	public List<ComboWholesaler> queryComboWholesalersWithMaterialWholesalers(int company_id){
+		ComboWholesaler cw = new ComboWholesaler();
+		cw.getParams().put("company_id", company_id);
+		List<ComboWholesaler> combos = this.comboWholesalerMapper.selectComboWholesalers(cw);
+		MaterialWholesaler mw = new MaterialWholesaler();
+		mw.getParams().put("company_id", company_id);
+		List<MaterialWholesaler> materials = this.materialWholesalerMapper.selectMaterialWholesalers(mw);
+		
+		if (combos != null && combos.size() > 0
+				&& materials != null && materials.size() > 0) {
+			for (ComboWholesaler combo : combos) {
+				for (MaterialWholesaler material : materials) {
+					if (combo.getMaterial_ids().contains(String.valueOf(material.getMaterial_id()))) {
+						combo.getMaterials().add(material);
+					}
+				}
+			}
+		}
+		return combos;
 	}
 	
 	public Page<ComboWholesaler> queryComboWholesalersByPage(Page<ComboWholesaler> page){
