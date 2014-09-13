@@ -1,4 +1,4 @@
-package com.tm.wholesale.controller;
+package com.tm.wholesale.controller.back;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import com.tm.wholesale.model.ComboWholesaler;
 import com.tm.wholesale.model.Material;
 import com.tm.wholesale.model.MaterialWholesaler;
 import com.tm.wholesale.model.Wholesaler;
-import com.tm.wholesale.service.ProductService;
-import com.tm.wholesale.service.WholesaleService;
+import com.tm.wholesale.service.back.ProductService;
+import com.tm.wholesale.service.back.WholesaleService;
 
 @Controller
 public class WholesaleController {
@@ -54,7 +54,7 @@ public class WholesaleController {
 		wholesaler = this.wholesaleService.queryWholesalers(wholesaler).get(0);
 		
 		MaterialWholesaler mwQuery = new MaterialWholesaler();
-		mwQuery.getParams().put("wholesaler_id", id);
+		mwQuery.getParams().put("company_id", id);
 		List<MaterialWholesaler> mws = this.productService.queryMaterialWholesalers(mwQuery);
 		String[] midArr = new String[mws.size()];
 		for (int i = 0; i < midArr.length; i++) {
@@ -64,7 +64,7 @@ public class WholesaleController {
 		wholesaler.setMidArr(midArr);
 		
 		ComboWholesaler cwQuery = new ComboWholesaler();
-		cwQuery.getParams().put("wholesaler_id", id);
+		cwQuery.getParams().put("company_id", id);
 		List<ComboWholesaler> cws = this.productService.queryComboWholesalers(cwQuery);
 		
 		String[] cidArr = new String[cws.size()];

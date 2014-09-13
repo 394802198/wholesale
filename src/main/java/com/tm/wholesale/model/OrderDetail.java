@@ -18,9 +18,11 @@ public class OrderDetail implements Serializable {
 	private String name;
 	private String desc;
 	private Double price;
+	private Double price_enduser;
 	private String material_type;
 	private String type;
 	private String status;
+	private Long data_flow;
 	private Integer unit;
 	private String number;
 	private String password;
@@ -30,6 +32,8 @@ public class OrderDetail implements Serializable {
 	private Boolean is_post;
 	private Date expire_date;
 	private Integer manager_id;
+	private Boolean is_wholesale;
+	private Boolean is_enduser;
 	private String memo;
 
 	/*
@@ -203,6 +207,38 @@ public class OrderDetail implements Serializable {
 
 	public void setOrder_id(Integer order_id) {
 		this.order_id = order_id;
+	}
+
+	public Double getPrice_enduser() {
+		return price_enduser;
+	}
+
+	public void setPrice_enduser(Double price_enduser) {
+		this.price_enduser = price_enduser;
+	}
+
+	public Boolean getIs_wholesale() {
+		return is_wholesale;
+	}
+
+	public void setIs_wholesale(Boolean is_wholesale) {
+		this.is_wholesale = is_wholesale;
+	}
+
+	public Boolean getIs_enduser() {
+		return is_enduser;
+	}
+
+	public void setIs_enduser(Boolean is_enduser) {
+		this.is_enduser = is_enduser;
+	}
+
+	public Long getData_flow() {
+		return data_flow;
+	}
+
+	public void setData_flow(Long data_flow) {
+		this.data_flow = data_flow;
 	}
 
 }

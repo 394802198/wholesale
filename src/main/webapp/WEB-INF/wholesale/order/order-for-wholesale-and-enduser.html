@@ -1,0 +1,81 @@
+<div class="panel panel-info">
+	<div class="panel-body">
+		<div class="row">
+		
+			<!-- Order For Wholesale -->
+			<div class="col-md-6">
+				<h2 class="text-info">Order For Wholesale</h2>
+				<hr>
+				<h4 class="text-primary"><.=selected_combo.name.></h4>
+				<.if (wholesale_original_details != null && wholesale_original_details.length > 0) {.>
+				<table class="table" id="order_for_wholesale_table">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Price(Excl. GST)</th>
+							<th>&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+					<.for(var i = 0, len = wholesale_original_details.length; i < len; i++) {
+						var detail = wholesale_original_details[i];.>
+						<tr>
+							<td><.=detail.name.></td>
+							<td>$ <.=detail.wholesale_price.toFixed(2).></td>
+							<td>&nbsp;</td>
+						</tr>
+					<.}.>
+					
+					<. 
+					if (wholesale_addons_details != null && wholesale_addons_details.length > 0) {
+						for(var i = 0, len = wholesale_addons_details.length; i < len; i++) {
+							var detail = wholesale_addons_details[i];.>
+						<tr>
+							<td>
+								<select id="whole_detail<.=detail.index.>" data-index="<.=detail.index.>" class="selectpicker" data-live-search="true" title="Please Choose One">
+									<option></option>
+								<.for (var i = 0, len = wholesale_materials.length; i < len; i++) {
+									var material = wholesale_materials[i];.>
+									<option data-name="<.=material.name.>" data-wholesale_price="<.=material.wholesale_price.>"><.=material.name.></option>
+								<.}.>
+								</select>
+							</td>
+							<td><span id="whole_detail_pirce<.=index.>"></span></td>
+							<td>
+								<a href="javascript:void(0);" class="btn btn-danger btn-xs" id="whole_detail_delete<.=detail.index.>" data-toggle="tooltip" data-placement="bottom" data-original-title="Remove Details">
+									<span class="glyphicon glyphicon-trash"></span>
+								</a>
+							</td>
+						</tr>
+					<.	}
+					}.>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="20">
+								<a href="javascript:void(0);" id="order_for_wholesale_add_detail" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="bottom" data-original-title="Add Details">
+									<span class="glyphicon glyphicon-plus"></span>
+								</a>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				
+				<div id="wholesale-order-detail-total"></div>
+				
+				<.} else {.>
+				<div class="alert alert-warning">No records have been found.</div>
+				<.}.>
+			</div>
+			
+			
+			<!-- Order For End-User -->
+			<div class="col-md-6">
+				<h2 class="text-info">Order For End-User</h2>
+				<hr>
+				<h4 class="text-primary"><.=selected_combo.name.></h4>
+				
+			</div>
+		</div>
+	</div>
+</div>

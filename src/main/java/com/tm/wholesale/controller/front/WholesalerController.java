@@ -1,4 +1,4 @@
-package com.tm.wholesale.controller;
+package com.tm.wholesale.controller.front;
 
 import javax.servlet.http.HttpSession;
 

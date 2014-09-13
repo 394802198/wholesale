@@ -1,4 +1,4 @@
-package com.tm.wholesale.controller;
+package com.tm.wholesale.controller.back;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import com.tm.wholesale.model.MaterialCategory;
 import com.tm.wholesale.model.MaterialGroup;
 import com.tm.wholesale.model.MaterialType;
 import com.tm.wholesale.model.Wholesaler;
-import com.tm.wholesale.service.ProductService;
-import com.tm.wholesale.service.WholesaleService;
+import com.tm.wholesale.service.back.ProductService;
+import com.tm.wholesale.service.back.WholesaleService;
 
 @Controller
 public class ProductController {

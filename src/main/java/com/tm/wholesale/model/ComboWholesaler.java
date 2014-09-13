@@ -1,7 +1,9 @@
 package com.tm.wholesale.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ComboWholesaler implements Serializable {
@@ -29,6 +31,7 @@ public class ComboWholesaler implements Serializable {
 	 */
 
 	private Map<String, Object> params = new HashMap<String, Object>();
+	private List<MaterialWholesaler> materials = new ArrayList<MaterialWholesaler>();
 
 	/*
 	 * END RELATED PROPERTIES
@@ -100,5 +103,13 @@ public class ComboWholesaler implements Serializable {
 
 	public void setParams(Map<String, Object> params) {
 		this.params = params;
+	}
+
+	public List<MaterialWholesaler> getMaterials() {
+		return materials;
+	}
+
+	public void setMaterials(List<MaterialWholesaler> materials) {
+		this.materials = materials;
 	}
 }

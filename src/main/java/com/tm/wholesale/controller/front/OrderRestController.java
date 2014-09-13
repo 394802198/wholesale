@@ -1,22 +1,32 @@
-package com.tm.wholesale.controller;
+package com.tm.wholesale.controller.front;
 
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tm.wholesale.model.Broadband;
 import com.tm.wholesale.model.Combo;
+import com.tm.wholesale.model.ComboWholesaler;
+import com.tm.wholesale.model.MaterialWholesaler;
 import com.tm.wholesale.model.Order;
+import com.tm.wholesale.model.Wholesaler;
+import com.tm.wholesale.service.back.ProductService;
 import com.tm.wholesale.util.broadband.BroadbandCapability;
 
 @RestController
 public class OrderRestController {
+	
+	private ProductService productService;
 
-	public OrderRestController() {}
+	@Autowired
+	public OrderRestController(ProductService productService) {
+		this.productService = productService;
+	}
 	
 	@RequestMapping("/order/check-address/{address}")
 	public Broadband checkAddress(@PathVariable("address") String address,
@@ -59,8 +69,24 @@ public class OrderRestController {
 	}
 	
 	@RequestMapping("/order/select-combo/combo-loading")
-	public List<Combo> orderComboLoading(HttpSession session) {
-		return null;
+	public List<ComboWholesaler> orderComboLoading(HttpSession session) {
+		
+		Wholesaler wholesalerSession = (Wholesaler) session.getAttribute("wholesalerSession");
+		
+		return this.productService.queryComboWholesalersWithMaterialWholesalers(wholesalerSession.getCompany_id());
+	}
+	
+	@RequestMapping("/order/select-combo/material-loading")
+	public List<MaterialWholesaler> orderMaterialLoading(HttpSession session) {
+		
+		Wholesaler wholesalerSession = (Wholesaler) session.getAttribute("wholesalerSession");
+		
+		MaterialWholesaler mw = new MaterialWholesaler();
+		mw.getParams().put("company_id", wholesalerSession.getCompany_id());
+		
+		List<MaterialWholesaler> materials = this.productService.queryMaterialWholesalers(mw);
+		
+		return materials;
 	}
 
 }

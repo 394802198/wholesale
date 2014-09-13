@@ -17,7 +17,7 @@
 	<import resource="datasource-config.xml" />
 
 	<!-- scanning package -->
-	<context:component-scan base-package="com.tm.wholesale.service" />
+	<context:component-scan base-package="com.tm.wholesale.service.*" />
 	
 	<!-- enable aop with @Aspect -->
 	<aop:aspectj-autoproxy />

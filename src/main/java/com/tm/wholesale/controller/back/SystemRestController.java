@@ -1,4 +1,4 @@
-package com.tm.wholesale.controller;
+package com.tm.wholesale.controller.back;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.tm.wholesale.model.JSONBean;
 import com.tm.wholesale.model.Manager;
 import com.tm.wholesale.model.Page;
-import com.tm.wholesale.service.SystemService;
+import com.tm.wholesale.service.back.SystemService;
 import com.tm.wholesale.validation.ManagerLoginValidatedMark;
 
 @RestController
