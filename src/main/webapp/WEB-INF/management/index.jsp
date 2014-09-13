@@ -80,6 +80,10 @@
 				</div>
 				<div class="panel-body">
 					<ul class="list-unstyled">
+						<li>
+							<span class="glyphicon glyphicon-list"></span>&nbsp;
+							<a href="${ctx }/management/provision/view">View Provision</a>
+						</li>
 					</ul>
 				</div>
 			</div>

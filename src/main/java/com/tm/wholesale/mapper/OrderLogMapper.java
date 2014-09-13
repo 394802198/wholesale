@@ -8,6 +8,13 @@ import com.tm.wholesale.model.Page;
 
 public interface OrderLogMapper {
 
+/**
+ * mapping order_log, orderLog DAO component
+ * 
+ * @author Total Mobile Solution
+ * 
+  */
+
 	/* SELECT AREA */
 
 	List<OrderLog> selectOrderLogs(OrderLog ol);

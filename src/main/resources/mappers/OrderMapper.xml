@@ -51,7 +51,8 @@
 		o.`mobile`								as o_mobile,
 		o.`create_date`							as o_create_date,
 		o.`company_name`						as o_company_name,
-		o.`trade_name`							as o_trade_name
+		o.`trade_name`							as o_trade_name,
+		o.`title`								as o_title
 	</sql>
 
 	<resultMap type="Order" id="orderResultMap">
@@ -90,6 +91,7 @@
 		<result property="create_date" column="o_create_date" />
 		<result property="company_name" column="o_company_name" />
 		<result property="trade_name" column="o_trade_name" />
+		<result property="title" column="o_title" />
 	</resultMap>
 
 	<sql id="orderWhere">
@@ -129,6 +131,7 @@
 			<if test="params.create_date != null">and o.create_date = #{params.create_date}</if>
 			<if test="params.company_name != null">and o.company_name = #{params.company_name}</if>
 			<if test="params.trade_name != null">and o.trade_name = #{params.trade_name}</if>
+			<if test="params.title != null">and o.title = #{params.title}</if>
 		</where>
 	</sql>
 
@@ -173,7 +176,7 @@
 			`pppoe_loginname`, `pppoe_password`, `order_pdf_path`, `memo`, `broadband_asid`, 
 			`rfs_date`, `disconnected_date`, `preferred_connection_date`, `previous_provider_invoice`, `next_invoice_create_date`, 
 			`next_invoice_create_date_flag`, `first_name`, `last_name`, `address`, `email`, 
-			`phone`, `mobile`, `create_date`, `company_name`, `trade_name`
+			`phone`, `mobile`, `create_date`, `company_name`, `trade_name`, `title`
 		) VALUES (
 			#{id}, #{company_id}, #{wholesaler_id}, #{manager_id}, #{total_price}, 
 			#{inservice_date}, #{status}, #{customer_type}, #{broadband_type}, #{transition_provider_name}, 
@@ -181,7 +184,7 @@
 			#{pppoe_loginname}, #{pppoe_password}, #{order_pdf_path}, #{memo}, #{broadband_asid}, 
 			#{rfs_date}, #{disconnected_date}, #{preferred_connection_date}, #{previous_provider_invoice}, #{next_invoice_create_date}, 
 			#{next_invoice_create_date_flag}, #{first_name}, #{last_name}, #{address}, #{email}, 
-			#{phone}, #{mobile}, #{create_date}, #{company_name}, #{trade_name}
+			#{phone}, #{mobile}, #{create_date}, #{company_name}, #{trade_name}, `title`
 		)
 	</insert>
 
@@ -228,7 +231,8 @@
 			<if test="mobile != null">mobile = #{mobile},</if>
 			<if test="create_date != null">create_date = #{create_date},</if>
 			<if test="company_name != null">company_name = #{company_name},</if>
-			<if test="trade_name != null">trade_name = #{trade_name}</if>
+			<if test="trade_name != null">trade_name = #{trade_name},</if>
+			<if test="title != null">title = #{title}</if>
 		</set>
 		<where>
 			<if test="params.id != null">id = #{params.id}</if>
