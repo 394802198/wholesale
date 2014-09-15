@@ -17,21 +17,23 @@
 	<!-- DEFINITION AREA -->
 
 	<sql id="materialWholesalerColumns">
-		mw.`id`				as mw_id,
-		mw.`material_id`				as mw_material_id,
-		mw.`name`				as mw_name,
-		mw.`material_group`				as mw_material_group,
-		mw.`material_type`				as mw_material_type,
-		mw.`material_category`				as mw_material_category,
-		mw.`description`				as mw_description,
-		mw.`wholesale_price`				as mw_wholesale_price,
+		mw.`id`						as mw_id,
+		mw.`material_id`			as mw_material_id,
+		mw.`suitable`				as mw_suitable,
+		mw.`name`					as mw_name,
+		mw.`material_group`			as mw_material_group,
+		mw.`material_type`			as mw_material_type,
+		mw.`material_category`		as mw_material_category,
+		mw.`description`			as mw_description,
+		mw.`wholesale_price`		as mw_wholesale_price,
 		mw.`company_id`				as mw_company_id,
-		mw.`status`				as mw_status,
+		mw.`status`					as mw_status,
 	</sql>
 
 	<resultMap type="MaterialWholesaler" id="materialWholesalerResultMap">
 		<id property="id" column="mw_id" />
 		<result property="material_id" column="mw_material_id" />
+		<result property="suitable" column="mw_suitable" />
 		<result property="name" column="mw_name" />
 		<result property="material_group" column="mw_material_group" />
 		<result property="material_type" column="mw_material_type" />
@@ -46,6 +48,7 @@
 		<where>
 			<if test="params.id != null">mw.id = #{params.id}</if>
 			<if test="params.material_id != null">and mw.material_id = #{params.material_id}</if>
+			<if test="params.suitable != null">and mw.suitable = #{params.suitable}</if>
 			<if test="params.name != null">and mw.name = #{params.name}</if>
 			<if test="params.material_group != null">and mw.material_group = #{params.material_group}</if>
 			<if test="params.material_type != null">and mw.material_type = #{params.material_type}</if>
@@ -92,10 +95,10 @@
 
 	<insert id="insertMaterialWholesaler" parameterType="MaterialWholesaler" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `material_wholesaler`(
-			`id`, `material_id`, `name`, `material_group`, `material_type`, 
+			`id`, `material_id`, `suitable`, `name`, `material_group`, `material_type`, 
 			`material_category`, `description`, `wholesale_price`, `company_id`, `status`
 		) VALUES (
-			#{id}, #{material_id}, #{name}, #{material_group}, #{material_type}, 
+			#{id}, #{material_id}, #{suitable}, #{name}, #{material_group}, #{material_type}, 
 			#{material_category}, #{description}, #{wholesale_price}, #{company_id}, #{status}
 		)
 	</insert>
@@ -111,6 +114,7 @@
 		update material_wholesaler
 		<set>
 			<if test="material_id != null">material_id = #{material_id},</if>
+			<if test="suitable != null">suitable = #{suitable},</if>
 			<if test="name != null">name = #{name},</if>
 			<if test="material_group != null">material_group = #{material_group},</if>
 			<if test="material_type != null">material_type = #{material_type},</if>

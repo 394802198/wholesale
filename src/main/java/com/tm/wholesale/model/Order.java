@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.tm.wholesale.util.TMUtils;
+
 public class Order implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -18,6 +20,7 @@ public class Order implements Serializable {
 	private Integer id;
 	private Integer company_id;
 	private Integer wholesaler_id;
+	private String wholesaler_company_name;
 	private Integer manager_id;
 	private Double total_price;
 	private Date inservice_date;
@@ -51,6 +54,7 @@ public class Order implements Serializable {
 	private String company_name;
 	private String trade_name;
 	private String title;
+	private Integer hardware_post;
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -59,6 +63,9 @@ public class Order implements Serializable {
 	/*
 	 * RELATED PROPERTIES
 	 */
+
+	private String create_date_str;
+	private String inservice_date_str;
 
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private Broadband broadband = new Broadband();
@@ -387,6 +394,40 @@ public class Order implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getWholesaler_company_name() {
+		return wholesaler_company_name;
+	}
+
+	public void setWholesaler_company_name(String wholesaler_company_name) {
+		this.wholesaler_company_name = wholesaler_company_name;
+	}
+
+	public Integer getHardware_post() {
+		return hardware_post;
+	}
+
+	public void setHardware_post(Integer hardware_post) {
+		this.hardware_post = hardware_post;
+	}
+
+	public String getCreate_date_str() {
+		this.setCreate_date_str(TMUtils.dateFormatYYYYMMDD(this.getCreate_date()));
+		return create_date_str;
+	}
+
+	public void setCreate_date_str(String create_date_str) {
+		this.create_date_str = create_date_str;
+	}
+
+	public String getInservice_date_str() {
+		this.setInservice_date_str(TMUtils.dateFormatYYYYMMDD(this.getInservice_date()));
+		return inservice_date_str;
+	}
+
+	public void setInservice_date_str(String inservice_date_str) {
+		this.inservice_date_str = inservice_date_str;
 	}
 
 }

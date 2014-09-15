@@ -1,0 +1,111 @@
+<div class="panel-heading">
+	<h4 class="panel-title">Provision View</h4>
+</div>
+
+<div class="panel-body">
+	<div class="btn-group">
+	  <button data-name="query_order" data-status="pending" type="button" class="btn btn-default <.= orderStatus=='pending' ? 'active' : '' .>">
+	  	Pending <span class="badge">1</span>
+	  </button>
+	  <button data-name="query_order" data-status="processing" type="button" class="btn btn-default <.= orderStatus=='processing' ? 'active' : '' .>">
+	  	Processing <span class="badge">1</span>
+	  </button>
+	  <button data-name="query_order" data-status="reconnection" type="button" class="btn btn-default <.= orderStatus=='reconnection' ? 'active' : '' .>">
+	  	Reconnection <span class="badge">1</span>
+	  </button>
+	  <button data-name="query_order" data-status="rfs" type="button" class="btn btn-default <.= orderStatus=='rfs' ? 'active' : '' .>">
+	  	RFS <span class="badge">1</span>
+	  </button>
+	  <button data-name="query_order" data-status="in-service" type="button" class="btn btn-default <.= orderStatus=='in-service' ? 'active' : '' .>">
+	  	In Service <span class="badge">1</span>
+	  </button>
+	  <button data-name="query_order" data-status="suspend" type="button" class="btn btn-default <.= orderStatus=='suspend' ? 'active' : '' .>">
+	  	Suspend <span class="badge">1</span>
+	  </button>
+	  <button data-name="query_order" data-status="disconnected" type="button" class="btn btn-default <.= orderStatus=='disconnected' ? 'active' : '' .>">
+	  	Disconnected <span class="badge">1</span>
+	  </button>
+	  <button data-name="query_order" data-status="void" type="button" class="btn btn-default <.= orderStatus=='void' ? 'active' : '' .>">
+	  	Void <span class="badge">1</span>
+	  </button>
+	  <button data-name="query_order" data-status="cancel" type="button" class="btn btn-default <.= orderStatus=='cancel' ? 'active' : '' .>">
+	  	Cancel <span class="badge">1</span>
+	  </button>
+	</div>
+</div>
+
+<. if(results.length > 0) { .>
+<table class="table" style="font-size:12px;">
+	<thead>
+		<tr>
+			<th><input type="checkbox" id="checkbox_getProvisionPages_top" /></th>
+			<th>Order ID</th>
+			<th>Customer Name</th>
+			<th>Order Total ($)</th>
+			<th>Create Date</th>
+			<th>Status</th>
+			<th>Broadband Type</th>
+			<th>Service Giving</th>
+			<th>Wholesale Company</th>
+			<th>Post</th>
+		</tr>
+	</thead>
+	<tbody>
+	<. for (var i=0; i < results.length; i++) { 
+		var o = results[i];
+		var totalPrice = Number(o.total_price);
+	.>
+		<tr>
+			<td>
+				<input type="checkbox" name="checkbox_getProvisionPages" value="<.= o.id .>"/>
+			</td>
+			<td>
+				<.= o.id .>
+			</td>
+			<td>
+				<.= o.first_name +' '+ o.last_name .>
+			</td>
+			<td>
+				<.= totalPrice.toFixed(2) .>
+			</td>
+			<td>
+				<.= o.create_date_str .>
+			</td>
+			<td>
+				<.= o.status .>
+			</td>
+			<td>
+				<.= o.broadband_type .>
+			</td>
+			<td>
+				<.= o.inservice_date_str .>
+			</td>
+			<td>
+				<.= o.wholesaler_company_name .>
+			</td>
+			<td>
+				<.= o.hardware_post .>
+			</td>
+		</tr>
+	<. }.>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="11">
+				<ul class="pagination">
+					<. for (var i = 1; i <= totalPage; i++) { .>
+						<li class="<.=pageNo == i ? 'active' : ''.>">
+							<a href="javascript:void(0);" data-pageNo="<.=i.>"><.=i.></a>
+						</li>
+					<. }.>
+				</ul>
+			</td>
+		</tr>
+	</tfoot>
+</table>
+
+<.} else {.>
+<div class="panel-body">
+	<div class="alert alert-warning">No records have been found.</div>
+</div>
+<. } .>

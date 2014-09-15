@@ -14,6 +14,7 @@ public class MaterialWholesaler implements Serializable {
 
 	private Integer id;
 	private Integer material_id;
+	private String suitable;
 	private String name;
 	private String material_group;
 	private String material_type;
@@ -43,6 +44,14 @@ public class MaterialWholesaler implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getSuitable() {
+		return suitable;
+	}
+
+	public void setSuitable(String suitable) {
+		this.suitable = suitable;
 	}
 
 	public String getName() {

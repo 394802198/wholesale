@@ -47,6 +47,12 @@
 						<h4 class="text-success">Essential Detail</h4>
 						<hr />
 						<div class="form-group">
+							<label for="suitable" class="control-label col-md-2">Suitable</label>
+							<div class="col-md-2">
+								<input type="text" name="suitable" placeholder="e.g. adsl,vdsl,ufb" value="${m.suitable}" class="form-control input-sm"/>
+							</div>
+						</div>
+						<div class="form-group">
 							<label for="material_group" class="control-label col-md-2">Group</label>
 							<div class="col-md-2">
 								<select name="material_group" class="form-control input-sm">
@@ -257,6 +263,7 @@
 		$('#createUpdateMaterialModal').modal('show');
 	});
 	$('#create_update_material_btn').click(function(){
+		var suitable = $('input[name="suitable"]').val();
 		var name = $('input[name="name"]').val();
 		console.log(name);
 		var material_group = $('select[name="material_group"]').find('option:selected').text();
@@ -272,6 +279,7 @@
 		
 		var data = {
 			'id':${m.id}+'',
+			'suitable':suitable,
 			'name':name,
 			'material_group':material_group,
 			'material_type':material_type,

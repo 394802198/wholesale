@@ -11,12 +11,12 @@ import com.tm.wholesale.model.Manager;
 import com.tm.wholesale.model.Page;
 
 @Service
-public class SystemService {
+public class SystemServiceBack {
 	
 	private ManagerMapper managerMapper;
 
 	@Autowired
-	public SystemService(ManagerMapper managerMapper) {
+	public SystemServiceBack(ManagerMapper managerMapper) {
 		this.managerMapper = managerMapper;
 	}
 	

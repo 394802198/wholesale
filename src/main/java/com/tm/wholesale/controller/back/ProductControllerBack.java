@@ -14,17 +14,17 @@ import com.tm.wholesale.model.MaterialCategory;
 import com.tm.wholesale.model.MaterialGroup;
 import com.tm.wholesale.model.MaterialType;
 import com.tm.wholesale.model.Wholesaler;
-import com.tm.wholesale.service.back.ProductService;
-import com.tm.wholesale.service.back.WholesaleService;
+import com.tm.wholesale.service.back.ProductServiceBack;
+import com.tm.wholesale.service.back.WholesaleServiceBack;
 
 @Controller
-public class ProductController {
+public class ProductControllerBack {
 
-	private ProductService productService;
-	private WholesaleService wholesaleService;
+	private ProductServiceBack productService;
+	private WholesaleServiceBack wholesaleService;
 
 	@Autowired
-	public ProductController(ProductService productService, WholesaleService wholesaleService) {
+	public ProductControllerBack(ProductServiceBack productService, WholesaleServiceBack wholesaleService) {
 		this.productService = productService;
 		this.wholesaleService = wholesaleService;
 	}

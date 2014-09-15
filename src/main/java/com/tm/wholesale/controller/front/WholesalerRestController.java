@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tm.wholesale.model.JSONBean;
 import com.tm.wholesale.model.Page;
 import com.tm.wholesale.model.Wholesaler;
-import com.tm.wholesale.service.back.WholesalerService;
+import com.tm.wholesale.service.back.WholesalerServiceBack;
 import com.tm.wholesale.validation.ManagerLoginValidatedMark;
 import com.tm.wholesale.validation.WholesalerChangePasswordValidatedMark;
 import com.tm.wholesale.validation.WholesalerCreateValidatedMark;
@@ -23,10 +23,10 @@ import com.tm.wholesale.validation.WholesalerLoginValidatedMark;
 @RestController
 public class WholesalerRestController {
 	
-	private WholesalerService wholesalerService;
+	private WholesalerServiceBack wholesalerService;
 	
 	@Autowired
-	public WholesalerRestController(WholesalerService wholesalerService) {
+	public WholesalerRestController(WholesalerServiceBack wholesalerService) {
 		this.wholesalerService = wholesalerService;
 	}
 	
