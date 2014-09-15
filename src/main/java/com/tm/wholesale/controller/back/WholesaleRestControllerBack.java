@@ -18,18 +18,18 @@ import com.tm.wholesale.model.JSONBean;
 import com.tm.wholesale.model.MaterialWholesaler;
 import com.tm.wholesale.model.Page;
 import com.tm.wholesale.model.Wholesaler;
-import com.tm.wholesale.service.back.ProductService;
-import com.tm.wholesale.service.back.WholesaleService;
+import com.tm.wholesale.service.back.ProductServiceBack;
+import com.tm.wholesale.service.back.WholesaleServiceBack;
 
 @RestController
-public class WholesaleRestController {
+public class WholesaleRestControllerBack {
 	
-	private WholesaleService wholesaleService;
-	private ProductService productService;
+	private WholesaleServiceBack wholesaleService;
+	private ProductServiceBack productService;
 
 	@Autowired
-	public WholesaleRestController(WholesaleService wholesaleService,
-			ProductService productService) {
+	public WholesaleRestControllerBack(WholesaleServiceBack wholesaleService,
+			ProductServiceBack productService) {
 		this.wholesaleService = wholesaleService;
 		this.productService = productService;
 	}

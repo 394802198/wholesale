@@ -15,16 +15,16 @@ import com.tm.wholesale.model.ComboWholesaler;
 import com.tm.wholesale.model.MaterialWholesaler;
 import com.tm.wholesale.model.Order;
 import com.tm.wholesale.model.Wholesaler;
-import com.tm.wholesale.service.back.ProductService;
+import com.tm.wholesale.service.back.ProductServiceBack;
 import com.tm.wholesale.util.broadband.BroadbandCapability;
 
 @RestController
 public class OrderRestController {
 	
-	private ProductService productService;
+	private ProductServiceBack productService;
 
 	@Autowired
-	public OrderRestController(ProductService productService) {
+	public OrderRestController(ProductServiceBack productService) {
 		this.productService = productService;
 	}
 	

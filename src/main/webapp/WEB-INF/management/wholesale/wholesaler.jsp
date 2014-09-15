@@ -92,7 +92,7 @@
 									<tr>
 										<td>
 										<label>
-											<form:checkbox id="${m.id}" path="midArr" data-material="true" value="${m.id}" data-m-name="${m.name}" data-material-group="${m.material_group}" data-material-type="${m.material_type}" data-material-category="${m.material_category}" data-name="checkbox_ms" data-category-type="checkbox_${mc}" data-type="checkbox_material" /> ${wholesaler.mwMaps[m.id].name!=null ? wholesaler.mwMaps[m.id].name : m.name}
+											<form:checkbox id="${m.id}" path="midArr" data-material="true" value="${m.id}" data-m-suitable="${m.suitable}" data-m-name="${m.name}" data-material-group="${m.material_group}" data-material-type="${m.material_type}" data-material-category="${m.material_category}" data-name="checkbox_ms" data-category-type="checkbox_${mc}" data-type="checkbox_material" /> ${wholesaler.mwMaps[m.id].name!=null ? wholesaler.mwMaps[m.id].name : m.name}
 										</label>
 										</td>
 										<td><input class="form-control" data-name="m_description_${m.id}" value="${wholesaler.mwMaps[m.id].description!=null  ? wholesaler.mwMaps[m.id].description : m.description}"/></td>
@@ -270,6 +270,7 @@
 			var m = $(this);
 			var mData = {
 				material_id:this.id,
+				suitable: m.attr('data-m-suitable'),
 				name: m.attr('data-m-name'),
 				material_group: m.attr('data-material-group'),
 				material_type: m.attr('data-material-type'),

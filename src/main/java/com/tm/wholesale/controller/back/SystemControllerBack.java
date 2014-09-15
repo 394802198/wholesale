@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tm.wholesale.model.Manager;
-import com.tm.wholesale.service.back.SystemService;
+import com.tm.wholesale.service.back.SystemServiceBack;
 
 @Controller
-public class SystemController {
+public class SystemControllerBack {
 	
-	private SystemService systemService;
+	private SystemServiceBack systemService;
 
 	@Autowired
-	public SystemController(SystemService systemService) {
+	public SystemControllerBack(SystemServiceBack systemService) {
 		this.systemService = systemService;
 	}
 	

@@ -13,14 +13,14 @@ import com.tm.wholesale.model.Page;
 import com.tm.wholesale.model.Wholesaler;
 
 @Service
-public class WholesaleService {
+public class WholesaleServiceBack {
 	
 	private WholesalerMapper wholesalerMapper;
 	private ComboWholesalerMapper comboWholesalerMapper;
 	private MaterialWholesalerMapper materialWholesalerMapper;
 
 	@Autowired
-	public WholesaleService(WholesalerMapper wholesalerMapper,
+	public WholesaleServiceBack(WholesalerMapper wholesalerMapper,
 			ComboWholesalerMapper comboWholesalerMapper,
 			MaterialWholesalerMapper materialWholesalerMapper) {
 		this.wholesalerMapper = wholesalerMapper;

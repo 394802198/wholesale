@@ -22,16 +22,16 @@ import com.tm.wholesale.model.MaterialCategory;
 import com.tm.wholesale.model.MaterialGroup;
 import com.tm.wholesale.model.MaterialType;
 import com.tm.wholesale.model.Page;
-import com.tm.wholesale.service.back.ProductService;
+import com.tm.wholesale.service.back.ProductServiceBack;
 
 @RestController
 @SessionAttributes("materialFilter")
-public class ProductRestController {
+public class ProductRestControllerBack {
 
-	private ProductService productService;
+	private ProductServiceBack productService;
 
 	@Autowired
-	public ProductRestController(ProductService productService) {
+	public ProductRestControllerBack(ProductServiceBack productService) {
 		this.productService = productService;
 	}
 	

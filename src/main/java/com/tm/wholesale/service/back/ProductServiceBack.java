@@ -23,7 +23,7 @@ import com.tm.wholesale.model.MaterialWholesaler;
 import com.tm.wholesale.model.Page;
 
 @Service
-public class ProductService {
+public class ProductServiceBack {
 	
 	private MaterialMapper materialMapper;
 	private MaterialGroupMapper materialGroupMapper;
@@ -34,7 +34,7 @@ public class ProductService {
 	private ComboWholesalerMapper comboWholesalerMapper;
 	
 	@Autowired
-	public ProductService(MaterialMapper materialMapper,
+	public ProductServiceBack(MaterialMapper materialMapper,
 			MaterialGroupMapper materialGroupMapper,
 			MaterialTypeMapper materialTypeMapper,
 			MaterialCategoryMapper materialCategoryMapper,

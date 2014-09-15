@@ -20,6 +20,7 @@
 		o.`id`									as o_id,
 		o.`company_id`							as o_company_id,
 		o.`wholesaler_id`						as o_wholesaler_id,
+		o.`wholesaler_company_name`				as o_wholesaler_company_name,
 		o.`manager_id`							as o_manager_id,
 		o.`total_price`							as o_total_price,
 		o.`inservice_date`						as o_inservice_date,
@@ -52,13 +53,15 @@
 		o.`create_date`							as o_create_date,
 		o.`company_name`						as o_company_name,
 		o.`trade_name`							as o_trade_name,
-		o.`title`								as o_title
+		o.`title`								as o_title,
+		o.`hardware_post`						as o_hardware_post
 	</sql>
 
 	<resultMap type="Order" id="orderResultMap">
 		<id property="id" column="o_id" />
 		<result property="company_id" column="o_company_id" />
 		<result property="wholesaler_id" column="o_wholesaler_id" />
+		<result property="wholesaler_company_name" column="o_wholesaler_company_name" />
 		<result property="manager_id" column="o_manager_id" />
 		<result property="total_price" column="o_total_price" />
 		<result property="inservice_date" column="o_inservice_date" />
@@ -92,6 +95,57 @@
 		<result property="company_name" column="o_company_name" />
 		<result property="trade_name" column="o_trade_name" />
 		<result property="title" column="o_title" />
+		<result property="hardware_post" column="o_hardware_post" />
+	</resultMap>
+	
+	<sql id="orderDetailColumns">
+		o.`id`									as od_id,
+		o.`order_id`							as od_order_id,
+		o.`name`								as od_name,
+		o.`desc`								as od_desc,
+		o.`price`								as od_price,
+		o.`price_enduser`						as od_price_enduser,
+		o.`material_type`						as od_material_type,
+		o.`type`								as od_type,
+		o.`status`								as od_status,
+		o.`data_flow`							as od_data_flow,
+		o.`unit`								as od_unit,
+		o.`number`								as od_number,
+		o.`password`							as od_password,
+		o.`assign_date`							as od_assign_date,
+		o.`calling_mins`						as od_calling_mins,
+		o.`track_code`							as od_track_code,
+		o.`is_post`								as od_is_post,
+		o.`expire_date`							as od_expire_date,
+		o.`manager_id`							as od_manager_id,
+		o.`is_wholesale`						as od_is_wholesale,
+		o.`is_enduser`							as od_is_enduser,
+		o.`memo`								as od_memo
+	</sql>
+
+	<resultMap type="OrderDetail" id="orderDetailResultMap">
+		<id property="id" column="od_id" />
+		<result property="order_id" column="od_order_id" />
+		<result property="name" column="od_name" />
+		<result property="desc" column="od_desc" />
+		<result property="price" column="od_price" />
+		<result property="price_enduser" column="od_price_enduser" />
+		<result property="material_type" column="od_material_type" />
+		<result property="type" column="od_type" />
+		<result property="status" column="od_status" />
+		<result property="data_flow" column="od_data_flow" />
+		<result property="unit" column="od_unit" />
+		<result property="number" column="od_number" />
+		<result property="password" column="od_password" />
+		<result property="assign_date" column="od_assign_date" />
+		<result property="calling_mins" column="od_calling_mins" />
+		<result property="track_code" column="od_track_code" />
+		<result property="is_post" column="od_is_post" />
+		<result property="expire_date" column="od_expire_date" />
+		<result property="manager_id" column="od_manager_id" />
+		<result property="is_wholesale" column="od_is_wholesale" />
+		<result property="is_enduser" column="od_is_enduser" />
+		<result property="memo" column="od_memo" />
 	</resultMap>
 
 	<sql id="orderWhere">
@@ -99,6 +153,7 @@
 			<if test="params.id != null">o.id = #{params.id}</if>
 			<if test="params.company_id != null">and o.company_id = #{params.company_id}</if>
 			<if test="params.wholesaler_id != null">and o.wholesaler_id = #{params.wholesaler_id}</if>
+			<if test="params.wholesaler_company_name != null">and o.wholesaler_company_name = #{params.wholesaler_company_name}</if>
 			<if test="params.manager_id != null">and o.manager_id = #{params.manager_id}</if>
 			<if test="params.total_price != null">and o.total_price = #{params.total_price}</if>
 			<if test="params.inservice_date != null">and o.inservice_date = #{params.inservice_date}</if>
@@ -142,7 +197,7 @@
 	<!-- SELECT AREA -->
 
 	<select id="selectOrders" parameterType="Order" resultType="Order">
-		select * from order as o
+		select * from `order` as o
 		<include refid="orderWhere"/>
 	</select>
 
@@ -150,7 +205,7 @@
 	<select id="selectOrdersByPage" parameterType="Page" resultMap="orderResultMap">
 		select 
 			<include refid="orderColumns"/>
-			from order as o
+			from `order` as o
 			<include refid="orderWhere"/>
 			<if test="params.orderby != null">${params.orderby}</if>
 			limit #{pageOffset}, #{pageSize}
@@ -158,7 +213,7 @@
 
 	<!-- select order amount -->
 	<select id="selectOrdersSum" parameterType="Page" resultType="int">
-		select count(*) from order as o
+		select count(*) from `order` as o
 		<include refid="orderWhere"/>
 	</select>
 
@@ -170,21 +225,21 @@
 
 	<insert id="insertOrder" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `order`(
-			`id`, `company_id`, `wholesaler_id`, `manager_id`, `total_price`, 
+			`id`, `company_id`, `wholesaler_id`, `wholesaler_company_name`, `manager_id`, `total_price`, 
 			`inservice_date`, `status`, `customer_type`, `broadband_type`, `transition_provider_name`, 
 			`transition_account_holder_name`, `transition_account_number`, `transition_porting_number`, `svlan`, `cvlan`, 
 			`pppoe_loginname`, `pppoe_password`, `order_pdf_path`, `memo`, `broadband_asid`, 
 			`rfs_date`, `disconnected_date`, `preferred_connection_date`, `previous_provider_invoice`, `next_invoice_create_date`, 
 			`next_invoice_create_date_flag`, `first_name`, `last_name`, `address`, `email`, 
-			`phone`, `mobile`, `create_date`, `company_name`, `trade_name`, `title`
+			`phone`, `mobile`, `create_date`, `company_name`, `trade_name`, `title`, `hardware_post`
 		) VALUES (
-			#{id}, #{company_id}, #{wholesaler_id}, #{manager_id}, #{total_price}, 
+			#{id}, #{company_id}, #{wholesaler_id}, #{wholesaler_company_name}, #{manager_id}, #{total_price}, 
 			#{inservice_date}, #{status}, #{customer_type}, #{broadband_type}, #{transition_provider_name}, 
 			#{transition_account_holder_name}, #{transition_account_number}, #{transition_porting_number}, #{svlan}, #{cvlan}, 
 			#{pppoe_loginname}, #{pppoe_password}, #{order_pdf_path}, #{memo}, #{broadband_asid}, 
 			#{rfs_date}, #{disconnected_date}, #{preferred_connection_date}, #{previous_provider_invoice}, #{next_invoice_create_date}, 
 			#{next_invoice_create_date_flag}, #{first_name}, #{last_name}, #{address}, #{email}, 
-			#{phone}, #{mobile}, #{create_date}, #{company_name}, #{trade_name}, `title`
+			#{phone}, #{mobile}, #{create_date}, #{company_name}, #{trade_name}, #{title}, #{hardware_post}
 		)
 	</insert>
 
@@ -196,10 +251,11 @@
 
 	<!-- update order -->
 	<update id="updateOrder" parameterType="Order">
-		update order
+		update `order`
 		<set>
 			<if test="company_id != null">company_id = #{company_id},</if>
 			<if test="wholesaler_id != null">wholesaler_id = #{wholesaler_id},</if>
+			<if test="wholesaler_company_name != null">wholesaler_company_name = #{wholesaler_company_name},</if>
 			<if test="manager_id != null">manager_id = #{manager_id},</if>
 			<if test="total_price != null">total_price = #{total_price},</if>
 			<if test="inservice_date != null">inservice_date = #{inservice_date},</if>
@@ -232,7 +288,8 @@
 			<if test="create_date != null">create_date = #{create_date},</if>
 			<if test="company_name != null">company_name = #{company_name},</if>
 			<if test="trade_name != null">trade_name = #{trade_name},</if>
-			<if test="title != null">title = #{title}</if>
+			<if test="title != null">title = #{title},</if>
+			<if test="hardware_post != null">hardware_post = #{hardware_post}</if>
 		</set>
 		<where>
 			<if test="params.id != null">id = #{params.id}</if>
@@ -245,7 +302,7 @@
 	<!-- DELETE AREA -->
 
 	<delete id="deleteOrderById" parameterType="int">
-		DELETE FROM order WHERE id = #{0}
+		DELETE FROM `order` WHERE id = #{0}
 	</delete>
 
 	<!-- // END DELETE AREA -->

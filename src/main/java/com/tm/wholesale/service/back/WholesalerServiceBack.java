@@ -11,16 +11,16 @@ import com.tm.wholesale.model.Page;
 import com.tm.wholesale.model.Wholesaler;
 
 @Service
-public class WholesalerService {
+public class WholesalerServiceBack {
 	
 	private WholesalerMapper wholesalerMapper;
 	
-	public WholesalerService() {
+	public WholesalerServiceBack() {
 		
 	}
 	
 	@Autowired
-	public WholesalerService(WholesalerMapper wholesalerMapper) {
+	public WholesalerServiceBack(WholesalerMapper wholesalerMapper) {
 		this.wholesalerMapper = wholesalerMapper;
 	}
 	
