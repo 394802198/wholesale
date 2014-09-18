@@ -23,6 +23,7 @@
 		od.`desc`				as od_desc,
 		od.`price`				as od_price,
 		od.`price_enduser`		as od_price_enduser,
+		or.`subscribe`			as od_subscribe,
 		od.`material_type`		as od_material_type,
 		od.`type`				as od_type,
 		od.`status`				as od_status,
@@ -48,6 +49,7 @@
 		<result property="desc" column="od_desc" />
 		<result property="price" column="od_price" />
 		<result property="price_enduser" column="od_price_enduser" />
+		<result property="subscribe" column="od_subscribe" />
 		<result property="material_type" column="od_material_type" />
 		<result property="type" column="od_type" />
 		<result property="status" column="od_status" />
@@ -74,6 +76,7 @@
 			<if test="params.desc != null">and od.desc = #{params.desc}</if>
 			<if test="params.price != null">and od.price = #{params.price}</if>
 			<if test="params.price_enduser != null">and od.price_enduser = #{params.price_enduser}</if>
+			<if test="params.subscribe != null">and od.subscribe = #{params.subscribe}</if>
 			<if test="params.material_type != null">and od.material_type = #{params.material_type}</if>
 			<if test="params.type != null">and od.type = #{params.type}</if>
 			<if test="params.status != null">and od.status = #{params.status}</if>
@@ -128,12 +131,12 @@
 
 	<insert id="insertOrderDetail" parameterType="OrderDetail" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `order_detail`(
-			`id`, `order_id`, `name`, `desc`, `price`, `price_enduser`, `material_type`, 
+			`id`, `order_id`, `name`, `desc`, `price`, `price_enduser`, `subscribe`, `material_type`, 
 			`type`, `status`, `data_flow`, `unit`, `number`, `password`, 
 			`assign_date`, `calling_mins`, `track_code`, `is_post`, `expire_date`, 
 			`manager_id`, `is_wholesale`, `is_enduser`, `memo`
 		) VALUES (
-			#{id}, #{order_id}, #{name}, #{desc}, #{price}, #{price_enduser}, #{material_type}, 
+			#{id}, #{order_id}, #{name}, #{desc}, #{price}, #{price_enduser}, #{subscribe}, #{material_type}, 
 			#{type}, #{status}, #{data_flow}, #{unit}, #{number}, #{password}, 
 			#{assign_date}, #{calling_mins}, #{track_code}, #{is_post}, #{expire_date}, 
 			#{manager_id}, #{is_wholesale}, #{is_enduser}, #{memo}
@@ -155,6 +158,7 @@
 			<if test="desc != null">desc = #{desc},</if>
 			<if test="price != null">price = #{price},</if>
 			<if test="price_enduser != null">price_enduser = #{price_enduser},</if>
+			<if test="subscribe != null">subscribe = #{subscribe},</if>
 			<if test="material_type != null">material_type = #{material_type},</if>
 			<if test="type != null">type = #{type},</if>
 			<if test="status != null">status = #{status},</if>

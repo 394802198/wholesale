@@ -5,36 +5,51 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tm.wholesale.model.Broadband;
 import com.tm.wholesale.model.Combo;
 import com.tm.wholesale.model.ComboWholesaler;
+import com.tm.wholesale.model.JSONBean;
 import com.tm.wholesale.model.MaterialWholesaler;
 import com.tm.wholesale.model.Order;
+import com.tm.wholesale.model.Page;
 import com.tm.wholesale.model.Wholesaler;
 import com.tm.wholesale.service.back.ProductServiceBack;
+import com.tm.wholesale.service.front.OrderService;
 import com.tm.wholesale.util.broadband.BroadbandCapability;
+import com.tm.wholesale.validation.OrderSessionInformationValidatedMark;
+import com.tm.wholesale.validation.OrderSessionSelectComboValidatedMark;
 
 @RestController
 public class OrderRestController {
 	
 	private ProductServiceBack productService;
+	private OrderService orderService;
 
 	@Autowired
-	public OrderRestController(ProductServiceBack productService) {
+	public OrderRestController(ProductServiceBack productService
+			, OrderService orderService) {
 		this.productService = productService;
+		this.orderService= orderService;
 	}
 	
 	@RequestMapping("/order/check-address/{address}")
-	public Broadband checkAddress(@PathVariable("address") String address,
-			HttpSession session) {
+	public Broadband checkAddress(HttpSession session
+			, @PathVariable("address") String address) {
 		System.out.println("address: " + address);
 		Order orderSession = new Order();
-		session.setAttribute("orderSession", orderSession);
 		orderSession.setAddress(address);
+		orderSession.setCustomer_type("personal");
+		session.setAttribute("orderSession", orderSession);
+		
 		Broadband broadband = this.returnBroadband(address);
 		broadband.setAddress(address);
 		orderSession.setBroadband(broadband);
@@ -87,6 +102,81 @@ public class OrderRestController {
 		List<MaterialWholesaler> materials = this.productService.queryMaterialWholesalers(mw);
 		
 		return materials;
+	}
+	
+	@RequestMapping(value = "/order/select-combo/submit", method = RequestMethod.POST)
+	public JSONBean<Order> orderSelectComboSubmit(HttpSession session,
+			@Validated(OrderSessionSelectComboValidatedMark.class) @RequestBody Order order, BindingResult result) {
+
+		JSONBean<Order> json = new JSONBean<Order>();
+		json.setModel(order);
+		
+		Order orderSession = (Order) session.getAttribute("orderSession");
+		
+		orderSession.setOds(order.getOds());
+		
+		json.setUrl("/order/fill-information");
+		
+		return json;
+	}
+	
+	@RequestMapping(value = "/order/information/loading")
+	public Order orderInformationLoading(HttpSession session) {
+		Order orderSession = (Order) session.getAttribute("orderSession");
+		return orderSession;
+	}
+	
+	@RequestMapping(value = "/order/fill-information/submit", method = RequestMethod.POST)
+	public JSONBean<Order> orderInformationSubmit(HttpSession session,
+			@Validated(OrderSessionInformationValidatedMark.class) @RequestBody Order order, BindingResult result) {
+
+		JSONBean<Order> json = new JSONBean<Order>();
+		json.setModel(order);
+		
+		if (result.hasErrors()) {
+			json.setJSONErrorMap(result);
+			return json;
+		}
+		
+		Order orderSession = (Order) session.getAttribute("orderSession");
+		
+		orderSession.setCustomer_type(order.getCustomer_type());
+		orderSession.setCompany_name(order.getCompany_name());
+		orderSession.setTrade_name(order.getTrade_name());
+		orderSession.setTitle(order.getTitle());
+		orderSession.setFirst_name(order.getFirst_name());
+		orderSession.setLast_name(order.getLast_name());
+		orderSession.setEmail(order.getEmail());
+		orderSession.setMobile(order.getMobile());
+		orderSession.setPhone(order.getPhone());
+		orderSession.setPreferred_connection_date(order.getPreferred_connection_date());
+		
+		json.setUrl("/order/review-order");
+		
+		return json;
+	}
+	
+	@RequestMapping(value = "/order/review-order/loading")
+	public Order orderReviewOrderLoading(HttpSession session) {
+		Order orderSession = (Order) session.getAttribute("orderSession");
+		return orderSession;
+	}
+	
+	@RequestMapping("/order/query/{pageNo}")
+	public Page<Order> orderQuery(HttpSession session
+			, @PathVariable("pageNo") int pageNo) {
+		
+		Wholesaler wholesalerSession = (Wholesaler) session.getAttribute("wholesalerSession");
+		
+		Page<Order> page = new Page<Order>();
+		page.setPageNo(pageNo);
+		page.setPageSize(50);
+		page.getParams().put("orderby", "order by create_date");
+		page.getParams().put("company_id", wholesalerSession.getCompany_id());
+		
+		this.orderService.queryOrdersByPage(page);
+		
+		return page;
 	}
 
 }

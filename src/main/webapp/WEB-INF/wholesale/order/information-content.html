@@ -1,0 +1,146 @@
+<div class="panel panel-info">
+	<div class="panel-body">
+		<h2 class="text-info">Please Fill Customer Information</h2>
+		<hr>
+		
+		<ul class="list-inline">
+			<li>
+				<label>
+					<.if (customer_type == 'personal') {.>
+					<input type="radio" name="customer_type" value="personal" checked="checked"/>&nbsp; 
+					<.} else {.>
+					<input type="radio" name="customer_type" value="personal" />&nbsp; 
+					<.}.>
+					<span class="text-info" style="font-weight:bold;"> 
+						Personal Customer
+					</span>
+				</label>
+			</li>
+			<li>
+				<label>
+					<.if (customer_type == 'business') {.>
+					<input type="radio" name="customer_type" value="business" checked="checked"/>&nbsp; 
+					<.} else {.>
+					<input type="radio" name="customer_type" value="business" />&nbsp; 
+					<.}.>
+					<span class="text-info" style="font-weight:bold;"> 
+						Business Customer
+					</span>
+				</label>
+			</li>
+		</ul>
+		<hr>
+		
+		<form class="form-horizontal">
+		
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="company_name" class="control-label col-md-4">
+						Company name <span class="text-danger"></span>
+					</label>
+					<div class="col-md-5">
+						<input type="text" id="company_name" value="<.=company_name.>" class="form-control" data-error-field />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="trade_name" class="control-label col-md-4">
+						Trade name <span class="text-danger"></span>
+					</label>
+					<div class="col-md-5">
+						<input type="text" id="trade_name" value="<.=trade_name.>" class="form-control" data-error-field />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="title" class="control-label col-md-4">Title</label>
+					<div class="col-md-5">
+						<select id="title" class="selectpicker show-tick form-control">
+						<. var titles = ['Mr', 'Mrs', 'Ms'];
+						for (var i = 0, len = titles.length; i < len; i++) {
+							if (title == titles[i]) {.>
+							<option value="<.=titles[i].>" selected="selected"><.=titles[i].></option>
+							<.} else { .>
+							<option value="<.=titles[i].>"><.=titles[i].></option>
+							<.}
+						}
+						.>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="first_name" class="control-label col-md-4">
+						First name <span class="text-danger">(*)</span>
+					</label>
+					<div class="col-md-5">
+						<input type="text" id="first_name" value="<.=first_name.>" class="form-control" data-error-field />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="last_name" class="control-label col-md-4">
+						Last name <span class="text-danger">(*)</span>
+					</label>
+					<div class="col-md-5">
+						<input type="text" id="last_name" value="<.=last_name.>" class="form-control" data-error-field />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="email" class="control-label col-md-4">
+						Email <span class="text-danger">(*)</span>
+					</label>
+					<div class="col-md-5">
+						<input type="text" id="email" value="<.=email.>" class="form-control" data-error-field />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="mobile" class="control-label col-md-4">
+						Mobile <span class="text-danger">(*)</span>
+					</label>
+					<div class="col-md-5">
+						<input type="text" id="mobile" value="<.=mobile.>" class="form-control" data-error-field />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="phone" class="control-label col-md-4">
+						Phone 
+					</label>
+					<div class="col-md-5">
+						<input type="text" id="phone" value="<.=phone.>" class="form-control" data-error-field />
+					</div>
+				</div>
+				
+				
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="preferred_connection_date" class="control-label col-md-4">Connection date</label>
+					<div class="col-md-5">
+						<p class="form-control-static">
+							<label>
+								<input type="radio" name="preferred_connection_date" value="ASAP" checked="checked"/> <!-- checked="checked" -->
+								&nbsp; <strong>ASAP</strong>
+							</label>
+						</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="" class="control-label col-md-4"></label>
+					<div class="col-md-5">
+						<div id="sandbox-container" >
+							<div class="panel panel-success" style="width:220px"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		</form>
+		
+		<hr>
+	</div>
+	
+	
+	<div class="panel-body">
+		<a href="javascript:void(0);" class="btn btn-info btn-lg ladda-button pull-right" data-style="zoom-in" id="continue" ">Continue</a>
+	</div>
+</div>

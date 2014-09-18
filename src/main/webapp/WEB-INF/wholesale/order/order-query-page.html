@@ -1,0 +1,59 @@
+<div class="panel panel-info">
+	<div class="panel-heading">
+		<h3 class="panel-title">Order List</h3>
+	</div>
+	<. if (results.length > 0) { .>
+	<div class="panel-body">
+		
+	</div>
+	<table class="table table-hover">
+		<tr>
+			<th><input type="checkbox" id="checkbox_orders_top" /></th>
+			<th>Order ID</th>
+			<th>Customer Type</th>
+			<th>Customer Name</th>
+			<th>Mobile</th>
+			<th>Email</th>
+			<th>Address</th>
+			<th>Order Status</th>
+			<th>Create Date</th>
+		</tr>
+		<.for (var i = 0, len = results.length; i < len; i++) {
+			var order = results[i];.>
+		<tr>
+			<td>
+				<input type="checkbox" name="checkbox_orders" value="<.=order.id .>"/>
+			</td>
+			<td><.=order.id.></td>
+			<td><.=order.customer_type.></td>
+			<td><.=order.company_name.> <.=order.trade_name.> <.=order.first_name.> <.=order.last_name.></td>
+			<td><.=order.mobile.></td>
+			<td><.=order.email.></td>
+			<td><.=order.address.></td>
+			<td><.=order.status.></td>
+			<td><.=order.create_date_str.></td>
+		</tr>
+		<.}.>
+		<tfoot>
+			<tr>
+				<td colspan="20">
+					<ul class="pagination">
+					<. for (var i = 1; i <= totalPage; i++) { .>
+						<li class="<.=pageNo == i ? 'active' : ''.>">
+							<a href="javascript:void(0);" data-pageNo="<.=i.>"><.=i.></a>
+						</li>
+					<. }.>
+					</ul>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+	<.} else { .> 
+	<div class="panel-body">
+		<div class="alert alert-warning">
+			No records have been found.
+		</div>
+	</div>
+	<.}.>
+	
+</div>

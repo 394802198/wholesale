@@ -17,21 +17,25 @@
 	<!-- DEFINITION AREA -->
 
 	<sql id="orderLogColumns">
-		ol.`id`				as ol_id,
-		ol.`operator`				as ol_operator,
+		ol.`id`					as ol_id,
+		ol.`operator_id`		as ol_operator_id,
+		ol.`operator_type`		as ol_operator_type,
+		ol.`operator`			as ol_operator,
 		ol.`status`				as ol_status,
-		ol.`status_desc`				as ol_status_desc,
-		ol.`commnet_date`				as ol_commnet_date,
-		ol.`comment`				as ol_comment,
-		ol.`order_id`				as ol_order_id
+		ol.`status_desc`		as ol_status_desc,
+		ol.`comment_date`		as ol_comment_date,
+		ol.`comment`			as ol_comment,
+		ol.`order_id`			as ol_order_id
 	</sql>
 
 	<resultMap type="OrderLog" id="orderLogResultMap">
 		<id property="id" column="ol_id" />
+		<result property="operator_id" column="ol_operator_id" />
+		<result property="operator_type" column="ol_operator_type" />
 		<result property="operator" column="ol_operator" />
 		<result property="status" column="ol_status" />
 		<result property="status_desc" column="ol_status_desc" />
-		<result property="commnet_date" column="ol_commnet_date" />
+		<result property="comment_date" column="ol_comment_date" />
 		<result property="comment" column="ol_comment" />
 		<result property="order_id" column="ol_order_id" />
 	</resultMap>
@@ -39,10 +43,12 @@
 	<sql id="orderLogWhere">
 		<where>
 			<if test="params.id != null">ol.id = #{params.id}</if>
+			<if test="params.operator_id != null">and ol.operator_id = #{params.operator_id}</if>
+			<if test="params.operator_type != null">and ol.operator_type = #{params.operator_type}</if>
 			<if test="params.operator != null">and ol.operator = #{params.operator}</if>
 			<if test="params.status != null">and ol.status = #{params.status}</if>
 			<if test="params.status_desc != null">and ol.status_desc = #{params.status_desc}</if>
-			<if test="params.commnet_date != null">and ol.commnet_date = #{params.commnet_date}</if>
+			<if test="params.comment_date != null">and ol.comment_date = #{params.comment_date}</if>
 			<if test="params.comment != null">and ol.comment = #{params.comment}</if>
 			<if test="params.order_id != null">and ol.order_id = #{params.order_id}</if>
 		</where>
@@ -83,11 +89,11 @@
 
 	<insert id="insertOrderLog" parameterType="OrderLog" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `order_log`(
-			`id`, `operator`, `status`, `status_desc`, `commnet_date`, 
-			`comment`, `order_id`
+			`id`, `operator_id`, `operator_type`, `operator`, `status`, 
+			`status_desc`, `comment_date`, `comment`, `order_id`
 		) VALUES (
-			#{id}, #{operator}, #{status}, #{status_desc}, #{commnet_date}, 
-			#{comment}, #{order_id}
+			#{id}, #{operator_id}, #{operator_type}, #{operator}, #{status}, 
+			#{status_desc}, #{comment_date}, #{comment}, #{order_id}
 		)
 	</insert>
 
@@ -101,10 +107,12 @@
 	<update id="updateOrderLog" parameterType="OrderLog">
 		update order_log
 		<set>
+			<if test="operator_id != null">operator_id = #{operator_id},</if>
+			<if test="operator_type != null">operator_type = #{operator_type},</if>
 			<if test="operator != null">operator = #{operator},</if>
 			<if test="status != null">status = #{status},</if>
 			<if test="status_desc != null">status_desc = #{status_desc},</if>
-			<if test="commnet_date != null">commnet_date = #{commnet_date},</if>
+			<if test="comment_date != null">comment_date = #{comment_date},</if>
 			<if test="comment != null">comment = #{comment},</if>
 			<if test="order_id != null">order_id = #{order_id}</if>
 		</set>

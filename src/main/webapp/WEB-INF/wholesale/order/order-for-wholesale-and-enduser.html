@@ -11,8 +11,9 @@
 				<table class="table" id="order_for_wholesale_table">
 					<thead>
 						<tr>
-							<th>Name</th>
-							<th>Price(Excl. GST)</th>
+							<th style="width:32px;">#</th>
+							<th style="width:370px;">Name</th>
+							<th style="width:135px;">Price(Excl. GST)</th>
 							<th>&nbsp;</th>
 						</tr>
 					</thead>
@@ -20,6 +21,7 @@
 					<.for(var i = 0, len = wholesale_original_details.length; i < len; i++) {
 						var detail = wholesale_original_details[i];.>
 						<tr>
+							<td>&nbsp;</td>
 							<td><.=detail.name.></td>
 							<td>$ <.=detail.wholesale_price.toFixed(2).></td>
 							<td>&nbsp;</td>
@@ -30,19 +32,24 @@
 					if (wholesale_addons_details != null && wholesale_addons_details.length > 0) {
 						for(var i = 0, len = wholesale_addons_details.length; i < len; i++) {
 							var detail = wholesale_addons_details[i];.>
-						<tr>
+						<tr data-index="<.=detail.index.>" class="info">
+							<td><.=detail.index.></td>
 							<td>
-								<select id="whole_detail<.=detail.index.>" data-index="<.=detail.index.>" class="selectpicker" data-live-search="true" title="Please Choose One">
+								<select id="wholesale_detail<.=detail.index.>" data-index="<.=detail.index.>" class="selectpicker" data-live-search="true" title="Please Choose One" data-wholesale_detail_select>
 									<option></option>
-								<.for (var i = 0, len = wholesale_materials.length; i < len; i++) {
-									var material = wholesale_materials[i];.>
-									<option data-name="<.=material.name.>" data-wholesale_price="<.=material.wholesale_price.>"><.=material.name.></option>
+								<.for (var j = 0, jlen = wholesale_materials.length; j < jlen; j++) {
+									var material = wholesale_materials[j];
+									if (detail.name == material.name) {.>
+									<option data-name="<.=material.name.>" data-price="<.=material.wholesale_price.>" selected="selected"><.=material.name.>($<.=material.wholesale_price.>)</option>
+									<.} else {.>
+									<option data-name="<.=material.name.>" data-price="<.=material.wholesale_price.>" ><.=material.name.>($<.=material.wholesale_price.>)</option>
+									<.}.>
 								<.}.>
 								</select>
 							</td>
-							<td><span id="whole_detail_pirce<.=index.>"></span></td>
+							<td><span id="wholesale_detail_price<.=detail.index.>">$ <.=detail.wholesale_price.toFixed(2).></span></td>
 							<td>
-								<a href="javascript:void(0);" class="btn btn-danger btn-xs" id="whole_detail_delete<.=detail.index.>" data-toggle="tooltip" data-placement="bottom" data-original-title="Remove Details">
+								<a href="javascript:void(0);" class="btn btn-danger btn-xs" id="wholesale_detail_delete<.=detail.index.>" data-index="<.=detail.index.>" data-toggle="tooltip" data-placement="bottom" data-original-title="Remove Details" data-wholesale_detail_delete>
 									<span class="glyphicon glyphicon-trash"></span>
 								</a>
 							</td>
@@ -74,8 +81,90 @@
 				<h2 class="text-info">Order For End-User</h2>
 				<hr>
 				<h4 class="text-primary"><.=selected_combo.name.></h4>
+				<.if (enduser_original_details != null && enduser_original_details.length > 0) {.>
+				<table class="table" id="order_for_enduser_table">
+					<thead>
+						<tr>
+							<th style="width:32px;">#</th>
+							<th style="width:370px;">Name</th>
+							<th style="width:135px;">Price(Excl. GST)</th>
+							<th>&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+					<.for (var i = 0, len = enduser_original_details.length; i < len; i++) {
+						var detail = enduser_original_details[i];.>
+						<tr data-index="<.=detail.index.>" class="<.=detail.index?'info':''.>">
+							<td><.=detail.index.></td>
+							<td>
+								<span id="enduser_detail<.=detail.index.>" data-index="<.=detail.index.>"><.=detail.name.></span>
+							</td>
+							<td>
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon">$</span> 
+									<input id="enduser_detail_price<.=detail.index.>" data-index="<.=detail.index.>" data-name="<.=detail.name.>" data-id="<.=detail.id.>" type="text" class="form-control" value="<.=detail.enduser_price.>" data-wholesale_price="<.=detail.wholesale_price.>" data-enduser_detail_price maxlength="4" required="required" data-type="enduser" data-detail_type="original"/> 
+									<!-- <span class="input-group-addon">.00</span> -->
+								</div>
+							</td>
+							<td>&nbsp;</td>
+						</tr>
+					<.}.>
+					
+					<. 
+					if (enduser_addons_details != null && enduser_addons_details.length > 0) {
+						for(var i = 0, len = enduser_addons_details.length; i < len; i++) {
+							var detail = enduser_addons_details[i];.>
+						<tr data-index="<.=detail.index.>" class="success">
+							<td><.=detail.index.></td>
+							<td>
+								<select id="enduser_detail<.=detail.index.>" data-index="<.=detail.index.>" class="selectpicker" data-live-search="true" title="Please Choose One" data-enduser_detail_select>
+									<option></option>
+								<.for (var j = 0, jlen = enduser_materials.length; j < jlen; j++) {
+									var material = enduser_materials[j];
+									if (detail.name == material.name) {.>
+									<option data-name="<.=material.name.>" data-price="<.=material.enduser_price.>" selected="selected"><.=material.name.>($<.=material.enduser_price.>)</option>
+									<.} else {.>
+									<option data-name="<.=material.name.>" data-price="<.=material.enduser_price.>" ><.=material.name.>($<.=material.enduser_price.>)</option>
+									<.}.>
+								<.}.>
+								</select>
+							</td>
+							<td>
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon">$</span> 
+									<input id="enduser_detail_price<.=detail.index.>" data-index="<.=detail.index.>" data-name="<.=detail.name.>" type="text" class="form-control" value="<.=detail.enduser_price.>" data-wholesale_price="<.=detail.wholesale_price.>" data-enduser_detail_price maxlength="4" required="required" data-type="enduser" data-detail_type="addons"/> 
+									<!-- <span class="input-group-addon">.00</span> -->
+								</div>
+							</td>
+							<td>
+								<a href="javascript:void(0);" class="btn btn-danger btn-xs" id="enduser_detail_delete<.=detail.index.>" data-index="<.=detail.index.>" data-toggle="tooltip" data-placement="bottom" data-original-title="Remove Details" data-enduser_detail_delete>
+									<span class="glyphicon glyphicon-trash"></span>
+								</a>
+							</td>
+						</tr>
+					<.	}
+					}.>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="20">
+								<a href="javascript:void(0);" id="order_for_enduser_add_detail" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="bottom" data-original-title="Add Details">
+									<span class="glyphicon glyphicon-plus"></span>
+								</a>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
 				
+				<div id="enduser-order-detail-total"></div>
+				
+				<.} else {.>
+				<div class="alert alert-warning">No records have been found.</div>
+				<.}.>
 			</div>
 		</div>
+	</div>
+	<div class="panel-body">
+		<a href="javascript:void(0);" class="btn btn-info btn-lg ladda-button pull-right" data-style="zoom-in" id="continue">Continue</a>
 	</div>
 </div>
