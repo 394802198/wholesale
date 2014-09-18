@@ -14,6 +14,7 @@ public class MaterialGroup implements Serializable {
 
 	private Integer id;
 	private String group_name;
+	private String upper_group_name;
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -51,6 +52,14 @@ public class MaterialGroup implements Serializable {
 
 	public void setParams(Map<String, Object> params) {
 		this.params = params;
+	}
+
+	public String getUpper_group_name() {
+		return upper_group_name;
+	}
+
+	public void setUpper_group_name(String upper_group_name) {
+		this.upper_group_name = upper_group_name;
 	}
 
 }

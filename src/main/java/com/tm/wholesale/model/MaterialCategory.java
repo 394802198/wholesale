@@ -14,6 +14,7 @@ public class MaterialCategory implements Serializable {
 	
 	private Integer id;
 	private String category_name;
+	private String upper_category_name;
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -47,6 +48,12 @@ public class MaterialCategory implements Serializable {
 	}
 	public void setParams(Map<String, Object> params) {
 		this.params = params;
+	}
+	public String getUpper_category_name() {
+		return upper_category_name;
+	}
+	public void setUpper_category_name(String upper_category_name) {
+		this.upper_category_name = upper_category_name;
 	}
 
 }

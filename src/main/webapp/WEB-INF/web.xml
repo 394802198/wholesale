@@ -101,11 +101,11 @@
 	<filter-mapping>
 		<filter-name>managerSessionFilter</filter-name>
 		<url-pattern>/management/index</url-pattern>
-		<url-pattern>/management/system</url-pattern>
-		<url-pattern>/management/wholesale</url-pattern>
-		<url-pattern>/management/product</url-pattern>
-		<url-pattern>/management/provision</url-pattern>
-		<url-pattern>/management/billing</url-pattern>
+		<url-pattern>/management/system/*</url-pattern>
+		<url-pattern>/management/wholesale/*</url-pattern>
+		<url-pattern>/management/product/*</url-pattern>
+		<url-pattern>/management/provision/*</url-pattern>
+		<url-pattern>/management/billing/*</url-pattern>
 	</filter-mapping>
 	
 	<!-- WholesalerSessionFilter -->

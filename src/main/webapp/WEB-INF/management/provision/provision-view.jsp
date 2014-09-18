@@ -23,27 +23,13 @@
 </script>
 <jsp:include page="../footer.jsp" />
 <jsp:include page="../script.jsp" />
-<script type="text/javascript" src="${ctx}/public/bootstrap3/js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="${ctx}/public/bootstrap3/js/jTmpl.js"></script>
 <script type="text/javascript">
 (function($){
 	
-	$('.selectpicker').selectpicker();
-	
-	$('#checkbox_provisions_top').click(function(){
-		var b = $(this).prop("checked");
-		if (b) {
-			$('input[name="checkbox_provisions"]').prop("checked", true);
-		} else {
-			$('input[name="checkbox_provisions"]').prop("checked", false);
-		}
-	});
-	
 	$.getProvisionPage = function(pageNo, status) {
 		
 		$.get('${ctx}/management/provision/view/'+pageNo+'/'+status, function(page){
-			console.log('${ctx}/management/provision/view/'+pageNo+'/'+status);
-			console.log(page);
 			page.ctx = '${ctx}';
 			page.userId = '${managerSession.id}';
 			page.orderStatus = status;
@@ -51,6 +37,15 @@
 			$table.html(tmpl('provision_view_table_tmpl', page));
 			$table.find('tfoot a').click(function(){
 				$.getProvisionPage($(this).attr('data-pageNo'));
+			});
+			
+			$('#checkbox_provisions_top').click(function(){
+				var b = $(this).prop("checked");
+				if (b) {
+					$('input[name="checkbox_provisions"]').prop("checked", true);
+				} else {
+					$('input[name="checkbox_provisions"]').prop("checked", false);
+				}
 			});
 			
 			$('button[data-name="query_order"]').click(function(){

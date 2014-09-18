@@ -74,8 +74,8 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li>
-							<a href="${ctx}/management/wholesale/wholesaler/view">
-								<span class="glyphicon glyphicon-list" ></span> View Wholesaler
+							<a href="${ctx}/management/provision/view">
+								<span class="glyphicon glyphicon-list" ></span> View Provision
 							</a>
 						</li>
 					</ul>
@@ -85,11 +85,6 @@
 						Billing <b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
-						<li>
-							<a href="${ctx}/management/wholesale/wholesaler/view">
-								<span class="glyphicon glyphicon-list" ></span> View Wholesaler
-							</a>
-						</li>
 					</ul>
 				</li>
 			</ul>

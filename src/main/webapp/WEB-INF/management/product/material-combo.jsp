@@ -47,22 +47,14 @@ tbody td {text-align:center;}
 						<div class="pull-right" id="material_selector">
 							<select id="material_filter_operations" class="selectpicker" multiple title="Material Filter">
 							    <optgroup label="Filtering Material Group">
-							    	<option value="adsl" data-type="material-group">ADSL</option>
-							    	<option value="vdsl" data-type="material-group">VDSL</option>
-							    	<option value="ufb" data-type="material-group">UFB</option>
-							    	<option value="pstn" data-type="material-group">PSTN</option>
-							    	<option value="other" data-type="material-group">OTHER</option>
-							    	<option value="hardware" data-type="material-group">HARDWARE</option>
+						    	<c:forEach var="g" items="${groups}">
+						    		<option value="${g.group_name}" data-type="material-group">${g.upper_group_name}</option>
+						    	</c:forEach>
 							    </optgroup>
 							    <optgroup label="Filtering Material Category">
-							      	<option value="broadband-type" data-type="material-category">BROADBAND TYPE</option>
-							      	<option value="phone-line" data-type="material-category">PHONE LINE</option>
-							      	<option value="transition" data-type="material-category">TRANSITION</option>
-							      	<option value="new-connection" data-type="material-category">NEW CONNECTION</option>
-							      	<option value="installation" data-type="material-category">INSTALLATION</option>
-							      	<option value="items" data-type="material-category">ITEMS</option>
-							      	<option value="wire-vdsl" data-type="material-category">WIRE VDSL</option>
-							      	<option value="hardware-router" data-type="material-category">HARDWARE ROUTER</option>
+								<c:forEach var="c" items="${categories}">
+						      		<option value="${c.category_name}" data-type="material-category">${c.upper_category_name}</option>
+								</c:forEach>
 							    </optgroup>
 							</select>
 							<select id="material_select_operations" class="selectpicker" multiple title="Material Operation">

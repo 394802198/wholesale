@@ -20,6 +20,7 @@ public interface MaterialGroupMapper {
 	List<MaterialGroup> selectMaterialGroups(MaterialGroup mg);
 	List<MaterialGroup> selectMaterialGroupsByPage(Page<MaterialGroup> page);
 	int selectMaterialGroupsSum(Page<MaterialGroup> page);
+	List<MaterialGroup> selectMaterialGroupsUpperLowerName();
 
 	/* // END SELECT AREA */
 	/* =================================================================================== */

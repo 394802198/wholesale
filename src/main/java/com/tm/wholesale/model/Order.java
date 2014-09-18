@@ -41,7 +41,8 @@ public class Order implements Serializable {
 	private String cvlan;
 	private String pppoe_loginname;
 	private String pppoe_password;
-	private String order_pdf_path;
+	private String order_wholesaler_pdf_path;
+	private String order_customer_pdf_path;
 	private String memo;
 	private String broadband_asid;
 	private Date rfs_date;
@@ -208,12 +209,20 @@ public class Order implements Serializable {
 		this.pppoe_password = pppoe_password;
 	}
 
-	public String getOrder_pdf_path() {
-		return order_pdf_path;
+	public String getOrder_wholesaler_pdf_path() {
+		return order_wholesaler_pdf_path;
 	}
 
-	public void setOrder_pdf_path(String order_pdf_path) {
-		this.order_pdf_path = order_pdf_path;
+	public void setOrder_wholesaler_pdf_path(String order_wholesaler_pdf_path) {
+		this.order_wholesaler_pdf_path = order_wholesaler_pdf_path;
+	}
+
+	public String getOrder_customer_pdf_path() {
+		return order_customer_pdf_path;
+	}
+
+	public void setOrder_customer_pdf_path(String order_customer_pdf_path) {
+		this.order_customer_pdf_path = order_customer_pdf_path;
 	}
 
 	public String getMemo() {

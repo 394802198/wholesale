@@ -36,6 +36,8 @@ public class ProductControllerBack {
 	@RequestMapping("/management/product/material-combo/view")
 	public String toMaterialComboView(Model model){
 		model.addAttribute("ms", this.productService.queryMaterials(new Material()));
+		model.addAttribute("groups", this.productService.queryMaterialGroupsUpperLowerName());
+		model.addAttribute("categories", this.productService.queryMaterialCategoriesUpperLowerName());
 		return "management/product/material-combo";
 	}
 	
@@ -43,7 +45,7 @@ public class ProductControllerBack {
 	public String toMaterialCreate(Model model) {
 		
 		List<MaterialGroup> mgs = this.productService.queryMaterialGroups(new MaterialGroup());
-		List<MaterialCategory> mcs = this.productService.queryMaterialCategorys(new MaterialCategory());
+		List<MaterialCategory> mcs = this.productService.queryMaterialCategories(new MaterialCategory());
 		
 		Wholesaler wQuery = new Wholesaler();
 		wQuery.getParams().put("where", "query_primary_wholesaler");
@@ -78,7 +80,7 @@ public class ProductControllerBack {
 		Wholesaler wQuery = new Wholesaler();
 		wQuery.getParams().put("where", "query_primary_wholesaler");
 		model.addAttribute("ws", this.wholesaleService.queryWholesalers(wQuery));
-		model.addAttribute("mcs", this.productService.queryMaterialCategorys(new MaterialCategory()));
+		model.addAttribute("mcs", this.productService.queryMaterialCategories(new MaterialCategory()));
 		model.addAttribute("mgs", mgs);
 		model.addAttribute("mts", mts);
 		model.addAttribute("m", m);

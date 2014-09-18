@@ -39,12 +39,12 @@
 				<div class="panel-body">
 					<ul class="list-unstyled">
 						<li>
-							<span class="glyphicon glyphicon-plus" ></span>&nbsp;
-							<a href="${ctx }/management/product/material/create">Create Material</a>
-						</li>
-						<li>
 							<span class="glyphicon glyphicon-list" ></span>&nbsp;
 							<a href="${ctx }/management/product/material-combo/view">View Material & Combo</a>
+						</li>
+						<li>
+							<span class="glyphicon glyphicon-plus" ></span>&nbsp;
+							<a href="${ctx }/management/product/material/create">Create Material</a>
 						</li>
 					</ul>
 				</div>
