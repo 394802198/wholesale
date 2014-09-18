@@ -14,10 +14,12 @@ public class OrderLog implements Serializable {
 	 */
 	
 	private Integer id;
+	private Integer operator_id;
+	private String operator_type;
 	private String operator;
 	private String status;
 	private String status_desc;
-	private Date commnet_date;
+	private Date comment_date;
 	private String comment;
 	private Integer order_id;
 
@@ -71,12 +73,28 @@ public class OrderLog implements Serializable {
 		this.status_desc = status_desc;
 	}
 
-	public Date getCommnet_date() {
-		return commnet_date;
+	public Integer getOperator_id() {
+		return operator_id;
 	}
 
-	public void setCommnet_date(Date commnet_date) {
-		this.commnet_date = commnet_date;
+	public void setOperator_id(Integer operator_id) {
+		this.operator_id = operator_id;
+	}
+
+	public String getOperator_type() {
+		return operator_type;
+	}
+
+	public void setOperator_type(String operator_type) {
+		this.operator_type = operator_type;
+	}
+
+	public Date getComment_date() {
+		return comment_date;
+	}
+
+	public void setComment_date(Date comment_date) {
+		this.comment_date = comment_date;
 	}
 
 	public String getComment() {

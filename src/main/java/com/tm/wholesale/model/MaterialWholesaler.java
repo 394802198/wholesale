@@ -33,6 +33,7 @@ public class MaterialWholesaler implements Serializable {
 	 */
 
 	private Map<String, Object> params = new HashMap<String, Object>();
+	private Double enduser_price;
 
 	/*
 	 * END RELATED PROPERTIES
@@ -137,4 +138,14 @@ public class MaterialWholesaler implements Serializable {
 	public void setParams(Map<String, Object> params) {
 		this.params = params;
 	}
+
+	public Double getEnduser_price() {
+		return enduser_price;
+	}
+
+	public void setEnduser_price(Double enduser_price) {
+		this.enduser_price = enduser_price;
+	}
+	
+	
 }

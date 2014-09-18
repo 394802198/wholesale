@@ -121,7 +121,7 @@ public class WholesalerRestController {
 		
 		Wholesaler wQ = new Wholesaler();
 		wQ.getParams().put("id", id);
-		if (id != wholesalerSession.getId())
+		if (id != wholesalerSession.getId().intValue())
 			wQ.getParams().put("company_id", wholesalerSession.getCompany_id());
 
 		

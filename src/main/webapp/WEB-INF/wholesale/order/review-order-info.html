@@ -1,0 +1,204 @@
+<div class="panel panel-info">
+	<div class="panel-body">
+		<h2 class="text-info">Please Review Order Information</h2>
+		<hr>
+		
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" id="rates">
+			<li class="active"><a href="#wholesale-information" data-toggle="tab" ><strong>For Wholesale Order</strong></a></li>
+			<li><a href="#enduser-information" data-toggle="tab" ><strong>For End-User Order</strong></a></li>
+		</ul>
+
+		<!-- Tab panes -->
+		<div class="tab-content panel panel-default">
+			<div class="panel-body tab-pane fade in active" id="wholesale-information" >
+				<table class="table">
+				<. if (monthly_details.length > 0) {.>
+					<thead>
+						<tr>
+							<th>Service / Product</th>
+							<th>Monthly Charge</th>
+							<th>Qty</th>
+							<th>Subtotal</th>
+						</tr>
+					</thead>
+					<. for (var i = 0, len = monthly_details.length; i < len; i++) {
+						var detail = monthly_details[i];
+						if (detail.is_wholesale) {.>
+					<tr>
+						<td><.=detail.name.></td>
+						<td>$ <.=Number(detail.price).toFixed(2).></td>
+						<td><.=detail.unit.></td>
+						<td>$ <.=(Number(detail.price) * detail.unit).toFixed(2).></td>
+					</tr>	
+						<.}.>
+					<.}.>
+				<.}.>
+				
+				<. if (oneoff_details.length > 0) {.>
+					<tr>
+						<th>&nbsp;</th>
+						<th>One-Off Charge</th>
+						<th>Qty</th>
+						<th>Subtotal</th>
+					</tr>
+					<. for (var i = 0, len = oneoff_details.length; i < len; i++) {
+						var detail = oneoff_details[i];
+						if (detail.is_wholesale) {.>
+					<tr>
+						<td><.=detail.name.></td>
+						<td>$ <.=Number(detail.price).toFixed(2).></td>
+						<td><.=detail.unit.></td>
+						<td>$ <.=(Number(detail.price) * detail.unit).toFixed(2).></td>
+					</tr>
+						<.}.>
+					<.}.>
+				<.}.>
+				
+				</table>
+			</div>
+			<div class="panel-body tab-pane fade" id="enduser-information" >
+				
+				<table class="table">
+				<. if (monthly_details.length > 0) {.>
+					<thead>
+						<tr>
+							<th>Service / Product</th>
+							<th>Monthly Charge</th>
+							<th>Qty</th>
+							<th>Subtotal</th>
+						</tr>
+					</thead>
+					<. for (var i = 0, len = monthly_details.length; i < len; i++) {
+						var detail = monthly_details[i];
+						if (detail.is_enduser) {.>
+					<tr>
+						<td><.=detail.name.></td>
+						<td>$ <.=Number(detail.price_enduser).toFixed(2).></td>
+						<td><.=detail.unit.></td>
+						<td>$ <.=(Number(detail.price_enduser) * detail.unit).toFixed(2).></td>
+					</tr>
+						<.}.>
+					<.}.>
+				<.}.>
+				
+				<. if (oneoff_details.length > 0) {.>
+					<tr>
+						<th>&nbsp;</th>
+						<th>One-Off Charge</th>
+						<th>Qty</th>
+						<th>Subtotal</th>
+					</tr>
+					<. for (var i = 0, len = oneoff_details.length; i < len; i++) {
+						var detail = oneoff_details[i];
+						if (detail.is_enduser) {.>
+					<tr>
+						<td><.=detail.name.></td>
+						<td>$ <.=Number(detail.price_enduser).toFixed(2).></td>
+						<td><.=detail.unit.></td>
+						<td>$ <.=(Number(detail.price_enduser) * detail.unit).toFixed(2).></td>
+					</tr>
+						<.}.>
+					<.}.>
+				<.}.>
+				
+				</table>
+				<hr>
+				<h4 class="text-info">End-User Details</h4>
+				<hr>
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label class="col-md-2 control-label">Customer Type</label>
+						<div class="col-md-10">
+							<p class="form-control-static"><.=customer_type.></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">Company name</label>
+						<div class="col-md-10">
+							<p class="form-control-static"><.=company_name.></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">trade_name</label>
+						<div class="col-md-10">
+							<p class="form-control-static"><.=trade_name.></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">Title</label>
+						<div class="col-md-10">
+							<p class="form-control-static"><.=title.></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">First name</label>
+						<div class="col-md-10">
+							<p class="form-control-static"><.=first_name.></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">Last name</label>
+						<div class="col-md-10">
+							<p class="form-control-static"><.=last_name.></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">Email</label>
+						<div class="col-md-10">
+							<p class="form-control-static"><.=email.></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">Mobile</label>
+						<div class="col-md-10">
+							<p class="form-control-static"><.=mobile.></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">Phone</label>
+						<div class="col-md-10">
+							<p class="form-control-static"><.=phone.></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">Connection date</label>
+						<div class="col-md-10">
+							<p class="form-control-static"><.=preferred_connection_date?preferred_connection_date:'ASPS'.></p>
+						</div>
+					</div>
+				</form>
+				
+				
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="panel-body">
+		<a href="javascript:void(0);" class="btn btn-info btn-lg pull-right" id="continue" data-toggle="modal" data-target="#order">Submit</a>
+	</div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" id="order" >
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<form action="<.=ctx.>/order/review-order/submit" method="post">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span>&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title">Make Some Note</h4>
+			</div>
+			<div class="modal-body">
+				<textarea name="memo" class="form-control" rows="5"></textarea>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info btn-lg" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-info btn-lg">Submit Order</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>

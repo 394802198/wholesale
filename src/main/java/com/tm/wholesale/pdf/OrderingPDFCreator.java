@@ -492,7 +492,7 @@ public class OrderingPDFCreator extends ITextUtils {
          * END ADD ON LIST
          */
         
-        this.getOrder().setTotal_price(totalPrice);
+        this.getOrder().setTotal_price_gst(totalPrice);
         // BEGIN transform before tax price and tax
         BigDecimal bdGSTRate = new BigDecimal(this.getGstRate());
         BigDecimal bdGSTRate2 = new BigDecimal(this.gstRate2);
@@ -656,7 +656,7 @@ public class OrderingPDFCreator extends ITextUtils {
         addCol(orderDetailTable, TMUtils.fillDecimalPeriod(String.valueOf(totalPrice))).font(ITextFont.arial_bold_8).alignH("r").o();
         // TOTAL AMOUNT END
         
-        this.order.setTotal_price(totalPrice);
+        this.order.setTotal_price_gst(totalPrice);
         
         
         return orderDetailTable;

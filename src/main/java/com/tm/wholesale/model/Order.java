@@ -7,7 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.tm.wholesale.util.TMUtils;
+import com.tm.wholesale.validation.OrderSessionInformationValidatedMark;
 
 public class Order implements Serializable {
 
@@ -22,7 +27,8 @@ public class Order implements Serializable {
 	private Integer wholesaler_id;
 	private String wholesaler_company_name;
 	private Integer manager_id;
-	private Double total_price;
+	private Double total_price_gst;
+	private Double total_price_gst_enduser;
 	private Date inservice_date;
 	private String status;
 	private String customer_type;
@@ -40,15 +46,24 @@ public class Order implements Serializable {
 	private String broadband_asid;
 	private Date rfs_date;
 	private Date disconnected_date;
-	private String preferred_connection_date;
+	private Date preferred_connection_date;
 	private String previous_provider_invoice;
 	private Date next_invoice_create_date;
 	private Date next_invoice_create_date_flag;
+	@NotEmpty(groups = { OrderSessionInformationValidatedMark.class })
+	@Length(max = 49, groups = { OrderSessionInformationValidatedMark.class })
 	private String first_name;
+	@NotEmpty(groups = { OrderSessionInformationValidatedMark.class })
+	@Length(max = 49, groups = { OrderSessionInformationValidatedMark.class })
 	private String last_name;
 	private String address;
+	@NotEmpty(groups = { OrderSessionInformationValidatedMark.class })
+	@Length(max = 49, groups = { OrderSessionInformationValidatedMark.class })
+	@Email(groups = { OrderSessionInformationValidatedMark.class })
 	private String email;
 	private String phone;
+	@NotEmpty(groups = { OrderSessionInformationValidatedMark.class })
+	@Length(max = 49, groups = { OrderSessionInformationValidatedMark.class })
 	private String mobile;
 	private Date create_date;
 	private String company_name;
@@ -66,10 +81,12 @@ public class Order implements Serializable {
 
 	private String create_date_str;
 	private String inservice_date_str;
+	private String preferred_connection_date_str;
 
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private Broadband broadband = new Broadband();
 	private List<OrderDetail> ods = new ArrayList<OrderDetail>();
+	private OrderLog ol = new OrderLog();
 
 	/*
 	 * END RELATED PROPERTIES
@@ -92,14 +109,6 @@ public class Order implements Serializable {
 
 	public void setWholesaler_id(Integer wholesaler_id) {
 		this.wholesaler_id = wholesaler_id;
-	}
-
-	public Double getTotal_price() {
-		return total_price;
-	}
-
-	public void setTotal_price(Double total_price) {
-		this.total_price = total_price;
 	}
 
 	public Date getInservice_date() {
@@ -255,11 +264,11 @@ public class Order implements Serializable {
 		this.manager_id = manager_id;
 	}
 
-	public String getPreferred_connection_date() {
+	public Date getPreferred_connection_date() {
 		return preferred_connection_date;
 	}
 
-	public void setPreferred_connection_date(String preferred_connection_date) {
+	public void setPreferred_connection_date(Date preferred_connection_date) {
 		this.preferred_connection_date = preferred_connection_date;
 	}
 
@@ -413,8 +422,7 @@ public class Order implements Serializable {
 	}
 
 	public String getCreate_date_str() {
-		this.setCreate_date_str(TMUtils.dateFormatYYYYMMDD(this.getCreate_date()));
-		return create_date_str;
+		return TMUtils.dateFormatDDMMYYYYHHMMSS(this.getCreate_date());
 	}
 
 	public void setCreate_date_str(String create_date_str) {
@@ -422,12 +430,46 @@ public class Order implements Serializable {
 	}
 
 	public String getInservice_date_str() {
-		this.setInservice_date_str(TMUtils.dateFormatYYYYMMDD(this.getInservice_date()));
+		this.setInservice_date_str(TMUtils.dateFormatYYYYMMDD(this
+				.getInservice_date()));
 		return inservice_date_str;
 	}
 
 	public void setInservice_date_str(String inservice_date_str) {
 		this.inservice_date_str = inservice_date_str;
+	}
+
+	public Double getTotal_price_gst() {
+		return total_price_gst;
+	}
+
+	public void setTotal_price_gst(Double total_price_gst) {
+		this.total_price_gst = total_price_gst;
+	}
+
+	public Double getTotal_price_gst_enduser() {
+		return total_price_gst_enduser;
+	}
+
+	public void setTotal_price_gst_enduser(Double total_price_gst_enduser) {
+		this.total_price_gst_enduser = total_price_gst_enduser;
+	}
+
+	public OrderLog getOl() {
+		return ol;
+	}
+
+	public void setOl(OrderLog ol) {
+		this.ol = ol;
+	}
+
+	public String getPreferred_connection_date_str() {
+		return preferred_connection_date_str;
+	}
+
+	public void setPreferred_connection_date_str(
+			String preferred_connection_date_str) {
+		this.preferred_connection_date_str = preferred_connection_date_str;
 	}
 
 }

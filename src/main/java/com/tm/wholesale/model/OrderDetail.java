@@ -19,6 +19,7 @@ public class OrderDetail implements Serializable {
 	private String desc;
 	private Double price;
 	private Double price_enduser;
+	private String subscribe;
 	private String material_type;
 	private String type;
 	private String status;
@@ -239,6 +240,14 @@ public class OrderDetail implements Serializable {
 
 	public void setData_flow(Long data_flow) {
 		this.data_flow = data_flow;
+	}
+
+	public String getSubscribe() {
+		return subscribe;
+	}
+
+	public void setSubscribe(String subscribe) {
+		this.subscribe = subscribe;
 	}
 
 }

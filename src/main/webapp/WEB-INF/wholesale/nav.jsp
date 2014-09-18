@@ -33,7 +33,8 @@
 						Order <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu" >
-						<li><a href="${ctx }/order/check-address"><span class="glyphicon glyphicon-pencil"></span> Order Entry</a></li>
+						<li><a href="${ctx }/order/check-address"><span class="glyphicon glyphicon-arrow-right"></span> Order Entry</a></li>
+						<li><a href="${ctx }/order/query"><span class="glyphicon glyphicon-search"></span> Order Query</a></li>
 					</ul>
 				</li>
 			</ul>

@@ -10,6 +10,9 @@
 .btn.dropdown-toggle.selectpicker.btn-default {
 	padding: 0;
 }
+.table tr {
+	height: 49px;
+}
 </style>
 
 <div class="container-fluid">
@@ -36,19 +39,6 @@
 	</div>
 	
 	<div id="order_for_wholesale_and_enduser"></div>
-	
-	<div class="panel panel-info">
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-6">
-					<div id="order_for_wholesale"></div>
-				</div>
-				<div class="col-md-6">
-					<div id="order_for_enduser"></div>
-				</div>
-			</div>
-		</div>
-	</div>
 	
 </div>
 

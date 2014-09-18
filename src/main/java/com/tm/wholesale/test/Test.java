@@ -155,8 +155,8 @@ public class Test {
 		
 		SimpleMapperCreator smc = new SimpleMapperCreator();
 		smc.setAuthor("Kanny");
-		smc.setModel("Manager");
-		smc.setTable("manager");
+		smc.setModel("OrderLog");
+		smc.setTable("order_log");
 		smc.initial();
 		
 	}

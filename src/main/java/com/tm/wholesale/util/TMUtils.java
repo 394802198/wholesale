@@ -68,6 +68,12 @@ public class TMUtils {
 		return serial;
 	}
 	
+	public static String dateFormatDDMMYYYYHHMMSS(Date date) {
+		if (date != null) 
+			return date3Format.format(date);
+		return "";
+	}
+	
 	public static String dateFormatYYYYMMDDHHMMSS(Date date) {
 		if (date != null) 
 			return date2Format.format(date);
