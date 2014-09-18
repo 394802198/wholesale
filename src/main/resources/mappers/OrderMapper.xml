@@ -35,7 +35,8 @@
 		o.`cvlan`								as o_cvlan,
 		o.`pppoe_loginname`						as o_pppoe_loginname,
 		o.`pppoe_password`						as o_pppoe_password,
-		o.`order_pdf_path`						as o_order_pdf_path,
+		o.`order_wholesaler_pdf_path`			as o_order_wholesaler_pdf_path,
+		o.`order_customer_pdf_path`				as o_order_customer_pdf_path,
 		o.`memo`								as o_memo,
 		o.`broadband_asid`						as o_broadband_asid,
 		o.`rfs_date`							as o_rfs_date,
@@ -76,7 +77,8 @@
 		<result property="cvlan" column="o_cvlan" />
 		<result property="pppoe_loginname" column="o_pppoe_loginname" />
 		<result property="pppoe_password" column="o_pppoe_password" />
-		<result property="order_pdf_path" column="o_order_pdf_path" />
+		<result property="order_wholesaler_pdf_path" column="o_order_wholesaler_pdf_path" />
+		<result property="order_customer_pdf_path" column="o_order_customer_pdf_path" />
 		<result property="memo" column="o_memo" />
 		<result property="broadband_asid" column="o_broadband_asid" />
 		<result property="rfs_date" column="o_rfs_date" />
@@ -168,7 +170,8 @@
 			<if test="params.cvlan != null">and o.cvlan = #{params.cvlan}</if>
 			<if test="params.pppoe_loginname != null">and o.pppoe_loginname = #{params.pppoe_loginname}</if>
 			<if test="params.pppoe_password != null">and o.pppoe_password = #{params.pppoe_password}</if>
-			<if test="params.order_pdf_path != null">and o.order_pdf_path = #{params.order_pdf_path}</if>
+			<if test="params.order_wholesaler_pdf_path != null">and o.order_wholesaler_pdf_path = #{params.order_wholesaler_pdf_path}</if>
+			<if test="params.order_customer_pdf_path != null">and o.order_customer_pdf_path = #{params.order_customer_pdf_path}</if>
 			<if test="params.memo != null">and o.memo = #{params.memo}</if>
 			<if test="params.broadband_asid != null">and o.broadband_asid = #{params.broadband_asid}</if>
 			<if test="params.rfs_date != null">and o.rfs_date = #{params.rfs_date}</if>
@@ -228,7 +231,7 @@
 			`id`, `company_id`, `wholesaler_id`, `wholesaler_company_name`, `manager_id`, `total_price`, 
 			`inservice_date`, `status`, `customer_type`, `broadband_type`, `transition_provider_name`, 
 			`transition_account_holder_name`, `transition_account_number`, `transition_porting_number`, `svlan`, `cvlan`, 
-			`pppoe_loginname`, `pppoe_password`, `order_pdf_path`, `memo`, `broadband_asid`, 
+			`pppoe_loginname`, `pppoe_password`, `order_wholesaler_pdf_path`, `order_customer_pdf_path`, `memo`, `broadband_asid`, 
 			`rfs_date`, `disconnected_date`, `preferred_connection_date`, `previous_provider_invoice`, `next_invoice_create_date`, 
 			`next_invoice_create_date_flag`, `first_name`, `last_name`, `address`, `email`, 
 			`phone`, `mobile`, `create_date`, `company_name`, `trade_name`, `title`, `hardware_post`
@@ -236,7 +239,7 @@
 			#{id}, #{company_id}, #{wholesaler_id}, #{wholesaler_company_name}, #{manager_id}, #{total_price}, 
 			#{inservice_date}, #{status}, #{customer_type}, #{broadband_type}, #{transition_provider_name}, 
 			#{transition_account_holder_name}, #{transition_account_number}, #{transition_porting_number}, #{svlan}, #{cvlan}, 
-			#{pppoe_loginname}, #{pppoe_password}, #{order_pdf_path}, #{memo}, #{broadband_asid}, 
+			#{pppoe_loginname}, #{pppoe_password}, #{order_wholesaler_pdf_path}, #{order_customer_pdf_path}, #{memo}, #{broadband_asid}, 
 			#{rfs_date}, #{disconnected_date}, #{preferred_connection_date}, #{previous_provider_invoice}, #{next_invoice_create_date}, 
 			#{next_invoice_create_date_flag}, #{first_name}, #{last_name}, #{address}, #{email}, 
 			#{phone}, #{mobile}, #{create_date}, #{company_name}, #{trade_name}, #{title}, #{hardware_post}
@@ -270,7 +273,8 @@
 			<if test="cvlan != null">cvlan = #{cvlan},</if>
 			<if test="pppoe_loginname != null">pppoe_loginname = #{pppoe_loginname},</if>
 			<if test="pppoe_password != null">pppoe_password = #{pppoe_password},</if>
-			<if test="order_pdf_path != null">order_pdf_path = #{order_pdf_path},</if>
+			<if test="order_wholesaler_pdf_path != null">order_wholesaler_pdf_path = #{order_wholesaler_pdf_path},</if>
+			<if test="order_customer_pdf_path != null">order_customer_pdf_path = #{order_customer_pdf_path},</if>
 			<if test="memo != null">memo = #{memo},</if>
 			<if test="broadband_asid != null">broadband_asid = #{broadband_asid},</if>
 			<if test="rfs_date != null">rfs_date = #{rfs_date},</if>

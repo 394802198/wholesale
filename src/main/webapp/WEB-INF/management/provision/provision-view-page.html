@@ -1,35 +1,51 @@
 <div class="panel-heading">
-	<h4 class="panel-title">Provision View</h4>
+	<h4 class="panel-title">Provision View&nbsp;
+	<. if(orderStatus=='pending' || orderStatus=='reconnection'){ .>
+		<div class="btn-group">
+			<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+				Operate <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" data-role="menu">
+				<li>
+					<a href="javascript:void(0);" id="pending_to_processing" data-val="processing">
+						Switch To: 
+						<span class="text-danger">Processing</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	<. } .>
+	</h4>
 </div>
 
 <div class="panel-body">
 	<div class="btn-group">
 	  <button data-name="query_order" data-status="pending" type="button" class="btn btn-default <.= orderStatus=='pending' ? 'active' : '' .>">
-	  	Pending <span class="badge">1</span>
-	  </button>
-	  <button data-name="query_order" data-status="processing" type="button" class="btn btn-default <.= orderStatus=='processing' ? 'active' : '' .>">
-	  	Processing <span class="badge">1</span>
+	  	Pending <span class="badge"><.= params.pendingSum .></span>
 	  </button>
 	  <button data-name="query_order" data-status="reconnection" type="button" class="btn btn-default <.= orderStatus=='reconnection' ? 'active' : '' .>">
-	  	Reconnection <span class="badge">1</span>
+	  	Reconnection <span class="badge"><.= params.reconnectionSum .></span>
+	  </button>
+	  <button data-name="query_order" data-status="processing" type="button" class="btn btn-default <.= orderStatus=='processing' ? 'active' : '' .>">
+	  	Processing <span class="badge"><.= params.processingSum .></span>
 	  </button>
 	  <button data-name="query_order" data-status="rfs" type="button" class="btn btn-default <.= orderStatus=='rfs' ? 'active' : '' .>">
-	  	RFS <span class="badge">1</span>
+	  	RFS <span class="badge"><.= params.rfsSum .></span>
 	  </button>
 	  <button data-name="query_order" data-status="in-service" type="button" class="btn btn-default <.= orderStatus=='in-service' ? 'active' : '' .>">
-	  	In Service <span class="badge">1</span>
+	  	In Service <span class="badge"><.= params.inServiceSum .></span>
 	  </button>
 	  <button data-name="query_order" data-status="suspend" type="button" class="btn btn-default <.= orderStatus=='suspend' ? 'active' : '' .>">
-	  	Suspend <span class="badge">1</span>
+	  	Suspend <span class="badge"><.= params.suspendSum .></span>
 	  </button>
 	  <button data-name="query_order" data-status="disconnected" type="button" class="btn btn-default <.= orderStatus=='disconnected' ? 'active' : '' .>">
-	  	Disconnected <span class="badge">1</span>
+	  	Disconnected <span class="badge"><.= params.disconnectedSum .></span>
 	  </button>
 	  <button data-name="query_order" data-status="void" type="button" class="btn btn-default <.= orderStatus=='void' ? 'active' : '' .>">
-	  	Void <span class="badge">1</span>
+	  	Void <span class="badge"><.= params.voidSum .></span>
 	  </button>
 	  <button data-name="query_order" data-status="cancel" type="button" class="btn btn-default <.= orderStatus=='cancel' ? 'active' : '' .>">
-	  	Cancel <span class="badge">1</span>
+	  	Cancel <span class="badge"><.= params.cancelSum .></span>
 	  </button>
 	</div>
 </div>
@@ -38,7 +54,7 @@
 <table class="table" style="font-size:12px;">
 	<thead>
 		<tr>
-			<th><input type="checkbox" id="checkbox_getProvisionPages_top" /></th>
+			<th><input type="checkbox" id="checkbox_provisions_top" /></th>
 			<th>Order ID</th>
 			<th>Customer Name</th>
 			<th>Order Total ($)</th>
@@ -57,7 +73,7 @@
 	.>
 		<tr>
 			<td>
-				<input type="checkbox" name="checkbox_getProvisionPages" value="<.= o.id .>"/>
+				<input type="checkbox" name="checkbox_provisions" value="<.= o.id .>"/>
 			</td>
 			<td>
 				<.= o.id .>

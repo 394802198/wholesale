@@ -17,9 +17,10 @@ public interface MaterialCategoryMapper {
 
 	/* SELECT AREA */
 
-	List<MaterialCategory> selectMaterialCategorys(MaterialCategory mc);
-	List<MaterialCategory> selectMaterialCategorysByPage(Page<MaterialCategory> page);
-	int selectMaterialCategorysSum(Page<MaterialCategory> page);
+	List<MaterialCategory> selectMaterialCategories(MaterialCategory mc);
+	List<MaterialCategory> selectMaterialCategoriesByPage(Page<MaterialCategory> page);
+	int selectMaterialCategoriesSum(Page<MaterialCategory> page);
+	List<MaterialCategory> selectMaterialCategoriesUpperLowerName();
 
 	/* // END SELECT AREA */
 	/* =================================================================================== */

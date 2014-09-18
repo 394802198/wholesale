@@ -30,7 +30,28 @@ public class ProvisionRestControllerBack {
 		page.setPageNo(pageNo);
 		page.setPageSize(30);
 		page.getParams().put("orderby", "order by create_date desc");
+		page.getParams().put("status", status);
 		this.orderService.queryOrdersByPage(page);
+		
+		Page<Order> pageSum = new Page<Order>();
+		pageSum.getParams().put("status", "pending");
+		page.getParams().put("pendingSum", this.orderService.queryOrdersSumByPage(pageSum));
+		pageSum.getParams().put("status", "processing");
+		page.getParams().put("processingSum", this.orderService.queryOrdersSumByPage(pageSum));
+		pageSum.getParams().put("status", "reconnection");
+		page.getParams().put("reconnectionSum", this.orderService.queryOrdersSumByPage(pageSum));
+		pageSum.getParams().put("status", "rfs");
+		page.getParams().put("rfsSum", this.orderService.queryOrdersSumByPage(pageSum));
+		pageSum.getParams().put("status", "in-service");
+		page.getParams().put("inServiceSum", this.orderService.queryOrdersSumByPage(pageSum));
+		pageSum.getParams().put("status", "suspend");
+		page.getParams().put("suspendSum", this.orderService.queryOrdersSumByPage(pageSum));
+		pageSum.getParams().put("status", "disconnected");
+		page.getParams().put("disconnectedSum", this.orderService.queryOrdersSumByPage(pageSum));
+		pageSum.getParams().put("status", "void");
+		page.getParams().put("voidSum", this.orderService.queryOrdersSumByPage(pageSum));
+		pageSum.getParams().put("status", "cancel");
+		page.getParams().put("cancelSum", this.orderService.queryOrdersSumByPage(pageSum));
 		
 		return page;
 	}

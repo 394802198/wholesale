@@ -48,8 +48,10 @@ public class ProductRestControllerBack {
 		
 		if("group".equals(group_or_type)){
 			MaterialGroup group = new MaterialGroup();
+			group.setUpper_group_name(group_or_type_name.toUpperCase());
 			group.getParams().put("group_name", group_or_type_name);
-			if(this.productService.queryMaterialGroups(group)!=null && this.productService.queryMaterialGroups(group).size() > 0){
+			List<MaterialGroup> groupsVeri = this.productService.queryMaterialGroups(group);
+			if(groupsVeri!=null && groupsVeri.size() > 0){
 				json.getErrorMap().put("alert-error", "Group name existed, can't be recreate!");
 				return json;
 			}
@@ -58,7 +60,8 @@ public class ProductRestControllerBack {
 		} else if("type".equals(group_or_type)) {
 			MaterialType type = new MaterialType();
 			type.getParams().put("type_name", group_or_type_name);
-			if(this.productService.queryMaterialTypes(type)!=null && this.productService.queryMaterialTypes(type).size() > 0){
+			List<MaterialType> typesVeri = this.productService.queryMaterialTypes(type);
+			if(typesVeri!=null && typesVeri.size() > 0){
 				json.getErrorMap().put("alert-error", "Type name existed, can't be recreate!");
 				return json;
 			}
@@ -67,8 +70,10 @@ public class ProductRestControllerBack {
 			this.productService.createMaterialType(type);
 		} else {
 			MaterialCategory category = new MaterialCategory();
+			category.setUpper_category_name(group_or_type_name.toUpperCase());
 			category.getParams().put("category_name", group_or_type_name);
-			if(this.productService.queryMaterialCategorys(category)!=null && this.productService.queryMaterialCategorys(category).size() > 0){
+			List<MaterialCategory> categoriesVeri = this.productService.queryMaterialCategories(category);
+			if(categoriesVeri!=null && categoriesVeri.size() > 0){
 				json.getErrorMap().put("alert-error", "Category name existed, can't be recreate!");
 				return json;
 			}

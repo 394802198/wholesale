@@ -138,6 +138,10 @@ public class ProductServiceBack {
 		return this.materialGroupMapper.selectMaterialGroups(mg);
 	}
 	
+	public List<MaterialGroup> queryMaterialGroupsUpperLowerName(){
+		return this.materialGroupMapper.selectMaterialGroupsUpperLowerName();
+	}
+	
 	public Page<MaterialGroup> queryMaterialGroupsByPage(Page<MaterialGroup> page){
 		page.setResults(this.materialGroupMapper.selectMaterialGroupsByPage(page));
 		page.setTotalRecord(this.materialGroupMapper.selectMaterialGroupsSum(page));
@@ -167,13 +171,17 @@ public class ProductServiceBack {
 	 * BEGIN MaterialCategory
 	 */
 	
-	public List<MaterialCategory> queryMaterialCategorys(MaterialCategory mg){
-		return this.materialCategoryMapper.selectMaterialCategorys(mg);
+	public List<MaterialCategory> queryMaterialCategories(MaterialCategory mg){
+		return this.materialCategoryMapper.selectMaterialCategories(mg);
 	}
 	
-	public Page<MaterialCategory> queryMaterialCategorysByPage(Page<MaterialCategory> page){
-		page.setResults(this.materialCategoryMapper.selectMaterialCategorysByPage(page));
-		page.setTotalRecord(this.materialCategoryMapper.selectMaterialCategorysSum(page));
+	public List<MaterialCategory> queryMaterialCategoriesUpperLowerName(){
+		return this.materialCategoryMapper.selectMaterialCategoriesUpperLowerName();
+	}
+	
+	public Page<MaterialCategory> queryMaterialCategoriesByPage(Page<MaterialCategory> page){
+		page.setResults(this.materialCategoryMapper.selectMaterialCategoriesByPage(page));
+		page.setTotalRecord(this.materialCategoryMapper.selectMaterialCategoriesSum(page));
 		return page;
 	}
 	
