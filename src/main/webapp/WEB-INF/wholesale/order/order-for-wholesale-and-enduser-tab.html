@@ -12,7 +12,7 @@
 		<!-- Order For Wholesale -->
 		<div class="tab-pane fade in active" id="order-for-wholesale">
 			<h4 class="text-primary"><.=selected_combo.name.></h4>
-			<.if (wholesale_original_details != null && wholesale_original_details.length > 0) {.>
+			<.if (wholesale_original_details.length > 0) {.>
 			<table class="table" id="order_for_wholesale_table">
 				<thead>
 					<tr>
@@ -53,7 +53,7 @@
 				<.}.>
 				
 				<. 
-				if (wholesale_addons_details != null && wholesale_addons_details.length > 0) {
+				if (wholesale_addons_details.length > 0) {
 					for (var i = 0, len = wholesale_addons_details.length; i < len; i++) {
 						var detail = wholesale_addons_details[i];.>
 					<tr data-index="<.=detail.index.>" class="info">
@@ -156,10 +156,10 @@
 						<td>&nbsp;</td>
 						<td>
 							<.if (detail.material_type.indexOf('pstn') > -1 ) {.>
-							<input type="text" id="enduser_detail<.=detail.index.>" data-tr_type="pstn" class="form-control input-sm" placeholder="Eg.095701578"/>
+							<input type="text" id="enduser_detail_number<.=detail.index.>" data-tr_type="pstn" class="form-control input-sm" placeholder="Eg.095701578" data-input-other="number"/>
 							<.} else if (detail.material_category == 'broadband-type') {.>
 							<div class="input-group input-group-sm">
-								<input type="text" id="enduser_detail<.=detail.index.>" data-tr_type="broadband" class="form-control input-sm" />
+								<input type="text" id="enduser_detail_data_flow<.=detail.index.>" data-tr_type="broadband" class="form-control input-sm" data-input-other="data_flow"/>
 								<span class="input-group-addon">GB</span>
 							</div> 
 							<.}.>
@@ -212,10 +212,10 @@
 						</td>
 						<td>
 							<.if (detail.material_type.indexOf('pstn') > -1 ) {.>
-							<input type="text" id="enduser_detail<.=detail.index.>" data-tr_type="pstn" class="form-control input-sm" placeholder="Eg.095701578"/>
+							<input type="text" id="enduser_detail_number<.=detail.index.>" data-tr_type="pstn" class="form-control input-sm" placeholder="Eg.095701578" data-input-other="number"/>
 							<.} else if (detail.material_category == 'broadband-type') {.>
 							<div class="input-group input-group-sm">
-								<input type="text" id="enduser_detail<.=detail.index.>" data-tr_type="broadband" class="form-control input-sm" />
+								<input type="text" id="enduser_detail_data_flow<.=detail.index.>" data-tr_type="broadband" class="form-control input-sm" data-input-other="data_flow"/>
 								<span class="input-group-addon">GB</span>
 							</div> 
 							<.}.>

@@ -2,7 +2,7 @@
 	
 	var ctx = $('#information_content_tmpl').attr('data-ctx')
 	
-	$.get(ctx + '/order/information/loading', function(order){
+	$.get(ctx + '/order/information/loading', function(order){ console.log(order);
 		
 		$('#information-content').html(tmpl('information_content_tmpl', order));
 		$(':radio, :checkbox').iCheck({ checkboxClass: 'icheckbox_square-blue', radioClass: 'iradio_square-blue' });
@@ -40,6 +40,11 @@
 				, mobile: $('#mobile').val()
 				, phone: $('#phone').val()
 				, preferred_connection_date_str: preferred_connection_date
+				
+				, transition_porting_number: $('#transition_porting_number').val()
+				, transition_provider_name: $('#transition_provider_name').val()
+				, transition_account_holder_name: $('#transition_account_holder_name').val()
+				, transition_account_number: $('#transition_account_number').val()
 			};
 			
 			console.log(JSON.stringify(order));

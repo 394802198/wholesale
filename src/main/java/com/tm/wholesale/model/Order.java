@@ -33,9 +33,17 @@ public class Order implements Serializable {
 	private String status;
 	private String customer_type;
 	private String broadband_type;
+	@NotEmpty(groups = { OrderSessionInformationValidatedMark.class })
+	@Length(max = 49, groups = { OrderSessionInformationValidatedMark.class })
 	private String transition_provider_name;
+	@NotEmpty(groups = { OrderSessionInformationValidatedMark.class })
+	@Length(max = 49, groups = { OrderSessionInformationValidatedMark.class })
 	private String transition_account_holder_name;
+	@NotEmpty(groups = { OrderSessionInformationValidatedMark.class })
+	@Length(max = 49, groups = { OrderSessionInformationValidatedMark.class })
 	private String transition_account_number;
+	@NotEmpty(groups = { OrderSessionInformationValidatedMark.class })
+	@Length(max = 49, groups = { OrderSessionInformationValidatedMark.class })
 	private String transition_porting_number;
 	private String svlan;
 	private String cvlan;

@@ -115,6 +115,8 @@ public class OrderRestController {
 		
 		orderSession.setOds(order.getOds());
 		
+		orderSession.setBroadband_type(order.getBroadband_type());
+		
 		json.setUrl("/order/fill-information");
 		
 		return json;
@@ -133,12 +135,19 @@ public class OrderRestController {
 		JSONBean<Order> json = new JSONBean<Order>();
 		json.setModel(order);
 		
+		Order orderSession = (Order) session.getAttribute("orderSession");
+		
 		if (result.hasErrors()) {
 			json.setJSONErrorMap(result);
-			return json;
+			if (!"transition".equals(orderSession.getBroadband_type())) {
+				System.out.println("remove transition");
+				json.getErrorMap().remove("transition_porting_number");
+				json.getErrorMap().remove("transition_provider_name");
+				json.getErrorMap().remove("transition_account_number");
+				json.getErrorMap().remove("transition_account_holder_name");
+			}
+			if (json.isHasErrors()) return json;
 		}
-		
-		Order orderSession = (Order) session.getAttribute("orderSession");
 		
 		orderSession.setCustomer_type(order.getCustomer_type());
 		orderSession.setCompany_name(order.getCompany_name());
@@ -150,6 +159,11 @@ public class OrderRestController {
 		orderSession.setMobile(order.getMobile());
 		orderSession.setPhone(order.getPhone());
 		orderSession.setPreferred_connection_date(order.getPreferred_connection_date());
+		
+		orderSession.setTransition_porting_number(order.getTransition_porting_number());
+		orderSession.setTransition_provider_name(order.getTransition_provider_name());
+		orderSession.setTransition_account_number(order.getTransition_account_number());
+		orderSession.setTransition_account_holder_name(order.getTransition_account_holder_name());
 		
 		json.setUrl("/order/review-order");
 		

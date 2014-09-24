@@ -20,7 +20,25 @@ public class OrderDetail implements Serializable {
 	private Double price;
 	private Double price_enduser;
 	private String subscribe;
+	private String material_group;
 	private String material_type;
+	private String material_category;
+	public String getMaterial_group() {
+		return material_group;
+	}
+
+	public void setMaterial_group(String material_group) {
+		this.material_group = material_group;
+	}
+
+	public String getMaterial_category() {
+		return material_category;
+	}
+
+	public void setMaterial_category(String material_category) {
+		this.material_category = material_category;
+	}
+
 	private String type;
 	private String status;
 	private Long data_flow;
