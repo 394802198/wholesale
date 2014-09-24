@@ -57,7 +57,8 @@
 			<th><input type="checkbox" id="checkbox_provisions_top" /></th>
 			<th>Order ID</th>
 			<th>Customer Name</th>
-			<th>Order Total ($)</th>
+			<th>Wholesaler ($)</th>
+			<th>Customer ($)</th>
 			<th>Create Date</th>
 			<th>Status</th>
 			<th>Broadband Type</th>
@@ -69,20 +70,23 @@
 	<tbody>
 	<. for (var i=0; i < results.length; i++) { 
 		var o = results[i];
-		var totalPrice = Number(o.total_price);
+		var totalPriceGST = new Number(o.total_price_gst);
+		var totalPriceGSTCustomer = new Number(o.total_price_gst_enduser);
 	.>
 		<tr>
 			<td>
 				<input type="checkbox" name="checkbox_provisions" value="<.= o.id .>"/>
 			</td>
-			<td>
-				<.= o.id .>
+			<td><.= o.id .>
 			</td>
 			<td>
-				<.= o.first_name +' '+ o.last_name .>
+				<a target="_blank" href="<.= ctx .>/management/provision/order/<.= o.id .>"><.= o.first_name +' '+ o.last_name .></a>
 			</td>
 			<td>
-				<.= totalPrice.toFixed(2) .>
+				<.= totalPriceGST.toFixed(2) .>
+			</td>
+			<td>
+				<.= totalPriceGSTCustomer.toFixed(2) .>
 			</td>
 			<td>
 				<.= o.create_date_str .>

@@ -47,6 +47,7 @@ public class TestAll {
 		cod.setName("ADSL Naked 150 GB Plan");
 		cod.setType("plan-term");
 		cod.setPrice(89.0d);
+		cod.setPrice_enduser(100d);
 		cod.setUnit(3);
 		cods.add(cod);
 		
@@ -55,6 +56,7 @@ public class TestAll {
 		cod.setName("Broadband New Connection");
 		cod.setType("new-connection");
 		cod.setPrice(99.0d);
+		cod.setPrice_enduser(100d);
 		cod.setUnit(1);
 		cods.add(cod);
 		
@@ -62,6 +64,7 @@ public class TestAll {
 		cod.setName("TP - LINK 150Mbps Wireless N ADSL2+ Modem Router");
 		cod.setType("hardware-router");
 		cod.setPrice(49.0d);
+		cod.setPrice_enduser(100d);
 		cod.setUnit(2);
 		cods.add(cod);
 		
@@ -71,6 +74,7 @@ public class TestAll {
 		cod.setDesc("3% off the total price of plan");
 		cod.setType("discount");
 		cod.setPrice(16.008d);
+		cod.setPrice_enduser(60d);
 		cod.setUnit(1);
 		cods.add(cod);
 		
@@ -80,12 +84,15 @@ public class TestAll {
 		co.setOds(cods);
 		
 		// call OrderPDFCreator
-		OrderingPDFCreator oPDFCreator = new OrderingPDFCreator();
-		oPDFCreator.setOrder(co);
+		OrderingWholesalerPDFCreator oWholesalerPDFCreator = new OrderingWholesalerPDFCreator();
+		OrderingCustomerPDFCreator oCustomerPDFCreator = new OrderingCustomerPDFCreator();
+		oWholesalerPDFCreator.setOrder(co);
+		oCustomerPDFCreator.setOrder(co);
 		
 		// create order PDF
 		try {
-			System.out.println(oPDFCreator.create());
+			System.out.println(oWholesalerPDFCreator.create());
+			System.out.println(oCustomerPDFCreator.create());
 		} catch (DocumentException | IOException e1) {
 			e1.printStackTrace();
 		}

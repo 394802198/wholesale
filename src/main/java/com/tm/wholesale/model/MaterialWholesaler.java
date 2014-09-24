@@ -22,6 +22,7 @@ public class MaterialWholesaler implements Serializable {
 	private String description;
 	private Double wholesale_price;
 	private Integer company_id;
+	private String subscribe;
 	private String status;
 
 	/*
@@ -145,6 +146,14 @@ public class MaterialWholesaler implements Serializable {
 
 	public void setEnduser_price(Double enduser_price) {
 		this.enduser_price = enduser_price;
+	}
+
+	public String getSubscribe() {
+		return subscribe;
+	}
+
+	public void setSubscribe(String subscribe) {
+		this.subscribe = subscribe;
 	}
 	
 	
