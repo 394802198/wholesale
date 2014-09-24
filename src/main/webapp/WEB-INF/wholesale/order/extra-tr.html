@@ -1,0 +1,32 @@
+<.if (tr_type == 'pstn') {.>
+	<.if (view_active == 'columns_view') {.>
+<tr class="<.=bg.>" data-incidental >
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td colspan="20">
+		<input type="text" id="<.=type.>_detail<.=index.>" data-tr_type="<.=tr_type.>" class="form-control input-sm" placeholder="Eg.095701578"/>
+	</td>
+</tr>
+	<.} else if (view_active == 'tab_view') {.>
+<input type="text" id="<.=type.>_detail<.=index.>" data-tr_type="<.=tr_type.>" class="form-control input-sm" placeholder="Eg.095701578"/>
+	<.}.>
+<.} else if (tr_type == 'broadband') {.>
+	<.if (view_active == 'columns_view') {.>
+<tr class="<.=bg.>" data-incidental >
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td colspan="20">
+		<div class="input-group input-group-sm">
+			<input type="text" id="<.=type.>_detail<.=index.>" data-tr_type="<.=tr_type.>" class="form-control input-sm" />
+			<span class="input-group-addon">GB</span>
+		</div> 
+	</td>
+</tr>
+	<.} else if (view_active == 'tab_view') {.>
+<div class="input-group input-group-sm">
+	<input type="text" id="<.=type.>_detail<.=index.>" data-tr_type="<.=tr_type.>" class="form-control input-sm" />
+	<span class="input-group-addon">GB</span>
+</div> 
+	<.}.>
+<.}.>
+

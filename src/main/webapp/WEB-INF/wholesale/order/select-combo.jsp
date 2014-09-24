@@ -31,6 +31,7 @@
 				<div class="col-md-6">
 					<h2 class="text-info">Please Select One Combo</h2>
 					<hr>
+					
 					<div id="combo-list"></div>
 				</div>
 				<div class="col-md-6"></div>
@@ -38,21 +39,30 @@
 		</div>
 	</div>
 	
-	<div id="order_for_wholesale_and_enduser"></div>
+	<div id="view-layer"></div>
 	
 </div>
 
 <script type="text/html" id="combo_list_tmpl" data-ctx="${ctx }">
 <jsp:include page="combo-list.html" />
 </script>
-<script type="text/html" id="order_for_wholesale_and_enduser_tmpl" >
-<jsp:include page="order-for-wholesale-and-enduser.html" />
+<script type="text/html" id="view_layer_tmpl" >
+<jsp:include page="view-layer.html" />
+</script>
+<script type="text/html" id="order_for_wholesale_and_enduser_columns_tmpl" >
+<jsp:include page="order-for-wholesale-and-enduser-columns.html" />
+</script>
+<script type="text/html" id="order_for_wholesale_and_enduser_tab_tmpl" >
+<jsp:include page="order-for-wholesale-and-enduser-tab.html" />
 </script>
 <script type="text/html" id="order_detail_tmpl" >
 <jsp:include page="order-detail.html" />
 </script>
 <script type="text/html" id="order_detail_total_tmpl" >
 <jsp:include page="order-detail-total.html" />
+</script>
+<script type="text/html" id="extra_tr_tmpl" >
+<jsp:include page="extra-tr.html" />
 </script>
 
 
