@@ -24,7 +24,9 @@
 		od.`price`				as od_price,
 		od.`price_enduser`		as od_price_enduser,
 		or.`subscribe`			as od_subscribe,
+		od.`material_group`		as od_material_group,
 		od.`material_type`		as od_material_type,
+		od.`material_category`	as od_material_category,
 		od.`type`				as od_type,
 		od.`status`				as od_status,
 		od.`data_flow`			as od_data_flow,
@@ -50,7 +52,9 @@
 		<result property="price" column="od_price" />
 		<result property="price_enduser" column="od_price_enduser" />
 		<result property="subscribe" column="od_subscribe" />
+		<result property="material_group" column="od_material_group" />
 		<result property="material_type" column="od_material_type" />
+		<result property="material_category" column="od_material_category" />
 		<result property="type" column="od_type" />
 		<result property="status" column="od_status" />
 		<result property="data_flow" column="od_data_flow" />
@@ -77,7 +81,9 @@
 			<if test="params.price != null">and od.price = #{params.price}</if>
 			<if test="params.price_enduser != null">and od.price_enduser = #{params.price_enduser}</if>
 			<if test="params.subscribe != null">and od.subscribe = #{params.subscribe}</if>
+			<if test="params.material_group != null">and od.material_group = #{params.material_group}</if>
 			<if test="params.material_type != null">and od.material_type = #{params.material_type}</if>
+			<if test="params.material_category != null">and od.material_category = #{params.material_category}</if>
 			<if test="params.type != null">and od.type = #{params.type}</if>
 			<if test="params.status != null">and od.status = #{params.status}</if>
 			<if test="params.data_flow != null">and od.data_flow = #{params.data_flow}</if>
@@ -131,12 +137,12 @@
 
 	<insert id="insertOrderDetail" parameterType="OrderDetail" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `order_detail`(
-			`id`, `order_id`, `name`, `desc`, `price`, `price_enduser`, `subscribe`, `material_type`, 
+			`id`, `order_id`, `name`, `desc`, `price`, `price_enduser`, `subscribe`, `material_group`, `material_type`, `material_category`, 
 			`type`, `status`, `data_flow`, `unit`, `number`, `password`, 
 			`assign_date`, `calling_mins`, `track_code`, `is_post`, `expire_date`, 
 			`manager_id`, `is_wholesale`, `is_enduser`, `memo`
 		) VALUES (
-			#{id}, #{order_id}, #{name}, #{desc}, #{price}, #{price_enduser}, #{subscribe}, #{material_type}, 
+			#{id}, #{order_id}, #{name}, #{desc}, #{price}, #{price_enduser}, #{subscribe}, #{material_group}, #{material_type}, #{material_category}, 
 			#{type}, #{status}, #{data_flow}, #{unit}, #{number}, #{password}, 
 			#{assign_date}, #{calling_mins}, #{track_code}, #{is_post}, #{expire_date}, 
 			#{manager_id}, #{is_wholesale}, #{is_enduser}, #{memo}
@@ -159,7 +165,9 @@
 			<if test="price != null">price = #{price},</if>
 			<if test="price_enduser != null">price_enduser = #{price_enduser},</if>
 			<if test="subscribe != null">subscribe = #{subscribe},</if>
+			<if test="material_group != null">material_group = #{material_group},</if>
 			<if test="material_type != null">material_type = #{material_type},</if>
+			<if test="material_category != null">material_category = #{material_category},</if>
 			<if test="type != null">type = #{type},</if>
 			<if test="status != null">status = #{status},</if>
 			<if test="data_flow != null">data_flow = #{data_flow},</if>

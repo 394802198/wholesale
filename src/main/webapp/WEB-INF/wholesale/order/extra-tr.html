@@ -4,11 +4,11 @@
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
 	<td colspan="20">
-		<input type="text" id="<.=type.>_detail<.=index.>" data-tr_type="<.=tr_type.>" class="form-control input-sm" placeholder="Eg.095701578"/>
+		<input type="text" id="<.=type.>_detail_pstn<.=index.>" data-tr_type="<.=tr_type.>" class="form-control input-sm" placeholder="Eg.095701578" data-input-other="number"/>
 	</td>
 </tr>
 	<.} else if (view_active == 'tab_view') {.>
-<input type="text" id="<.=type.>_detail<.=index.>" data-tr_type="<.=tr_type.>" class="form-control input-sm" placeholder="Eg.095701578"/>
+<input type="text" id="<.=type.>_detail_pstn<.=index.>" data-tr_type="<.=tr_type.>" class="form-control input-sm" placeholder="Eg.095701578" data-input-other="number"/>
 	<.}.>
 <.} else if (tr_type == 'broadband') {.>
 	<.if (view_active == 'columns_view') {.>
@@ -17,14 +17,14 @@
 	<td>&nbsp;</td>
 	<td colspan="20">
 		<div class="input-group input-group-sm">
-			<input type="text" id="<.=type.>_detail<.=index.>" data-tr_type="<.=tr_type.>" class="form-control input-sm" />
+			<input type="text" id="<.=type.>_detail_data_flow<.=index.>" data-tr_type="<.=tr_type.>" class="form-control input-sm" data-input-other="data_flow"/>
 			<span class="input-group-addon">GB</span>
 		</div> 
 	</td>
 </tr>
 	<.} else if (view_active == 'tab_view') {.>
 <div class="input-group input-group-sm">
-	<input type="text" id="<.=type.>_detail<.=index.>" data-tr_type="<.=tr_type.>" class="form-control input-sm" />
+	<input type="text" id="<.=type.>_detail_data_flow<.=index.>" data-tr_type="<.=tr_type.>" class="form-control input-sm" data-input-other="data_flow"/>
 	<span class="input-group-addon">GB</span>
 </div> 
 	<.}.>

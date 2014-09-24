@@ -28,6 +28,17 @@
 		return o;
 	}
 	
+	function getDetail(details, index) {
+		var o = null;
+		$.each(details, function() {
+			if (this.index == index) {
+				o = this;
+				return false;
+			}
+		});
+		return o;
+	}
+	
 	function initDetailsIndex(details, type, detail_type) {
 		if (type == 'wholesale') {
 			$.each(details, function(i){
@@ -106,14 +117,8 @@
 							return false;
 						}
 					});
-					//console.log('enduser_original_details:');console.log(enduser_original_details);
-					//console.log(selected_combo);
 					initEnduserPrice(enduser_original_details);
-					//console.log('wholesale_original_details:');console.log(wholesale_original_details);
-					//console.log('enduser_original_details:');console.log(enduser_original_details);
-					
 					loadingViews();
-					//loadingDetails();
 				});
 			});
 			
@@ -172,18 +177,18 @@
 		flushTotalPrice('enduser', 'enduser-order-detail-total');
 		
 		//console.log(wholesale_original_details.slice(-1)[0].index);
-
+		
 		var wholesale_addons_index = wholesale_addons_details.length > 0 
 			? (Number(wholesale_addons_details.slice(-1)[0].index) + 1)
 			: (Number(wholesale_original_details.slice(-1)[0].index) + 1);
 		var enduser_addons_index = enduser_addons_details.length > 0 
 			? (Number(enduser_addons_details.slice(-1)[0].index) + 1)
-			: (Number(enduser_original_details.slice(-1)[0].index) + 1);
-			
+			: 50;
 		//console.log(wholesale_addons_index);
-		console.log(enduser_addons_index);
+		//console.log(enduser_addons_index);
 			
 		$('#order_for_wholesale_add_detail').click(function(){
+		
 			if (wholesale_addons_index >= 50) {
 				alert('Items have reached the maximum number.');
 				return false;
@@ -207,6 +212,7 @@
 		});
 		
 		$('#order_for_enduser_add_detail').click(function(){
+			
 			var o = { 
 				index: enduser_addons_index
 				, materials: enduser_materials
@@ -217,6 +223,7 @@
 				, detail: { enduser_price: 0 }
 				, bg: 'success'
 			}; // console.log(o);
+			
 			$('#order_for_enduser_table > tbody').append(tmpl('order_detail_tmpl', o));
 			$('#enduser_detail_price' + enduser_addons_index).on('input', inputPrice);
 			$('#enduser_detail' + enduser_addons_index).selectpicker();
@@ -424,13 +431,20 @@
 		if (!isNaN(value) && Number(value) >= 0) {
 			var type = o.attr('data-type');
 			var detail_type = o.attr('data-detail_type');
-			var id = o.attr('data-id'); console.log(id);
-			var index = o.attr('data-index');
-			var added = o.attr('data-added');
-			var detail = getMaterial(id);
-			detail.index = index;
-			detail.added = Boolean(added);
-			detail.enduser_price = Number(value); console.log(detail);
+			details = null;
+			if (type == 'enduser') {
+				if (detail_type == 'original') {
+					details = enduser_original_details;
+				} else if (detail_type == 'addons') {
+					details = enduser_addons_details;
+				}
+			}
+			
+			var index = o.attr('data-index'); //console.log(id);
+			var detail = getDetail(details, index);
+			
+			detail.enduser_price = Number(value); //console.log(detail);
+			
 			flushDetails(type, detail_type, 'add', detail);
 			flushTotalPrice('enduser', 'enduser-order-detail-total');
 		} else {
@@ -447,42 +461,55 @@
 		var order = {};
 		var order_details = [];
 		
-		if (enduser_original_details != null && enduser_original_details.length > 0) {
-			for (var i = 0, len = enduser_original_details.length; i < len; i++) {
-				var detail = enduser_original_details[i];
-				order_details.push({
-					name: detail.name
-					, price: detail.wholesale_price
-					, price_enduser: detail.enduser_price
-					, subscribe: 'monthly'
-					, material_type: ''
-					, type: ''
-					, unit: 1
-					, is_wholesale: true
-					, is_enduser: true
-				});
-			}
-		}
+		$.each(enduser_original_details, function(){
+			order_details.push({
+				name: this.name
+				, price: this.wholesale_price
+				, price_enduser: this.enduser_price
+				, subscribe: this.subscribe
+				, material_group: this.material_group
+				, material_type: this.material_type
+				, material_category: this.material_category
+				, type: ''
+				, unit: 1
+				, data_flow: $('#enduser_detail_data_flow' + this.index).val()
+				, number: $('#enduser_detail_number' + this.index).val()
+				, is_wholesale: true
+				, is_enduser: true
+			})
+		});
 		
-		if (enduser_addons_details != null && enduser_addons_details.length > 0) {
-			for (var i = 0, len = enduser_addons_details.length; i < len; i++) {
-				var detail = enduser_addons_details[i];
-				order_details.push({
-					name: detail.name
-					, price_enduser: detail.enduser_price
-					, subscribe: 'monthly'
-					, material_type: ''
-					, type: ''
-					, unit: 1
-					, is_wholesale: false
-					, is_enduser: true
-				});
+		$.each(enduser_addons_details, function(){
+			order_details.push({
+				name: this.name
+				, price_enduser: this.enduser_price
+				, subscribe: this.subscribe
+				, material_group: this.material_group
+				, material_type: this.material_type
+				, material_category: this.material_category
+				, type: ''
+				, unit: 1
+				, data_flow: $('#enduser_detail_data_flow' + this.index).val()
+				, number: $('#enduser_detail_number' + this.index).val()
+				, is_wholesale: false
+				, is_enduser: true
+			})
+		});
+		
+		//console.log(order_details);
+		
+		$.each(order_details, function(){ //console.log(this.material_category);
+			if (this.material_type == 'transition' 
+					|| this.material_type == 'connection-wiring'
+					|| this.material_type == 'connection-vdsl') {
+				order.broadband_type = this.material_type;
+				return false;
 			}
-		}
+		});
 		
 		order.ods = order_details;
-		
-		console.log(JSON.stringify(order));
+		//console.log(order);
+		//console.log(JSON.stringify(order));
 		
 		var url = ctx + '/order/select-combo/submit';
 		var l = Ladda.create(this); l.start();

@@ -120,6 +120,22 @@
 		<url-pattern>/system/*</url-pattern>
 		<url-pattern>/order/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- WholesalerSessionFilter -->
+	
+	<filter>
+		<filter-name>orderSessionFilter</filter-name>
+		<filter-class>com.tm.wholesale.filter.OrderSessionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>orderSessionFilter</filter-name>
+		<url-pattern>/order/select-combo/*</url-pattern>
+		<url-pattern>/order/information/loading</url-pattern>
+		<url-pattern>/order/fill-information/*</url-pattern>
+		<url-pattern>/order/review-order/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- error page -->
 
 	<error-page>
 		<error-code>400</error-code>
