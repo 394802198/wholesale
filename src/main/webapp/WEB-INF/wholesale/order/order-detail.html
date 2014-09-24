@@ -3,11 +3,11 @@
 	<td><.=index.></td>
 	<td>
 	<.if (html == 'select') {.>
-		<select id="<.=type.>_detail<.=index.>" data-index="<.=index.>" class="selectpicker" data-live-search="true" title="Please Choose One">
+		<select id="<.=type.>_detail<.=index.>" data-index="<.=index.>" data-added="true" data-detail_type="<.=detail_type.>" class="selectpicker" data-live-search="true" title="Please Choose One">
 			<option style="display:none;"></option>
 		<.for (var i = 0, len = materials.length; i < len; i++) {
 			var material = materials[i];.>
-			<option data-name="<.=material.name.>" data-price="<.=material.wholesale_price.>"><.=material.name.>($<.=material.wholesale_price.>)</option>
+			<option data-id="<.=material.id.>" ><.=material.name.>($<.=material.wholesale_price.>)</option>
 		<.}.>
 		</select>
 	<.} else if (html == 'span') {.>
@@ -20,7 +20,16 @@
 	<.} else if (type == 'enduser') {.>
 		<div class="input-group input-group-sm">
 			<span class="input-group-addon">$</span> 
-			<input id="<.=type.>_detail_price<.=index.>" data-index="<.=detail.index.>" data-name="<.=detail.name.>" type="text" class="form-control" value="<.=detail.enduser_price.>" data-wholesale_price="<.=detail.wholesale_price.>" maxlength="4" required="required" data-type="<.=type.>" data-detail_type="<.=detail_type.>"/> 
+			<input id="<.=type.>_detail_price<.=index.>" 
+					data-id="<.=detail.id.>" 
+					data-index="<.=detail.index.>" 
+					data-name="<.=detail.name.>" 
+					data-wholesale_price="<.=detail.wholesale_price.>"
+					data-type="<.=type.>"
+					data-detail_type="<.=detail_type.>" 
+					value="<.=detail.enduser_price.>" 
+					data-added="<.=detail.added.>"
+					type="text" class="form-control" maxlength="4" required="required" /> 
 			<!-- <span class="input-group-addon">.00</span> -->
 		</div>
 	<.}.>
@@ -35,4 +44,6 @@
 		&nbsp;
 	<.}.>
 	</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
 </tr>

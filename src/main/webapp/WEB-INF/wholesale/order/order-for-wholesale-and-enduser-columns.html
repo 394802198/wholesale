@@ -1,0 +1,270 @@
+<div class="panel-body">
+	<div class="row">
+		
+		<!-- Order For Wholesale -->
+		<div class="col-md-6">
+			<h2 class="text-info">Order For Wholesale</h2>
+			<hr>
+			<h4 class="text-primary"><.=selected_combo.name.></h4>
+			<.if (wholesale_original_details != null && wholesale_original_details.length > 0) {.>
+			<table class="table" id="order_for_wholesale_table">
+				<thead>
+					<tr>
+						<th style="width:32px;">#</th>
+						<th style="width:370px;">Name</th>
+						<th style="width:135px;">Price(Excl. GST)</th>
+						<th>&nbsp;</th>
+						<th>&nbsp;</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+				<.for (var i = 0, len = wholesale_original_details.length; i < len; i++) {
+					var detail = wholesale_original_details[i];.>
+					<tr>
+						<td><.=detail.index.></td>
+						<td>
+						<.if (detail.material_category == 'transition' || detail.material_category == 'new-connection') {.>
+							<select id="wholesale_detail<.=detail.index.>" data-index="<.=detail.index.>" data-detail_type="original" class="selectpicker" data-live-search="true" title="Please Choose One" data-wholesale_detail_select>
+							<.for (var j = 0, jlen = transition_materials.length; j < jlen; j++) {
+								var material = transition_materials[j];
+								if (detail.name == material.name) {.>
+								<option data-id="<.=material.id.>" selected="selected"><.=material.name.>($<.=material.wholesale_price.>)</option>
+								<.} else {.>
+								<option data-id="<.=material.id.>" ><.=material.name.>($<.=material.wholesale_price.>)</option>
+								<.}.>
+							<.}.>
+							</select>
+						<.} else {.>
+							<.=detail.name.>
+						<.}.>
+						</td>
+						<td id="wholesale_detail_price<.=detail.index.>">$ <.=detail.wholesale_price.toFixed(2).></td>
+						<td>&nbsp;</td>
+						<th>&nbsp;</th>
+						<th>&nbsp;</th>
+					</tr>
+				<.}.>
+				
+				<. 
+				if (wholesale_addons_details != null && wholesale_addons_details.length > 0) {
+					for (var i = 0, len = wholesale_addons_details.length; i < len; i++) {
+						var detail = wholesale_addons_details[i];.>
+					<tr data-index="<.=detail.index.>" class="info">
+						<td><.=detail.index.></td>
+						<td>
+							<select id="wholesale_detail<.=detail.index.>" data-detail_type="addons" data-index="<.=detail.index.>" data-added="true" class="selectpicker" data-live-search="true" title="Please Choose One" data-wholesale_detail_select>
+								<option style="display:none;"></option>
+							<.for (var j = 0, jlen = wholesale_materials.length; j < jlen; j++) {
+								var material = wholesale_materials[j];
+								if (detail.name == material.name) {.>
+								<option data-id="<.=material.id.>" selected="selected"><.=material.name.>($<.=material.wholesale_price.>)</option>
+								<.} else {.>
+								<option data-id="<.=material.id.>" ><.=material.name.>($<.=material.wholesale_price.>)</option>
+								<.}.>
+							<.}.>
+							</select>
+						</td>
+						<td><span id="wholesale_detail_price<.=detail.index.>">$ <.=detail.wholesale_price.toFixed(2).></span></td>
+						<td>
+							<a href="javascript:void(0);" class="btn btn-danger btn-xs" id="wholesale_detail_delete<.=detail.index.>" data-index="<.=detail.index.>" data-toggle="tooltip" data-placement="bottom" data-original-title="Remove Details" data-wholesale_detail_delete>
+								<span class="glyphicon glyphicon-trash"></span>
+							</a>
+						</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+				<.	}
+				}.>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="20">
+							<a href="javascript:void(0);" id="order_for_wholesale_add_detail" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="bottom" data-original-title="Add Details">
+								<span class="glyphicon glyphicon-plus"></span>
+							</a>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+			
+			<div id="wholesale-order-detail-total"></div>
+			
+			<.} else {.>
+			<div class="alert alert-warning">No records have been found.</div>
+			<.}.>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!-- Order For End-User -->
+		<div class="col-md-6">
+			<h2 class="text-info">Order For End-User</h2>
+			<hr>
+			<h4 class="text-primary"><.=selected_combo.name.></h4>
+			<.if (enduser_original_details != null && enduser_original_details.length > 0) {.>
+			<table class="table" id="order_for_enduser_table">
+				<thead>
+					<tr>
+						<th style="width:32px;">#</th>
+						<th style="width:370px;">Name</th>
+						<th style="width:135px;">Price(Excl. GST)</th>
+						<th>&nbsp;</th>
+						<th>&nbsp;</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+				<.for (var i = 0, len = enduser_original_details.length; i < len; i++) {
+					var detail = enduser_original_details[i];.>
+					<tr data-index="<.=detail.index.>" class="<.=detail.added?'info':''.>">
+						<td><.=detail.index.></td>
+						<td>
+							<span id="enduser_detail<.=detail.index.>" data-index="<.=detail.index.>"><.=detail.name.></span>
+						</td>
+						<td>
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon">$</span> 
+								<input id="enduser_detail_price<.=detail.index.>" 
+										data-id="<.=detail.id.>"
+										data-index="<.=detail.index.>" 
+										data-name="<.=detail.name.>" 
+										data-wholesale_price="<.=detail.wholesale_price.>" 
+										data-type="enduser" 
+										data-detail_type="original"
+										value="<.=detail.enduser_price.>"
+										data-added="<.=detail.added.>"
+										data-enduser_detail_price
+										type="text" class="form-control" maxlength="4" required="required" /> 
+								<!-- <span class="input-group-addon">.00</span> -->
+							</div>
+						</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+					<.if (detail.material_type.indexOf('pstn') > -1 ) {.>
+					<tr class="<.=detail.added?'info':''.>" data-incidental>	
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td colspan="20">
+							<input type="text" id="enduser_detail<.=detail.index.>" data-tr_type="pstn" class="form-control input-sm" placeholder="Eg.095701578"/>
+						</td>
+					</tr>
+					<.} else if (detail.material_category == 'broadband-type') {.>
+					<tr class="<.=detail.added?'info':''.>" data-incidental>	
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td colspan="20">
+							<div class="input-group input-group-sm">
+								<input type="text" id="enduser_detail<.=detail.index.>" data-tr_type="broadband" class="form-control input-sm" />
+								<span class="input-group-addon">GB</span>
+							</div> 
+						</td>
+					</tr>
+					<.}.>
+				<.}.>
+				
+				<. 
+				if (enduser_addons_details != null && enduser_addons_details.length > 0) {
+					for (var i = 0, len = enduser_addons_details.length; i < len; i++) {
+						var detail = enduser_addons_details[i];.>
+					<tr data-index="<.=detail.index.>" class="success">
+						<td><.=detail.index.></td>
+						<td>
+							<select id="enduser_detail<.=detail.index.>" data-index="<.=detail.index.>" data-added="true" class="selectpicker" data-live-search="true" title="Please Choose One" data-enduser_detail_select>
+								<option></option>
+							<.for (var j = 0, jlen = enduser_materials.length; j < jlen; j++) {
+								var material = enduser_materials[j];
+								if (detail.name == material.name) {.>
+								<option data-id="<.=material.id.>" selected="selected"><.=material.name.>($<.=material.enduser_price.>)</option>
+								<.} else {.>
+								<option data-id="<.=material.id.>" ><.=material.name.>($<.=material.enduser_price.>)</option>
+								<.}.>
+							<.}.>
+							</select>
+						</td>
+						<td>
+							<div class="input-group input-group-sm">
+								<span class="input-group-addon">$</span> 
+								<input id="enduser_detail_price<.=detail.index.>" 
+										data-id="<.=detail.id.>"
+										data-index="<.=detail.index.>" 
+										data-name="<.=detail.name.>" 
+										data-wholesale_price="<.=detail.wholesale_price.>" 
+										data-type="enduser" 
+										data-detail_type="addons"
+										value="<.=detail.enduser_price.>" 
+										data-added="<.=detail.added.>"
+										data-enduser_detail_price
+										type="text" class="form-control" maxlength="4" required="required" /> 
+								<!-- <span class="input-group-addon">.00</span> -->
+							</div>
+						</td>
+						<td>
+							<a href="javascript:void(0);" class="btn btn-danger btn-xs" id="enduser_detail_delete<.=detail.index.>" data-index="<.=detail.index.>" data-toggle="tooltip" data-placement="bottom" data-original-title="Remove Details" data-enduser_detail_delete>
+								<span class="glyphicon glyphicon-trash"></span>
+							</a>
+						</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+					
+					<.if (detail.material_type.indexOf('pstn') > -1) {.>
+					<tr class="success" data-incidental>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td colspan="20">
+							<input type="text" id="enduser_detail<.=detail.index.>" data-tr_type="pstn" class="form-control input-sm" placeholder="Eg.095701578"/>
+						</td>
+					</tr>
+					<.} else if (detail.material_category == 'broadband-type') {.>
+					<tr class="success" data-incidental>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td colspan="20">
+							<div class="input-group input-group-sm">
+								<input type="text" id="enduser_detail<.=detail.index.>" data-tr_type="broadband" class="form-control input-sm" />
+								<span class="input-group-addon">GB</span>
+							</div> 
+						</td>
+					</tr>
+					<.}.>
+				<.	}
+				}.>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="20">
+							<a href="javascript:void(0);" id="order_for_enduser_add_detail" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="bottom" data-original-title="Add Details">
+								<span class="glyphicon glyphicon-plus"></span>
+							</a>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+			
+			<div id="enduser-order-detail-total"></div>
+			
+			<.} else {.>
+			<div class="alert alert-warning">No records have been found.</div>
+			<.}.>
+		</div>
+	</div>
+</div>
+<div class="panel-body">
+	<a href="javascript:void(0);" class="btn btn-info btn-lg ladda-button pull-right" data-style="zoom-in" id="continue">Continue</a>
+</div>
