@@ -13,7 +13,6 @@ import com.tm.wholesale.model.Page;
 import com.tm.wholesale.model.Wholesaler;
 import com.tm.wholesale.service.back.OrderServiceBack;
 import com.tm.wholesale.service.back.WholesalerServiceBack;
-import com.tm.wholesale.test.Console;
 import com.tm.wholesale.util.TMUtils;
 
 @RestController
@@ -94,16 +93,45 @@ public class ProvisionRestControllerBack {
 		return json;
 	}
 
-	@RequestMapping(value = "management/provision/order/customer-detail/update")
-	public JSONBean<Order> doOrderCustomerDetailUpdate(Model model,
+	@RequestMapping(value = "management/provision/order/customer-info/update")
+	public JSONBean<Order> doOrderCustomerInfoUpdate(Model model,
 			Order o){
 		
 		JSONBean<Order> json = new JSONBean<Order>();
 		
-		o.getParams().put("id", o.getId());
-		this.orderService.editOrder(o);
-		
-		json.getSuccessMap().put("alert-success", "Customer Detail Successfully Updated!");
+		if("".equals(o.getFirst_name().trim())
+		 ||"".equals(o.getLast_name().trim())
+		 ||"".equals(o.getPhone().trim())
+		 ||"".equals(o.getMobile().trim())
+		 ||"".equals(o.getEmail().trim())
+		 ||"".equals(o.getAddress().trim())){
+			
+			if("".equals(o.getFirst_name().trim())){
+				json.getErrorMap().put("order_customer_first_name", "First Name Musn't be Empty");
+			}
+			if("".equals(o.getLast_name().trim())){
+				json.getErrorMap().put("order_customer_last_name", "Last Name Musn't be Empty");
+			}
+			if("".equals(o.getPhone().trim())){
+				json.getErrorMap().put("order_customer_phone", "Phone Musn't be Empty");
+			}
+			if("".equals(o.getMobile().trim())){
+				json.getErrorMap().put("order_customer_mobile", "Mobile Musn't be Empty");
+			}
+			if("".equals(o.getEmail().trim())){
+				json.getErrorMap().put("order_customer_email", "Email Musn't be Empty");
+			}
+			if("".equals(o.getAddress().trim())){
+				json.getErrorMap().put("order_customer_address", "Address Musn't be Empty");
+			}
+			
+		} else {
+			
+			o.getParams().put("id", o.getId());
+			this.orderService.editOrder(o);
+			
+			json.getSuccessMap().put("alert-success", "Customer Info Successfully Updated!");
+		}
 		
 		return json;
 	}
@@ -115,13 +143,86 @@ public class ProvisionRestControllerBack {
 		JSONBean<Order> json = new JSONBean<Order>();
 		
 		o.getParams().put("id", o.getId());
-		if(o.getStatus()=="disconnected"){
+		if("disconnected".equals(o.getStatus())){
 			o.setDisconnected_date(TMUtils.parseDateYYYYMMDD(o.getDisconnected_date_str()));
 		}
-		Console.log(o);
 		this.orderService.editOrder(o);
 		
 		json.getSuccessMap().put("alert-success", "Order Status Successfully Updated!");
+		
+		return json;
+	}
+
+	@RequestMapping(value = "management/provision/order/pppoe/update")
+	public JSONBean<Order> doOrderPPPoEUpdate(Model model,
+			Order o){
+		
+		JSONBean<Order> json = new JSONBean<Order>();
+		
+		if("".equals(o.getPppoe_loginname().trim())
+		 ||"".equals(o.getPppoe_password().trim())){
+			
+			if("".equals(o.getPppoe_loginname().trim())){
+				json.getErrorMap().put("pppoe_loginname", "LoginName Musn't be Empty");
+			}
+			if("".equals(o.getPppoe_password().trim())){
+				json.getErrorMap().put("pppoe_password", "Password Musn't be Empty");
+			}
+			
+		} else {
+			
+			o.getParams().put("id", o.getId());
+			this.orderService.editOrder(o);
+			
+			json.getSuccessMap().put("alert-success", "Order PPPoE Successfully Updated!");
+		}
+		
+		return json;
+	}
+
+	@RequestMapping(value = "management/provision/order/svcvlan/update")
+	public JSONBean<Order> doOrderSVCVLanUpdate(Model model,
+			Order o){
+		
+		JSONBean<Order> json = new JSONBean<Order>();
+		
+		if("".equals(o.getSvlan().trim())
+		 ||"".equals(o.getCvlan().trim())){
+			
+			if("".equals(o.getSvlan().trim())){
+				json.getErrorMap().put("svlan", "SVLan Musn't be Empty");
+			}
+			if("".equals(o.getCvlan().trim())){
+				json.getErrorMap().put("cvlan", "CVLan Musn't be Empty");
+			}
+			
+		} else {
+			
+			o.getParams().put("id", o.getId());
+			o.setRfs_date(TMUtils.parseDateYYYYMMDD(o.getRfs_date_str()));
+			this.orderService.editOrder(o);
+			
+			json.getSuccessMap().put("alert-success", "Order SV/CVLan Successfully Updated!");
+		}
+		
+		return json;
+	}
+
+	@RequestMapping(value = "management/provision/order/broadband-asid/update")
+	public JSONBean<Order> doOrderBroadbandASIDUpdate(Model model,
+			Order o){
+		
+		JSONBean<Order> json = new JSONBean<Order>();
+		
+		if("".equals(o.getBroadband_asid().trim())){
+			json.getErrorMap().put("order_broadband_asid", "ASID Musn't be Empty");
+		} else {
+			
+			o.getParams().put("id", o.getId());
+			this.orderService.editOrder(o);
+			
+			json.getSuccessMap().put("alert-success", "Order Broadband ASID Successfully Updated!");
+		}
 		
 		return json;
 	}

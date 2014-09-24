@@ -46,13 +46,11 @@
 
 
 </style>
-
 	<form class="form-horizontal">
 		<input type="hidden" name="order_id" value="<.= model.id .>"/>
-		
-		<!--
-			BEGIN WHOLESALER INFO
-		-->
+<!--
+	BEGIN WHOLESALER INFO
+-->
 		<h4 class="text-success">Wholesaler Info</h4>
 		<hr/>
 		<div class="form-group">
@@ -76,14 +74,13 @@
 			</div>
 		</div>
 		<hr/>
-		<!--
-			END WHOLESALER INFO
-		-->
-		
-		
-		<!--
-			BEGIN CUSTOMER INFO
-		-->
+<!--
+	END WHOLESALER INFO
+-->
+
+<!--
+	BEGIN ORDER CUSTOMER INFO
+-->
 		<h4 class="text-success">
 			<. if(model.customer_type=='personal'){ .>
 			Personal
@@ -125,7 +122,7 @@
 			</div>
 			<label class="control-label col-md-2">First Name</label>
 			<div class="col-md-2">
-				<input class="form-control" type="text" name="order_customer_first_name" value="<.= model.first_name .>" />
+				<input class="form-control" type="text" id="order_customer_first_name" value="<.= model.first_name .>" data-placement="right" data-error-field/>
 			</div>
 		</div>
 		<div class="form-group">
@@ -146,49 +143,58 @@
 			</div>
 			<label class="control-label col-md-2">Last Name</label>
 			<div class="col-md-2">
-				<input class="form-control" type="text" name="order_customer_last_name" value="<.= model.last_name .>" />
+				<input class="form-control" type="text" id="order_customer_last_name" value="<.= model.last_name .>" data-placement="right" data-error-field/>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-md-3">Phone</label>
 			<div class="col-md-3">
-				<input class="form-control" type="text" name="order_customer_phone" value="<.= model.phone .>" />
+				<input class="form-control" type="text" id="order_customer_phone" value="<.= model.phone .>" data-placement="right" data-error-field/>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-md-3">Mobile</label>
 			<div class="col-md-3">
-				<input class="form-control" type="text" name="order_customer_mobile" value="<.= model.mobile .>" />
+				<input class="form-control" type="text" id="order_customer_mobile" value="<.= model.mobile .>" data-placement="right" data-error-field/>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-md-3">Email</label>
 			<div class="col-md-4">
-				<input class="form-control" type="text" name="order_customer_email" value="<.= model.email .>" />
+				<input class="form-control" type="text" id="order_customer_email" value="<.= model.email .>" data-placement="right" data-error-field/>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-md-3">Address</label>
 			<div class="col-md-6">
-				<input class="form-control" type="text" name="order_customer_address" value="<.= model.address .>" />
+				<input class="form-control" type="text" id="order_customer_address" value="<.= model.address .>" data-placement="right" data-error-field/>
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="col-md-12">
-				<a href="javascript:void(0);" data-name="update_order_customer_detail_btn" data-customer-type="<.= model.customer_type .>" class="btn btn-xs btn-primary col-md-2 ladda-button pull-right" data-style="zoom-in">Update Customer Detail</a>
+				<a href="javascript:void(0);" data-name="update_order_customer_info_btn" data-customer-type="<.= model.customer_type .>" class="btn btn-xs btn-primary col-md-2 ladda-button pull-right" data-style="zoom-in">Update Customer Info</a>
 			</div>
 		</div>
 		<hr/>
-		<!--
-			END CUSTOMER INFO
-		-->
-		
+<!--
+	END ORDER CUSTOMER INFO
+-->
 
-		<!--
-			BEGIN ORDER INFO
-		-->
+<!--
+	BEGIN ORDER INFO
+-->
 		<h4 class="text-success">Order Info</h4>
 		<hr/>
+		<div class="form-group">
+			<label class="control-label col-md-3">Total to wholesaler (include GST)</label>
+			<div class="col-md-1">
+				<p class="form-control-static"><.= Number(model.total_price_gst).toFixed(2) .></p>
+			</div>
+			<label class="control-label col-md-3">Total to end user (include GST)</label>
+			<div class="col-md-2">
+				<p class="form-control-static"><.= Number(model.total_price_gst_enduser).toFixed(2) .></p>
+			</div>
+		</div>
 		<div class="form-group">
 			<label class="control-label col-md-3">Order ID</label>
 			<div class="col-md-2">
@@ -201,10 +207,10 @@
 		</div>
 		<div class="form-group">
 			<label class="control-label col-md-3">Status</label>
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<p class="form-control-static"><.= model.status .></p>
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<.
 					var status = [
 						'pending', 'processing', 'reconnection', 'rfs', 'in-service', 'suspend', 'disconnected', 'void', 'cancel'
@@ -226,10 +232,10 @@
 		</div>
 		<div class="form-group">
 			<label class="control-label col-md-3">Disconnected Date</label>
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<p class="form-control-static"><.= model.disconnected_date_str || 'None' .></p>
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<div class="input-group date" id="order_disconnected_datepicker">
 					<input class="form-control input-xs" data-val="<.= model.disconnected_date_str .>" name="order_disconnected_date"/>
 					<span class="input-group-addon input-xs"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -282,339 +288,153 @@
 		</div>
 		<. } .>
 		<hr/>
-		<!--
-			END ORDER INFO
-		-->
-		
-		
+<!--
+	END ORDER INFO
+-->
 
-		<h4 class="text-success">Order Information</h4>
+<!--
+	BEGIN PPPOE INFO
+-->
+		<h4 class="text-success">PPPoE</h4>
 		<hr/>
+		<div class="form-group">
+			<label class="control-label col-md-3">Login Name</label>
+			<div class="col-md-3">
+				<p class="form-control-static"><.= model.pppoe_loginname .></p>
+			</div>
+			<div class="col-md-3">
+				<input class="form-control" type="text" value="<.= model.pppoe_loginname .>" id="pppoe_loginname" data-placement="left" data-error-field/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Login Password</label>
+			<div class="col-md-3">
+				<p class="form-control-static"><.= model.pppoe_password .></p>
+			</div>
+			<div class="col-md-3">
+				<input class="form-control" type="text" value="<.= model.pppoe_password .>" id="pppoe_password" data-placement="left" data-error-field/>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-12">
+				<a href="javascript:void(0);" data-name="update_order_pppoe_btn" class="btn btn-xs btn-primary col-md-2 ladda-button pull-right" data-style="zoom-in">Update PPPoE</a>
+			</div>
+		</div>
+<!--
+	END PPPOE INFO
+-->
 
-		<!-- BEGIN ORDER INFO -->
-		<!-- BEGIN Order Id -->
+<!--
+	BEGIN SV/CVLAN INFO
+-->
+		<hr/>
+		<h4 class="text-success">SV/CVLan RFS Date</h4>
+		<hr/>
 		<div class="form-group">
-			<label class="control-label col-md-3">Order ID</label>
+			<label class="control-label col-md-3">SVLan</label>
 			<div class="col-md-3">
-				<p class="form-control-static"></p>
-			</div>
-			<label class="control-label col-md-3">&nbsp;</label>
-			<div class="col-md-3">&nbsp;</div>
-		</div>
-		<!-- END Order Id -->
-		<!-- BEGIN Order Create Date -->
-		<div class="form-group">
-			<label class="control-label col-md-3">Order Create Date</label>
-			<div class="col-md-3">
-				<p class="form-control-static strong"></p>
-			</div>
-			<label class="control-label col-md-3">&nbsp;</label>
-			<div class="col-md-3">&nbsp;</div>
-		</div>
-		<!-- END Order Create Date -->
-		<!-- BEGIN Order Status -->
-		<div class="form-group">
-			<label class="control-label col-md-3">Order Status</label>
-			<div class="col-md-3">
+				<p class="form-control-static"><.= model.svlan .></p>
 			</div>
 			<div class="col-md-3">
-			</div>
-			<div class="col-md-3">
+				<input class="form-control" type="text" value="<.= model.svlan .>" id="svlan" data-placement="left" data-error-field />
 			</div>
 		</div>
-		<!-- END Order Status -->
-		<!-- BEGIN Disconnected Date -->
-		<div class="form-group" id="_order_disconnected_form_group" style="display:none;">
-			<label class="control-label col-md-3">Disconnected Date</label>
+		<div class="form-group">
+			<label class="control-label col-md-3">CVLan</label>
 			<div class="col-md-3">
-				<p id="_order_disconnected" data-val="" class="form-control-static strong">
-				</p>
+				<p class="form-control-static"><.= model.cvlan .></p>
 			</div>
 			<div class="col-md-3">
-				<div class="input-group date" id="_order_disconnected_datepicker">
-					<strong><input data-val="" data-name="_order_disconnected_input_picker" class="form-control input-xs" placeholder="Order Disconnected Date"/></strong>
+				<input class="form-control" type="text" value="<.= model.cvlan .>" id="cvlan" data-placement="left" data-error-field />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">RFS Date (Ready 4 Service)</label>
+			<div class="col-md-3">
+				<p class="form-control-static"><.= model.rfs_date_str .></p>
+			</div>
+			<div class="col-md-3">
+				<div class="input-group date" id="order_rfs_datepicker">
+					<input class="form-control input-xs" data-val="<.= model.rfs_date_str .>" name="order_rfs_date"/>
 					<span class="input-group-addon input-xs"><i class="glyphicon glyphicon-calendar"></i></span>
 				</div>
 			</div>
-			<div class="col-md-3">&nbsp;</div>
 		</div>
-		<!-- END Disconnected Date -->
-		<!-- BEGIN Order Broadband Type -->
 		<div class="form-group">
-			<label class="control-label col-md-3">Order Broadband Type</label>
-			<div class="col-md-3">
-				<p class="form-control-static"></p>
+			<div class="col-md-12">
+				<a href="javascript:void(0);" data-name="update_order_svcvlan_btn" class="btn btn-xs btn-primary col-md-2 ladda-button pull-right" data-style="zoom-in">Update SV/CVLan</a>
 			</div>
-			<label class="control-label col-md-3">&nbsp;</label>
-			<div class="col-md-3">&nbsp;</div>
 		</div>
-		<!-- END Order Broadband Type -->
-		<!-- BEGIN Order Total Price -->
+<!--
+	END SV/CVLAN INFO
+-->
+
+<!--
+	BEGIN SERVICE GIVING INFO
+-->
+		<hr/>
+		<h4 class="text-success">Service Giving</h4>
+		<hr/>
 		<div class="form-group">
-			<label class="control-label col-md-3">Order Total Price</label>
+			<label class="control-label col-md-3">In Service Date</label>
 			<div class="col-md-3">
-				<p id="_order_total_price" data-val="" class="form-control-static strong">
-					$ 
-				</p>
-			</div>
-			<label class="control-label col-md-3">&nbsp;</label>
-			<div class="col-md-3">&nbsp;</div>
-		</div>
-		<!-- END Order Total Price -->
-		<!-- BEGIN Order Due -->
-		<div class="form-group">
-			<label class="control-label col-md-3">Order Due</label>
-			<div class="col-md-3">
-				<p id="_order_due" data-val="" class="form-control-static strong">
-					
-				</p>
+				<p class="form-control-static"><.= model.inservice_date_str .></p>
 			</div>
 			<div class="col-md-3">
-				<div class="input-group date" id="_order_due_datepicker">
-					<strong><input data-val="" data-name="_order_due_input_picker" class="form-control input-xs" placeholder="Order Due Date"/></strong>
+				<div class="input-group date" id="order_inservice_datepicker">
+					<input class="form-control input-xs" data-val="<.= model.inservice_date_str .>" name="order_inservice_date"/>
 					<span class="input-group-addon input-xs"><i class="glyphicon glyphicon-calendar"></i></span>
 				</div>
 			</div>
 			<div class="col-md-3">
-				<a class="btn btn-xs btn-success pull-right xs-btn-width-long" data-name="_order_due_input_btn" >Update Order Due</a>
+				<a href="javascript:void(0);" data-name="update_order_inservice_btn" class="btn btn-xs btn-primary xs-btn-width-long ladda-button pull-right" data-style="zoom-in">Update In Service</a>
 			</div>
 		</div>
-		<!-- END Order Due -->
-		<!-- BEGIN PSTN Amount -->
 		<div class="form-group">
-			<label class="control-label col-md-3">PSTN Amount</label>
+			<label class="control-label col-md-3">Next Invoice Date</label>
 			<div class="col-md-3">
-				<p id="_pstn_count" data-val="" class="form-control-static">
-					
-				</p>
+				<p class="form-control-static"><.= model.next_invoice_create_date_str .></p>
 			</div>
-			<label class="control-label col-md-3">&nbsp;</label>
-			<div class="col-md-3">&nbsp;</div>
+			<div class="col-md-3">
+				<div class="input-group date" id="order_next_invoice_create_datepicker">
+					<input class="form-control input-xs" data-val="<.= model.next_invoice_create_date_str .>" name="order_next_invoice_create_date"/>
+					<span class="input-group-addon input-xs"><i class="glyphicon glyphicon-calendar"></i></span>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<a href="javascript:void(0);" data-name="update_order_inservice_btn" class="btn btn-xs btn-primary xs-btn-width-long ladda-button pull-right" data-style="zoom-in">Update Next Invoice Date</a>
+			</div>
 		</div>
-		<!-- END PSTN Amount -->
-		<!-- BEGIN PSTN Rental Amount -->
+<!--
+	END SERVICE GIVING INFO
+-->
+
+<!--
+	BEGIN BROADBAND ASID
+-->
+		<hr/>
+		<h4 class="text-success">Broadband ASID Info</h4>
+		<hr />
 		<div class="form-group">
-			<label class="control-label col-md-3">PSTN Rental Amount</label>
+			<label class="control-label col-md-3">Broadband ASID</label>
 			<div class="col-md-3">
-				<p id="_pstn_rental_amount" data-val="" class="form-control-static">
-					
-				</p>
+				<p class="form-control-static"><.= model.broadband_asid .></p>
 			</div>
-			<label class="control-label col-md-3">&nbsp;</label>
-			<div class="col-md-3">&nbsp;</div>
-		</div>
-		<!-- END PSTN Rental Amount -->
-		<!-- BEGIN Term Period -->
-		<div class="form-group">
-			<label class="control-label col-md-3">Term Period</label>
 			<div class="col-md-3">
-				<p id="_term_period" data-val="" class="form-control-static ">
-					
-				</p>
+				<input value="<.= model.broadband_asid .>" id="order_broadband_asid" class="form-control input-sm" placeholder="Broadband ASID" data-placement="left" data-error-field/>
 			</div>
-			<label class="control-label col-md-3">&nbsp;</label>
-			<div class="col-md-3">&nbsp;</div>
-		</div>
-		<!-- END Term Period -->
-		<!-- BEGIN Transition Provider Name -->
-		<div class="form-group">
-			<label class="control-label col-md-3">Transition Provider Name</label>
 			<div class="col-md-3">
-				<p id="_transition_provider_name" class="form-control-static">
-					
-				</p>
-			</div>
-			<label class="control-label col-md-3">&nbsp;</label>
-			<div class="col-md-3">&nbsp;</div>
-		</div>
-		<!-- END Transition Provider Name -->
-		<!-- BEGIN Transition Account Holder -->
-		<div class="form-group">
-			<label class="control-label col-md-3">Transition Account Holder</label>
-			<div class="col-md-3">
-				<p id="_transition_account_holder_name" class="form-control-static">
-					
-				</p>
-			</div>
-			<label class="control-label col-md-3">&nbsp;</label>
-			<div class="col-md-3">&nbsp;</div>
-		</div>
-		<!-- END Transition Account Holder -->
-		<!-- BEGIN Transition Account Number -->
-		<div class="form-group">
-			<label class="control-label col-md-3">Transition Account Number</label>
-			<div class="col-md-3">
-				<p id="_transition_account_number" class="form-control-static">
-					
-				</p>
-			</div>
-			<label class="control-label col-md-3">&nbsp;</label>
-			<div class="col-md-3">&nbsp;</div>
-		</div>
-		<!-- END ORDER INFO -->
-		
-		<!-- pppoe -->
-		<hr />
-		<h4 class="text-success">PPPoE Information</h4>
-		<hr />
-		<div class="row">
-			<div class="col-md-6">
-				<div class="form-group">
-					<label class="control-label col-md-6">PPPoE Login Name</label>
-					<div class="col-md-6">
-						<p id="_pppoe_loginname" class="form-control-static"></p>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-md-6">PPPoE Password</label>
-					<div class="col-md-6">
-						<p id="_pppoe_password" class="form-control-static"></p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					<div class="col-md-6">
-						<input id="_pppoe_loginname_input" value="" name="pppoe_loginname" data-name="_pppoe_loginname" class="form-control input-sm" data-placement="top" placeholder="PPPoE Login Name" style="height:26px; padding:0 10px;" data-error-field/>
-					</div>
-					<div class="col-md-6">&nbsp;</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-6">
-						<input id="_pppoe_password_input" value="" name="pppoe_password" data-name="_pppoe_password" class="form-control input-sm" data-placement="bottom" placeholder="PPPoE Password" style="height:26px; padding:0 10px;" data-error-field/>
-					</div>
-					<div class="col-md-6">
-						<a id="" class="btn btn-success btn-xs btn-block xs-btn-width pull-right" data-name="_pppoe_edit_btn">Update PPPoE</a>
-					</div>
-				</div>
+				<a href="javascript:void(0);" class="btn btn-xs btn-primary xs-btn-width-long ladda-button pull-right" data-name="order_brodband_asid_btn" data-style="zoom-in">Update Broadband ASID</a>
 			</div>
 		</div>
-		
-		<!-- SV/CVLan Information -->
-		<hr />
-		<h4 class="text-success">SV/CVLan &amp; RFS(Ready For Service) Date Information</h4>
-		<hr />
-		<div class="row">
-			<div class="col-md-6">
-				<div class="form-group">
-					<label class="control-label col-md-6">SVLan</label>
-					<div class="col-md-6">
-						<p id="_svlan" class="form-control-static"></p>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-md-6">CVLan</label>
-					<div class="col-md-6">
-						<p id="_cvlan" class="form-control-static"></p>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-md-6">RFS Date</label>
-					<div class="col-md-6">
-						<p id="_rfs_date" data-val="" class="form-control-static strong">
-							
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					<div class="col-md-6">
-						<input id="_svlan_input" value="" class="form-control input-sm" data-placement="top" placeholder="SVLan" style="height:26px; padding:0 10px;" data-error-field/>
-					</div>
-					<div class="col-md-6">&nbsp;</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-6">
-						<input id="_cvlan_input" value="" class="form-control input-sm" data-placement="left" placeholder="CVLan" style="height:26px; padding:0 10px;" data-error-field/>
-					</div>
-					<div class="col-md-6">&nbsp;</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-6">
-						<div class="input-group date" id="_rfs_date_picker">
-							<input data-val="" data-name="_rfs_date_input_picker" class="form-control input-sm" placeholder="RFS Date" style="height:26px; padding:0 10px;"/>
-							<span class="input-group-addon" style="height:26px; padding:0 10px;"><i class="glyphicon glyphicon-calendar"></i></span>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<a
-						class="btn btn-xs btn-block xs-btn-width-longer pull-right"
-						data-name="_svcvlan_save"
-						data-way="">
-							
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<!-- Service Given Information -->
-		<hr />
-		<h4 class="text-success">
-			Service Given Information&nbsp;
-		</h4>
-		<hr />
-		<div class="row">
-			<div class="col-md-6">
-				<div class="form-group">
-					<label class="control-label col-md-6">Service Given Date</label>
-					<div class="col-md-6">
-						<p id="_order_using_start" class="form-control-static">
-							
-						</p>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-md-6">Next Invoice Create Date</label>
-					<div class="col-md-6">
-						<p id="_next_invoice_create_date" class="form-control-static">
-							
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					<div class="col-md-6">
-						<div class="input-group date" id="_order_using_start_datepicker">
-							<input id="" data-val="" data-name="_order_using_start_input_picker" class="form-control input-sm" placeholder="Order Using Start Date" style="height:26px; padding:0 10px;"/>
-							<span class="input-group-addon" style="height:26px; padding:0 10px;"><i class="glyphicon glyphicon-calendar"></i></span>
-						</div>
-					</div>
-					<div class="col-md-6">&nbsp;</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-6">&nbsp;</div>
-				</div>
-			</div>
-		</div>
-		
-		<!-- Broadband ASID -->
-		<hr />
-		<h4 class="text-success">Broadband ASID Information</h4>
-		<hr />
-		<div class="row">
-			<div class="col-md-6">
-				<div class="form-group">
-					<label class="control-label col-md-6">Broadband ASID</label>
-					<div class="col-md-6">
-						<p id="_broadband_asid" class="form-control-static"></p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					<div class="col-md-6">
-						<input value="" data-name="_brodband_asid" class="form-control input-sm" data-placement="bottom" placeholder="Broadband ASID" style="height:26px; padding:0 10px;" data-error-field/>
-					</div>
-					<div class="col-md-6">
-						<a class="btn btn-success btn-xs btn-block xs-btn-width-longer pull-right" data-name="_brodband_asid_btn">Update Broadband ASID</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		
+<!--
+	END BROADBAND ASID
+-->
+
+
+
+
+
 		<!-- order details -->
 		<hr />
 		<h4 class="text-success">Order Detail Information</h4>
@@ -660,10 +480,10 @@
 	 -->
 	 
 	 <!--
-	 	BEGIN UPDTE CUSTOMER DETAIL MODAL 
+	 	BEGIN UPDATE CUSTOMER INFO MODAL 
 	  -->
 	<form class="form-horizontal">
-		<div class="modal fade" id="updateCustomerDetailModal" tabindex="-1" role="dialog" aria-labelledby="updateCustomerDetailModalLabel" aria-hidden="true">
+		<div class="modal fade" id="updateCustomerInfoModal" tabindex="-1" role="dialog" aria-labelledby="updateCustomerInfoModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-body">
@@ -671,17 +491,17 @@
 							<div class="panel-heading">
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 								<h3 class="panel-title">
-									<strong>Update Customer Detail</strong>
+									<strong>Update Customer Info</strong>
 								</h3>
 							</div>
 							<div class="panel-body">
 								<p>
-									Sure to update customer detail?
+									Sure to update customer info?
 								</p>
 							</div>
 							<div class="panel-footer">
 								<div class="form-group">
-									<button id="update_customer_detail_modal_btn" type="button" class="btn btn-xs btn-primary col-md-2 col-md-offset-5" data-dismiss="modal">EXECUTE</button>
+									<button id="update_customer_info_modal_btn" type="button" class="btn btn-xs btn-primary col-md-2 col-md-offset-5" data-dismiss="modal">EXECUTE</button>
 								</div>
 							</div>
 						</div>
@@ -691,11 +511,11 @@
 		</div>
 	</form>
 	 <!--
-	 	END UPDTE CUSTOMER DETAIL MODAL 
+	 	END UPDATE ORDER CUSTOMER INFO MODAL 
 	  -->
 	  
 	 <!--
-	 	BEGIN UPDTE ORDER STATUS MODAL 
+	 	BEGIN UPDATE ORDER STATUS MODAL 
 	  -->
 	<form class="form-horizontal">
 		<div class="modal fade" id="updateOrderStatusModal" tabindex="-1" role="dialog" aria-labelledby="updateOrderStatusModalLabel" aria-hidden="true">
@@ -726,7 +546,147 @@
 		</div>
 	</form>
 	 <!--
-	 	END UPDTE ORDER STATUS MODAL 
+	 	END UPDATE ORDER STATUS MODAL 
+	  -->
+	  
+	 <!--
+	 	BEGIN UPDATE ORDER PPPOE INFO MODAL 
+	  -->
+	<form class="form-horizontal">
+		<div class="modal fade" id="updateOrderPPPoEModal" tabindex="-1" role="dialog" aria-labelledby="updateOrderPPPoEModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h3 class="panel-title">
+									<strong>Update Order PPPoE</strong>
+								</h3>
+							</div>
+							<div class="panel-body">
+								<p>
+									Sure to update order PPPoE?
+								</p>
+							</div>
+							<div class="panel-footer">
+								<div class="form-group">
+									<button id="update_order_pppoe_modal_btn" type="button" class="btn btn-xs btn-primary col-md-2 col-md-offset-5" data-dismiss="modal">EXECUTE</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	 <!--
+	 	END UPDATE ORDER PPPOE INFO MODAL 
+	  -->
+	  
+	 <!--
+	 	BEGIN UPDATE ORDER SV/CVLAN INFO MODAL 
+	  -->
+	<form class="form-horizontal">
+		<div class="modal fade" id="updateOrderSVCVLanModal" tabindex="-1" role="dialog" aria-labelledby="updateOrderSVCVLanModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h3 class="panel-title">
+									<strong>Update Order SV/CVLan</strong>
+								</h3>
+							</div>
+							<div class="panel-body">
+								<p>
+									Sure to update order SV/CVLan?
+								</p>
+							</div>
+							<div class="panel-footer">
+								<div class="form-group">
+									<button id="update_order_svcvlan_modal_btn" type="button" class="btn btn-xs btn-primary col-md-2 col-md-offset-5" data-dismiss="modal">EXECUTE</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	 <!--
+	 	END UPDATE ORDER SV/CVLAN INFO MODAL 
+	  -->
+	  
+	 <!--
+	 	BEGIN UPDATE ORDER SV/CVLAN INFO MODAL 
+	  -->
+	<form class="form-horizontal">
+		<div class="modal fade" id="updateOrderSVCVLanModal" tabindex="-1" role="dialog" aria-labelledby="updateOrderSVCVLanModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h3 class="panel-title">
+									<strong>Update Order SV/CVLan</strong>
+								</h3>
+							</div>
+							<div class="panel-body">
+								<p>
+									Sure to update order SV/CVLan?
+								</p>
+							</div>
+							<div class="panel-footer">
+								<div class="form-group">
+									<button id="update_order_svcvlan_modal_btn" type="button" class="btn btn-xs btn-primary col-md-2 col-md-offset-5" data-dismiss="modal">EXECUTE</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	 <!--
+	 	END UPDATE ORDER SV/CVLAN INFO MODAL 
+	  -->
+	  
+	 <!--
+	 	BEGIN UPDATE ORDER BROADBAND ASID INFO MODAL 
+	  -->
+	<form class="form-horizontal">
+		<div class="modal fade" id="updateOrderBroadbandASIDModal" tabindex="-1" role="dialog" aria-labelledby="updateOrderBroadbandASIDModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h3 class="panel-title">
+									<strong>Update Order Broadband ASID</strong>
+								</h3>
+							</div>
+							<div class="panel-body">
+								<p>
+									Sure to update order Broadband ASID?
+								</p>
+							</div>
+							<div class="panel-footer">
+								<div class="form-group">
+									<button id="update_order_broadband_asid_modal_btn" type="button" class="btn btn-xs btn-primary col-md-2 col-md-offset-5" data-dismiss="modal">EXECUTE</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	 <!--
+	 	END UPDATE ORDER BROADBAND ASID INFO MODAL 
 	  -->
 	
 	<!--
