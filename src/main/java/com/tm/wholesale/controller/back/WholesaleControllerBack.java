@@ -58,7 +58,13 @@ public class WholesaleControllerBack {
 		List<MaterialWholesaler> mws = this.productService.queryMaterialWholesalers(mwQuery);
 		String[] midArr = new String[mws.size()];
 		for (int i = 0; i < midArr.length; i++) {
+			/**
+			 * SET MaterialWholesaler Id &
+			 */
 			midArr[i] = String.valueOf(mws.get(i).getMaterial_id());
+			/**
+			 * SET Materials Individually to MaterialWholesaler Map
+			 */
 			wholesaler.getMwMaps().put(mws.get(i).getMaterial_id(), mws.get(i));
 		}
 		wholesaler.setMidArr(midArr);
@@ -70,6 +76,9 @@ public class WholesaleControllerBack {
 		String[] cidArr = new String[cws.size()];
 		for (int i = 0; i < cidArr.length; i++) {
 			cidArr[i] = String.valueOf(cws.get(i).getCombo_id());
+			/**
+			 * SET Combos Individually to ComboWholesaler Map
+			 */
 			wholesaler.getCwMaps().put(cws.get(i).getCombo_id(), cws.get(i));
 		}
 		wholesaler.setCidArr(cidArr);

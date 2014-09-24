@@ -21,11 +21,11 @@ import com.tm.wholesale.util.itext.ITextFont;
 import com.tm.wholesale.util.itext.ITextUtils;
 
 /** 
-* Generates Ordering PDF
+* Generates Ordering Wholesaler PDF
 * 
 * @author DONG CHEN
 */ 
-public class OrderingPDFCreator extends ITextUtils {
+public class OrderingWholesalerPDFCreator extends ITextUtils {
 	
 	private Order order;
 	
@@ -51,9 +51,9 @@ public class OrderingPDFCreator extends ITextUtils {
 	// END Order Detail Differentiations Variables
 	// END Temporary Variables
 	
-	public OrderingPDFCreator(){}
+	public OrderingWholesalerPDFCreator(){}
 	
-	public OrderingPDFCreator(Order order){
+	public OrderingWholesalerPDFCreator(Order order){
 		this.setOrder(order);
 	}
 	
@@ -105,7 +105,7 @@ public class OrderingPDFCreator extends ITextUtils {
 		// Output PDF Path, e.g.: ordering_form_600089.pdf
 		String outputFile = TMUtils.createPath("wholesale" + File.separator
 				+ "orders" + File.separator + this.getOrder().getId()
-				+ File.separator + "ordering_form_" + this.getOrder().getId()
+				+ File.separator + "ordering_form_wholesaler_" + this.getOrder().getId()
 				+ ".pdf");
         
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(outputFile));
@@ -416,10 +416,8 @@ public class OrderingPDFCreator extends ITextUtils {
 
                 // BEGIN PLAN ROWS
                 addCol(orderDetailTable, cod.getName(), 5, firstColIndent, ITextFont.arial_normal_8, contentPaddingTop, contentPaddingBottom, PdfPCell.ALIGN_LEFT);
-                addCol(orderDetailTable, //cod.getDetail_data_flow() 1 < 0 ? "Ultimate" : cod.getDetail_data_flow()
-                		1	+"GB", 1, 0F, ITextFont.arial_normal_8, contentPaddingTop, contentPaddingBottom, PdfPCell.ALIGN_CENTER);
-                addCol(orderDetailTable, //cod.getDetail_term_period()
-                		1 + " months", 1, 0F, ITextFont.arial_normal_8, contentPaddingTop, contentPaddingBottom, PdfPCell.ALIGN_CENTER);
+                addCol(orderDetailTable, cod.getData_flow() + " GB", 1, 0F, ITextFont.arial_normal_8, contentPaddingTop, contentPaddingBottom, PdfPCell.ALIGN_CENTER);
+                addCol(orderDetailTable, cod.getUnit() + " months", 1, 0F, ITextFont.arial_normal_8, contentPaddingTop, contentPaddingBottom, PdfPCell.ALIGN_CENTER);
                 addCol(orderDetailTable, String.valueOf(TMUtils.fillDecimalPeriod(String.valueOf(cod.getPrice()))), 1, 0F, ITextFont.arial_normal_8, contentPaddingTop, contentPaddingBottom, PdfPCell.ALIGN_RIGHT);
                 addCol(orderDetailTable, String.valueOf(cod.getUnit()), 1, 0F, ITextFont.arial_normal_8, contentPaddingTop, contentPaddingBottom, PdfPCell.ALIGN_RIGHT);
                 addCol(orderDetailTable, String.valueOf(TMUtils.fillDecimalPeriod(String.valueOf(price.multiply(unit).doubleValue()))), 1, 0F, ITextFont.arial_normal_8, contentPaddingTop, contentPaddingBottom, PdfPCell.ALIGN_RIGHT);

@@ -4,21 +4,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tm.wholesale.model.JSONBean;
 import com.tm.wholesale.model.Order;
 import com.tm.wholesale.model.Page;
+import com.tm.wholesale.model.Wholesaler;
 import com.tm.wholesale.service.back.OrderServiceBack;
+import com.tm.wholesale.service.back.WholesalerServiceBack;
+import com.tm.wholesale.test.Console;
+import com.tm.wholesale.util.TMUtils;
 
 @RestController
 public class ProvisionRestControllerBack {
 	
 	private OrderServiceBack orderService;
+	private WholesalerServiceBack wholesalerServiceBack;
 	
 	@Autowired
-	public ProvisionRestControllerBack(OrderServiceBack orderService) {
+	public ProvisionRestControllerBack(OrderServiceBack orderService,
+			WholesalerServiceBack wholesalerServiceBack) {
 		super();
 		this.orderService = orderService;
+		this.wholesalerServiceBack = wholesalerServiceBack;
 	}
 
 	@RequestMapping(value = "management/provision/view/{pageNo}/{status}")
@@ -53,7 +62,68 @@ public class ProvisionRestControllerBack {
 		pageSum.getParams().put("status", "cancel");
 		page.getParams().put("cancelSum", this.orderService.queryOrdersSumByPage(pageSum));
 		
+		
+		// RELEASE MEMORY
+		pageSum = null;
+		
 		return page;
+	}
+
+	@RequestMapping(value = "management/provision/order/detail")
+	public JSONBean<Order> toOrderDetailView(Model model,
+			@RequestParam("id") Integer id){
+		
+		JSONBean<Order> json = new JSONBean<Order>();
+		
+		Order oQuery = new Order();
+		oQuery.getParams().put("id", id);
+		Order o = this.orderService.queryOrder(oQuery);
+		
+		Wholesaler wQuery = new Wholesaler();
+		wQuery.getParams().put("id", o.getWholesaler_id());
+		o.setWholesaler_name(this.wholesalerServiceBack.queryWholesaler(wQuery).getName());
+		
+		json.setModel(o);
+		
+		
+		// RELEASE MEMORY
+		oQuery = null;
+		o = null;
+		wQuery = null;
+		
+		return json;
+	}
+
+	@RequestMapping(value = "management/provision/order/customer-detail/update")
+	public JSONBean<Order> doOrderCustomerDetailUpdate(Model model,
+			Order o){
+		
+		JSONBean<Order> json = new JSONBean<Order>();
+		
+		o.getParams().put("id", o.getId());
+		this.orderService.editOrder(o);
+		
+		json.getSuccessMap().put("alert-success", "Customer Detail Successfully Updated!");
+		
+		return json;
+	}
+
+	@RequestMapping(value = "management/provision/order/status/update")
+	public JSONBean<Order> doOrderStatusUpdate(Model model,
+			Order o){
+		
+		JSONBean<Order> json = new JSONBean<Order>();
+		
+		o.getParams().put("id", o.getId());
+		if(o.getStatus()=="disconnected"){
+			o.setDisconnected_date(TMUtils.parseDateYYYYMMDD(o.getDisconnected_date_str()));
+		}
+		Console.log(o);
+		this.orderService.editOrder(o);
+		
+		json.getSuccessMap().put("alert-success", "Order Status Successfully Updated!");
+		
+		return json;
 	}
 
 }

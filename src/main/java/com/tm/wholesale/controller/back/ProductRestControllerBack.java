@@ -21,6 +21,7 @@ import com.tm.wholesale.model.Material;
 import com.tm.wholesale.model.MaterialCategory;
 import com.tm.wholesale.model.MaterialGroup;
 import com.tm.wholesale.model.MaterialType;
+import com.tm.wholesale.model.Order;
 import com.tm.wholesale.model.Page;
 import com.tm.wholesale.service.back.ProductServiceBack;
 

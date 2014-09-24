@@ -1,5 +1,7 @@
 package com.tm.wholesale.service.back;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +43,17 @@ public class OrderServiceBack {
 	@Transactional
 	public void createOrder(Order o) {
 		this.orderMapper.insertOrder(o);
+	}
+	
+	@Transactional
+	public List<Order> queryOrders(Order o) {
+		return this.orderMapper.selectOrders(o);
+	}
+	
+	@Transactional
+	public Order queryOrder(Order o) {
+		List<Order> os = this.orderMapper.selectOrders(o);
+		return os!=null && os.size()>0 ? os.get(0) : null;
 	}
 	
 	@Transactional

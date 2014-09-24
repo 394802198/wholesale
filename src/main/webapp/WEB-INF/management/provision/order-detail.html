@@ -1,0 +1,734 @@
+<style>
+#order_detail .form-group {
+	margin-bottom:4px;
+}
+
+.align-right {
+	text-align:right;
+}
+
+.xs-btn-width-small {
+	width:120px;
+}
+
+.xs-btn-width {
+	width:150px;
+}
+
+.xs-btn-width-long {
+	width:180px;
+}
+
+.xs-btn-width-longer {
+	width:220px;
+}
+
+.strong {
+	font-weight:bold;
+}
+
+.form-control {
+	padding:3px 6px;
+	height:28px;
+}
+
+.form-group {
+	height:30px;
+}
+
+.input-xs{
+	height:28px;
+}
+
+.input-group-addon {
+	padding-top:4px;
+}
+
+
+</style>
+
+	<form class="form-horizontal">
+		<input type="hidden" name="order_id" value="<.= model.id .>"/>
+		
+		<!--
+			BEGIN WHOLESALER INFO
+		-->
+		<h4 class="text-success">Wholesaler Info</h4>
+		<hr/>
+		<div class="form-group">
+			<label class="control-label col-md-3">Company Id</label>
+			<div class="col-md-2">
+				<p class="form-control-static"><.= model.company_id .></p>
+			</div>
+			<label class="control-label col-md-2">Wholesaler Id</label>
+			<div class="col-md-2">
+				<p class="form-control-static"><.= model.wholesaler_id .></p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Company</label>
+			<div class="col-md-2">
+				<p class="form-control-static"><.= model.wholesaler_company_name .></p>
+			</div>
+			<label class="control-label col-md-2">Wholesaler Name</label>
+			<div class="col-md-2">
+				<p class="form-control-static"><.= model.wholesaler_name .></p>
+			</div>
+		</div>
+		<hr/>
+		<!--
+			END WHOLESALER INFO
+		-->
+		
+		
+		<!--
+			BEGIN CUSTOMER INFO
+		-->
+		<h4 class="text-success">
+			<. if(model.customer_type=='personal'){ .>
+			Personal
+			<. } else { .>
+			Business
+			<. } .>
+			&nbsp;Customer
+		</h4>
+		<hr/>
+		<. if(model.customer_type=='business'){ .>
+		<div class="form-group">
+			<label class="control-label col-md-3">Company Name</label>
+			<div class="col-md-3">
+				<input class="form-control" type="text" name="order_customer_company_name" value="<.= model.company_name .>" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Trade Name</label>
+			<div class="col-md-3">
+				<input class="form-control" type="text" name="order_customer_trade_name" value="<.= model.trade_name .>" />
+			</div>
+		</div>
+		<. } .>
+		<div class="form-group">
+			<label class="control-label col-md-3">Title</label>
+			<div class="col-md-2">
+				<.
+					var titles = ['Mr', 'Mrs', 'Ms'];
+				.>
+				<select class="form-control" name="order_customer_title">
+					<. for(var t=0; t<titles.length; t++){ .>
+						<. if(titles[t]==model.title){ .>
+					<option value="<.= titles[t] .>" selected="selected"><.= titles[t] .></option>
+						<. } else { .>
+					<option value="<.= titles[t] .>"><.= titles[t] .></option>
+						<. } .>
+					<. } .>
+				</select>
+			</div>
+			<label class="control-label col-md-2">First Name</label>
+			<div class="col-md-2">
+				<input class="form-control" type="text" name="order_customer_first_name" value="<.= model.first_name .>" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Customer Type</label>
+			<div class="col-md-2">
+				<.
+					var customer_type = ['personal', 'business'];
+				.>
+				<select class="form-control" name="order_customer_type">
+					<. for(var ct=0; ct<customer_type.length; ct++){ .>
+						<. if(customer_type[ct]==model.customer_type){ .>
+					<option value="<.= customer_type[ct] .>" selected="selected"><.= customer_type[ct] .></option>
+						<. } else { .>
+					<option value="<.= customer_type[ct] .>"><.= customer_type[ct] .></option>
+						<. } .>
+					<. } .>
+				</select>
+			</div>
+			<label class="control-label col-md-2">Last Name</label>
+			<div class="col-md-2">
+				<input class="form-control" type="text" name="order_customer_last_name" value="<.= model.last_name .>" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Phone</label>
+			<div class="col-md-3">
+				<input class="form-control" type="text" name="order_customer_phone" value="<.= model.phone .>" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Mobile</label>
+			<div class="col-md-3">
+				<input class="form-control" type="text" name="order_customer_mobile" value="<.= model.mobile .>" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Email</label>
+			<div class="col-md-4">
+				<input class="form-control" type="text" name="order_customer_email" value="<.= model.email .>" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Address</label>
+			<div class="col-md-6">
+				<input class="form-control" type="text" name="order_customer_address" value="<.= model.address .>" />
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-12">
+				<a href="javascript:void(0);" data-name="update_order_customer_detail_btn" data-customer-type="<.= model.customer_type .>" class="btn btn-xs btn-primary col-md-2 ladda-button pull-right" data-style="zoom-in">Update Customer Detail</a>
+			</div>
+		</div>
+		<hr/>
+		<!--
+			END CUSTOMER INFO
+		-->
+		
+
+		<!--
+			BEGIN ORDER INFO
+		-->
+		<h4 class="text-success">Order Info</h4>
+		<hr/>
+		<div class="form-group">
+			<label class="control-label col-md-3">Order ID</label>
+			<div class="col-md-2">
+				<p class="form-control-static"><.= model.id .></p>
+			</div>
+			<label class="control-label col-md-2">Create Date</label>
+			<div class="col-md-2">
+				<p class="form-control-static"><.= model.create_date_str .></p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Status</label>
+			<div class="col-md-4">
+				<p class="form-control-static"><.= model.status .></p>
+			</div>
+			<div class="col-md-2">
+				<.
+					var status = [
+						'pending', 'processing', 'reconnection', 'rfs', 'in-service', 'suspend', 'disconnected', 'void', 'cancel'
+					];
+				.>
+				<select class="form-control" name="order_status">
+					<. for(var s=0; s<status.length; s++){ .>
+						<. if(status[s]==model.status){ .>
+					<option value="<.= status[s] .>" selected="selected"><.= status[s] .></option>
+						<. } else { .>
+					<option value="<.= status[s] .>"><.= status[s] .></option>
+						<. } .>
+					<. } .>
+				</select>
+			</div>
+			<div class="col-md-3">
+				<a href="javascript:void(0);" data-name="update_order_status_btn" class="btn btn-xs btn-primary ladda-button pull-right xs-btn-width-long" data-style="zoom-in">Update Order Status</a>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Disconnected Date</label>
+			<div class="col-md-4">
+				<p class="form-control-static"><.= model.disconnected_date_str || 'None' .></p>
+			</div>
+			<div class="col-md-2">
+				<div class="input-group date" id="order_disconnected_datepicker">
+					<input class="form-control input-xs" data-val="<.= model.disconnected_date_str .>" name="order_disconnected_date"/>
+					<span class="input-group-addon input-xs"><i class="glyphicon glyphicon-calendar"></i></span>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Broadband Type</label>
+			<div class="col-md-2">
+				<p class="form-control-static"><.= model.broadband_type .></p>
+			</div>
+		</div>
+		<. if(model.broadband_type=='transition'){ .>
+		<div class="form-group">
+			<label class="control-label col-md-3">Previous Provider Name</label>
+			<div class="col-md-2">
+				<p class="form-control-static"><.= model.transition_provider_name .></p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Transition Holder Name</label>
+			<div class="col-md-2">
+				<p class="form-control-static"><.= model.transition_account_holder_name .></p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Transition Account Number</label>
+			<div class="col-md-2">
+				<p class="form-control-static"><.= model.transition_account_number .></p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Transition Porting Number</label>
+			<div class="col-md-2">
+				<p class="form-control-static"><.= model.transition_porting_number .></p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Previous Provider Invoice</label>
+			<div class="col-md-2">
+				<p class="form-control-static"><.= model.previous_provider_invoice .></p>
+			</div>
+		</div>
+		<. } else { .>
+		<div class="form-group">
+			<label class="control-label col-md-3">Preferred RFS Date</label>
+			<div class="col-md-2">
+				<p class="form-control-static"><.= model.preferred_connection_date_str .></p>
+			</div>
+		</div>
+		<. } .>
+		<hr/>
+		<!--
+			END ORDER INFO
+		-->
+		
+		
+
+		<h4 class="text-success">Order Information</h4>
+		<hr/>
+
+		<!-- BEGIN ORDER INFO -->
+		<!-- BEGIN Order Id -->
+		<div class="form-group">
+			<label class="control-label col-md-3">Order ID</label>
+			<div class="col-md-3">
+				<p class="form-control-static"></p>
+			</div>
+			<label class="control-label col-md-3">&nbsp;</label>
+			<div class="col-md-3">&nbsp;</div>
+		</div>
+		<!-- END Order Id -->
+		<!-- BEGIN Order Create Date -->
+		<div class="form-group">
+			<label class="control-label col-md-3">Order Create Date</label>
+			<div class="col-md-3">
+				<p class="form-control-static strong"></p>
+			</div>
+			<label class="control-label col-md-3">&nbsp;</label>
+			<div class="col-md-3">&nbsp;</div>
+		</div>
+		<!-- END Order Create Date -->
+		<!-- BEGIN Order Status -->
+		<div class="form-group">
+			<label class="control-label col-md-3">Order Status</label>
+			<div class="col-md-3">
+			</div>
+			<div class="col-md-3">
+			</div>
+			<div class="col-md-3">
+			</div>
+		</div>
+		<!-- END Order Status -->
+		<!-- BEGIN Disconnected Date -->
+		<div class="form-group" id="_order_disconnected_form_group" style="display:none;">
+			<label class="control-label col-md-3">Disconnected Date</label>
+			<div class="col-md-3">
+				<p id="_order_disconnected" data-val="" class="form-control-static strong">
+				</p>
+			</div>
+			<div class="col-md-3">
+				<div class="input-group date" id="_order_disconnected_datepicker">
+					<strong><input data-val="" data-name="_order_disconnected_input_picker" class="form-control input-xs" placeholder="Order Disconnected Date"/></strong>
+					<span class="input-group-addon input-xs"><i class="glyphicon glyphicon-calendar"></i></span>
+				</div>
+			</div>
+			<div class="col-md-3">&nbsp;</div>
+		</div>
+		<!-- END Disconnected Date -->
+		<!-- BEGIN Order Broadband Type -->
+		<div class="form-group">
+			<label class="control-label col-md-3">Order Broadband Type</label>
+			<div class="col-md-3">
+				<p class="form-control-static"></p>
+			</div>
+			<label class="control-label col-md-3">&nbsp;</label>
+			<div class="col-md-3">&nbsp;</div>
+		</div>
+		<!-- END Order Broadband Type -->
+		<!-- BEGIN Order Total Price -->
+		<div class="form-group">
+			<label class="control-label col-md-3">Order Total Price</label>
+			<div class="col-md-3">
+				<p id="_order_total_price" data-val="" class="form-control-static strong">
+					$ 
+				</p>
+			</div>
+			<label class="control-label col-md-3">&nbsp;</label>
+			<div class="col-md-3">&nbsp;</div>
+		</div>
+		<!-- END Order Total Price -->
+		<!-- BEGIN Order Due -->
+		<div class="form-group">
+			<label class="control-label col-md-3">Order Due</label>
+			<div class="col-md-3">
+				<p id="_order_due" data-val="" class="form-control-static strong">
+					
+				</p>
+			</div>
+			<div class="col-md-3">
+				<div class="input-group date" id="_order_due_datepicker">
+					<strong><input data-val="" data-name="_order_due_input_picker" class="form-control input-xs" placeholder="Order Due Date"/></strong>
+					<span class="input-group-addon input-xs"><i class="glyphicon glyphicon-calendar"></i></span>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<a class="btn btn-xs btn-success pull-right xs-btn-width-long" data-name="_order_due_input_btn" >Update Order Due</a>
+			</div>
+		</div>
+		<!-- END Order Due -->
+		<!-- BEGIN PSTN Amount -->
+		<div class="form-group">
+			<label class="control-label col-md-3">PSTN Amount</label>
+			<div class="col-md-3">
+				<p id="_pstn_count" data-val="" class="form-control-static">
+					
+				</p>
+			</div>
+			<label class="control-label col-md-3">&nbsp;</label>
+			<div class="col-md-3">&nbsp;</div>
+		</div>
+		<!-- END PSTN Amount -->
+		<!-- BEGIN PSTN Rental Amount -->
+		<div class="form-group">
+			<label class="control-label col-md-3">PSTN Rental Amount</label>
+			<div class="col-md-3">
+				<p id="_pstn_rental_amount" data-val="" class="form-control-static">
+					
+				</p>
+			</div>
+			<label class="control-label col-md-3">&nbsp;</label>
+			<div class="col-md-3">&nbsp;</div>
+		</div>
+		<!-- END PSTN Rental Amount -->
+		<!-- BEGIN Term Period -->
+		<div class="form-group">
+			<label class="control-label col-md-3">Term Period</label>
+			<div class="col-md-3">
+				<p id="_term_period" data-val="" class="form-control-static ">
+					
+				</p>
+			</div>
+			<label class="control-label col-md-3">&nbsp;</label>
+			<div class="col-md-3">&nbsp;</div>
+		</div>
+		<!-- END Term Period -->
+		<!-- BEGIN Transition Provider Name -->
+		<div class="form-group">
+			<label class="control-label col-md-3">Transition Provider Name</label>
+			<div class="col-md-3">
+				<p id="_transition_provider_name" class="form-control-static">
+					
+				</p>
+			</div>
+			<label class="control-label col-md-3">&nbsp;</label>
+			<div class="col-md-3">&nbsp;</div>
+		</div>
+		<!-- END Transition Provider Name -->
+		<!-- BEGIN Transition Account Holder -->
+		<div class="form-group">
+			<label class="control-label col-md-3">Transition Account Holder</label>
+			<div class="col-md-3">
+				<p id="_transition_account_holder_name" class="form-control-static">
+					
+				</p>
+			</div>
+			<label class="control-label col-md-3">&nbsp;</label>
+			<div class="col-md-3">&nbsp;</div>
+		</div>
+		<!-- END Transition Account Holder -->
+		<!-- BEGIN Transition Account Number -->
+		<div class="form-group">
+			<label class="control-label col-md-3">Transition Account Number</label>
+			<div class="col-md-3">
+				<p id="_transition_account_number" class="form-control-static">
+					
+				</p>
+			</div>
+			<label class="control-label col-md-3">&nbsp;</label>
+			<div class="col-md-3">&nbsp;</div>
+		</div>
+		<!-- END ORDER INFO -->
+		
+		<!-- pppoe -->
+		<hr />
+		<h4 class="text-success">PPPoE Information</h4>
+		<hr />
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="control-label col-md-6">PPPoE Login Name</label>
+					<div class="col-md-6">
+						<p id="_pppoe_loginname" class="form-control-static"></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-6">PPPoE Password</label>
+					<div class="col-md-6">
+						<p id="_pppoe_password" class="form-control-static"></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<div class="col-md-6">
+						<input id="_pppoe_loginname_input" value="" name="pppoe_loginname" data-name="_pppoe_loginname" class="form-control input-sm" data-placement="top" placeholder="PPPoE Login Name" style="height:26px; padding:0 10px;" data-error-field/>
+					</div>
+					<div class="col-md-6">&nbsp;</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-6">
+						<input id="_pppoe_password_input" value="" name="pppoe_password" data-name="_pppoe_password" class="form-control input-sm" data-placement="bottom" placeholder="PPPoE Password" style="height:26px; padding:0 10px;" data-error-field/>
+					</div>
+					<div class="col-md-6">
+						<a id="" class="btn btn-success btn-xs btn-block xs-btn-width pull-right" data-name="_pppoe_edit_btn">Update PPPoE</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- SV/CVLan Information -->
+		<hr />
+		<h4 class="text-success">SV/CVLan &amp; RFS(Ready For Service) Date Information</h4>
+		<hr />
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="control-label col-md-6">SVLan</label>
+					<div class="col-md-6">
+						<p id="_svlan" class="form-control-static"></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-6">CVLan</label>
+					<div class="col-md-6">
+						<p id="_cvlan" class="form-control-static"></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-6">RFS Date</label>
+					<div class="col-md-6">
+						<p id="_rfs_date" data-val="" class="form-control-static strong">
+							
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<div class="col-md-6">
+						<input id="_svlan_input" value="" class="form-control input-sm" data-placement="top" placeholder="SVLan" style="height:26px; padding:0 10px;" data-error-field/>
+					</div>
+					<div class="col-md-6">&nbsp;</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-6">
+						<input id="_cvlan_input" value="" class="form-control input-sm" data-placement="left" placeholder="CVLan" style="height:26px; padding:0 10px;" data-error-field/>
+					</div>
+					<div class="col-md-6">&nbsp;</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-6">
+						<div class="input-group date" id="_rfs_date_picker">
+							<input data-val="" data-name="_rfs_date_input_picker" class="form-control input-sm" placeholder="RFS Date" style="height:26px; padding:0 10px;"/>
+							<span class="input-group-addon" style="height:26px; padding:0 10px;"><i class="glyphicon glyphicon-calendar"></i></span>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<a
+						class="btn btn-xs btn-block xs-btn-width-longer pull-right"
+						data-name="_svcvlan_save"
+						data-way="">
+							
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Service Given Information -->
+		<hr />
+		<h4 class="text-success">
+			Service Given Information&nbsp;
+		</h4>
+		<hr />
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="control-label col-md-6">Service Given Date</label>
+					<div class="col-md-6">
+						<p id="_order_using_start" class="form-control-static">
+							
+						</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-6">Next Invoice Create Date</label>
+					<div class="col-md-6">
+						<p id="_next_invoice_create_date" class="form-control-static">
+							
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<div class="col-md-6">
+						<div class="input-group date" id="_order_using_start_datepicker">
+							<input id="" data-val="" data-name="_order_using_start_input_picker" class="form-control input-sm" placeholder="Order Using Start Date" style="height:26px; padding:0 10px;"/>
+							<span class="input-group-addon" style="height:26px; padding:0 10px;"><i class="glyphicon glyphicon-calendar"></i></span>
+						</div>
+					</div>
+					<div class="col-md-6">&nbsp;</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-6">&nbsp;</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Broadband ASID -->
+		<hr />
+		<h4 class="text-success">Broadband ASID Information</h4>
+		<hr />
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="control-label col-md-6">Broadband ASID</label>
+					<div class="col-md-6">
+						<p id="_broadband_asid" class="form-control-static"></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<div class="col-md-6">
+						<input value="" data-name="_brodband_asid" class="form-control input-sm" data-placement="bottom" placeholder="Broadband ASID" style="height:26px; padding:0 10px;" data-error-field/>
+					</div>
+					<div class="col-md-6">
+						<a class="btn btn-success btn-xs btn-block xs-btn-width-longer pull-right" data-name="_brodband_asid_btn">Update Broadband ASID</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- order details -->
+		<hr />
+		<h4 class="text-success">Order Detail Information</h4>
+		<hr />
+		<table class="table" style="font-size:12px;">
+			<thead>
+				<tr>
+					<th>Detail Name</th>
+					<th>Detail Type</th>
+					<th>Plan Type</th>
+					<th>Plan Sort</th>
+					<th class="align-right">Detail Price</th>
+					<th class="align-right">Unit</th>
+					<th class="align-right">Detail Expired</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="12"><br/>
+						<!-- Button trigger modal -->
+						<a class="btn btn-success btn-xs xs-btn-width" data-name="_add_phone">
+						  <span class="glyphicon glyphicon-plus"></span> Add PSTN OR VoIP
+						</a>
+						<a class="btn btn-success btn-xs xs-btn-width" data-name="_add_detail">
+						  <span class="glyphicon glyphicon-plus"></span> Add Detail
+						</a>
+						<a class="btn btn-success btn-xs xs-btn-width" data-name="_add_product">
+						  <span class="glyphicon glyphicon-plus"></span> Add Product
+						</a>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+		
+	</form>
+	
+	
+	<!--
+		BEGIN MODAL 
+	 -->
+	 
+	 <!--
+	 	BEGIN UPDTE CUSTOMER DETAIL MODAL 
+	  -->
+	<form class="form-horizontal">
+		<div class="modal fade" id="updateCustomerDetailModal" tabindex="-1" role="dialog" aria-labelledby="updateCustomerDetailModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h3 class="panel-title">
+									<strong>Update Customer Detail</strong>
+								</h3>
+							</div>
+							<div class="panel-body">
+								<p>
+									Sure to update customer detail?
+								</p>
+							</div>
+							<div class="panel-footer">
+								<div class="form-group">
+									<button id="update_customer_detail_modal_btn" type="button" class="btn btn-xs btn-primary col-md-2 col-md-offset-5" data-dismiss="modal">EXECUTE</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	 <!--
+	 	END UPDTE CUSTOMER DETAIL MODAL 
+	  -->
+	  
+	 <!--
+	 	BEGIN UPDTE ORDER STATUS MODAL 
+	  -->
+	<form class="form-horizontal">
+		<div class="modal fade" id="updateOrderStatusModal" tabindex="-1" role="dialog" aria-labelledby="updateOrderStatusModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h3 class="panel-title">
+									<strong>Update Order Status</strong>
+								</h3>
+							</div>
+							<div class="panel-body">
+								<p>
+									Sure to update order status?
+								</p>
+							</div>
+							<div class="panel-footer">
+								<div class="form-group">
+									<button id="update_order_status_modal_btn" type="button" class="btn btn-xs btn-primary col-md-2 col-md-offset-5" data-dismiss="modal">EXECUTE</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	 <!--
+	 	END UPDTE ORDER STATUS MODAL 
+	  -->
+	
+	<!--
+		END MODAL 
+	 -->

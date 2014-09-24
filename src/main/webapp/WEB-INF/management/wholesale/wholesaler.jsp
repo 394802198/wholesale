@@ -56,47 +56,77 @@
 							<label class="control-label col-md-4">Wholesaler Status</label>
 							<div class="col-md-6">
 								<p class="form-control-static">
-									<label><form:radiobutton path="status" name="status" value="active" checked="checked"/>Active</label>
-									<label><form:radiobutton path="status" name="status" value="disabled"/>Disabled</label>
-									<label><form:radiobutton path="status" name="status" value="pending"/>Pending</label>
+									<label style="cursor:pointer;"><form:radiobutton path="status" name="status" value="active" checked="checked"/>Active</label>
+									<label style="cursor:pointer;"><form:radiobutton path="status" name="status" value="disabled"/>Disabled</label>
+									<label style="cursor:pointer;"><form:radiobutton path="status" name="status" value="pending"/>Pending</label>
 								</p>
 							</div>
 						</div>
-						<hr/><h3><span class="text-info">Materials</span><span class="pull-right">ALL MATERIALS: <label><input type="radio" name="material-shelf-radio" data-shelf-status="on-shelf" />On Shelf</label>&nbsp;&nbsp;&nbsp;&nbsp;<label><input type="radio" name="material-shelf-radio" data-shelf-status="off-shelf" />Off Shelf</label></span></h3><hr/>
+						<hr/>
+						<h3>
+							<span class="text-info">Materials</span>
+							<span class="pull-right">ALL MATERIALS: 
+								<label style="cursor:pointer;"><input type="radio" name="material-subscribe-radio" data-subscribe-type="one-off" />One Off</label>&nbsp;&nbsp;&nbsp;&nbsp;
+								<label style="cursor:pointer;"><input type="radio" name="material-subscribe-radio" data-subscribe-type="monthly" />Monthly</label>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+								<label style="cursor:pointer;"><input type="radio" name="material-shelf-radio" data-shelf-status="on-shelf" />On Shelf</label>&nbsp;&nbsp;&nbsp;&nbsp;
+								<label style="cursor:pointer;"><input type="radio" name="material-shelf-radio" data-shelf-status="off-shelf" />Off Shelf</label>
+							</span>
+						</h3>
+						<hr/>
 						<div class="form-group">
 							<table class="table table-hover table-bordered table-condensed">
 								<tr>
-									<td colspan="4" class="bg-info">
-										<label>
+									<td class="bg-info">
+										<label style="cursor:pointer;">
 											<input type="checkbox" data-name="checkbox_all" data-type="checkbox_material" /> All
 										</label>
 									</td>
+									<td class="bg-info"><label>Description</label></td>
+									<td class="bg-info"><label>Price</label></td>
+									<td class="bg-info"><label>Subscribe</label></td>
+									<td class="bg-info"><label>Status</label></td>
 								</tr>
 								<!-- Material Category -->
 							<c:forEach var="mc" items="${mcs}">
 								<tr>
 									<td class="bg-info">
 										<strong>
-											<label>
+											<label style="cursor:pointer;">
 												<input type="checkbox" data-name="checkbox_all_mc_material" data-category-type="checkbox_${mc}" data-type="checkbox_material" /> ${mc}
 											</label>
 										</strong>
 									</td>
-									<td class="bg-info"><label>Description</label></td>
-									<td class="bg-info"><label>Price</label></td>
-									<td class="bg-info"><label>Status</label></td>
+									<td class="bg-info"></td>
+									<td class="bg-info"></td>
+									<td class="bg-info" style="text-align:center;">
+										<label style="cursor:pointer;">
+											<input type="radio" name="material-subscribe-radio-second" data-subscribe-type="one-off" data-for="${mc}" /> One Off
+										</label>
+										&nbsp;
+										<label style="cursor:pointer;">
+											<input type="radio" name="material-subscribe-radio-second" data-subscribe-type="monthly" data-for="${mc}" /> Monthly
+										</label>
+									</td>
+									<td class="bg-info"></td>
 								</tr>
 								<!-- Material -->
 								<c:forEach var="m" items="${ms}">
 									<c:if test="${m.material_category==mc}">
 									<tr>
 										<td>
-										<label>
+										<label style="cursor:pointer;">
 											<form:checkbox id="${m.id}" path="midArr" data-material="true" value="${m.id}" data-m-suitable="${m.suitable}" data-m-name="${m.name}" data-material-group="${m.material_group}" data-material-type="${m.material_type}" data-material-category="${m.material_category}" data-name="checkbox_ms" data-category-type="checkbox_${mc}" data-type="checkbox_material" /> ${wholesaler.mwMaps[m.id].name!=null ? wholesaler.mwMaps[m.id].name : m.name}
 										</label>
 										</td>
 										<td><input class="form-control" data-name="m_description_${m.id}" value="${wholesaler.mwMaps[m.id].description!=null  ? wholesaler.mwMaps[m.id].description : m.description}"/></td>
 										<td><input class="form-control" data-name="m_wholesale_price_${m.id}" value="${wholesaler.mwMaps[m.id].wholesale_price!=null ? wholesaler.mwMaps[m.id].wholesale_price : m.wholesale_price}"/></td>
+										<td>
+											<select class="form-control" data-name="m_subscribe_${m.id}">
+												<option data-name="material-one-off" data-for="${mc}_one-off" value="one-off" ${wholesaler.mwMaps[m.id].subscribe=='one-off' ? 'selected="selected"' : ''}>One Off</option>
+												<option data-name="material-monthly" data-for="${mc}_monthly" value="monthly" ${wholesaler.id!=null && wholesaler.mwMaps[m.id].subscribe!='one-off' ? 'selected="selected"' : ''}>Monthly</option>
+											</select>
+										</td>
 										<td>
 											<select class="form-control" data-name="m_status_${m.id}">
 												<option data-name="material-on-shelf" value="on-shelf" ${wholesaler.mwMaps[m.id].status=='on-shelf' ? 'selected="selected"' : ''}>On Shelf</option>
@@ -109,12 +139,20 @@
 							</c:forEach>
 							</table>
 						</div>
-						<hr/><h3><span class="text-info">Combos</span><span class="pull-right">ALL COMBOS: <label><input type="radio" name="combo-shelf-radio" data-shelf-status="on-shelf" />On Shelf</label>&nbsp;&nbsp;&nbsp;&nbsp;<label><input type="radio" name="combo-shelf-radio" data-shelf-status="off-shelf" />Off Shelf</label></span></h3><hr/>
+						<hr/>
+						<h3>
+						<span class="text-info">Combos</span>
+						<span class="pull-right">ALL COMBOS:
+							<label style="cursor:pointer;"><input type="radio" name="combo-shelf-radio" data-shelf-status="on-shelf" />On Shelf</label>&nbsp;&nbsp;&nbsp;&nbsp;
+							<label style="cursor:pointer;"><input type="radio" name="combo-shelf-radio" data-shelf-status="off-shelf" />Off Shelf</label>
+						</span>
+						</h3>
+						<hr/>
 						<div class="form-group">
 							<table class="table table-hover table-bordered table-condensed">
 								<tr>
 									<td class="bg-info">
-										<label>
+										<label style="cursor:pointer;">
 											<input type="checkbox" data-name="checkbox_all" data-type="checkbox_combo" /> All
 										</label>
 									</td>
@@ -125,7 +163,7 @@
 								<input type="hidden" data-name="c_material_ids_${c.id}" value="${c.material_ids}"/>
 								<tr>
 									<td>
-									<label>
+									<label style="cursor:pointer;">
 										<form:checkbox id="${c.id}" path="cidArr" data-combo="true" value="${c.id}" data-c-material_ids="${wholesaler.cwMaps[c.id].material_ids!=null ? wholesaler.cwMaps[c.id].material_ids : c.material_ids}" data-c-name="${wholesaler.cwMaps[c.id].name!=null ? wholesaler.cwMaps[c.id].name : c.name}" data-name="checkbox_cs" data-type="checkbox_combo" />${wholesaler.cwMaps[c.id].name!=null ? wholesaler.cwMaps[c.id].name : c.name}
 									</label>
 									</td>
@@ -228,6 +266,25 @@
 		}
 	});
 	
+	$('input[name="material-subscribe-radio"]').on('ifChecked',function(){
+		var type = $(this).attr('data-subscribe-type');
+		if(type=='one-off'){
+			$('option[data-name="material-one-off"]').attr('selected', true);
+		} else {
+			$('option[data-name="material-monthly"]').attr('selected', true);
+		}
+	});
+	
+	$('input[name="material-subscribe-radio-second"]').on('ifChecked',function(){
+		var type = $(this).attr('data-subscribe-type');
+		var data_for = $(this).attr('data-for');
+		if(type=='one-off'){
+			$('option[data-for="'+data_for+'_one-off"]').attr('selected', true);
+		} else {
+			$('option[data-for="'+data_for+'_monthly"]').attr('selected', true);
+		}
+	});
+	
 	$('input[name="material-shelf-radio"]').on('ifChecked',function(){
 		var type = $(this).attr('data-shelf-status');
 		if(type=='on-shelf'){
@@ -252,32 +309,33 @@
 	$('button[data-name="createUpdateWholesalerBtn"]').click(function(){
 		
 		var wholesaler = {
-			id: '${wholesaler.id}'+'',
-			company_name: $('input[name="company_name"]').val(),
-			name: $('input[name="name"]').val(),
-			login_name: $('input[name="login_name"]').val(),
-			login_password: $('input[name="login_password"]').val(),
-			email: $('input[name="email"]').val(),
-			cellphone: $('input[name="cellphone"]').val(),
-			status: $('input[name="status"]:checked').val(),
-			memo: $('textarea[name="memo"]').val(),
-			company_id: '${wholesaler.company_id}',
-			mws: [],
-			cws: []
+			'id': '${wholesaler.id}'+'',
+			'company_name': $('input[name="company_name"]').val(),
+			'name': $('input[name="name"]').val(),
+			'login_name': $('input[name="login_name"]').val(),
+			'login_password': $('input[name="login_password"]').val(),
+			'email': $('input[name="email"]').val(),
+			'cellphone': $('input[name="cellphone"]').val(),
+			'status': $('input[name="status"]:checked').val(),
+			'memo': $('textarea[name="memo"]').val(),
+			'company_id': '${wholesaler.company_id}',
+			'mws': [],
+			'cws': []
 		};
 		
 		$('input[data-material="true"]:checked').each(function(){
 			var m = $(this);
 			var mData = {
-				material_id:this.id,
-				suitable: m.attr('data-m-suitable'),
-				name: m.attr('data-m-name'),
-				material_group: m.attr('data-material-group'),
-				material_type: m.attr('data-material-type'),
-				material_category: m.attr('data-material-category'),
-				description: $('input[data-name="m_description_'+this.id+'"]').val(),
-				wholesale_price: Number($('input[data-name="m_wholesale_price_'+this.id+'"]').val()),
-				status: $('select[data-name="m_status_'+this.id+'"]').val()
+				'material_id':this.id,
+				'suitable': m.attr('data-m-suitable'),
+				'name': m.attr('data-m-name'),
+				'material_group': m.attr('data-material-group'),
+				'material_type': m.attr('data-material-type'),
+				'material_category': m.attr('data-material-category'),
+				'description': $('input[data-name="m_description_'+this.id+'"]').val(),
+				'wholesale_price': Number($('input[data-name="m_wholesale_price_'+this.id+'"]').val()),
+				'subscribe': $('select[data-name="m_subscribe_'+this.id+'"]').val(),
+				'status': $('select[data-name="m_status_'+this.id+'"]').val()
 			};
 			
 			wholesaler.mws.push(mData);
@@ -286,17 +344,15 @@
 		$('input[data-combo="true"]:checked').each(function(){
 			var c = $(this);
 			var cData = {
-				combo_id:this.id,
-				name: c.attr('data-c-name'),
-				material_ids: c.attr('data-c-material_ids'),
-				description: $('input[data-name="c_description_'+this.id+'"]').val(),
-				status: $('select[data-name="c_status_'+this.id+'"]').val()
+				'combo_id':this.id,
+				'name': c.attr('data-c-name'),
+				'material_ids': c.attr('data-c-material_ids'),
+				'description': $('input[data-name="c_description_'+this.id+'"]').val(),
+				'status': $('select[data-name="c_status_'+this.id+'"]').val()
 			};
 			
 			wholesaler.cws.push(cData);
 		});
-		
-		console.log(wholesaler);
 		
 		var url;
 		if($(this).text()=='Create'){

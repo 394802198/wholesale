@@ -80,9 +80,14 @@ public class Order implements Serializable {
 	 * RELATED PROPERTIES
 	 */
 
+	private String wholesaler_name;
+
 	private String create_date_str;
 	private String inservice_date_str;
+	private String rfs_date_str;
+	private String disconnected_date_str;
 	private String preferred_connection_date_str;
+	private String next_invoice_create_date_str;
 
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private Broadband broadband = new Broadband();
@@ -117,6 +122,7 @@ public class Order implements Serializable {
 	}
 
 	public void setInservice_date(Date inservice_date) {
+		this.setInservice_date_str(TMUtils.dateFormatYYYYMMDD(inservice_date));
 		this.inservice_date = inservice_date;
 	}
 
@@ -246,6 +252,7 @@ public class Order implements Serializable {
 	}
 
 	public void setRfs_date(Date rfs_date) {
+		this.setRfs_date_str(TMUtils.dateFormatYYYYMMDD(rfs_date));
 		this.rfs_date = rfs_date;
 	}
 
@@ -254,6 +261,7 @@ public class Order implements Serializable {
 	}
 
 	public void setDisconnected_date(Date disconnected_date) {
+		this.setDisconnected_date_str(TMUtils.dateFormatYYYYMMDD(disconnected_date));
 		this.disconnected_date = disconnected_date;
 	}
 
@@ -278,6 +286,7 @@ public class Order implements Serializable {
 	}
 
 	public void setPreferred_connection_date(Date preferred_connection_date) {
+		this.setPreferred_connection_date_str(TMUtils.dateFormatYYYYMMDD(preferred_connection_date));
 		this.preferred_connection_date = preferred_connection_date;
 	}
 
@@ -294,6 +303,7 @@ public class Order implements Serializable {
 	}
 
 	public void setNext_invoice_create_date(Date next_invoice_create_date) {
+		this.setNext_invoice_create_date_str(TMUtils.dateFormatYYYYMMDD(next_invoice_create_date));
 		this.next_invoice_create_date = next_invoice_create_date;
 	}
 
@@ -301,8 +311,7 @@ public class Order implements Serializable {
 		return next_invoice_create_date_flag;
 	}
 
-	public void setNext_invoice_create_date_flag(
-			Date next_invoice_create_date_flag) {
+	public void setNext_invoice_create_date_flag(Date next_invoice_create_date_flag) {
 		this.next_invoice_create_date_flag = next_invoice_create_date_flag;
 	}
 
@@ -359,6 +368,7 @@ public class Order implements Serializable {
 	}
 
 	public void setCreate_date(Date create_date) {
+		this.setCreate_date_str(TMUtils.dateFormatYYYYMMDDHHMMSS(create_date));
 		this.create_date = create_date;
 	}
 
@@ -431,7 +441,7 @@ public class Order implements Serializable {
 	}
 
 	public String getCreate_date_str() {
-		return TMUtils.dateFormatDDMMYYYYHHMMSS(this.getCreate_date());
+		return this.create_date_str;
 	}
 
 	public void setCreate_date_str(String create_date_str) {
@@ -439,8 +449,6 @@ public class Order implements Serializable {
 	}
 
 	public String getInservice_date_str() {
-		this.setInservice_date_str(TMUtils.dateFormatYYYYMMDD(this
-				.getInservice_date()));
 		return inservice_date_str;
 	}
 
@@ -476,9 +484,40 @@ public class Order implements Serializable {
 		return preferred_connection_date_str;
 	}
 
-	public void setPreferred_connection_date_str(
-			String preferred_connection_date_str) {
+	public void setPreferred_connection_date_str(String preferred_connection_date_str) {
 		this.preferred_connection_date_str = preferred_connection_date_str;
+	}
+
+	public String getWholesaler_name() {
+		return wholesaler_name;
+	}
+
+	public void setWholesaler_name(String wholesaler_name) {
+		this.wholesaler_name = wholesaler_name;
+	}
+
+	public String getRfs_date_str() {
+		return rfs_date_str;
+	}
+
+	public void setRfs_date_str(String rfs_date_str) {
+		this.rfs_date_str = rfs_date_str;
+	}
+
+	public String getDisconnected_date_str() {
+		return disconnected_date_str;
+	}
+
+	public void setDisconnected_date_str(String disconnected_date_str) {
+		this.disconnected_date_str = disconnected_date_str;
+	}
+
+	public String getNext_invoice_create_date_str() {
+		return next_invoice_create_date_str;
+	}
+
+	public void setNext_invoice_create_date_str(String next_invoice_create_date_str) {
+		this.next_invoice_create_date_str = next_invoice_create_date_str;
 	}
 
 }
