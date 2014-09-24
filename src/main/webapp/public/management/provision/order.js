@@ -38,31 +38,68 @@
 			    
 			}).datepicker('setDate', order_disconnected_input || new Date());
 			
+			// Order rfs Datepicker
+			var order_rfs_input = $('input[name="order_rfs_date"]').attr('data-val');
+			$('#order_rfs_datepicker').datepicker({
+			    format: "yyyy-mm-dd",
+			    autoclose: true,
+			    todayHighlight: true
+			    
+			}).datepicker('setDate', order_rfs_input || new Date());
+			
+			// Order inservice Datepicker
+			var order_inservice_input = $('input[name="order_inservice_date"]').attr('data-val');
+			$('#order_inservice_datepicker').datepicker({
+			    format: "yyyy-mm-dd",
+			    autoclose: true,
+			    todayHighlight: true
+			    
+			}).datepicker('setDate', order_inservice_input || new Date());
+			
+			// Order next invoice Datepicker
+			var order_next_invoice_input = $('input[name="order_next_invoice_create_date"]').attr('data-val');
+			$('#order_next_invoice_create_datepicker').datepicker({
+			    format: "yyyy-mm-dd",
+			    autoclose: true,
+			    todayHighlight: true
+			    
+			}).datepicker('setDate', order_next_invoice_input || new Date());
+			
 			/**
 			 * END LOAD DATA TO TEMPLATE
 			 */
 			
+			/**
+			 * BEGIN PREPARE FOR USE
+			 */
+			var LaddaThis;
+			var isRefresh;
+			/**
+			 * END PREPARE FOR USE
+			 */
+			
 			
 			/**
-			 * BEGIN CUSTOMER DETAIL AREA
+			 * BEGIN ORDER CUSTOMER INFO AREA
 			 */
-			$('a[data-name="update_order_customer_detail_btn"]').click(function(){
+			$('a[data-name="update_order_customer_info_btn"]').click(function(){
 				var l = Ladda.create(this); l.start();
-				$('#updateCustomerDetailModal').modal('show');
+				LaddaThis = l;
+				$('#updateCustomerInfoModal').modal('show');
 			});
 			
-			$('#update_customer_detail_modal_btn').click(function(){
+			$('#update_customer_info_modal_btn').click(function(){
 				var customer_title = $('select[name="order_customer_title"]').val();
 				var customer_type = $('select[name="order_customer_type"]').val();
 				var company_name = $('input[name="order_customer_company_name"]').val();
 				var trade_name = $('input[name="order_customer_trade_name"]').val();
 				var title = $('select[name="order_customer_title"]').val();
-				var first_name = $('input[name="order_customer_first_name"]').val();
-				var last_name = $('input[name="order_customer_last_name"]').val();
-				var phone = $('input[name="order_customer_phone"]').val();
-				var mobile = $('input[name="order_customer_mobile"]').val();
-				var email = $('input[name="order_customer_email"]').val();
-				var address = $('input[name="order_customer_address"]').val();
+				var first_name = $('#order_customer_first_name').val();
+				var last_name = $('#order_customer_last_name').val();
+				var phone = $('#order_customer_phone').val();
+				var mobile = $('#order_customer_mobile').val();
+				var email = $('#order_customer_email').val();
+				var address = $('#order_customer_address').val();
 				
 				var data = {
 					'id':o_id,
@@ -84,21 +121,26 @@
 					data.trade_name = '';
 				}
 				
-				$.post(ctx+'/management/provision/order/customer-detail/update', data, function(json){
-			   		$.jsonValidation(json, 'right');
+				$.post(ctx+'/management/provision/order/customer-info/update', data, function(json){
+					isRefresh = !$.jsonValidation(json, 'right');
 				}, "json");
 			});
 			
-			$('#updateCustomerDetailModal').on('hidden.bs.modal', function (e) {
-				$.getOrderDetail();
+			$('#updateCustomerInfoModal').on('hidden.bs.modal', function (e) {
+				
+				if(isRefresh){
+					$.getOrderDetail();
+				} else {
+					LaddaThis.stop();
+				}
 			});
 			/**
-			 * END CUSTOMER DETAIL AREA
+			 * END ORDER CUSTOMER INFO AREA
 			 */
 			
 			
 			/**
-			 * BEGIN ORDER DETAIL AREA
+			 * BEGIN ORDER STATUS AREA
 			 */
 			$('a[data-name="update_order_status_btn"]').click(function(){
 				var l = Ladda.create(this); l.start();
@@ -114,8 +156,6 @@
 					'disconnected_date_str':disconnected_date_str
 				};
 				
-				console.log(data);
-				
 				$.post(ctx+'/management/provision/order/status/update', data, function(json){
 			   		$.jsonValidation(json, 'right');
 				}, "json");
@@ -124,7 +164,109 @@
 				$.getOrderDetail();
 			});
 			/**
-			 * END ORDER DETAIL AREA
+			 * END ORDER STATUS AREA
+			 */
+			 
+			/**
+			 * BEGIN PPPOE INFO AREA
+			 */
+			$('a[data-name="update_order_pppoe_btn"]').click(function(){
+				var l = Ladda.create(this); l.start();
+				LaddaThis = l;
+				$('#updateOrderPPPoEModal').modal('show');
+			});
+			$('#update_order_pppoe_modal_btn').click(function(){
+				var pppoe_loginname = $('#pppoe_loginname').val();
+				var pppoe_password = $('#pppoe_password').val();
+				
+				var data = {
+					'id':o_id,
+					'pppoe_loginname':pppoe_loginname,
+					'pppoe_password':pppoe_password
+				};
+				
+				$.post(ctx+'/management/provision/order/pppoe/update', data, function(json){
+					isRefresh = !$.jsonValidation(json, 'right');
+				}, "json");
+			});
+			$('#updateOrderPPPoEModal').on('hidden.bs.modal', function (e) {
+				
+				if(isRefresh){
+					$.getOrderDetail();
+				} else {
+					LaddaThis.stop();
+				}
+			});
+			/**
+			 * END PPPOE INFO AREA
+			 */
+			 
+			/**
+			 * BEGIN ORDER SV/CVLAN AREA
+			 */
+			$('a[data-name="update_order_svcvlan_btn"]').click(function(){
+				var l = Ladda.create(this); l.start();
+				LaddaThis = l;
+				$('#updateOrderSVCVLanModal').modal('show');
+			});
+			$('#update_order_svcvlan_modal_btn').click(function(){
+				var svlan = $('#svlan').val();
+				var cvlan = $('#cvlan').val();
+				var rfs_date_str = $('input[name="order_rfs_date"]').val();
+				
+				var data = {
+					'id':o_id,
+					'svlan':svlan,
+					'cvlan':cvlan,
+					'rfs_date_str':rfs_date_str
+				};
+				
+				$.post(ctx+'/management/provision/order/svcvlan/update', data, function(json){
+					isRefresh = !$.jsonValidation(json, 'right');
+				}, "json");
+			});
+			$('#updateOrderSVCVLanModal').on('hidden.bs.modal', function (e) {
+				
+				if(isRefresh){
+					$.getOrderDetail();
+				} else {
+					LaddaThis.stop();
+				}
+			});
+			/**
+			 * END ORDER SV/CVLAN AREA
+			 */
+			 
+			/**
+			 * BEGIN ORDER BROADBAND ASID AREA
+			 */
+			$('a[data-name="order_brodband_asid_btn"]').click(function(){
+				var l = Ladda.create(this); l.start();
+				LaddaThis = l;
+				$('#updateOrderBroadbandASIDModal').modal('show');
+			});
+			$('#update_order_broadband_asid_modal_btn').click(function(){
+				var broadband_asid = $('#order_broadband_asid').val();
+				
+				var data = {
+					'id':o_id,
+					'broadband_asid':broadband_asid
+				};
+				
+				$.post(ctx+'/management/provision/order/broadband-asid/update', data, function(json){
+					isRefresh = !$.jsonValidation(json, 'right');
+				}, "json");
+			});
+			$('#updateOrderBroadbandASIDModal').on('hidden.bs.modal', function (e) {
+				
+				if(isRefresh){
+					$.getOrderDetail();
+				} else {
+					LaddaThis.stop();
+				}
+			});
+			/**
+			 * END ORDER BROADBAND ASID AREA
 			 */
 			
 			
