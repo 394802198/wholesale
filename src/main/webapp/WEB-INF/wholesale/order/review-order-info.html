@@ -1,3 +1,8 @@
+<.
+var wholesale_total_before_gst = 0;
+var enduser_total_before_gst = 0;
+.>
+
 <div class="panel panel-info">
 	<div class="panel-body">
 		<h2 class="text-info">Please Review Order Information</h2>
@@ -24,7 +29,8 @@
 					</thead>
 					<. for (var i = 0, len = monthly_details.length; i < len; i++) {
 						var detail = monthly_details[i];
-						if (detail.is_wholesale) {.>
+						if (detail.is_wholesale) {
+							wholesale_total_before_gst += Number(detail.price) * detail.unit;.>
 					<tr>
 						<td>
 							<.=detail.name.> 
@@ -51,7 +57,8 @@
 					</tr>
 					<. for (var i = 0, len = oneoff_details.length; i < len; i++) {
 						var detail = oneoff_details[i];
-						if (detail.is_wholesale) {.>
+						if (detail.is_wholesale) {
+							wholesale_total_before_gst += Number(detail.price) * detail.unit;.>
 					<tr>
 						<td><.=detail.name.></td>
 						<td>$ <.=Number(detail.price).toFixed(2).></td>
@@ -63,7 +70,32 @@
 				<.}.>
 				
 				</table>
+				
+				<div class="row">
+					<div class="col-md-4 col-md-offset-8">
+						<table class="table">
+							<tr>
+								<td>Total Before GST</td>
+								<td><span id="total_before_gst"><.=wholesale_total_before_gst.toFixed(2).></span></td>
+							</tr>
+							<tr>
+								<td>GST at 15%</td>
+								<td><span id="gst"><.=(wholesale_total_before_gst * 0.15).toFixed(2).></span></td>
+							</tr>
+							<tr>
+								<td><strong>Order Total</strong></td>
+								<td><strong><span id="order_total" class="text-success"><.=(wholesale_total_before_gst * 1.15).toFixed(2).></span></strong></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				
 			</div>
+			
+			
+			
+			
+			
 			<div class="panel-body tab-pane fade" id="enduser-information" >
 				
 				<table class="table">
@@ -78,7 +110,8 @@
 					</thead>
 					<. for (var i = 0, len = monthly_details.length; i < len; i++) {
 						var detail = monthly_details[i];
-						if (detail.is_enduser) {.>
+						if (detail.is_enduser) {
+							enduser_total_before_gst += Number(detail.price_enduser) * detail.unit;.>
 					<tr>
 						<td>
 							<.=detail.name.>
@@ -96,7 +129,7 @@
 					<.}.>
 				<.}.>
 				
-				<. if (oneoff_details.length > 0) {.>
+				<.if (oneoff_details.length > 0) {.>
 					<tr>
 						<th>&nbsp;</th>
 						<th>One-Off Charge</th>
@@ -105,7 +138,8 @@
 					</tr>
 					<. for (var i = 0, len = oneoff_details.length; i < len; i++) {
 						var detail = oneoff_details[i];
-						if (detail.is_enduser) {.>
+						if (detail.is_enduser) {
+							enduser_total_before_gst += Number(detail.price_enduser) * detail.unit;.>
 					<tr>
 						<td>
 							<.=detail.name.>
@@ -124,10 +158,32 @@
 				<.}.>
 				
 				</table>
+				
+				<div class="row">
+					<div class="col-md-4 col-md-offset-8">
+						<table class="table">
+							<tr>
+								<td>Total Before GST</td>
+								<td><span id="total_before_gst"><.=enduser_total_before_gst.toFixed(2).></span></td>
+							</tr>
+							<tr>
+								<td>GST at 15%</td>
+								<td><span id="gst"><.=(enduser_total_before_gst * 0.15).toFixed(2).></span></td>
+							</tr>
+							<tr>
+								<td><strong>Order Total</strong></td>
+								<td><strong><span id="order_total" class="text-success"><.=(enduser_total_before_gst * 1.15).toFixed(2).></span></strong></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				
 				<hr>
 				<h4 class="text-info">End-User Details</h4>
 				<hr>
 				<dl class="dl-horizontal">
+					<dt>Address</dt>
+					<dd><.=address.></dd>
 					<dt>Customer Type</dt>
 					<dd><.=customer_type.></dd>
 					<dt>Company name</dt>

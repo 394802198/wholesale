@@ -23,7 +23,7 @@
 	
 </div>
 
-<script type="text/html" id="information_content_tmpl" data-ctx="${ctx }">
+<script type="text/html" id="information_content_tmpl" data-ctx="${ctx }" data-address="${orderSession.address }">
 <jsp:include page="information-content.html" />
 </script>
 
