@@ -1,7 +1,9 @@
 (function($){
 	
-	var ctx = $('#combo_list_tmpl').attr('data-ctx')
-		, service_type = $('#combo_list_tmpl').attr('data-service_type')
+	var _tmpl = $('#combo_list_tmpl')
+		, ctx = _tmpl.attr('data-ctx')
+		, service_type = _tmpl.attr('data-service_type')
+		, address = _tmpl.attr('data-address')
 		
 	var selected_combo = null
 		, view_active = 'columns_view'
@@ -93,6 +95,7 @@
 		$.get(ctx + '/order/select-combo/combo-loading', function(combos){ //console.log(combos);
 			var o = {
 				ctx: ctx
+				, address: address
 				, combos: combos
 			};
 			$('#combo-list').html(tmpl('combo_list_tmpl', o));

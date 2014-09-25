@@ -53,6 +53,14 @@ public class WholesalerRestController {
 			return json;
 		}
 		
+		if ("pending".equals(wholesalerSession.getStatus())) {
+			json.getErrorMap().put("alert-error", "Your account still keep pending status, please contact us.");
+			return json;
+		} else if ("disabled".equals(wholesalerSession.getStatus())) {
+			json.getErrorMap().put("alert-error", "Sorry, your account has been disabled, if you have any problems, you can contact us.");
+			return json;
+		}
+		
 		session.setAttribute("wholesalerSession", wholesalerSession);
 		
 		json.setUrl("/index/redirect");
@@ -123,7 +131,6 @@ public class WholesalerRestController {
 		wQ.getParams().put("id", id);
 		if (id != wholesalerSession.getId().intValue())
 			wQ.getParams().put("company_id", wholesalerSession.getCompany_id());
-
 		
 		Wholesaler w = this.wholesalerService.queryWholesaler(wQ);
 		

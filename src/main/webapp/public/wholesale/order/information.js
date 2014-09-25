@@ -1,10 +1,13 @@
 (function($){
 	
-	var ctx = $('#information_content_tmpl').attr('data-ctx')
+	var _tmpl = $('#information_content_tmpl')
+		, ctx = _tmpl.attr('data-ctx')
+		, address = _tmpl.attr('data-address')
 	
 	$.get(ctx + '/order/information/loading', function(order){ console.log(order);
 		
 		order.ctx = ctx;
+		order.address = address;
 		$('#information-content').html(tmpl('information_content_tmpl', order));
 		$(':radio, :checkbox').iCheck({ checkboxClass: 'icheckbox_square-blue', radioClass: 'iradio_square-blue' });
 		$('.selectpicker').selectpicker();

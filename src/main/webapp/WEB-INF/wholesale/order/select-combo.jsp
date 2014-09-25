@@ -31,7 +31,7 @@
 				<div class="col-md-6">
 					<h2 class="text-info">Please Select One Combo</h2>
 					<hr>
-					
+					<h3 class="text-info"><span class="glyphicon glyphicon-map-marker"></span> ${orderSession.address }</h3>
 					<div id="combo-list"></div>
 				</div>
 				<div class="col-md-6"></div>
@@ -43,7 +43,7 @@
 	
 </div>
 
-<script type="text/html" id="combo_list_tmpl" data-ctx="${ctx }" data-service_type="${service_type}">
+<script type="text/html" id="combo_list_tmpl" data-ctx="${ctx }" data-service_type="${service_type}" data-address="${orderSession.address }">
 <jsp:include page="combo-list.html" />
 </script>
 <script type="text/html" id="view_layer_tmpl" >
