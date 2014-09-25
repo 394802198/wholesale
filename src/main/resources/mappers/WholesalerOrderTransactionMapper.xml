@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DEFINITION AREA --><!-- // DEFINITION AREA -->
+<!-- =================================================================================== -->
+<!-- SELECT AREA --><!-- // END SELECT AREA -->
+<!-- =================================================================================== -->
+<!-- INSERT AREA --><!-- // END INSERT AREA -->
+<!-- =================================================================================== -->
+<!-- UPDATE AREA --><!-- // END UPDATE AREA -->
+<!-- =================================================================================== -->
+<!-- DELETE AREA --><!-- // END DELETE AREA -->
+
+<mapper namespace="com.tm.wholesale.mapper.WholesalerOrderTransactionMapper">
+
+	<!-- DEFINITION AREA -->
+
+	<sql id="wholesalerOrderTransactionColumns">
+		wot.`wholesaler_id`			as wot_wholesaler_id,
+		wot.`order_id`				as wot_order_id,
+		wot.`description`			as wot_description,
+		wot.`amount`				as wot_amount,
+		wot.`status`				as wot_status,
+		wot.`create_date`			as wot_create_date,
+		wot.`last_update_date`		as wot_last_update_date
+	</sql>
+
+	<resultMap type="WholesalerOrderTransaction" id="wholesalerOrderTransactionResultMap">
+		<id property="wholesaler_id" column="wot_wholesaler_id" />
+		<result property="order_id" column="wot_order_id" />
+		<result property="description" column="wot_description" />
+		<result property="amount" column="wot_amount" />
+		<result property="status" column="wot_status" />
+		<result property="create_date" column="wot_create_date" />
+		<result property="last_update_date" column="wot_last_update_date" />
+	</resultMap>
+
+	<sql id="wholesalerOrderTransactionWhere">
+		<where>
+			<if test="params.wholesaler_id != null">wot.wholesaler_id = #{params.wholesaler_id}</if>
+			<if test="params.order_id != null">and wot.order_id = #{params.order_id}</if>
+			<if test="params.description != null">and wot.description = #{params.description}</if>
+			<if test="params.amount != null">and wot.amount = #{params.amount}</if>
+			<if test="params.status != null">and wot.status = #{params.status}</if>
+			<if test="params.create_date != null">and wot.create_date = #{params.create_date}</if>
+			<if test="params.last_update_date != null">and wot.last_update_date = #{params.last_update_date}</if>
+		</where>
+	</sql>
+
+	<!-- // DEFINITION AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- SELECT AREA -->
+
+	<select id="selectWholesalerOrderTransactions" parameterType="WholesalerOrderTransaction" resultType="WholesalerOrderTransaction">
+		select * from wholesaler_order_transaction as wot
+		<include refid="wholesalerOrderTransactionWhere"/>
+	</select>
+
+	<!-- select wholesalerOrderTransaction page -->
+	<select id="selectWholesalerOrderTransactionsByPage" parameterType="Page" resultMap="wholesalerOrderTransactionResultMap">
+		select 
+			<include refid="wholesalerOrderTransactionColumns"/>
+			from wholesaler_order_transaction as wot
+			<include refid="wholesalerOrderTransactionWhere"/>
+			<if test="params.orderby != null">${params.orderby}</if>
+			limit #{pageOffset}, #{pageSize}
+	</select>
+
+	<!-- select wholesalerOrderTransaction amount -->
+	<select id="selectWholesalerOrderTransactionsSum" parameterType="Page" resultType="int">
+		select count(*) from wholesaler_order_transaction as wot
+		<include refid="wholesalerOrderTransactionWhere"/>
+	</select>
+
+	<!-- // END SELECT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- INSERT AREA -->
+
+	<insert id="insertWholesalerOrderTransaction" parameterType="WholesalerOrderTransaction" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `wholesaler_order_transaction`(
+			`wholesaler_id`, `order_id`, `description`, `amount`, `status`, 
+			`create_date`, `last_update_date`
+		) VALUES (
+			#{wholesaler_id}, #{order_id}, #{description}, #{amount}, #{status}, 
+			#{create_date}, #{last_update_date}
+		)
+	</insert>
+
+	<!-- // END INSERT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- UPDATE AREA -->
+
+	<!-- update wholesalerOrderTransaction -->
+	<update id="updateWholesalerOrderTransaction" parameterType="WholesalerOrderTransaction">
+		update wholesaler_order_transaction
+		<set>
+			<if test="order_id != null">order_id = #{order_id},</if>
+			<if test="description != null">description = #{description},</if>
+			<if test="amount != null">amount = #{amount},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="create_date != null">create_date = #{create_date},</if>
+			<if test="last_update_date != null">last_update_date = #{last_update_date}</if>
+		</set>
+		<where>
+			<if test="params.id != null">id = #{params.id}</if>
+		</where>
+	</update>
+
+	<!-- // END UPDATE AREA -->
+
+	<!-- =================================================================================== -->
+	<!-- DELETE AREA -->
+
+	<delete id="deleteWholesalerOrderTransactionById" parameterType="int">
+		DELETE FROM wholesaler_order_transaction WHERE id = #{0}
+	</delete>
+
+	<!-- // END DELETE AREA -->
+
+</mapper>

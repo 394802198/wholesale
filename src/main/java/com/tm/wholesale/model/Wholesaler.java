@@ -2,6 +2,7 @@ package com.tm.wholesale.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.tm.wholesale.util.TMUtils;
 import com.tm.wholesale.validation.WholesalerChangePasswordValidatedMark;
 import com.tm.wholesale.validation.WholesalerCreateValidatedMark;
 import com.tm.wholesale.validation.WholesalerEditValidatedMark;
@@ -50,6 +52,9 @@ public class Wholesaler implements Serializable {
 	private String status;
 	private Integer company_id;
 	private Boolean is_primary;
+	private Double account_credit;
+	private Double limit_credit;
+	private Date create_date;
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -58,6 +63,8 @@ public class Wholesaler implements Serializable {
 	/*
 	 * TABLE RELATED PROPERTIES
 	 */
+	
+	private String create_date_str;
 
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private String[] authArray;
@@ -265,6 +272,39 @@ public class Wholesaler implements Serializable {
 
 	public void setIs_primary(Boolean is_primary) {
 		this.is_primary = is_primary;
+	}
+
+	public Double getAccount_credit() {
+		return account_credit;
+	}
+
+	public void setAccount_credit(Double account_credit) {
+		this.account_credit = account_credit;
+	}
+
+	public Double getLimit_credit() {
+		return limit_credit;
+	}
+
+	public void setLimit_credit(Double limit_credit) {
+		this.limit_credit = limit_credit;
+	}
+
+	public Date getCreate_date() {
+		return create_date;
+	}
+
+	public void setCreate_date(Date create_date) {
+		this.setCreate_date_str(TMUtils.dateFormatYYYYMMDD(this.getCreate_date()));
+		this.create_date = create_date;
+	}
+
+	public String getCreate_date_str() {
+		return create_date_str;
+	}
+
+	public void setCreate_date_str(String create_date_str) {
+		this.create_date_str = create_date_str;
 	}
 	
 	
