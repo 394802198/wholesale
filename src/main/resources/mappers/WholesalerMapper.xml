@@ -29,7 +29,10 @@
 		w.`memo`				as w_memo,
 		w.`status`				as w_status,
 		w.`company_id`			as w_company_id,
-		w.`is_primary`			as w_is_primary
+		w.`is_primary`			as w_is_primary,
+		w.`account_credit`		as w_account_credit,
+		w.`limit_credit`		as w_limit_credit,
+		w.`create_date`			as w_create_date
 	</sql>
 
 	<resultMap type="Wholesaler" id="wholesalerResultMap">
@@ -46,6 +49,9 @@
 		<result property="status" column="w_status" />
 		<result property="company_id" column="w_company_id" />
 		<result property="is_primary" column="w_is_primary" />
+		<result property="account_credit" column="w_account_credit" />
+		<result property="limit_credit" column="w_limit_credit" />
+		<result property="create_date" column="w_create_date" />
 	</resultMap>
 
 	<sql id="wholesalerWhere">
@@ -72,9 +78,11 @@
 					<if test="params.status != null">and w.status = #{params.status}</if>
 					<if test="params.company_id != null">and w.company_id = #{params.company_id}</if>
 					<if test="params.is_primary != null">and w.is_primary = #{params.is_primary}</if>
+					<if test="params.account_credit != null">and w.account_credit = #{params.account_credit}</if>
+					<if test="params.limit_credit != null">and w.limit_credit = #{params.limit_credit}</if>
+					<if test="params.create_date != null">and w.create_date = #{params.create_date}</if>
 				</otherwise>
 			</choose>
-			
 		</where>
 	</sql>
 
@@ -120,11 +128,13 @@
 		INSERT INTO `wholesaler`(
 			`id`, `company_name`, `name`, `login_name`, 
 			`login_password`, `role`, `cellphone`, `email`, `auth`, 
-			`memo`, `status`, `company_id`, `is_primary`
+			`memo`, `status`, `company_id`, `is_primary`, `account_credit`,
+			`limit_credit`, `create_date`
 		) VALUES (
 			#{id}, #{company_name}, #{name}, #{login_name}, 
 			#{login_password}, #{role}, #{cellphone}, #{email}, #{auth}, 
-			#{memo}, #{status}, #{company_id}, #{is_primary}
+			#{memo}, #{status}, #{company_id}, #{is_primary}, #{account_credit},
+			#{limit_credit}, #{create_date}
 		)
 	</insert>
 
@@ -149,7 +159,10 @@
 			<if test="memo != null">memo = #{memo},</if>
 			<if test="status != null">status = #{status},</if>
 			<if test="company_id != null">company_id = #{company_id},</if>
-			<if test="is_primary != null">is_primary = #{is_primary}</if>
+			<if test="is_primary != null">is_primary = #{is_primary},</if>
+			<if test="account_credit != null">account_credit = #{account_credit},</if>
+			<if test="limit_credit != null">limit_credit = #{limit_credit},</if>
+			<if test="create_date != null">create_date = #{create_date}</if>
 		</set>
 		<where>
 			<if test="params.id != null">id = #{params.id}</if>
