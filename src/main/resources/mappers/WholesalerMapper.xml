@@ -17,28 +17,45 @@
 	<!-- DEFINITION AREA -->
 
 	<sql id="wholesalerColumns">
-		w.`id`					as w_id,
-		w.`company_name`		as w_company_name,
-		w.`name`				as w_name,
-		w.`login_name`			as w_login_name,
-		w.`login_password`		as w_login_password,
-		w.`role`				as w_role,
-		w.`cellphone`			as w_cellphone,
-		w.`email`				as w_email,
-		w.`auth`				as w_auth,
-		w.`memo`				as w_memo,
-		w.`status`				as w_status,
-		w.`company_id`			as w_company_id,
-		w.`is_primary`			as w_is_primary,
-		w.`account_credit`		as w_account_credit,
-		w.`limit_credit`		as w_limit_credit,
-		w.`create_date`			as w_create_date
+		w.`id`							as w_id,
+		w.`company_name`				as w_company_name,
+		w.`name`						as w_name,
+		w.`address`						as w_address,
+		w.`billing_address`				as w_billing_address,
+		w.`telephone`					as w_telephone,
+		w.`fax`							as w_fax,
+		w.`gst_registration_number`		as w_gst_registration_number,
+		w.`bank_name`					as w_bank_name,
+		w.`bank_account_name`			as w_bank_account_name,
+		w.`bank_account_number`			as w_bank_account_number,
+		w.`login_name`					as w_login_name,
+		w.`login_password`				as w_login_password,
+		w.`role`						as w_role,
+		w.`cellphone`					as w_cellphone,
+		w.`email`						as w_email,
+		w.`auth`						as w_auth,
+		w.`memo`						as w_memo,
+		w.`status`						as w_status,
+		w.`company_id`					as w_company_id,
+		w.`is_primary`					as w_is_primary,
+		w.`account_credit`				as w_account_credit,
+		w.`limit_credit`				as w_limit_credit,
+		w.`create_date`					as w_create_date
 	</sql>
+
 
 	<resultMap type="Wholesaler" id="wholesalerResultMap">
 		<id property="id" column="w_id" />
 		<result property="company_name" column="w_company_name" />
 		<result property="name" column="w_name" />
+		<result property="address" column="w_address" />
+		<result property="billing_address" column="w_billing_address" />
+		<result property="telephone" column="w_telephone" />
+		<result property="fax" column="w_fax" />
+		<result property="gst_registration_number" column="w_gst_registration_number" />
+		<result property="bank_name" column="w_bank_name" />
+		<result property="bank_account_name" column="w_bank_account_name" />
+		<result property="bank_account_number" column="w_bank_account_number" />
 		<result property="login_name" column="w_login_name" />
 		<result property="login_password" column="w_login_password" />
 		<result property="role" column="w_role" />
@@ -68,6 +85,14 @@
 					<if test="params.id_false != null">and w.id != #{params.id_false}</if>
 					<if test="params.company_name != null">and w.company_name = #{params.company_name}</if>
 					<if test="params.name != null">and w.name = #{params.name}</if>
+					<if test="params.address != null">and w.address = #{params.address}</if>
+					<if test="params.billing_address != null">and w.billing_address = #{params.billing_address}</if>
+					<if test="params.telephone != null">and w.telephone = #{params.telephone}</if>
+					<if test="params.fax!= null">and w.fax = #{params.fax}</if>
+					<if test="params.gst_registration_number != null">and w.gst_registration_number = #{params.gst_registration_number}</if>
+					<if test="params.bank_name != null">and w.bank_name = #{params.bank_name}</if>
+					<if test="params.bank_account_name != null">and w.bank_account_name = #{params.bank_account_name}</if>
+					<if test="params.bank_account_number != null">and w.bank_account_number = #{params.bank_account_number}</if>
 					<if test="params.login_name != null">and w.login_name = #{params.login_name}</if>
 					<if test="params.login_password != null">and w.login_password = #{params.login_password}</if>
 					<if test="params.role != null">and w.role = #{params.role}</if>
@@ -126,12 +151,16 @@
 
 	<insert id="insertWholesaler" parameterType="Wholesaler" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `wholesaler`(
-			`id`, `company_name`, `name`, `login_name`, 
+			`id`, `company_name`, `name`, `address`, `billing_address`,
+			`telephone`, `fax`, `gst_registration_number`, `bank_name`,
+			`bank_account_name`, `bank_account_number`, `login_name`, 
 			`login_password`, `role`, `cellphone`, `email`, `auth`, 
 			`memo`, `status`, `company_id`, `is_primary`, `account_credit`,
 			`limit_credit`, `create_date`
 		) VALUES (
-			#{id}, #{company_name}, #{name}, #{login_name}, 
+			#{id}, #{company_name}, #{name}, #{address}, #{billing_address},
+			#{telephone}, #{fax}, #{gst_registration_number}, #{bank_name},
+			#{bank_account_name}, #{bank_account_number}, #{login_name}, 
 			#{login_password}, #{role}, #{cellphone}, #{email}, #{auth}, 
 			#{memo}, #{status}, #{company_id}, #{is_primary}, #{account_credit},
 			#{limit_credit}, #{create_date}
@@ -150,6 +179,14 @@
 		<set>
 			<if test="company_name != null">company_name = #{company_name},</if>
 			<if test="name != null">name = #{name},</if>
+			<if test="address != null">address = #{address},</if>
+			<if test="billing_address != null">billing_address = #{billing_address},</if>
+			<if test="telephone != null">telephone = #{telephone},</if>
+			<if test="fax != null">fax = #{fax},</if>
+			<if test="gst_registration_number != null">gst_registration_number = #{gst_registration_number},</if>
+			<if test="bank_name != null">bank_name = #{bank_name},</if>
+			<if test="bank_account_name != null">bank_account_name = #{bank_account_name},</if>
+			<if test="bank_account_number != null">bank_account_number = #{bank_account_number},</if>
 			<if test="login_name != null">login_name = #{login_name},</if>
 			<if test="login_password != null">login_password = #{login_password},</if>
 			<if test="role != null">role = #{role},</if>

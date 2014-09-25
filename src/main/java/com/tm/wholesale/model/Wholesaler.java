@@ -55,6 +55,15 @@ public class Wholesaler implements Serializable {
 	private Double account_credit;
 	private Double limit_credit;
 	private Date create_date;
+	private String address;
+	private String billing_address;
+	private String telephone;
+	private String fax;
+	private String gst_registration_number;
+	private String bank_name;
+	private String bank_account_name;
+	private String bank_account_number;
+
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -306,7 +315,70 @@ public class Wholesaler implements Serializable {
 	public void setCreate_date_str(String create_date_str) {
 		this.create_date_str = create_date_str;
 	}
-	
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getBilling_address() {
+		return billing_address;
+	}
+
+	public void setBilling_address(String billing_address) {
+		this.billing_address = billing_address;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	public String getGst_registration_number() {
+		return gst_registration_number;
+	}
+
+	public void setGst_registration_number(String gst_registration_number) {
+		this.gst_registration_number = gst_registration_number;
+	}
+
+	public String getBank_name() {
+		return bank_name;
+	}
+
+	public void setBank_name(String bank_name) {
+		this.bank_name = bank_name;
+	}
+
+	public String getBank_account_name() {
+		return bank_account_name;
+	}
+
+	public void setBank_account_name(String bank_account_name) {
+		this.bank_account_name = bank_account_name;
+	}
+
+	public String getBank_account_number() {
+		return bank_account_number;
+	}
+
+	public void setBank_account_number(String bank_account_number) {
+		this.bank_account_number = bank_account_number;
+	}
 	
 
 }

@@ -17,50 +17,60 @@
 	<!-- DEFINITION AREA -->
 
 	<sql id="orderColumns">
-		o.`id`									as o_id,
-		o.`company_id`							as o_company_id,
-		o.`wholesaler_id`						as o_wholesaler_id,
-		o.`wholesaler_company_name`				as o_wholesaler_company_name,
-		o.`manager_id`							as o_manager_id,
-		o.`total_price_gst`						as o_total_price_gst,
-		o.`total_price_gst_enduser`				as o_total_price_gst_enduser,
-		o.`inservice_date`						as o_inservice_date,
-		o.`status`								as o_status,
-		o.`customer_type`						as o_customer_type,
-		o.`broadband_type`						as o_broadband_type,
-		o.`transition_provider_name`			as o_transition_provider_name,
-		o.`transition_account_holder_name`		as o_transition_account_holder_name,
-		o.`transition_account_number`			as o_transition_account_number,
-		o.`transition_porting_number`			as o_transition_porting_number,
-		o.`svlan`								as o_svlan,
-		o.`cvlan`								as o_cvlan,
-		o.`pppoe_loginname`						as o_pppoe_loginname,
-		o.`pppoe_password`						as o_pppoe_password,
-		o.`order_wholesaler_pdf_path`			as o_order_wholesaler_pdf_path,
-		o.`order_customer_pdf_path`				as o_order_customer_pdf_path,
-		o.`memo`								as o_memo,
-		o.`broadband_asid`						as o_broadband_asid,
-		o.`rfs_date`							as o_rfs_date,
-		o.`disconnected_date`					as o_disconnected_date,
-		o.`preferred_connection_date`			as o_preferred_connection_date,
-		o.`previous_provider_invoice`			as o_previous_provider_invoice,
-		o.`next_invoice_create_date`			as o_next_invoice_create_date,
-		o.`next_invoice_create_date_flag`		as o_next_invoice_create_date_flag,
-		o.`first_name`							as o_first_name,
-		o.`last_name`							as o_last_name,
-		o.`address`								as o_address,
-		o.`email`								as o_email,
-		o.`phone`								as o_phone,
-		o.`mobile`								as o_mobile,
-		o.`create_date`							as o_create_date,
-		o.`company_name`						as o_company_name,
-		o.`trade_name`							as o_trade_name,
-		o.`title`								as o_title,
-		o.`hardware_post`						as o_hardware_post
+		o.`id`													as o_id,
+		o.`group_id`											as o_group_id,
+		o.`company_id`											as o_company_id,
+		o.`wholesaler_id`										as o_wholesaler_id,
+		o.`wholesaler_company_name`								as o_wholesaler_company_name,
+		o.`manager_id`											as o_manager_id,
+		o.`total_price_gst`										as o_total_price_gst,
+		o.`total_price_gst_enduser`								as o_total_price_gst_enduser,
+		o.`inservice_date`										as o_inservice_date,
+		o.`status`												as o_status,
+		o.`customer_type`										as o_customer_type,
+		o.`broadband_type`										as o_broadband_type,
+		o.`transition_provider_name`							as o_transition_provider_name,
+		o.`transition_account_holder_name`						as o_transition_account_holder_name,
+		o.`transition_account_number`							as o_transition_account_number,
+		o.`transition_porting_number`							as o_transition_porting_number,
+		o.`svlan`												as o_svlan,
+		o.`cvlan`												as o_cvlan,
+		o.`pppoe_loginname`										as o_pppoe_loginname,
+		o.`pppoe_password`										as o_pppoe_password,
+		o.`order_wholesaler_pdf_path`							as o_order_wholesaler_pdf_path,
+		o.`order_customer_pdf_path`								as o_order_customer_pdf_path,
+		o.`memo`												as o_memo,
+		o.`broadband_asid`										as o_broadband_asid,
+		o.`rfs_date`											as o_rfs_date,
+		o.`disconnected_date`									as o_disconnected_date,
+		o.`preferred_connection_date`							as o_preferred_connection_date,
+		o.`previous_provider_invoice`							as o_previous_provider_invoice,
+		o.`next_invoice_create_date`							as o_next_invoice_create_date,
+		o.`next_invoice_create_date_flag`						as o_next_invoice_create_date_flag,
+		o.`first_name`											as o_first_name,
+		o.`last_name`											as o_last_name,
+		o.`address`												as o_address,
+		o.`email`												as o_email,
+		o.`phone`												as o_phone,
+		o.`mobile`												as o_mobile,
+		o.`create_date`											as o_create_date,
+		o.`company_name`										as o_company_name,
+		o.`trade_name`											as o_trade_name,
+		o.`title`												as o_title,
+		o.`hardware_post`										as o_hardware_post,
+		o.`is_wholesaler_invoice_mobile_notification`			as o_is_wholesaler_invoice_mobile_notification,
+		o.`is_wholesaler_invoice_email_notification`			as o_is_wholesaler_invoice_email_notification,
+		o.`is_customer_invoice_mobile_notification`				as o_is_customer_invoice_mobile_notification,
+		o.`is_customer_invoice_email_notification`				as o_is_customer_invoice_email_notification
 	</sql>
+
+
+
+
 
 	<resultMap type="Order" id="orderResultMap">
 		<id property="id" column="o_id" />
+		<result property="group_id" column="o_group_id" />
 		<result property="company_id" column="o_company_id" />
 		<result property="wholesaler_id" column="o_wholesaler_id" />
 		<result property="wholesaler_company_name" column="o_wholesaler_company_name" />
@@ -100,11 +110,16 @@
 		<result property="trade_name" column="o_trade_name" />
 		<result property="title" column="o_title" />
 		<result property="hardware_post" column="o_hardware_post" />
+		<result property="is_wholesaler_invoice_mobile_notification" column="o_is_wholesaler_invoice_mobile_notification" />
+		<result property="is_wholesaler_invoice_email_notification" column="o_is_wholesaler_invoice_email_notification" />
+		<result property="is_customer_invoice_mobile_notification" column="o_is_customer_invoice_mobile_notification" />
+		<result property="is_customer_invoice_email_notification" column="o_is_customer_invoice_email_notification" />
 	</resultMap>
 	
 	<sql id="orderDetailColumns">
 		od.`id`					as od_id,
-		od.`order_id`			as od_order_id,
+		od.`group_id`			as od_group_id,
+		od.`company_id`			as od_company_id,
 		od.`name`				as od_name,
 		od.`desc`				as od_desc,
 		od.`price`				as od_price,
@@ -130,7 +145,8 @@
 
 	<resultMap type="OrderDetail" id="orderDetailResultMap">
 		<id property="id" column="od_id" />
-		<id property="order_id" column="od_order_id" />
+		<result property="group_id" column="od_group_id" />
+		<result property="company_id" column="od_company_id" />
 		<result property="name" column="od_name" />
 		<result property="desc" column="od_desc" />
 		<result property="price" column="od_price" />
@@ -157,6 +173,7 @@
 	<sql id="orderWhere">
 		<where>
 			<if test="params.id != null">o.id = #{params.id}</if>
+			<if test="params.group_id != null">and o.group_id = #{params.group_id}</if>
 			<if test="params.company_id != null">and o.company_id = #{params.company_id}</if>
 			<if test="params.wholesaler_id != null">and o.wholesaler_id = #{params.wholesaler_id}</if>
 			<if test="params.wholesaler_company_name != null">and o.wholesaler_company_name = #{params.wholesaler_company_name}</if>
@@ -195,9 +212,13 @@
 			<if test="params.company_name != null">and o.company_name = #{params.company_name}</if>
 			<if test="params.trade_name != null">and o.trade_name = #{params.trade_name}</if>
 			<if test="params.title != null">and o.title = #{params.title}</if>
+			<if test="params.hardware_post != null">and o.hardware_post = #{params.hardware_post}</if>
+			<if test="params.is_wholesaler_invoice_mobile_notification != null">and o.is_wholesaler_invoice_mobile_notification = #{params.is_wholesaler_invoice_mobile_notification}</if>
+			<if test="params.is_wholesaler_invoice_email_notification != null">and o.is_wholesaler_invoice_email_notification = #{params.is_wholesaler_invoice_email_notification}</if>
+			<if test="params.is_customer_invoice_mobile_notification != null">and o.is_customer_invoice_mobile_notification = #{params.is_customer_invoice_mobile_notification}</if>
+			<if test="params.is_customer_invoice_email_notification != null">and o.is_customer_invoice_email_notification = #{params.is_customer_invoice_email_notification}</if>
 		</where>
 	</sql>
-
 	<!-- // DEFINITION AREA -->
 
 	<!-- =================================================================================== -->
@@ -233,21 +254,25 @@
 
 	<insert id="insertOrder" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `order`(
-			`id`, `company_id`, `wholesaler_id`, `wholesaler_company_name`, `manager_id`, `total_price_gst`, `total_price_gst_enduser`,
+			`id`, `group_id`, `company_id`, `wholesaler_id`, `wholesaler_company_name`, `manager_id`, `total_price_gst`, `total_price_gst_enduser`,
 			`inservice_date`, `status`, `customer_type`, `broadband_type`, `transition_provider_name`, 
 			`transition_account_holder_name`, `transition_account_number`, `transition_porting_number`, `svlan`, `cvlan`, 
 			`pppoe_loginname`, `pppoe_password`, `order_wholesaler_pdf_path`, `order_customer_pdf_path`, `memo`, `broadband_asid`, 
 			`rfs_date`, `disconnected_date`, `preferred_connection_date`, `previous_provider_invoice`, `next_invoice_create_date`, 
 			`next_invoice_create_date_flag`, `first_name`, `last_name`, `address`, `email`, 
-			`phone`, `mobile`, `create_date`, `company_name`, `trade_name`, `title`, `hardware_post`
+			`phone`, `mobile`, `create_date`, `company_name`, `trade_name`, `title`, `hardware_post`,
+			`is_wholesaler_invoice_mobile_notification`, `is_wholesaler_invoice_email_notification`,
+			`is_customer_invoice_mobile_notification`, `is_customer_invoice_email_notification`
 		) VALUES (
-			#{id}, #{company_id}, #{wholesaler_id}, #{wholesaler_company_name}, #{manager_id}, #{total_price_gst}, #{total_price_gst_enduser},
+			#{id}, #{group_id}, #{company_id}, #{wholesaler_id}, #{wholesaler_company_name}, #{manager_id}, #{total_price_gst}, #{total_price_gst_enduser},
 			#{inservice_date}, #{status}, #{customer_type}, #{broadband_type}, #{transition_provider_name}, 
 			#{transition_account_holder_name}, #{transition_account_number}, #{transition_porting_number}, #{svlan}, #{cvlan}, 
 			#{pppoe_loginname}, #{pppoe_password}, #{order_wholesaler_pdf_path}, #{order_customer_pdf_path}, #{memo}, #{broadband_asid}, 
 			#{rfs_date}, #{disconnected_date}, #{preferred_connection_date}, #{previous_provider_invoice}, #{next_invoice_create_date}, 
 			#{next_invoice_create_date_flag}, #{first_name}, #{last_name}, #{address}, #{email}, 
-			#{phone}, #{mobile}, #{create_date}, #{company_name}, #{trade_name}, #{title}, #{hardware_post}
+			#{phone}, #{mobile}, #{create_date}, #{company_name}, #{trade_name}, #{title}, #{hardware_post},
+			#{is_wholesaler_invoice_mobile_notification}, #{is_wholesaler_invoice_email_notification},
+			#{is_customer_invoice_mobile_notification}, #{is_customer_invoice_email_notification}
 		)
 	</insert>
 
@@ -261,6 +286,7 @@
 	<update id="updateOrder" parameterType="Order">
 		update `order`
 		<set>
+			<if test="group_id != null">group_id = #{group_id},</if>
 			<if test="company_id != null">company_id = #{company_id},</if>
 			<if test="wholesaler_id != null">wholesaler_id = #{wholesaler_id},</if>
 			<if test="wholesaler_company_name != null">wholesaler_company_name = #{wholesaler_company_name},</if>
@@ -299,7 +325,11 @@
 			<if test="company_name != null">company_name = #{company_name},</if>
 			<if test="trade_name != null">trade_name = #{trade_name},</if>
 			<if test="title != null">title = #{title},</if>
-			<if test="hardware_post != null">hardware_post = #{hardware_post}</if>
+			<if test="hardware_post != null">hardware_post = #{hardware_post},</if>
+			<if test="is_wholesaler_invoice_mobile_notification != null">is_wholesaler_invoice_mobile_notification = #{is_wholesaler_invoice_mobile_notification},</if>
+			<if test="is_wholesaler_invoice_email_notification != null">is_wholesaler_invoice_email_notification = #{is_wholesaler_invoice_email_notification},</if>
+			<if test="is_customer_invoice_mobile_notification != null">is_customer_invoice_mobile_notification = #{is_customer_invoice_mobile_notification},</if>
+			<if test="is_customer_invoice_email_notification != null">is_customer_invoice_email_notification = #{is_customer_invoice_email_notification}</if>
 		</set>
 		<where>
 			<if test="params.id != null">id = #{params.id}</if>
