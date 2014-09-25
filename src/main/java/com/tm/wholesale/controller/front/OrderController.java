@@ -32,7 +32,7 @@ public class OrderController {
 	@RequestMapping("/order/check-address")
 	public String orderCheckAddress(Model model) {
 		model.addAttribute("title", "Check Address - Order");
-		return "wholesale/order/address-check";
+		return "wholesale/order/entry/address-check";
 	}
 	
 	@RequestMapping("/order/select-combo/{type}")
@@ -40,19 +40,19 @@ public class OrderController {
 			@PathVariable("type") String type) {
 		model.addAttribute("title", "Select One Combo - Order");
 		model.addAttribute("service_type", type);
-		return "wholesale/order/select-combo";
+		return "wholesale/order/entry/select-combo";
 	}
 	
 	@RequestMapping("/order/fill-information")
 	public String orderFillInformation(Model model) {
 		model.addAttribute("title", "Fill Information - Order");
-		return "wholesale/order/information";
+		return "wholesale/order/entry/information";
 	}
 	
 	@RequestMapping("/order/review-order")
 	public String orderReviewOrder(Model model) {
 		model.addAttribute("title", "Review Order - Order");
-		return "wholesale/order/review-order";
+		return "wholesale/order/entry/review-order";
 	}
 	
 	@RequestMapping(value = "/order/review-order/submit", method = RequestMethod.POST)
@@ -106,7 +106,7 @@ public class OrderController {
 	@RequestMapping("/order/query")
 	public String orderQuery(Model model) {
 		model.addAttribute("title", "Query Order - Order");
-		return "wholesale/order/order-query";
+		return "wholesale/order/query/order-query";
 	}
 	
 

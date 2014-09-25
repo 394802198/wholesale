@@ -4,7 +4,7 @@
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <c:set var="ctx" value="${pageContext.request.contextPath}"></c:set>
 
-<jsp:include page="../header.jsp" />
+<jsp:include page="../../header.jsp" />
 
 <div class="container-fluid">
 	
@@ -47,9 +47,9 @@
 <jsp:include page="address-check-result.html" />
 </script>
 
-<jsp:include page="../footer.jsp" />
-<jsp:include page="../script.jsp" />
+<jsp:include page="../../footer.jsp" />
+<jsp:include page="../../script.jsp" />
 <script type="text/javascript" src="${ctx}/public/wholesale/order/address-check.js?ver=201493811"></script>
 <script src="https://maps.google.com/maps/api/js?sensor=false&libraries=places&region=NZ" type="text/javascript"></script>
 <script type="text/javascript" src="${ctx}/public/bootstrap3/js/autoCompleteAddress.js"></script>
-<jsp:include page="../footer-end.jsp" />
+<jsp:include page="../../footer-end.jsp" />
