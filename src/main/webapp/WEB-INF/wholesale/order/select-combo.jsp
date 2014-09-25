@@ -17,7 +17,7 @@
 
 <div class="container-fluid">
 	
-	<ul class="nav nav-pills nav-wizard" style="">
+	<ul class="nav nav-pills nav-wizard" >
 		<li><a href="javascript:void(0);"><span class="glyphicon glyphicon-search"></span> Check Address</a><div class="nav-arrow"></div></li>
 		<li class="active"><div class="nav-wedge"></div><a href="javascript:void(0);"><span class="glyphicon glyphicon-star"></span> Select a Combo</a><div class="nav-arrow"></div></li>
 		<li><div class="nav-wedge"></div><a href="javascript:void(0);"><span class="glyphicon glyphicon-pencil"></span> Fill Customer Information</a><div class="nav-arrow"></div></li>
@@ -43,7 +43,7 @@
 	
 </div>
 
-<script type="text/html" id="combo_list_tmpl" data-ctx="${ctx }">
+<script type="text/html" id="combo_list_tmpl" data-ctx="${ctx }" data-service_type="${service_type}">
 <jsp:include page="combo-list.html" />
 </script>
 <script type="text/html" id="view_layer_tmpl" >

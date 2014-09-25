@@ -28,8 +28,10 @@
 					<tr>
 						<td>
 							<.=detail.name.> 
-							<.if (detail.material_type.indexOf('pstn') > -1) {.>
-							<.} else if (detail.) {.>
+							<.if (detail.material_category == 'phone-line') {.>
+							(<span class="text-info"><.=detail.number.></span>)
+							<.} else if (detail.material_category == 'broadband-type') {.>
+							(<span class="text-info"><.=detail.data_flow.> GB</span>)
 							<.}.>
 						</td>
 						<td>$ <.=Number(detail.price).toFixed(2).></td>
@@ -78,7 +80,14 @@
 						var detail = monthly_details[i];
 						if (detail.is_enduser) {.>
 					<tr>
-						<td><.=detail.name.></td>
+						<td>
+							<.=detail.name.>
+							<.if (detail.material_category == 'phone-line') {.>
+							(<span class="text-info"><.=detail.number.></span>)
+							<.} else if (detail.material_category == 'broadband-type') {.>
+							(<span class="text-info"><.=detail.data_flow.> GB</span>)
+							<.}.>	
+						</td>
 						<td>$ <.=Number(detail.price_enduser).toFixed(2).></td>
 						<td><.=detail.unit.></td>
 						<td>$ <.=(Number(detail.price_enduser) * detail.unit).toFixed(2).></td>
@@ -98,7 +107,14 @@
 						var detail = oneoff_details[i];
 						if (detail.is_enduser) {.>
 					<tr>
-						<td><.=detail.name.></td>
+						<td>
+							<.=detail.name.>
+							<.if (detail.material_category == 'phone-line') {.>
+							(<span class="text-info"><.=detail.number.></span>)
+							<.} else if (detail.material_category == 'broadband-type') {.>
+							(<span class="text-info"><.=detail.data_flow.> GB</span>)
+							<.}.>
+						</td>
 						<td>$ <.=Number(detail.price_enduser).toFixed(2).></td>
 						<td><.=detail.unit.></td>
 						<td>$ <.=(Number(detail.price_enduser) * detail.unit).toFixed(2).></td>

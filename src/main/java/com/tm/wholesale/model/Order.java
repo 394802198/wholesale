@@ -96,6 +96,7 @@ public class Order implements Serializable {
 	private String disconnected_date_str;
 	private String preferred_connection_date_str;
 	private String next_invoice_create_date_str;
+	private String service_type;
 
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private Broadband broadband = new Broadband();
@@ -526,6 +527,14 @@ public class Order implements Serializable {
 
 	public void setNext_invoice_create_date_str(String next_invoice_create_date_str) {
 		this.next_invoice_create_date_str = next_invoice_create_date_str;
+	}
+
+	public String getService_type() {
+		return service_type;
+	}
+
+	public void setService_type(String service_type) {
+		this.service_type = service_type;
 	}
 
 }

@@ -114,8 +114,9 @@ public class OrderRestController {
 		Order orderSession = (Order) session.getAttribute("orderSession");
 		
 		orderSession.setOds(order.getOds());
-		
+		orderSession.setService_type(order.getService_type());
 		orderSession.setBroadband_type(order.getBroadband_type());
+		orderSession.setHardware_post(order.getHardware_post());
 		
 		json.setUrl("/order/fill-information");
 		

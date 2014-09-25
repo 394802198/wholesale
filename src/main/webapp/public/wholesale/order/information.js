@@ -4,6 +4,7 @@
 	
 	$.get(ctx + '/order/information/loading', function(order){ console.log(order);
 		
+		order.ctx = ctx;
 		$('#information-content').html(tmpl('information_content_tmpl', order));
 		$(':radio, :checkbox').iCheck({ checkboxClass: 'icheckbox_square-blue', radioClass: 'iradio_square-blue' });
 		$('.selectpicker').selectpicker();

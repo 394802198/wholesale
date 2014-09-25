@@ -1,6 +1,7 @@
 (function($){
 	
 	var ctx = $('#combo_list_tmpl').attr('data-ctx')
+		, service_type = $('#combo_list_tmpl').attr('data-service_type')
 		
 	var selected_combo = null
 		, view_active = 'columns_view'
@@ -458,7 +459,10 @@
 		//console.log(enduser_original_details);
 		//console.log(enduser_addons_details);
 		
-		var order = {};
+		var order = {
+			service_type: service_type
+			, hardware_post: 0
+		};
 		var order_details = [];
 		
 		$.each(enduser_original_details, function(){
@@ -503,7 +507,8 @@
 					|| this.material_type == 'connection-wiring'
 					|| this.material_type == 'connection-vdsl') {
 				order.broadband_type = this.material_type;
-				return false;
+			} else if (this.material_group == 'hardware') {
+				order.hardware_post += 1;
 			}
 		});
 		
