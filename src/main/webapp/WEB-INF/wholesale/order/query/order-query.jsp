@@ -4,7 +4,7 @@
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <c:set var="ctx" value="${pageContext.request.contextPath}"></c:set>
 
-<jsp:include page="../header.jsp" />
+<jsp:include page="../../header.jsp" />
 
 <div class="container-fluid">
 	
@@ -16,7 +16,7 @@
 <jsp:include page="order-query-page.html" />
 </script>
 
-<jsp:include page="../footer.jsp" />
-<jsp:include page="../script.jsp" />
+<jsp:include page="../../footer.jsp" />
+<jsp:include page="../../script.jsp" />
 <script type="text/javascript" src="${ctx}/public/wholesale/order/order-query.js?ver=201493811"></script>
-<jsp:include page="../footer-end.jsp" />
+<jsp:include page="../../footer-end.jsp" />

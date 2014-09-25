@@ -31,7 +31,18 @@
 		return o;
 	}
 	
-	function getDetail(details, index) {
+	function getMaterialById(materials, id) {
+		var o = null;
+		$.each(materials, function() {
+			if (this.id == id) {
+				o = $.extend({}, this);
+				return false;
+			}
+		});
+		return o;
+	} 
+	
+	function getDetailByIndex(details, index) {
 		var o = null;
 		$.each(details, function() {
 			if (this.index == index) {
@@ -91,13 +102,42 @@
 		return newArray;
 	}
 	
+	function filterCombosAvailable(combos) {
+		$.each(combos, function(){
+			var combo = this;
+			combo.available = false;
+			$.each(combo.materials, function() {
+				if (this.material_category == 'broadband-type') {
+					if (this.material_group == service_type) {
+						combo.available = true;
+						return false;
+					}
+				}
+			});
+		});
+	}
+	
+	function filterMaterialsAvailable(materials) {
+		$.each(materials, function(){
+			this.available = false;
+			if (this.suitable.indexOf(service_type) > -1) {
+				this.available = true;
+			}
+		});
+	}
+	
 	function flushComboList() {
 		$.get(ctx + '/order/select-combo/combo-loading', function(combos){ //console.log(combos);
+			
+			filterCombosAvailable(combos);
+			
 			var o = {
 				ctx: ctx
+				, service_type: service_type
 				, address: address
 				, combos: combos
 			};
+			
 			$('#combo-list').html(tmpl('combo_list_tmpl', o));
 			$(':radio, :checkbox').iCheck({ checkboxClass: 'icheckbox_square-blue', radioClass: 'iradio_square-blue' });
 			
@@ -105,8 +145,8 @@
 				initEnduserPrice(materials); // console.log(materials);
 				initTransitionMaterials(materials);
 				all_materials = materials; //console.log(getMaterial(766));
-				wholesale_materials = materials.concat(); 
-				enduser_materials = materials.concat(); //console.log(materials);
+				filterMaterialsAvailable(cloneArrayElement(wholesale_materials, materials));
+				filterMaterialsAvailable(cloneArrayElement(enduser_materials, materials));
 				
 				$('input[name="combo"]').on('ifChecked', function(){
 					
@@ -340,7 +380,8 @@
 		var id = option.attr('data-id');
 		var index = $(o).attr('data-index'); //console.log(index);
 		var added = $(o).attr('data-added');
-		var detail = getMaterial(id);
+		var materials = (type == 'wholesale' ? wholesale_materials : enduser_materials);
+		var detail = getMaterialById(materials, id);
 		detail.index = index;
 		detail.added = Boolean(added);
 		$('#' + type + '_detail_price' + index)
@@ -445,7 +486,7 @@
 			}
 			
 			var index = o.attr('data-index'); //console.log(id);
-			var detail = getDetail(details, index);
+			var detail = getDetailByIndex(details, index);
 			
 			detail.enduser_price = Number(value); //console.log(detail);
 			
