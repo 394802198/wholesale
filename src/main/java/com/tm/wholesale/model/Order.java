@@ -84,6 +84,7 @@ public class Order implements Serializable {
 	private boolean is_wholesaler_invoice_email_notification;
 	private boolean is_customer_invoice_mobile_notification;
 	private boolean is_customer_invoice_email_notification;
+	private String pay_type;
 
 
 	/*
@@ -585,6 +586,14 @@ public class Order implements Serializable {
 
 	public void setService_type(String service_type) {
 		this.service_type = service_type;
+	}
+
+	public String getPay_type() {
+		return pay_type;
+	}
+
+	public void setPay_type(String pay_type) {
+		this.pay_type = pay_type;
 	}
 
 }

@@ -53,6 +53,18 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label for="account_credit" class="control-label col-md-4">Account Credit</label>
+							<div class="col-md-3">
+								<input type="text" name="account_credit" class="form-control" placeholder="Account Credit" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="limit_credit" class="control-label col-md-4">Limit Credit</label>
+							<div class="col-md-3">
+								<input type="text" name="limit_credit" class="form-control" placeholder="Limit Credit" />
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="control-label col-md-4">Wholesaler Status</label>
 							<div class="col-md-6">
 								<p class="form-control-static">
@@ -234,6 +246,9 @@
 <script type="text/javascript">
 (function($){
 	
+	$('input[name="account_credit"]').val(Number('${wholesaler.account_credit}').toFixed(2));
+	$('input[name="limit_credit"]').val(Number('${wholesaler.limit_credit}').toFixed(2));
+	
 	$(':radio,:checkbox').iCheck({
 		checkboxClass : 'icheckbox_square-blue',
 		radioClass : 'iradio_square-blue'
@@ -316,6 +331,8 @@
 			'login_password': $('input[name="login_password"]').val(),
 			'email': $('input[name="email"]').val(),
 			'cellphone': $('input[name="cellphone"]').val(),
+			'account_credit': $('input[name="account_credit"]').val(),
+			'limit_credit': $('input[name="limit_credit"]').val(),
 			'status': $('input[name="status"]:checked').val(),
 			'memo': $('textarea[name="memo"]').val(),
 			'company_id': '${wholesaler.company_id}',
