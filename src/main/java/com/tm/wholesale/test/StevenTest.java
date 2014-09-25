@@ -158,10 +158,10 @@ public class StevenTest {
 //		}
 		
 		
-		SimpleMapperCreator smc = new SimpleMapperCreator();
-		smc.setAuthor("Total Mobile Solution");
-		smc.setModel("WholesalerOrderTransaction");
-		smc.setTable("wholesaler_order_transaction");
-		smc.initial();
+//		SimpleMapperCreator smc = new SimpleMapperCreator();
+//		smc.setAuthor("Total Mobile Solution");
+//		smc.setModel("OrderGroup");
+//		smc.setTable("order_group");
+//		smc.initial();
 	}
 }

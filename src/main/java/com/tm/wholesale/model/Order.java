@@ -23,6 +23,7 @@ public class Order implements Serializable {
 	 */
 
 	private Integer id;
+	private Integer group_id;
 	private Integer company_id;
 	private Integer wholesaler_id;
 	private String wholesaler_company_name;
@@ -79,6 +80,11 @@ public class Order implements Serializable {
 	private String trade_name;
 	private String title;
 	private Integer hardware_post;
+	private boolean is_wholesaler_invoice_mobile_notification;
+	private boolean is_wholesaler_invoice_email_notification;
+	private boolean is_customer_invoice_mobile_notification;
+	private boolean is_customer_invoice_email_notification;
+
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -526,6 +532,50 @@ public class Order implements Serializable {
 
 	public void setNext_invoice_create_date_str(String next_invoice_create_date_str) {
 		this.next_invoice_create_date_str = next_invoice_create_date_str;
+	}
+
+	public boolean isIs_wholesaler_invoice_mobile_notification() {
+		return is_wholesaler_invoice_mobile_notification;
+	}
+
+	public void setIs_wholesaler_invoice_mobile_notification(
+			boolean is_wholesaler_invoice_mobile_notification) {
+		this.is_wholesaler_invoice_mobile_notification = is_wholesaler_invoice_mobile_notification;
+	}
+
+	public boolean isIs_wholesaler_invoice_email_notification() {
+		return is_wholesaler_invoice_email_notification;
+	}
+
+	public void setIs_wholesaler_invoice_email_notification(
+			boolean is_wholesaler_invoice_email_notification) {
+		this.is_wholesaler_invoice_email_notification = is_wholesaler_invoice_email_notification;
+	}
+
+	public boolean isIs_customer_invoice_mobile_notification() {
+		return is_customer_invoice_mobile_notification;
+	}
+
+	public void setIs_customer_invoice_mobile_notification(
+			boolean is_customer_invoice_mobile_notification) {
+		this.is_customer_invoice_mobile_notification = is_customer_invoice_mobile_notification;
+	}
+
+	public boolean isIs_customer_invoice_email_notification() {
+		return is_customer_invoice_email_notification;
+	}
+
+	public void setIs_customer_invoice_email_notification(
+			boolean is_customer_invoice_email_notification) {
+		this.is_customer_invoice_email_notification = is_customer_invoice_email_notification;
+	}
+
+	public Integer getGroup_id() {
+		return group_id;
+	}
+
+	public void setGroup_id(Integer group_id) {
+		this.group_id = group_id;
 	}
 
 }

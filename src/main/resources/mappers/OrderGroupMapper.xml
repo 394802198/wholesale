@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DEFINITION AREA --><!-- // DEFINITION AREA -->
+<!-- =================================================================================== -->
+<!-- SELECT AREA --><!-- // END SELECT AREA -->
+<!-- =================================================================================== -->
+<!-- INSERT AREA --><!-- // END INSERT AREA -->
+<!-- =================================================================================== -->
+<!-- UPDATE AREA --><!-- // END UPDATE AREA -->
+<!-- =================================================================================== -->
+<!-- DELETE AREA --><!-- // END DELETE AREA -->
+
+<mapper namespace="com.tm.wholesale.mapper.OrderGroupMapper">
+
+	<!-- DEFINITION AREA -->
+
+	<sql id="orderGroupColumns">
+		og.`id`								as og_id,
+		og.`first_name`						as og_first_name,
+		og.`last_name`						as og_last_name,
+		og.`email`							as og_email,
+		og.`mobile`							as og_mobile,
+		og.`is_send_invoice_statement`		as og_is_send_invoice_statement,
+		og.`is_send_invoice_together`		as og_is_send_invoice_together
+	</sql>
+
+	<resultMap type="OrderGroup" id="orderGroupResultMap">
+		<id property="id" column="og_id" />
+		<result property="first_name" column="og_first_name" />
+		<result property="last_name" column="og_last_name" />
+		<result property="email" column="og_email" />
+		<result property="mobile" column="og_mobile" />
+		<result property="is_send_invoice_statement" column="og_is_send_invoice_statement" />
+		<result property="is_send_invoice_together" column="og_is_send_invoice_together" />
+	</resultMap>
+
+	<sql id="orderGroupWhere">
+		<where>
+			<if test="params.id != null">og.id = #{params.id}</if>
+			<if test="params.first_name != null">and og.first_name = #{params.first_name}</if>
+			<if test="params.last_name != null">and og.last_name = #{params.last_name}</if>
+			<if test="params.email != null">and og.email = #{params.email}</if>
+			<if test="params.mobile != null">and og.mobile = #{params.mobile}</if>
+			<if test="params.is_send_invoice_statement != null">and og.is_send_invoice_statement = #{params.is_send_invoice_statement}</if>
+			<if test="params.is_send_invoice_together != null">and og.is_send_invoice_together = #{params.is_send_invoice_together}</if>
+		</where>
+	</sql>
+
+	<!-- // DEFINITION AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- SELECT AREA -->
+
+	<select id="selectOrderGroups" parameterType="OrderGroup" resultType="OrderGroup">
+		select * from order_group as og
+		<include refid="orderGroupWhere"/>
+	</select>
+
+	<!-- select orderGroup page -->
+	<select id="selectOrderGroupsByPage" parameterType="Page" resultMap="orderGroupResultMap">
+		select 
+			<include refid="orderGroupColumns"/>
+			from order_group as og
+			<include refid="orderGroupWhere"/>
+			<if test="params.orderby != null">${params.orderby}</if>
+			limit #{pageOffset}, #{pageSize}
+	</select>
+
+	<!-- select orderGroup amount -->
+	<select id="selectOrderGroupsSum" parameterType="Page" resultType="int">
+		select count(*) from order_group as og
+		<include refid="orderGroupWhere"/>
+	</select>
+
+	<!-- // END SELECT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- INSERT AREA -->
+
+	<insert id="insertOrderGroup" parameterType="OrderGroup" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `order_group`(
+			`id`, `first_name`, `last_name`, `email`, `mobile`, 
+			`is_send_invoice_statement`, `is_send_invoice_together`
+		) VALUES (
+			#{id}, #{first_name}, #{last_name}, #{email}, #{mobile}, 
+			#{is_send_invoice_statement}, #{is_send_invoice_together}
+		)
+	</insert>
+
+	<!-- // END INSERT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- UPDATE AREA -->
+
+	<!-- update orderGroup -->
+	<update id="updateOrderGroup" parameterType="OrderGroup">
+		update order_group
+		<set>
+			<if test="first_name != null">first_name = #{first_name},</if>
+			<if test="last_name != null">last_name = #{last_name},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="mobile != null">mobile = #{mobile},</if>
+			<if test="is_send_invoice_statement != null">is_send_invoice_statement = #{is_send_invoice_statement},</if>
+			<if test="is_send_invoice_together != null">is_send_invoice_together = #{is_send_invoice_together}</if>
+		</set>
+		<where>
+			<if test="params.id != null">id = #{params.id}</if>
+		</where>
+	</update>
+
+	<!-- // END UPDATE AREA -->
+
+	<!-- =================================================================================== -->
+	<!-- DELETE AREA -->
+
+	<delete id="deleteOrderGroupById" parameterType="int">
+		DELETE FROM order_group WHERE id = #{0}
+	</delete>
+
+	<!-- // END DELETE AREA -->
+
+</mapper>
