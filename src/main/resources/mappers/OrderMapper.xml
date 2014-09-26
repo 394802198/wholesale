@@ -66,10 +66,6 @@
 		o.`prepay_month`										as o_prepay_month
 	</sql>
 
-
-
-
-
 	<resultMap type="Order" id="orderResultMap">
 		<id property="id" column="o_id" />
 		<result property="group_id" column="o_group_id" />

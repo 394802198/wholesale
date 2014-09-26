@@ -151,7 +151,7 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="preferred_connection_date" class="control-label col-md-4">Connection date</label>
-					<div class="col-md-5">
+					<div class="col-md-8">
 						<p class="form-control-static">
 							<label>
 								<input type="radio" name="preferred_connection_date" value="ASAP" checked="checked"/> <!-- checked="checked" -->
@@ -162,10 +162,37 @@
 				</div>
 				<div class="form-group">
 					<label for="" class="control-label col-md-4"></label>
-					<div class="col-md-5">
+					<div class="col-md-8">
 						<div id="sandbox-container" >
 							<div class="panel panel-success" style="width:220px"></div>
 						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="pay_type" class="control-label col-md-4">Payment</label>
+					<div class="col-md-8">
+						<p class="form-control-static">
+							<label>
+								<.if (pay_type == 'pre-pay') {.>
+								<input type="radio" name="pay_type" value="pre-pay" checked="checked"/>&nbsp; 
+								<.} else {.>
+								<input type="radio" name="pay_type" value="pre-pay"/>&nbsp; 
+								<.}.>
+								<span class="text-info" style="font-weight:bold;"> 
+									Pre-Pay
+								</span>
+							</label>&nbsp;
+							<label>
+								<.if (pay_type == 'post-pay') {.>
+								<input type="radio" name="pay_type" value="post-pay" checked="checked"/>&nbsp; 
+								<.} else {.>
+								<input type="radio" name="pay_type" value="post-pay"/>&nbsp; 
+								<.}.>
+								<span class="text-info" style="font-weight:bold;"> 
+									Post-Pay
+								</span>
+							</label>
+						</p>
 					</div>
 				</div>
 			</div>

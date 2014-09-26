@@ -61,6 +61,15 @@ public class OrderService {
 		return page;
 	}
 	
+	@Transactional
+	public Order queryOrder(Order orderQuery) {
+		List<Order> orders = this.orderMapper.selectOrders(orderQuery);
+		Order order = orders != null && orders.size() > 0 ? orders.get(0) : null;
+		List<OrderDetail> ods = this.orderDetailMapper.selectOrderDetails(orderQuery.getOd());
+		order.setOds(ods);
+		return order;
+	}
+	
 	/*@Transactional
 	public List<ComboWholesaler> queryComboWholesalers(ComboWholesaler cw) {
 		return this.comboWholesalerMapper.selectComboWholesalers(cw);
