@@ -68,7 +68,7 @@ public class ProvisionRestControllerBack {
 		return page;
 	}
 
-	@RequestMapping(value = "management/provision/order/detail")
+	@RequestMapping(value = "management/provision/order/info")
 	public JSONBean<Order> toOrderDetailView(Model model,
 			@RequestParam("id") Integer id){
 		
@@ -204,6 +204,19 @@ public class ProvisionRestControllerBack {
 			
 			json.getSuccessMap().put("alert-success", "Order SV/CVLan Successfully Updated!");
 		}
+		
+		return json;
+	}
+
+	@RequestMapping(value = "management/provision/order/service-giving/update")
+	public JSONBean<Order> doOrderServiceGivingUpdate(Model model,
+			Order o){
+		
+		JSONBean<Order> json = new JSONBean<Order>();
+		
+		this.orderService.editInService(o);
+		
+		json.getSuccessMap().put("alert-success", "Order In Service Date & Next Invoice Date Successfully Updated!");
 		
 		return json;
 	}

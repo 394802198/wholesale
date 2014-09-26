@@ -62,7 +62,8 @@
 		o.`is_wholesaler_invoice_email_notification`			as o_is_wholesaler_invoice_email_notification,
 		o.`is_customer_invoice_mobile_notification`				as o_is_customer_invoice_mobile_notification,
 		o.`is_customer_invoice_email_notification`				as o_is_customer_invoice_email_notification,
-		o.`pay_type`											as o_pay_type
+		o.`pay_type`											as o_pay_type,
+		o.`prepay_month`										as o_prepay_month
 	</sql>
 
 
@@ -116,6 +117,7 @@
 		<result property="is_customer_invoice_mobile_notification" column="o_is_customer_invoice_mobile_notification" />
 		<result property="is_customer_invoice_email_notification" column="o_is_customer_invoice_email_notification" />
 		<result property="pay_type" column="o_pay_type" />
+		<result property="prepay_month" column="o_prepay_month" />
 	</resultMap>
 	
 	<sql id="orderDetailColumns">
@@ -265,7 +267,7 @@
 			`next_invoice_create_date_flag`, `first_name`, `last_name`, `address`, `email`, 
 			`phone`, `mobile`, `create_date`, `company_name`, `trade_name`, `title`, `hardware_post`,
 			`is_wholesaler_invoice_mobile_notification`, `is_wholesaler_invoice_email_notification`,
-			`is_customer_invoice_mobile_notification`, `is_customer_invoice_email_notification`, `pay_type`
+			`is_customer_invoice_mobile_notification`, `is_customer_invoice_email_notification`, `pay_type`, `prepay_month`
 		) VALUES (
 			#{id}, #{group_id}, #{company_id}, #{wholesaler_id}, #{wholesaler_company_name}, #{manager_id}, #{total_price_gst}, #{total_price_gst_enduser},
 			#{inservice_date}, #{status}, #{customer_type}, #{broadband_type}, #{transition_provider_name}, 
@@ -275,7 +277,7 @@
 			#{next_invoice_create_date_flag}, #{first_name}, #{last_name}, #{address}, #{email}, 
 			#{phone}, #{mobile}, #{create_date}, #{company_name}, #{trade_name}, #{title}, #{hardware_post},
 			#{is_wholesaler_invoice_mobile_notification}, #{is_wholesaler_invoice_email_notification},
-			#{is_customer_invoice_mobile_notification}, #{is_customer_invoice_email_notification}, #{pay_type}
+			#{is_customer_invoice_mobile_notification}, #{is_customer_invoice_email_notification}, #{pay_type}, #{prepay_month}
 		)
 	</insert>
 
@@ -333,7 +335,8 @@
 			<if test="is_wholesaler_invoice_email_notification != null">is_wholesaler_invoice_email_notification = #{is_wholesaler_invoice_email_notification},</if>
 			<if test="is_customer_invoice_mobile_notification != null">is_customer_invoice_mobile_notification = #{is_customer_invoice_mobile_notification},</if>
 			<if test="is_customer_invoice_email_notification != null">is_customer_invoice_email_notification = #{is_customer_invoice_email_notification},</if>
-			<if test="pay_type != null">pay_type = #{pay_type}</if>
+			<if test="pay_type != null">pay_type = #{pay_type},</if>
+			<if test="prepay_month != null">prepay_month = #{prepay_month}</if>
 		</set>
 		<where>
 			<if test="params.id != null">id = #{params.id}</if>

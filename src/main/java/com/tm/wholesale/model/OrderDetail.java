@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.tm.wholesale.util.TMUtils;
+
 public class OrderDetail implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -23,21 +25,8 @@ public class OrderDetail implements Serializable {
 	private String material_group;
 	private String material_type;
 	private String material_category;
-	public String getMaterial_group() {
-		return material_group;
-	}
-
-	public void setMaterial_group(String material_group) {
-		this.material_group = material_group;
-	}
-
-	public String getMaterial_category() {
-		return material_category;
-	}
-
-	public void setMaterial_category(String material_category) {
-		this.material_category = material_category;
-	}
+	private Date plan_start_date;
+	private Date plan_end_date;
 
 	private String type;
 	private String status;
@@ -62,12 +51,31 @@ public class OrderDetail implements Serializable {
 	/*
 	 * RELATED PROPERTIES
 	 */
+	
+	private String plan_start_date_str;
+	private String plan_end_date_str;
 
 	private Map<String, Object> params = new HashMap<String, Object>();
 
 	/*
 	 * END RELATED PROPERTIES
 	 */
+	
+	public String getMaterial_group() {
+		return material_group;
+	}
+
+	public void setMaterial_group(String material_group) {
+		this.material_group = material_group;
+	}
+
+	public String getMaterial_category() {
+		return material_category;
+	}
+
+	public void setMaterial_category(String material_category) {
+		this.material_category = material_category;
+	}
 
 	public OrderDetail() {
 	}
@@ -266,6 +274,40 @@ public class OrderDetail implements Serializable {
 
 	public void setSubscribe(String subscribe) {
 		this.subscribe = subscribe;
+	}
+
+	public Date getPlan_start_date() {
+		return plan_start_date;
+	}
+
+	public void setPlan_start_date(Date plan_start_date) {
+		this.setPlan_start_date_str(TMUtils.dateFormatYYYYMMDD(this.getPlan_start_date()));
+		this.plan_start_date = plan_start_date;
+	}
+
+	public Date getPlan_end_date() {
+		return plan_end_date;
+	}
+
+	public void setPlan_end_date(Date plan_end_date) {
+		this.setPlan_end_date_str(TMUtils.dateFormatYYYYMMDD(this.getPlan_end_date()));
+		this.plan_end_date = plan_end_date;
+	}
+
+	public String getPlan_start_date_str() {
+		return plan_start_date_str;
+	}
+
+	public void setPlan_start_date_str(String plan_start_date_str) {
+		this.plan_start_date_str = plan_start_date_str;
+	}
+
+	public String getPlan_end_date_str() {
+		return plan_end_date_str;
+	}
+
+	public void setPlan_end_date_str(String plan_end_date_str) {
+		this.plan_end_date_str = plan_end_date_str;
 	}
 
 }

@@ -85,6 +85,7 @@ public class Order implements Serializable {
 	private boolean is_customer_invoice_mobile_notification;
 	private boolean is_customer_invoice_email_notification;
 	private String pay_type;
+	private Integer prepay_month;
 
 
 	/*
@@ -594,6 +595,14 @@ public class Order implements Serializable {
 
 	public void setPay_type(String pay_type) {
 		this.pay_type = pay_type;
+	}
+
+	public Integer getPrepay_month() {
+		return prepay_month;
+	}
+
+	public void setPrepay_month(Integer prepay_month) {
+		this.prepay_month = prepay_month;
 	}
 
 }
