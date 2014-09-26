@@ -85,7 +85,7 @@ public class Order implements Serializable {
 	private boolean is_customer_invoice_mobile_notification;
 	private boolean is_customer_invoice_email_notification;
 	private String pay_type;
-
+	private Integer prepay_month;
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -278,7 +278,8 @@ public class Order implements Serializable {
 	}
 
 	public void setDisconnected_date(Date disconnected_date) {
-		this.setDisconnected_date_str(TMUtils.dateFormatYYYYMMDD(disconnected_date));
+		this.setDisconnected_date_str(TMUtils
+				.dateFormatYYYYMMDD(disconnected_date));
 		this.disconnected_date = disconnected_date;
 	}
 
@@ -303,7 +304,8 @@ public class Order implements Serializable {
 	}
 
 	public void setPreferred_connection_date(Date preferred_connection_date) {
-		this.setPreferred_connection_date_str(TMUtils.dateFormatYYYYMMDD(preferred_connection_date));
+		this.setPreferred_connection_date_str(TMUtils
+				.dateFormatYYYYMMDD(preferred_connection_date));
 		this.preferred_connection_date = preferred_connection_date;
 	}
 
@@ -320,7 +322,8 @@ public class Order implements Serializable {
 	}
 
 	public void setNext_invoice_create_date(Date next_invoice_create_date) {
-		this.setNext_invoice_create_date_str(TMUtils.dateFormatYYYYMMDD(next_invoice_create_date));
+		this.setNext_invoice_create_date_str(TMUtils
+				.dateFormatYYYYMMDD(next_invoice_create_date));
 		this.next_invoice_create_date = next_invoice_create_date;
 	}
 
@@ -328,7 +331,8 @@ public class Order implements Serializable {
 		return next_invoice_create_date_flag;
 	}
 
-	public void setNext_invoice_create_date_flag(Date next_invoice_create_date_flag) {
+	public void setNext_invoice_create_date_flag(
+			Date next_invoice_create_date_flag) {
 		this.next_invoice_create_date_flag = next_invoice_create_date_flag;
 	}
 
@@ -501,7 +505,8 @@ public class Order implements Serializable {
 		return preferred_connection_date_str;
 	}
 
-	public void setPreferred_connection_date_str(String preferred_connection_date_str) {
+	public void setPreferred_connection_date_str(
+			String preferred_connection_date_str) {
 		this.preferred_connection_date_str = preferred_connection_date_str;
 	}
 
@@ -533,7 +538,8 @@ public class Order implements Serializable {
 		return next_invoice_create_date_str;
 	}
 
-	public void setNext_invoice_create_date_str(String next_invoice_create_date_str) {
+	public void setNext_invoice_create_date_str(
+			String next_invoice_create_date_str) {
 		this.next_invoice_create_date_str = next_invoice_create_date_str;
 	}
 
@@ -580,7 +586,7 @@ public class Order implements Serializable {
 	public void setGroup_id(Integer group_id) {
 		this.group_id = group_id;
 	}
-	
+
 	public String getService_type() {
 		return service_type;
 	}
@@ -595,6 +601,14 @@ public class Order implements Serializable {
 
 	public void setPay_type(String pay_type) {
 		this.pay_type = pay_type;
+	}
+
+	public Integer getPrepay_month() {
+		return prepay_month;
+	}
+
+	public void setPrepay_month(Integer prepay_month) {
+		this.prepay_month = prepay_month;
 	}
 
 	public OrderDetail getOd() {

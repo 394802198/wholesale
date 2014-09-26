@@ -1,22 +1,22 @@
 (function($){
 
 	/**
-	 * BEGIN ORDER DETAIL TAB
+	 * BEGIN ORDER INFO TAB
 	 */
-	$.getOrderDetail = function() {
+	$.getOrderInfo = function() {
 		
 		var data = {
 			'id':o_id
 		};
 		
-		$.get(ctx+'/management/provision/order/detail', data, function(json){
+		$.get(ctx+'/management/provision/order/info', data, function(json){
 			
 			/**
 			 * BEGIN LOAD DATA TO TEMPLATE
 			 */
 			json.ctx = ctx;
-	   		var $table = $('#order_detail');
-			$table.html(tmpl('order_detail_table_tmpl', json));
+	   		var $table = $('#order_info');
+			$table.html(tmpl('order_info_table_tmpl', json));
 			$table.find('tfoot a').click(function(){
 				$.getOrderDetail($(this).attr('data-pageNo'));
 			});
@@ -129,7 +129,7 @@
 			$('#updateCustomerInfoModal').on('hidden.bs.modal', function (e) {
 				
 				if(isRefresh){
-					$.getOrderDetail();
+					$.getOrderInfo();
 				} else {
 					LaddaThis.stop();
 				}
@@ -161,7 +161,7 @@
 				}, "json");
 			});
 			$('#updateOrderStatusModal').on('hidden.bs.modal', function (e) {
-				$.getOrderDetail();
+				$.getOrderInfo();
 			});
 			/**
 			 * END ORDER STATUS AREA
@@ -192,7 +192,7 @@
 			$('#updateOrderPPPoEModal').on('hidden.bs.modal', function (e) {
 				
 				if(isRefresh){
-					$.getOrderDetail();
+					$.getOrderInfo();
 				} else {
 					LaddaThis.stop();
 				}
@@ -228,13 +228,45 @@
 			$('#updateOrderSVCVLanModal').on('hidden.bs.modal', function (e) {
 				
 				if(isRefresh){
-					$.getOrderDetail();
+					$.getOrderInfo();
 				} else {
 					LaddaThis.stop();
 				}
 			});
 			/**
 			 * END ORDER SV/CVLAN AREA
+			 */
+			 
+			/**
+			 * BEGIN ORDER SERVICE GIVING AREA
+			 */
+			$('a[data-name="update_order_inservice_btn"]').click(function(){
+				var l = Ladda.create(this); l.start();
+				LaddaThis = l;
+				$('#updateOrderInServiceModal').modal('show');
+			});
+			$('#update_order_in_service_modal_btn').click(function(){
+				var inservice_date_str = $('input[name="order_inservice_date"]').val();
+				
+				var data = {
+					'id':o_id,
+					'inservice_date_str':inservice_date_str
+				};
+				
+				$.post(ctx+'/management/provision/order/service-giving/update', data, function(json){
+					isRefresh = !$.jsonValidation(json, 'right');
+				}, "json");
+			});
+			$('#updateOrderInServiceModal').on('hidden.bs.modal', function (e) {
+				
+				if(isRefresh){
+					$.getOrderInfo();
+				} else {
+					LaddaThis.stop();
+				}
+			});
+			/**
+			 * END ORDER SERVICE GIVING AREA
 			 */
 			 
 			/**
@@ -260,7 +292,7 @@
 			$('#updateOrderBroadbandASIDModal').on('hidden.bs.modal', function (e) {
 				
 				if(isRefresh){
-					$.getOrderDetail();
+					$.getOrderInfo();
 				} else {
 					LaddaThis.stop();
 				}
@@ -273,9 +305,9 @@
 		}, "json");
 	}
 	/**
-	 * END ORDER DETAIL TAB
+	 * END ORDER INFO TAB
 	 */
 	
-	$.getOrderDetail();
+	$.getOrderInfo();
 	
 })(jQuery);
