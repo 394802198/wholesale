@@ -19,17 +19,6 @@
 		, enduser_original_details = []
 		, old_enduser_original_details = []
 		, enduser_addons_details = []
-		
-	function getMaterial(id) {
-		var o = null;
-		$.each(all_materials, function(){
-			if (this.id == id) {
-				o = $.extend({}, this);
-				return false;
-			}
-		});
-		return o;
-	}
 	
 	function getMaterialById(materials, id) {
 		var o = null;
@@ -79,8 +68,7 @@
 	
 	function initTransitionMaterials(details){
 		$.each(details, function(){
-			if (this.material_category == 'transition'
-				|| this.material_category == 'new-connection') {
+			if (this.material_category == 'transition' || this.material_category == 'new-connection') {
 				transition_materials.push(this);
 			}
 		});
@@ -142,9 +130,12 @@
 			$(':radio, :checkbox').iCheck({ checkboxClass: 'icheckbox_square-blue', radioClass: 'iradio_square-blue' });
 			
 			$.get(ctx + '/order/select-combo/material-loading', function(materials){
+				
+				all_materials = materials; //console.log(getMaterial(766));
+				
 				initEnduserPrice(materials); // console.log(materials);
 				initTransitionMaterials(materials);
-				all_materials = materials; //console.log(getMaterial(766));
+				filterMaterialsAvailable(transition_materials); //console.log(transition_materials);
 				filterMaterialsAvailable(cloneArrayElement(wholesale_materials, materials));
 				filterMaterialsAvailable(cloneArrayElement(enduser_materials, materials));
 				
@@ -504,8 +495,10 @@
 		//console.log(enduser_addons_details);
 		
 		var order = {
-			service_type: service_type
+			customer_type: 'personal'
+			, service_type: service_type
 			, hardware_post: 0
+			, pay_type: 'pre-pay'
 		};
 		var order_details = [];
 		
@@ -524,6 +517,7 @@
 				, number: $('#enduser_detail_number' + this.index).val()
 				, is_wholesale: true
 				, is_enduser: true
+				, status: 'active'
 			})
 		});
 		
@@ -541,6 +535,7 @@
 				, number: $('#enduser_detail_number' + this.index).val()
 				, is_wholesale: false
 				, is_enduser: true
+				, status: 'active'
 			})
 		});
 		

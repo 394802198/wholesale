@@ -65,10 +65,6 @@
 		o.`pay_type`											as o_pay_type
 	</sql>
 
-
-
-
-
 	<resultMap type="Order" id="orderResultMap">
 		<id property="id" column="o_id" />
 		<result property="group_id" column="o_group_id" />

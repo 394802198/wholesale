@@ -109,5 +109,13 @@ public class OrderController {
 		return "wholesale/order/query/order-query";
 	}
 	
+	@RequestMapping("/order/edit/{orderid}")
+	public String orderEdit(Model model,
+			@PathVariable("orderid") int orderid) {
+		model.addAttribute("title", "Edit Order - Order");
+		model.addAttribute("orderid", orderid);
+		return "wholesale/order/query/order";
+	}
+	
 
 }

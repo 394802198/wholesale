@@ -5,8 +5,10 @@
 		<select id="<.=type.>_detail<.=index.>" data-index="<.=index.>" data-added="true" data-detail_type="<.=detail_type.>" class="selectpicker" data-live-search="true" title="Please Choose One">
 			<option style="display:none;"></option>
 		<.for (var i = 0, len = materials.length; i < len; i++) {
-			var material = materials[i];.>
+			var material = materials[i];
+			if (material.available) { .>
 			<option data-id="<.=material.id.>" ><.=material.name.>($<.=material.wholesale_price.>)</option>
+			<.}.>
 		<.}.>
 		</select>
 	<.} else if (html == 'span') {.>

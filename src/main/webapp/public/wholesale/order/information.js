@@ -44,11 +44,17 @@
 				, mobile: $('#mobile').val()
 				, phone: $('#phone').val()
 				, preferred_connection_date_str: preferred_connection_date
+				, pay_type: $('input[name="pay_type"]:checked').val()
 				
 				, transition_porting_number: $('#transition_porting_number').val()
 				, transition_provider_name: $('#transition_provider_name').val()
 				, transition_account_holder_name: $('#transition_account_holder_name').val()
 				, transition_account_number: $('#transition_account_number').val()
+				
+				, is_wholesaler_invoice_mobile_notification: true
+				, is_wholesaler_invoice_email_notification: true
+				, is_customer_invoice_mobile_notification: true
+				, is_customer_invoice_email_notification: true
 			};
 			
 			console.log(JSON.stringify(order));

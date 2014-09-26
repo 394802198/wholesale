@@ -107,6 +107,7 @@ public class Order implements Serializable {
 
 	private Map<String, Object> params = new HashMap<String, Object>();
 	private Broadband broadband = new Broadband();
+	private OrderDetail od = new OrderDetail();
 	private List<OrderDetail> ods = new ArrayList<OrderDetail>();
 	private OrderLog ol = new OrderLog();
 
@@ -594,6 +595,14 @@ public class Order implements Serializable {
 
 	public void setPay_type(String pay_type) {
 		this.pay_type = pay_type;
+	}
+
+	public OrderDetail getOd() {
+		return od;
+	}
+
+	public void setOd(OrderDetail od) {
+		this.od = od;
 	}
 
 }

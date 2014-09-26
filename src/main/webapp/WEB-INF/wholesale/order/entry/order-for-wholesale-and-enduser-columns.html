@@ -35,10 +35,12 @@
 										class="selectpicker" data-live-search="true" title="Please Choose One" >
 							<.for (var j = 0, jlen = transition_materials.length; j < jlen; j++) {
 								var material = transition_materials[j];
-								if (detail.name == material.name) {.>
+								if (material.available) {
+									if (detail.name == material.name) {.>
 								<option data-id="<.=material.id.>" selected="selected"><.=material.name.>($<.=material.wholesale_price.>)</option>
-								<.} else {.>
+									<.} else {.>
 								<option data-id="<.=material.id.>" ><.=material.name.>($<.=material.wholesale_price.>)</option>
+									<.}.>
 								<.}.>
 							<.}.>
 							</select>
@@ -71,10 +73,12 @@
 								<option style="display:none;"></option>
 							<.for (var j = 0, jlen = wholesale_materials.length; j < jlen; j++) {
 								var material = wholesale_materials[j];
-								if (detail.name == material.name) {.>
+								if (material.available) {
+									if (detail.name == material.name) {.>
 								<option data-id="<.=material.id.>" selected="selected"><.=material.name.>($<.=material.wholesale_price.>)</option>
-								<.} else {.>
+									<.} else {.>
 								<option data-id="<.=material.id.>" ><.=material.name.>($<.=material.wholesale_price.>)</option>
+									<.}.>
 								<.}.>
 							<.}.>
 							</select>
@@ -197,10 +201,12 @@
 								<option></option>
 							<.for (var j = 0, jlen = enduser_materials.length; j < jlen; j++) {
 								var material = enduser_materials[j];
-								if (detail.name == material.name) {.>
-								<option data-id="<.=material.id.>" selected="selected"><.=material.name.>($<.=material.enduser_price.>)</option>
-								<.} else {.>
-								<option data-id="<.=material.id.>" ><.=material.name.>($<.=material.enduser_price.>)</option>
+								if (material.available) {
+									if (detail.name == material.name) {.>
+									<option data-id="<.=material.id.>" selected="selected"><.=material.name.>($<.=material.enduser_price.>)</option>
+									<.} else {.>
+									<option data-id="<.=material.id.>" ><.=material.name.>($<.=material.enduser_price.>)</option>
+									<.}.>
 								<.}.>
 							<.}.>
 							</select>

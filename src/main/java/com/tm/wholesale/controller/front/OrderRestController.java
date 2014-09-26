@@ -47,7 +47,6 @@ public class OrderRestController {
 		System.out.println("address: " + address);
 		Order orderSession = new Order();
 		orderSession.setAddress(address);
-		orderSession.setCustomer_type("personal");
 		session.setAttribute("orderSession", orderSession);
 		
 		Broadband broadband = this.returnBroadband(address);
@@ -114,16 +113,18 @@ public class OrderRestController {
 		Order orderSession = (Order) session.getAttribute("orderSession");
 		
 		orderSession.setOds(order.getOds());
+		orderSession.setCustomer_type(order.getCustomer_type());
 		orderSession.setService_type(order.getService_type());
 		orderSession.setBroadband_type(order.getBroadband_type());
 		orderSession.setHardware_post(order.getHardware_post());
+		orderSession.setPay_type(order.getPay_type());
 		
 		json.setUrl("/order/fill-information");
 		
 		return json;
 	}
 	
-	@RequestMapping(value = "/order/information/loading")
+	@RequestMapping("/order/information/loading")
 	public Order orderInformationLoading(HttpSession session) {
 		Order orderSession = (Order) session.getAttribute("orderSession");
 		return orderSession;
@@ -160,18 +161,24 @@ public class OrderRestController {
 		orderSession.setMobile(order.getMobile());
 		orderSession.setPhone(order.getPhone());
 		orderSession.setPreferred_connection_date(order.getPreferred_connection_date());
+		orderSession.setPay_type(order.getPay_type());
 		
 		orderSession.setTransition_porting_number(order.getTransition_porting_number());
 		orderSession.setTransition_provider_name(order.getTransition_provider_name());
 		orderSession.setTransition_account_number(order.getTransition_account_number());
 		orderSession.setTransition_account_holder_name(order.getTransition_account_holder_name());
 		
+		orderSession.setIs_wholesaler_invoice_email_notification(order.isIs_wholesaler_invoice_email_notification());
+		orderSession.setIs_wholesaler_invoice_mobile_notification(order.isIs_wholesaler_invoice_mobile_notification());
+		orderSession.setIs_customer_invoice_email_notification(order.isIs_customer_invoice_email_notification());
+		orderSession.setIs_customer_invoice_mobile_notification(order.isIs_customer_invoice_mobile_notification());
+		
 		json.setUrl("/order/review-order");
 		
 		return json;
 	}
 	
-	@RequestMapping(value = "/order/review-order/loading")
+	@RequestMapping("/order/review-order/loading")
 	public Order orderReviewOrderLoading(HttpSession session) {
 		Order orderSession = (Order) session.getAttribute("orderSession");
 		return orderSession;
@@ -192,6 +199,15 @@ public class OrderRestController {
 		this.orderService.queryOrdersByPage(page);
 		
 		return page;
+	}
+	
+	@RequestMapping("/order/edit/{orderid}/query")
+	public Order orderEditQuery(HttpSession session
+			, @PathVariable("orderid") int orderid) {
+		
+		Wholesaler wholesalerSession = (Wholesaler) session.getAttribute("wholesalerSession");
+		
+		return null;
 	}
 
 }
