@@ -20,6 +20,8 @@
 		od.`id`					as od_id,
 		od.`order_id`			as od_order_id,
 		od.`name`				as od_name,
+		od.`detail_start_date`	as od_detail_start_date,
+		od.`detail_end_date`	as od_detail_end_date,
 		od.`desc`				as od_desc,
 		od.`price`				as od_price,
 		od.`price_enduser`		as od_price_enduser,
@@ -42,14 +44,15 @@
 		od.`is_wholesale`		as od_is_wholesale,
 		od.`is_enduser`			as od_is_enduser,
 		od.`memo`				as od_memo,
-		od.`plan_start_date`	as od_plan_start_date,
-		od.`plan_end_date`		as od_plan_end_date
+		od.`pay_by`				as od_pay_by
 	</sql>
 
 	<resultMap type="OrderDetail" id="orderDetailResultMap">
 		<id property="id" column="od_id" />
 		<id property="order_id" column="od_order_id" />
 		<result property="name" column="od_name" />
+		<result property="detail_start_date" column="od_detail_start_date" />
+		<result property="detail_end_date" column="od_detail_end_date" />
 		<result property="desc" column="od_desc" />
 		<result property="price" column="od_price" />
 		<result property="price_enduser" column="od_price_enduser" />
@@ -72,8 +75,7 @@
 		<result property="is_wholesale" column="od_is_wholesale" />
 		<result property="is_enduser" column="od_is_enduser" />
 		<result property="memo" column="od_memo" />
-		<result property="plan_start_date" column="od_plan_start_date" />
-		<result property="plan_end_date" column="od_plan_end_date" />
+		<result property="pay_by" column="od_pay_by" />
 	</resultMap>
 
 	<sql id="orderDetailWhere">
@@ -81,6 +83,8 @@
 			<if test="params.id != null">od.id = #{params.id}</if>
 			<if test="params.order_id != null">od.order_id = #{params.order_id}</if>
 			<if test="params.name != null">and od.name = #{params.name}</if>
+			<if test="params.detail_start_date != null">and od.detail_start_date = #{params.detail_start_date}</if>
+			<if test="params.detail_end_date != null">and od.detail_end_date = #{params.v_end_date}</if>
 			<if test="params.desc != null">and od.desc = #{params.desc}</if>
 			<if test="params.price != null">and od.price = #{params.price}</if>
 			<if test="params.price_enduser != null">and od.price_enduser = #{params.price_enduser}</if>
@@ -103,8 +107,7 @@
 			<if test="params.is_wholesale != null">and od.is_wholesale = #{params.is_wholesale}</if>
 			<if test="params.is_enduser != null">and od.is_enduser = #{params.is_enduser}</if>
 			<if test="params.memo != null">and od.memo = #{params.memo}</if>
-			<if test="params.plan_start_date != null">and od.plan_start_date = #{params.plan_start_date}</if>
-			<if test="params.plan_end_date != null">and od.plan_end_date = #{params.plan_end_date}</if>
+			<if test="params.pay_by != null">and od.pay_by = #{params.pay_by}</if>
 		</where>
 	</sql>
 
@@ -146,12 +149,12 @@
 			`id`, `order_id`, `name`, `desc`, `price`, `price_enduser`, `subscribe`, `material_group`, `material_type`, `material_category`, 
 			`type`, `status`, `data_flow`, `unit`, `number`, `password`, 
 			`assign_date`, `calling_mins`, `track_code`, `is_post`, `expire_date`, 
-			`manager_id`, `is_wholesale`, `is_enduser`, `memo`, `plan_start_date`, `plan_end_date`
+			`manager_id`, `is_wholesale`, `is_enduser`, `memo`, `detail_start_date`, `detail_end_date`, `pay_by`
 		) VALUES (
 			#{id}, #{order_id}, #{name}, #{desc}, #{price}, #{price_enduser}, #{subscribe}, #{material_group}, #{material_type}, #{material_category}, 
 			#{type}, #{status}, #{data_flow}, #{unit}, #{number}, #{password}, 
 			#{assign_date}, #{calling_mins}, #{track_code}, #{is_post}, #{expire_date}, 
-			#{manager_id}, #{is_wholesale}, #{is_enduser}, #{memo}, #{plan_start_date}, #{plan_end_date}
+			#{manager_id}, #{is_wholesale}, #{is_enduser}, #{memo}, #{detail_start_date}, #{detail_end_date}, #{pay_by}
 		)
 	</insert>
 
@@ -189,8 +192,9 @@
 			<if test="is_wholesale != null">is_wholesale = #{is_wholesale},</if>
 			<if test="is_enduser != null">is_enduser = #{is_enduser},</if>
 			<if test="memo != null">memo = #{memo},</if>
-			<if test="plan_start_date != null">plan_start_date = #{plan_start_date},</if>
-			<if test="plan_end_date != null">plan_end_date = #{plan_end_date}</if>
+			<if test="detail_start_date != null">detail_start_date = #{detail_start_date},</if>
+			<if test="detail_end_date != null">detail_end_date = #{detail_end_date},</if>
+			<if test="pay_by != null">pay_by = #{pay_by}</if>
 		</set>
 		<where>
 			<if test="params.id != null">id = #{params.id}</if>

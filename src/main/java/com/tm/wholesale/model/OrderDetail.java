@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.tm.wholesale.util.TMUtils;
-
 public class OrderDetail implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -25,8 +23,8 @@ public class OrderDetail implements Serializable {
 	private String material_group;
 	private String material_type;
 	private String material_category;
-	private Date plan_start_date;
-	private Date plan_end_date;
+	private Date detail_start_date;
+	private Date detail_end_date;
 
 	private String type;
 	private String status;
@@ -43,6 +41,7 @@ public class OrderDetail implements Serializable {
 	private Boolean is_wholesale;
 	private Boolean is_enduser;
 	private String memo;
+	private String pay_by;
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -52,8 +51,8 @@ public class OrderDetail implements Serializable {
 	 * RELATED PROPERTIES
 	 */
 	
-	private String plan_start_date_str;
-	private String plan_end_date_str;
+	private String detail_start_date_str;
+	private String detail_end_date_str;
 
 	private Map<String, Object> params = new HashMap<String, Object>();
 
@@ -276,38 +275,44 @@ public class OrderDetail implements Serializable {
 		this.subscribe = subscribe;
 	}
 
-	public Date getPlan_start_date() {
-		return plan_start_date;
+	public String getPay_by() {
+		return pay_by;
 	}
 
-	public void setPlan_start_date(Date plan_start_date) {
-		this.setPlan_start_date_str(TMUtils.dateFormatYYYYMMDD(this.getPlan_start_date()));
-		this.plan_start_date = plan_start_date;
+	public void setPay_by(String pay_by) {
+		this.pay_by = pay_by;
 	}
 
-	public Date getPlan_end_date() {
-		return plan_end_date;
+	public Date getDetail_start_date() {
+		return detail_start_date;
 	}
 
-	public void setPlan_end_date(Date plan_end_date) {
-		this.setPlan_end_date_str(TMUtils.dateFormatYYYYMMDD(this.getPlan_end_date()));
-		this.plan_end_date = plan_end_date;
+	public void setDetail_start_date(Date detail_start_date) {
+		this.detail_start_date = detail_start_date;
 	}
 
-	public String getPlan_start_date_str() {
-		return plan_start_date_str;
+	public Date getDetail_end_date() {
+		return detail_end_date;
 	}
 
-	public void setPlan_start_date_str(String plan_start_date_str) {
-		this.plan_start_date_str = plan_start_date_str;
+	public void setDetail_end_date(Date detail_end_date) {
+		this.detail_end_date = detail_end_date;
 	}
 
-	public String getPlan_end_date_str() {
-		return plan_end_date_str;
+	public String getDetail_start_date_str() {
+		return detail_start_date_str;
 	}
 
-	public void setPlan_end_date_str(String plan_end_date_str) {
-		this.plan_end_date_str = plan_end_date_str;
+	public void setDetail_start_date_str(String detail_start_date_str) {
+		this.detail_start_date_str = detail_start_date_str;
+	}
+
+	public String getDetail_end_date_str() {
+		return detail_end_date_str;
+	}
+
+	public void setDetail_end_date_str(String detail_end_date_str) {
+		this.detail_end_date_str = detail_end_date_str;
 	}
 
 }

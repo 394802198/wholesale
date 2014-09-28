@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DEFINITION AREA --><!-- // DEFINITION AREA -->
+<!-- =================================================================================== -->
+<!-- SELECT AREA --><!-- // END SELECT AREA -->
+<!-- =================================================================================== -->
+<!-- INSERT AREA --><!-- // END INSERT AREA -->
+<!-- =================================================================================== -->
+<!-- UPDATE AREA --><!-- // END UPDATE AREA -->
+<!-- =================================================================================== -->
+<!-- DELETE AREA --><!-- // END DELETE AREA -->
+
+<mapper namespace="com.tm.wholesale.mapper.CustomerInvoiceDetailMapper">
+
+	<!-- DEFINITION AREA -->
+
+	<sql id="customerInvoiceDetailColumns">
+		cid.`id`					as cid_id,
+		cid.`invoice_id`			as cid_invoice_id,
+		cid.`name`					as cid_name,
+		cid.`detail_start_date`		as cid_detail_start_date,
+		cid.`detail_end_date`		as cid_detail_end_date,
+		cid.`desc`					as cid_desc,
+		cid.`payable_amount`		as cid_payable_amount,
+		cid.`unit`					as cid_unit,
+		cid.`material_group`		as cid_material_group,
+		cid.`material_type`			as cid_material_type,
+		cid.`material_category`		as cid_material_category
+	</sql>
+
+	<resultMap type="CustomerInvoiceDetail" id="customerInvoiceDetailResultMap">
+		<id property="id" column="cid_id" />
+		<result property="invoice_id" column="cid_invoice_id" />
+		<result property="name" column="cid_name" />
+		<result property="detail_start_date" column="cid_detail_start_date" />
+		<result property="detail_end_date" column="cid_detail_end_date" />
+		<result property="desc" column="cid_desc" />
+		<result property="payable_amount" column="cid_payable_amount" />
+		<result property="unit" column="cid_unit" />
+		<result property="material_group" column="cid_material_group" />
+		<result property="material_type" column="cid_material_type" />
+		<result property="material_category" column="cid_material_category" />
+	</resultMap>
+
+	<sql id="customerInvoiceDetailWhere">
+		<where>
+			<if test="params.id != null">cid.id = #{params.id}</if>
+			<if test="params.invoice_id != null">and cid.invoice_id = #{params.invoice_id}</if>
+			<if test="params.name != null">and cid.name = #{params.name}</if>
+			<if test="params.detail_start_date != null">and cid.detail_start_date = #{params.detail_start_date}</if>
+			<if test="params.detail_end_date != null">and cid.detail_end_date = #{params.detail_end_date}</if>
+			<if test="params.desc != null">and cid.desc = #{params.desc}</if>
+			<if test="params.payable_amount != null">and cid.payable_amount = #{params.payable_amount}</if>
+			<if test="params.unit != null">and cid.unit = #{params.unit}</if>
+			<if test="params.material_group != null">and cid.material_group = #{params.material_group}</if>
+			<if test="params.material_type != null">and cid.material_type = #{params.material_type}</if>
+			<if test="params.material_category != null">and cid.material_category = #{params.material_category}</if>
+		</where>
+	</sql>
+
+	<!-- // DEFINITION AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- SELECT AREA -->
+
+	<select id="selectCustomerInvoiceDetails" parameterType="CustomerInvoiceDetail" resultType="CustomerInvoiceDetail">
+		select * from customer_invoice_detail as cid
+		<include refid="customerInvoiceDetailWhere"/>
+	</select>
+
+	<!-- select customerInvoiceDetail page -->
+	<select id="selectCustomerInvoiceDetailsByPage" parameterType="Page" resultMap="customerInvoiceDetailResultMap">
+		select 
+			<include refid="customerInvoiceDetailColumns"/>
+			from customer_invoice_detail as cid
+			<include refid="customerInvoiceDetailWhere"/>
+			<if test="params.orderby != null">${params.orderby}</if>
+			limit #{pageOffset}, #{pageSize}
+	</select>
+
+	<!-- select customerInvoiceDetail amount -->
+	<select id="selectCustomerInvoiceDetailsSum" parameterType="Page" resultType="int">
+		select count(*) from customer_invoice_detail as cid
+		<include refid="customerInvoiceDetailWhere"/>
+	</select>
+
+	<!-- // END SELECT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- INSERT AREA -->
+
+	<insert id="insertCustomerInvoiceDetail" parameterType="CustomerInvoiceDetail" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `customer_invoice_detail`(
+			`id`, `invoice_id`, `name`, `detail_start_date`, `detail_end_date`, 
+			`desc`, `payable_amount`, `unit`, `material_group`, `material_type`, 
+			`material_category`
+		) VALUES (
+			#{id}, #{invoice_id}, #{name}, #{detail_start_date}, #{detail_end_date}, 
+			#{desc}, #{payable_amount}, #{unit}, #{material_group}, #{material_type}, 
+			#{material_category}
+		)
+	</insert>
+
+	<!-- // END INSERT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- UPDATE AREA -->
+
+	<!-- update customerInvoiceDetail -->
+	<update id="updateCustomerInvoiceDetail" parameterType="CustomerInvoiceDetail">
+		update customer_invoice_detail
+		<set>
+			<if test="invoice_id != null">invoice_id = #{invoice_id},</if>
+			<if test="name != null">name = #{name},</if>
+			<if test="detail_start_date != null">detail_start_date = #{detail_start_date},</if>
+			<if test="detail_end_date != null">detail_end_date = #{detail_end_date},</if>
+			<if test="desc != null">desc = #{desc},</if>
+			<if test="payable_amount != null">payable_amount = #{payable_amount},</if>
+			<if test="unit != null">unit = #{unit},</if>
+			<if test="material_group != null">material_group = #{material_group},</if>
+			<if test="material_type != null">material_type = #{material_type},</if>
+			<if test="material_category != null">material_category = #{material_category}</if>
+		</set>
+		<where>
+			<if test="params.id != null">id = #{params.id}</if>
+		</where>
+	</update>
+
+	<!-- // END UPDATE AREA -->
+
+	<!-- =================================================================================== -->
+	<!-- DELETE AREA -->
+
+	<delete id="deleteCustomerInvoiceDetailById" parameterType="int">
+		DELETE FROM customer_invoice_detail WHERE id = #{0}
+	</delete>
+
+	<!-- // END DELETE AREA -->
+
+</mapper>

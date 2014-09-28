@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DEFINITION AREA --><!-- // DEFINITION AREA -->
+<!-- =================================================================================== -->
+<!-- SELECT AREA --><!-- // END SELECT AREA -->
+<!-- =================================================================================== -->
+<!-- INSERT AREA --><!-- // END INSERT AREA -->
+<!-- =================================================================================== -->
+<!-- UPDATE AREA --><!-- // END UPDATE AREA -->
+<!-- =================================================================================== -->
+<!-- DELETE AREA --><!-- // END DELETE AREA -->
+
+<mapper namespace="com.tm.wholesale.mapper.CustomerInvoiceMapper">
+
+	<!-- DEFINITION AREA -->
+
+	<sql id="customerInvoiceColumns">
+		ci.`id`								as ci_id,
+		ci.`company_id`						as ci_company_id,
+		ci.`order_id`						as ci_order_id,
+		ci.`create_date`					as ci_create_date,
+		ci.`due_date`						as ci_due_date,
+		ci.`payable_amount`					as ci_payable_amount,
+		ci.`credit_amount`					as ci_credit_amount,
+		ci.`paid_amount`					as ci_paid_amount,
+		ci.`balance_amount`					as ci_balance_amount,
+		ci.`customer_invoice_pdf_path`		as ci_customer_invoice_pdf_path,
+		ci.`previous_customer_invoice_id`	as ci_previous_customer_invoice_id,
+		ci.`status`							as ci_status,
+		ci.`payment_status`					as ci_payment_status,
+		ci.`memo`							as ci_memo
+	</sql>
+
+	<resultMap type="CustomerInvoice" id="customerInvoiceResultMap">
+		<id property="id" column="ci_id" />
+		<result property="company_id" column="ci_company_id" />
+		<result property="order_id" column="ci_order_id" />
+		<result property="create_date" column="ci_create_date" />
+		<result property="due_date" column="ci_due_date" />
+		<result property="payable_amount" column="ci_payable_amount" />
+		<result property="credit_amount" column="ci_credit_amount" />
+		<result property="paid_amount" column="ci_paid_amount" />
+		<result property="balance_amount" column="ci_balance_amount" />
+		<result property="customer_invoice_pdf_path" column="ci_customer_invoice_pdf_path" />
+		<result property="previous_customer_invoice_id" column="ci_previous_customer_invoice_id" />
+		<result property="status" column="ci_status" />
+		<result property="payment_status" column="ci_payment_status" />
+		<result property="memo" column="ci_memo" />
+	</resultMap>
+
+	<sql id="customerInvoiceWhere">
+		<where>
+			<if test="params.id != null">ci.id = #{params.id}</if>
+			<if test="params.company_id != null">and ci.company_id = #{params.company_id}</if>
+			<if test="params.order_id != null">and ci.order_id = #{params.order_id}</if>
+			<if test="params.create_date != null">and ci.create_date = #{params.create_date}</if>
+			<if test="params.due_date != null">and ci.due_date = #{params.due_date}</if>
+			<if test="params.payable_amount != null">and ci.payable_amount = #{params.payable_amount}</if>
+			<if test="params.credit_amount != null">and ci.credit_amount = #{params.credit_amount}</if>
+			<if test="params.paid_amount != null">and ci.paid_amount = #{params.paid_amount}</if>
+			<if test="params.balance_amount != null">and ci.balance_amount = #{params.balance_amount}</if>
+			<if test="params.customer_invoice_pdf_path != null">and ci.customer_invoice_pdf_path = #{params.customer_invoice_pdf_path}</if>
+			<if test="params.previous_customer_invoice_id != null">and ci.previous_customer_invoice_id = #{params.previous_customer_invoice_id}</if>
+			<if test="params.status != null">and ci.status = #{params.status}</if>
+			<if test="params.payment_status != null">and ci.payment_status = #{params.payment_status}</if>
+			<if test="params.memo != null">and ci.memo = #{params.memo}</if>
+		</where>
+	</sql>
+
+	<!-- // DEFINITION AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- SELECT AREA -->
+
+	<select id="selectCustomerInvoices" parameterType="CustomerInvoice" resultType="CustomerInvoice">
+		select * from customer_invoice as ci
+		<include refid="customerInvoiceWhere"/>
+	</select>
+
+	<!-- select customerInvoice page -->
+	<select id="selectCustomerInvoicesByPage" parameterType="Page" resultMap="customerInvoiceResultMap">
+		select 
+			<include refid="customerInvoiceColumns"/>
+			from customer_invoice as ci
+			<include refid="customerInvoiceWhere"/>
+			<if test="params.orderby != null">${params.orderby}</if>
+			limit #{pageOffset}, #{pageSize}
+	</select>
+
+	<!-- select customerInvoice amount -->
+	<select id="selectCustomerInvoicesSum" parameterType="Page" resultType="int">
+		select count(*) from customer_invoice as ci
+		<include refid="customerInvoiceWhere"/>
+	</select>
+
+	<!-- // END SELECT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- INSERT AREA -->
+
+	<insert id="insertCustomerInvoice" parameterType="CustomerInvoice" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `customer_invoice`(
+			`id`, `company_id`, `order_id`, `create_date`, `due_date`, 
+			`payable_amount`, `credit_amount`, `paid_amount`, `balance_amount`, `customer_invoice_pdf_path`, 
+			`previous_customer_invoice_id`, `status`, `payment_status`, `memo`
+		) VALUES (
+			#{id}, #{company_id}, #{order_id}, #{create_date}, #{due_date}, 
+			#{payable_amount}, #{credit_amount}, #{paid_amount}, #{balance_amount}, #{customer_invoice_pdf_path}, 
+			#{previous_customer_invoice_id}, #{status}, #{payment_status}, #{memo}
+		)
+	</insert>
+
+	<!-- // END INSERT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- UPDATE AREA -->
+
+	<!-- update customerInvoice -->
+	<update id="updateCustomerInvoice" parameterType="CustomerInvoice">
+		update customer_invoice
+		<set>
+			<if test="company_id != null">company_id = #{company_id},</if>
+			<if test="order_id != null">order_id = #{order_id},</if>
+			<if test="create_date != null">create_date = #{create_date},</if>
+			<if test="due_date != null">due_date = #{due_date},</if>
+			<if test="payable_amount != null">payable_amount = #{payable_amount},</if>
+			<if test="credit_amount != null">credit_amount = #{credit_amount},</if>
+			<if test="paid_amount != null">paid_amount = #{paid_amount},</if>
+			<if test="balance_amount != null">balance_amount = #{balance_amount},</if>
+			<if test="customer_invoice_pdf_path != null">customer_invoice_pdf_path = #{customer_invoice_pdf_path},</if>
+			<if test="previous_customer_invoice_id != null">previous_customer_invoice_id = #{previous_customer_invoice_id},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="payment_status != null">payment_status = #{payment_status},</if>
+			<if test="memo != null">memo = #{memo}</if>
+		</set>
+		<where>
+			<if test="params.id != null">id = #{params.id}</if>
+		</where>
+	</update>
+
+	<!-- // END UPDATE AREA -->
+
+	<!-- =================================================================================== -->
+	<!-- DELETE AREA -->
+
+	<delete id="deleteCustomerInvoiceById" parameterType="int">
+		DELETE FROM customer_invoice WHERE id = #{0}
+	</delete>
+
+	<!-- // END DELETE AREA -->
+
+</mapper>
