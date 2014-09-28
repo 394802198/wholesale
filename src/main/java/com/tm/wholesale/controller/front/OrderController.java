@@ -91,6 +91,7 @@ public class OrderController {
 		ol.setStatus("pending");
 		ol.setStatus_desc("");
 		ol.setComment_date(new Date());
+		ol.setCompany_id(wholesalerSession.getCompany_id());
 		
 		ol.setComment(memo);
 		
@@ -100,7 +101,13 @@ public class OrderController {
 		
 		session.removeAttribute("orderSession");
 		
-		return "redirect:/order/query";
+		return "redirect:/order/result";
+	}
+	
+	@RequestMapping("/order/result")
+	public String orderResult(Model model) {
+		model.addAttribute("title", "Order Result - Order");
+		return "wholesale/order/entry/order-result";
 	}
 	
 	@RequestMapping("/order/query")

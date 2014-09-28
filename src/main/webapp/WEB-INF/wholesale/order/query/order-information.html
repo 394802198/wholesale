@@ -1,0 +1,259 @@
+<style>
+#dl-order dt
+, #dl-service dt {
+	width: 200px;
+}
+#dl-order dd 
+, #dl-service dd {
+	margin-left: 220px;
+}
+</style>
+<div class="panel-body">
+	<div class="row">
+		<div class="col-md-12">
+			<span class="pull-left">
+				<strong class="text-info">Order ID:</strong>
+				<.=id.>
+			</span>
+			<span class="pull-right">
+				<strong class="text-info">Create Date:</strong>
+				<.=create_date_str.>
+			</span>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+	
+		<div class="col-md-6">
+			<h3 class="text-info">End-User Details</h3>
+			<hr>
+			<dl class="dl-horizontal">
+				<dt>Customer Type</dt>
+				<dd><.=customer_type.></dd>
+				<dt>Address</dt>
+				<dd><.=address.></dd>
+				<dt>Title</dt>
+				<dd><.=title.></dd>
+				<dt>First name</dt>
+				<dd><.=first_name.></dd>
+				<dt>Last name</dt>
+				<dd><.=last_name.></dd>
+				<dt>Email</dt>
+				<dd><.=email.></dd>
+				<dt>Mobile</dt>
+				<dd><.=mobile.></dd>
+				<dt>Phone</dt>
+				<dd><.=phone.></dd>
+				<dt>Company name</dt>
+				<dd><.=company_name.></dd>
+				<dt>Trade name</dt>
+				<dd><.=trade_name.></dd>
+			</dl>
+		</div>
+		
+		<div class="col-md-6">
+			<h3 class="text-info">Order Details</h3>
+			<hr>
+			<dl class="dl-horizontal" id="dl-order">
+				<dt>Order ID</dt>
+				<dd><.=id.></dd>
+				<dt>Wholesale Total Price (incl.)</dt>
+				<dd>$<.=total_price_gst.toFixed(2).></dd>
+				<dt>Wholesale Ordering Form</dt>
+				<dd></dd>
+				<dt>End-User Total Price (incl.)</dt>
+				<dd>$<.=total_price_gst_enduser.toFixed(2).></dd>
+				<dt>End-User Ordering Form</dt>
+				<dd></dd>
+				<dt>Broadband Type</dt>
+				<dd><.=broadband_type.></dd>
+				<dt>Payment</dt>
+				<dd><.=pay_type.></dd>
+				<dt>Phoneline Number</dt>
+				<dd><.=transition_porting_number.></dd>
+				<dt>Provider Name</dt>
+				<dd><.=transition_provider_name.></dd>
+				<dt>Account Name</dt>
+				<dd><.=transition_account_holder_name.></dd>
+				<dt>Account Number</dt>
+				<dd><.=transition_account_number.></dd>
+			</dl>
+		</div>
+		
+	</div>
+	
+	<div class="row">
+		<div class="col-md-6">
+			<h3 class="text-info">Service Details</h3>
+			<hr>
+			<dl class="dl-horizontal" id="dl-service">
+				<dt>Preferred Connection Date</dt>
+				<dd><.=preferred_connection_date.></dd>
+				<dt>Status</dt>
+				<dd><.=status.></dd>
+				<dt>Broadband ASID</dt>
+				<dd><.=broadband_asid.></dd>
+				<dt>SVLAN</dt>
+				<dd><.=svlan.></dd>
+				<dt>CVLAN</dt>
+				<dd><.=cvlan.></dd>
+				<dt>PPPoE Login name</dt>
+				<dd><.=pppoe_loginname.></dd>
+				<dt>PPPoE Password</dt>
+				<dd><.=pppoe_password.></dd>
+				<dt>Prepay Month</dt>
+				<dd><.=prepay_month.></dd>
+				<dt>RFS Date</dt>
+				<dd><.=rfs_date.></dd>
+				<dt>In Service Date</dt>
+				<dd><.=inservice_date.></dd>
+				<dt>Disconnected Date</dt>
+				<dd><.=disconnected_date.></dd>
+			</dl>
+		</div>
+		
+		<div class="col-md-6">
+			<h3 class="text-info">Other Details</h3>
+			<hr>
+			<dl class="dl-horizontal" id="dl-other">
+				<dt>Comment</dt>
+				<dd><.=memo.></dd>
+			</dl>
+		</div>
+	</div>
+	
+	
+	<div class="panel panel-info">
+		<div class="panel-body">
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#wholesale-information" data-toggle="tab" ><strong>For Wholesale Order Details</strong></a></li>
+				<li><a href="#enduser-information" data-toggle="tab" ><strong>For End-User Order Details</strong></a></li>
+			</ul>
+	
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div class="tab-pane fade in active" id="wholesale-information">
+					<table class="table table-hover">
+					<. if (monthly_details.length > 0) {.>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Service / Product</th>
+								<th>Monthly Charge</th>
+								<th>Qty</th>
+								<th>Sub Total</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<. for (var i = 0, len = monthly_details.length; i < len; i++) {
+							var detail = monthly_details[i];
+							if (detail.is_wholesale) { .>
+						<tr>
+							<td><.=detail.id.></td>
+							<td>
+								<.=detail.name.> 
+								<.if (detail.material_category == 'phone-line') {.>
+								(<span class="text-info"><.=detail.number.></span>)
+								<.} else if (detail.material_category == 'broadband-type') {.>
+								(<span class="text-info"><.=detail.data_flow<0?'Unlimited Data': detail.data_flow + ' GB'.></span>)
+								<.}.>
+							</td>
+							<td>$ <.=Number(detail.price).toFixed(2).></td>
+							<td><.=detail.unit.></td>
+							<td>$ <.=(Number(detail.price) * detail.unit).toFixed(2).></td>
+							<td>&nbsp;</td>
+						</tr>	
+							<.}.>
+						<.}.>
+					<.}.>
+					
+					<. if (oneoff_details.length > 0) {.>
+						<tr>
+							<th>&nbsp;</th>
+							<th>&nbsp;</th>
+							<th>One-Off Charge</th>
+							<th>Qty</th>
+							<th>Sub Total</th>
+						</tr>
+						<. for (var i = 0, len = oneoff_details.length; i < len; i++) {
+							var detail = oneoff_details[i];
+							if (detail.is_wholesale) { .>
+						<tr>
+							<td><.=detail.id.></td>
+							<td><.=detail.name.></td>
+							<td>$ <.=Number(detail.price).toFixed(2).></td>
+							<td><.=detail.unit.></td>
+							<td>$ <.=(Number(detail.price) * detail.unit).toFixed(2).></td>
+							<td>&nbsp;</td>
+						</tr>
+							<.}.>
+						<.}.>
+					<.}.>
+					</table>
+				</div>
+				<div class="tab-pane fade" id="enduser-information" >
+					<table class="table table-hover">
+					<. if (monthly_details.length > 0) {.>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Service / Product</th>
+								<th>Monthly Charge</th>
+								<th>Qty</th>
+								<th>Sub Total</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<. for (var i = 0, len = monthly_details.length; i < len; i++) {
+							var detail = monthly_details[i];
+							if (detail.is_enduser) { .>
+						<tr>
+							<td><.=detail.id.></td>
+							<td>
+								<.=detail.name.> 
+								<.if (detail.material_category == 'phone-line') {.>
+								(<span class="text-info"><.=detail.number.></span>)
+								<.} else if (detail.material_category == 'broadband-type') {.>
+								(<span class="text-info"><.=detail.data_flow<0?'Unlimited Data': detail.data_flow + ' GB'.></span>)
+								<.}.>
+							</td>
+							<td>$ <.=Number(detail.price_enduser).toFixed(2).></td>
+							<td><.=detail.unit.></td>
+							<td>$ <.=(Number(detail.price_enduser) * detail.unit).toFixed(2).></td>
+							<td>&nbsp;</td>
+						</tr>	
+							<.}.>
+						<.}.>
+					<.}.>
+					
+					<. if (oneoff_details.length > 0) {.>
+						<tr>
+							<th>&nbsp;</th>
+							<th>&nbsp;</th>
+							<th>One-Off Charge</th>
+							<th>Qty</th>
+							<th>Sub Total</th>
+						</tr>
+						<. for (var i = 0, len = oneoff_details.length; i < len; i++) {
+							var detail = oneoff_details[i];
+							if (detail.is_enduser) { .>
+						<tr>
+							<td><.=detail.id.></td>
+							<td><.=detail.name.></td>
+							<td>$ <.=Number(detail.price_enduser).toFixed(2).></td>
+							<td><.=detail.unit.></td>
+							<td>$ <.=(Number(detail.price_enduser) * detail.unit).toFixed(2).></td>
+							<td>&nbsp;</td>
+						</tr>
+							<.}.>
+						<.}.>
+					<.}.>
+					</table>
+				</div>
+			</div>
+					
+		</div>
+	</div>
+</div>
+

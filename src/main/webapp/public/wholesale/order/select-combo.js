@@ -499,6 +499,7 @@
 			, service_type: service_type
 			, hardware_post: 0
 			, pay_type: 'pre-pay'
+			, prepay_month: 1
 		};
 		var order_details = [];
 		

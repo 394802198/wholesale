@@ -17,14 +17,14 @@ var enduser_total_before_gst = 0;
 		<!-- Tab panes -->
 		<div class="tab-content panel panel-default">
 			<div class="panel-body tab-pane fade in active" id="wholesale-information" >
-				<table class="table">
+				<table class="table table-hover">
 				<. if (monthly_details.length > 0) {.>
 					<thead>
 						<tr>
 							<th>Service / Product</th>
 							<th>Monthly Charge</th>
 							<th>Qty</th>
-							<th>Subtotal</th>
+							<th>Sub Total</th>
 						</tr>
 					</thead>
 					<. for (var i = 0, len = monthly_details.length; i < len; i++) {
@@ -37,7 +37,7 @@ var enduser_total_before_gst = 0;
 							<.if (detail.material_category == 'phone-line') {.>
 							(<span class="text-info"><.=detail.number.></span>)
 							<.} else if (detail.material_category == 'broadband-type') {.>
-							(<span class="text-info"><.=detail.data_flow.> GB</span>)
+							(<span class="text-info"><.=detail.data_flow<0?'Unlimited Data': detail.data_flow + ' GB'.></span>)
 							<.}.>
 						</td>
 						<td>$ <.=Number(detail.price).toFixed(2).></td>
@@ -53,7 +53,7 @@ var enduser_total_before_gst = 0;
 						<th>&nbsp;</th>
 						<th>One-Off Charge</th>
 						<th>Qty</th>
-						<th>Subtotal</th>
+						<th>Sub Total</th>
 					</tr>
 					<. for (var i = 0, len = oneoff_details.length; i < len; i++) {
 						var detail = oneoff_details[i];
@@ -98,14 +98,14 @@ var enduser_total_before_gst = 0;
 			
 			<div class="panel-body tab-pane fade" id="enduser-information" >
 				
-				<table class="table">
+				<table class="table table-hover">
 				<. if (monthly_details.length > 0) {.>
 					<thead>
 						<tr>
 							<th>Service / Product</th>
 							<th>Monthly Charge</th>
 							<th>Qty</th>
-							<th>Subtotal</th>
+							<th>Sub Total</th>
 						</tr>
 					</thead>
 					<. for (var i = 0, len = monthly_details.length; i < len; i++) {
@@ -118,7 +118,7 @@ var enduser_total_before_gst = 0;
 							<.if (detail.material_category == 'phone-line') {.>
 							(<span class="text-info"><.=detail.number.></span>)
 							<.} else if (detail.material_category == 'broadband-type') {.>
-							(<span class="text-info"><.=detail.data_flow.> GB</span>)
+							(<span class="text-info"><.=detail.data_flow<0?'Unlimited Data': detail.data_flow + ' GB'.></span>)
 							<.}.>	
 						</td>
 						<td>$ <.=Number(detail.price_enduser).toFixed(2).></td>
@@ -141,14 +141,7 @@ var enduser_total_before_gst = 0;
 						if (detail.is_enduser) {
 							enduser_total_before_gst += Number(detail.price_enduser) * detail.unit;.>
 					<tr>
-						<td>
-							<.=detail.name.>
-							<.if (detail.material_category == 'phone-line') {.>
-							(<span class="text-info"><.=detail.number.></span>)
-							<.} else if (detail.material_category == 'broadband-type') {.>
-							(<span class="text-info"><.=detail.data_flow.> GB</span>)
-							<.}.>
-						</td>
+						<td><.=detail.name.></td>
 						<td>$ <.=Number(detail.price_enduser).toFixed(2).></td>
 						<td><.=detail.unit.></td>
 						<td>$ <.=(Number(detail.price_enduser) * detail.unit).toFixed(2).></td>

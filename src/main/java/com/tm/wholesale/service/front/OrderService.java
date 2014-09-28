@@ -50,6 +50,7 @@ public class OrderService {
 			this.orderDetailMapper.insertOrderDetail(od);
 		}
 		if (order.getOl() != null) {
+			order.getOl().setOrder_id(order.getId());
 			this.orderLogMapper.insertOrderLog(order.getOl());
 		}
 	}
@@ -68,6 +69,11 @@ public class OrderService {
 		List<OrderDetail> ods = this.orderDetailMapper.selectOrderDetails(orderQuery.getOd());
 		order.setOds(ods);
 		return order;
+	}
+	
+	@Transactional
+	public List<OrderLog> queryOrderLogs(OrderLog ol) {
+		return this.orderLogMapper.selectOrderLogs(ol);
 	}
 	
 	/*@Transactional
