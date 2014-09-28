@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DEFINITION AREA --><!-- // DEFINITION AREA -->
+<!-- =================================================================================== -->
+<!-- SELECT AREA --><!-- // END SELECT AREA -->
+<!-- =================================================================================== -->
+<!-- INSERT AREA --><!-- // END INSERT AREA -->
+<!-- =================================================================================== -->
+<!-- UPDATE AREA --><!-- // END UPDATE AREA -->
+<!-- =================================================================================== -->
+<!-- DELETE AREA --><!-- // END DELETE AREA -->
+
+<mapper namespace="com.tm.wholesale.mapper.InvoiceDetailMapper">
+
+	<!-- DEFINITION AREA -->
+
+	<sql id="invoiceDetailColumns">
+		id.`id`					as id_id,
+		id.`invoice_id`			as id_invoice_id,
+		id.`name`				as id_name,
+		id.`detail_start_date`	as id_detail_start_date,
+		id.`detail_end_date`	as id_detail_end_date,
+		id.`desc`				as id_desc,
+		id.`payable_amount`		as id_payable_amount,
+		id.`unit`				as id_unit,
+		id.`material_group`		as id_material_group,
+		id.`material_type`		as id_material_type,
+		id.`material_category`	as id_material_category
+	</sql>
+
+	<resultMap type="InvoiceDetail" id="invoiceDetailResultMap">
+		<id property="id" column="id_id" />
+		<result property="invoice_id" column="id_invoice_id" />
+		<result property="name" column="id_name" />
+		<result property="detail_start_date" column="id_detail_start_date" />
+		<result property="detail_end_date" column="id_detail_end_date" />
+		<result property="desc" column="id_desc" />
+		<result property="payable_amount" column="id_payable_amount" />
+		<result property="unit" column="id_unit" />
+		<result property="material_group" column="id_material_group" />
+		<result property="material_type" column="id_material_type" />
+		<result property="material_category" column="id_material_category" />
+	</resultMap>
+
+	<sql id="invoiceDetailWhere">
+		<where>
+			<if test="params.id != null">id.id = #{params.id}</if>
+			<if test="params.invoice_id != null">and id.invoice_id = #{params.invoice_id}</if>
+			<if test="params.name != null">and id.name = #{params.name}</if>
+			<if test="params.detail_start_date != null">and id.detail_start_date = #{params.detail_start_date}</if>
+			<if test="params.detail_end_date != null">and id.detail_end_date = #{params.detail_end_date}</if>
+			<if test="params.desc != null">and id.desc = #{params.desc}</if>
+			<if test="params.payable_amount != null">and id.payable_amount = #{params.payable_amount}</if>
+			<if test="params.unit != null">and id.unit = #{params.unit}</if>
+			<if test="params.material_group != null">and id.material_group = #{params.material_group}</if>
+			<if test="params.material_type != null">and id.material_type = #{params.material_type}</if>
+			<if test="params.material_category != null">and id.material_category = #{params.material_category}</if>
+		</where>
+	</sql>
+
+	<!-- // DEFINITION AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- SELECT AREA -->
+
+	<select id="selectInvoiceDetails" parameterType="InvoiceDetail" resultType="InvoiceDetail">
+		select * from invoice_detail as id
+		<include refid="invoiceDetailWhere"/>
+	</select>
+
+	<!-- select invoiceDetail page -->
+	<select id="selectInvoiceDetailsByPage" parameterType="Page" resultMap="invoiceDetailResultMap">
+		select 
+			<include refid="invoiceDetailColumns"/>
+			from invoice_detail as id
+			<include refid="invoiceDetailWhere"/>
+			<if test="params.orderby != null">${params.orderby}</if>
+			limit #{pageOffset}, #{pageSize}
+	</select>
+
+	<!-- select invoiceDetail amount -->
+	<select id="selectInvoiceDetailsSum" parameterType="Page" resultType="int">
+		select count(*) from invoice_detail as id
+		<include refid="invoiceDetailWhere"/>
+	</select>
+
+	<!-- // END SELECT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- INSERT AREA -->
+
+	<insert id="insertInvoiceDetail" parameterType="InvoiceDetail" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `invoice_detail`(
+			`id`, `invoice_id`, `name`, `detail_start_date`, `detail_end_date`, 
+			`desc`, `payable_amount`, `unit`, `material_group`, `material_type`, 
+			`material_category`
+		) VALUES (
+			#{id}, #{invoice_id}, #{name}, #{detail_start_date}, #{detail_end_date}, 
+			#{desc}, #{payable_amount}, #{unit}, #{material_group}, #{material_type}, 
+			#{material_category}
+		)
+	</insert>
+
+	<!-- // END INSERT AREA -->
+
+	<!-- =================================================================================== -->
+
+	<!-- UPDATE AREA -->
+
+	<!-- update invoiceDetail -->
+	<update id="updateInvoiceDetail" parameterType="InvoiceDetail">
+		update invoice_detail
+		<set>
+			<if test="invoice_id != null">invoice_id = #{invoice_id},</if>
+			<if test="name != null">name = #{name},</if>
+			<if test="detail_start_date != null">detail_start_date = #{detail_start_date},</if>
+			<if test="detail_end_date != null">detail_end_date = #{detail_end_date},</if>
+			<if test="desc != null">desc = #{desc},</if>
+			<if test="payable_amount != null">payable_amount = #{payable_amount},</if>
+			<if test="unit != null">unit = #{unit},</if>
+			<if test="material_group != null">material_group = #{material_group},</if>
+			<if test="material_type != null">material_type = #{material_type},</if>
+			<if test="material_category != null">material_category = #{material_category}</if>
+		</set>
+		<where>
+			<if test="params.id != null">id = #{params.id}</if>
+		</where>
+	</update>
+
+	<!-- // END UPDATE AREA -->
+
+	<!-- =================================================================================== -->
+	<!-- DELETE AREA -->
+
+	<delete id="deleteInvoiceDetailById" parameterType="int">
+		DELETE FROM invoice_detail WHERE id = #{0}
+	</delete>
+
+	<!-- // END DELETE AREA -->
+
+</mapper>

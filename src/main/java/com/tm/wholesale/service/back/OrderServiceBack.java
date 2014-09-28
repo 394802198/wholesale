@@ -1,7 +1,5 @@
 package com.tm.wholesale.service.back;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,7 @@ import com.tm.wholesale.model.OrderDetail;
 import com.tm.wholesale.model.OrderLog;
 import com.tm.wholesale.model.Page;
 import com.tm.wholesale.util.TMUtils;
+import com.tm.wholesale.util.order.OrderInvoiceUtil;
 
 @Service
 public class OrderServiceBack {
@@ -138,82 +137,47 @@ public class OrderServiceBack {
 	/**
 	 * BEGIN EXTENDED METHODS
 	 */
-
-	@Transactional
-	public OrderDetail addPlan(Date startDate, Date endDate
-			, Integer order_id
-			, String plan_name
-			, Double price
-			, Double price_enduser
-			, String subscribe
-			, Integer unit
-			, Long data_flow){
-		
-		OrderDetail od = new OrderDetail();
-		od.setPlan_start_date(startDate);
-		od.setPlan_end_date(endDate);
-		od.setOrder_id(order_id);
-		od.setName(plan_name);
-		od.setPrice(price);
-		od.setPrice_enduser(price_enduser);
-		od.setSubscribe(subscribe);
-		od.setData_flow(data_flow);
-		od.setUnit(unit);
-		
-		return od;
-	}
 	
 	
 	/**
 	 * @param o
 	 * @category
 	 * 	1. ASSIGN inservice_date <br/>
-	 * 	2. ASSIGN next_invoice_create_date_flag = inservice_date + prepay_month <br/>
-	 * 	3. ASSIGN next_invoice_create_date = inservice_date + prepay_month + offset_date(-7) <br/>
+	 * 	2. ASSIGN next_invoice_create_date & next_invoice_create_date_flag <br/>
+	 * 	3. <br/>
 	 * 	4. <br/>
 	 * 	5. <br/>
 	 * 	6. <br/>
 	 * 	7. <br/>
 	 *  8. <br/>
-	 * 	9. <br/>
+	 * 	9. UPDATE order <br/>
 	 */
 	@Transactional
 	public void editInService(Order o) {
 		
-		// 1.
-		
+		// 1
 		o.setInservice_date(TMUtils.parseDateYYYYMMDD(o.getInservice_date_str()));
 		
-		// 2.
-		
-		Integer prepay_month = o.getPrepay_month()!=null ? o.getPrepay_month() : 1;
-		Integer offset_date = -7;
-		
-		Calendar nextInvoiceCal = Calendar.getInstance();
-		nextInvoiceCal.setTime(o.getInservice_date());
-		nextInvoiceCal.add(Calendar.MONTH, prepay_month);
-		o.setNext_invoice_create_date_flag(nextInvoiceCal.getTime());
-		nextInvoiceCal.add(Calendar.DAY_OF_MONTH, offset_date);
-		o.setNext_invoice_create_date(nextInvoiceCal.getTime());
+		// 2
+		OrderInvoiceUtil.setNextInvoiceCreateDate(o);
 
-		o.getParams().put("id", o.getId());
-		this.editOrder(o);
-		
 		Order oQuery = new Order();
 		oQuery.getParams().put("id", o.getId());
 		oQuery = this.queryOrder(oQuery);
-		
-		
-		
+
 		if("pre-pay".equals(oQuery.getPay_type())){
 			
-			
+//			OrderInvoiceUtil.addOrderDetails2InvoiceDetails(invoice_id, od, ids);
 			
 		} else if("post-pay".equals(oQuery.getPay_type())){
 			
 			
 			
 		}
+
+		// 9
+		o.getParams().put("id", o.getId());
+		this.editOrder(o);
 	}
 	
 	

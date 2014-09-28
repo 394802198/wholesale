@@ -160,8 +160,9 @@ public class StevenTest {
 		
 //		SimpleMapperCreator smc = new SimpleMapperCreator();
 //		smc.setAuthor("Total Mobile Solution");
-//		smc.setModel("OrderGroup");
-//		smc.setTable("order_group");
+//		smc.setModel("CustomerInvoiceDetail");
+//		smc.setTable("customer_invoice_detail");
 //		smc.initial();
+		
 	}
 }
