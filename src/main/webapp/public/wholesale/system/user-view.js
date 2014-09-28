@@ -10,12 +10,11 @@
 	   		$div.find('tfoot a').click(function(){
 				doPage($(this).attr('data-pageNo'));
 			});
-			
-			$('#checkbox_users_top').click(function(){
-				var b = $(this).prop("checked");
-				var input = $('input[name="checkbox_users"]');
-				if (b) input.prop("checked", true);
-				else input.prop("checked", false);
+	   		$(':radio, :checkbox').iCheck({ checkboxClass: 'icheckbox_square-blue', radioClass: 'iradio_square-blue' });
+			$('#checkbox_users_top').on('ifChecked', function(){
+				$('input[name="checkbox_users"]').iCheck('check');
+			}).on('ifUnchecked', function(){
+				$('input[name="checkbox_users"]').iCheck('uncheck');
 			});
 	   	});
 	}

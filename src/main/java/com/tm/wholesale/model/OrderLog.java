@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.tm.wholesale.util.TMUtils;
+
 public class OrderLog implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -22,6 +24,7 @@ public class OrderLog implements Serializable {
 	private Date comment_date;
 	private String comment;
 	private Integer order_id;
+	private Integer company_id;
 
 	/*
 	 * END TABLE MAPPING PROPERTIES
@@ -32,6 +35,7 @@ public class OrderLog implements Serializable {
 	 */
 
 	private Map<String, Object> params = new HashMap<String, Object>();
+	private String comment_date_str;
 	
 	/*
 	 * END RELATED PROPERTIES
@@ -123,6 +127,23 @@ public class OrderLog implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getComment_date_str() {
+		comment_date_str = TMUtils.dateFormatDDMMYYYYHHMMSS(this.comment_date);
+		return comment_date_str;
+	}
+
+	public void setComment_date_str(String comment_date_str) {
+		this.comment_date_str = comment_date_str;
+	}
+
+	public Integer getCompany_id() {
+		return company_id;
+	}
+
+	public void setCompany_id(Integer company_id) {
+		this.company_id = company_id;
 	}
 
 }

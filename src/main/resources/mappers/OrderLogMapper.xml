@@ -25,7 +25,8 @@
 		ol.`status_desc`		as ol_status_desc,
 		ol.`comment_date`		as ol_comment_date,
 		ol.`comment`			as ol_comment,
-		ol.`order_id`			as ol_order_id
+		ol.`order_id`			as ol_order_id,
+		ol.`company_id`			as ol_company_id
 	</sql>
 
 	<resultMap type="OrderLog" id="orderLogResultMap">
@@ -38,6 +39,7 @@
 		<result property="comment_date" column="ol_comment_date" />
 		<result property="comment" column="ol_comment" />
 		<result property="order_id" column="ol_order_id" />
+		<result property="company_id" column="ol_company_id" />
 	</resultMap>
 
 	<sql id="orderLogWhere">
@@ -51,6 +53,7 @@
 			<if test="params.comment_date != null">and ol.comment_date = #{params.comment_date}</if>
 			<if test="params.comment != null">and ol.comment = #{params.comment}</if>
 			<if test="params.order_id != null">and ol.order_id = #{params.order_id}</if>
+			<if test="params.company_id != null">and ol.company_id = #{params.company_id}</if>
 		</where>
 	</sql>
 
@@ -90,10 +93,10 @@
 	<insert id="insertOrderLog" parameterType="OrderLog" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `order_log`(
 			`id`, `operator_id`, `operator_type`, `operator`, `status`, 
-			`status_desc`, `comment_date`, `comment`, `order_id`
+			`status_desc`, `comment_date`, `comment`, `order_id`, `company_id`
 		) VALUES (
 			#{id}, #{operator_id}, #{operator_type}, #{operator}, #{status}, 
-			#{status_desc}, #{comment_date}, #{comment}, #{order_id}
+			#{status_desc}, #{comment_date}, #{comment}, #{order_id}, #{company_id}
 		)
 	</insert>
 
@@ -114,7 +117,8 @@
 			<if test="status_desc != null">status_desc = #{status_desc},</if>
 			<if test="comment_date != null">comment_date = #{comment_date},</if>
 			<if test="comment != null">comment = #{comment},</if>
-			<if test="order_id != null">order_id = #{order_id}</if>
+			<if test="order_id != null">order_id = #{order_id},</if>
+			<if test="company_id != null">company_id = #{company_id}</if>
 		</set>
 		<where>
 			<if test="params.id != null">id = #{params.id}</if>

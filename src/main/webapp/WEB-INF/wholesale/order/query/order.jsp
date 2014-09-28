@@ -6,6 +6,12 @@
 
 <jsp:include page="../../header.jsp" />
 
+<style>
+.panel-default {
+	border-top-color:transparent;
+}
+</style>
+
 <div class="container-fluid">
 	
 	<div class="panel panel-info">
@@ -19,17 +25,11 @@
 				<li><a href="#order-transactions" data-toggle="tab" ><strong>Order Transactions</strong></a></li>
 			</ul>
 
-			<div class="tab-content panel panel-default">
-				<div class="panel-body tab-pane fade in active" id="order-information"></div>
-			</div>
-			<div class="tab-content panel panel-default">
-				<div class="panel-body tab-pane fade" id="order-log"></div>
-			</div>
-			<div class="tab-content panel panel-default">
-				<div class="panel-body tab-pane fade" id="order-invoice"></div>
-			</div>
-			<div class="tab-content panel panel-default">
-				<div class="panel-body tab-pane fade" id="order-transactions"></div>
+			<div class="tab-content">
+				<div class="tab-pane fade in active" id="order-information"></div>
+				<div class="tab-pane fade" id="order-log"></div>
+				<div class="tab-pane fade" id="order-invoice"></div>
+				<div class="tab-pane fade" id="order-transactions"></div>
 			</div>
 
 		</div>

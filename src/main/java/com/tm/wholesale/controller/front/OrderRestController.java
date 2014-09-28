@@ -20,6 +20,7 @@ import com.tm.wholesale.model.ComboWholesaler;
 import com.tm.wholesale.model.JSONBean;
 import com.tm.wholesale.model.MaterialWholesaler;
 import com.tm.wholesale.model.Order;
+import com.tm.wholesale.model.OrderLog;
 import com.tm.wholesale.model.Page;
 import com.tm.wholesale.model.Wholesaler;
 import com.tm.wholesale.service.back.ProductServiceBack;
@@ -118,6 +119,7 @@ public class OrderRestController {
 		orderSession.setBroadband_type(order.getBroadband_type());
 		orderSession.setHardware_post(order.getHardware_post());
 		orderSession.setPay_type(order.getPay_type());
+		orderSession.setPrepay_month(order.getPrepay_month());
 		
 		json.setUrl("/order/fill-information");
 		
@@ -193,7 +195,7 @@ public class OrderRestController {
 		Page<Order> page = new Page<Order>();
 		page.setPageNo(pageNo);
 		page.setPageSize(50);
-		page.getParams().put("orderby", "order by create_date");
+		page.getParams().put("orderby", "order by create_date desc");
 		page.getParams().put("company_id", wholesalerSession.getCompany_id());
 		
 		this.orderService.queryOrdersByPage(page);
@@ -207,7 +209,28 @@ public class OrderRestController {
 		
 		Wholesaler wholesalerSession = (Wholesaler) session.getAttribute("wholesalerSession");
 		
-		return null;
+		Order orderQuery = new Order();
+		orderQuery.getParams().put("company_id", wholesalerSession.getCompany_id());
+		orderQuery.getParams().put("id", orderid);
+		
+		orderQuery.getOd().getParams().put("order_id", orderid);
+		
+		Order order = this.orderService.queryOrder(orderQuery);
+		
+		return order;
+	}
+	
+	@RequestMapping("/order/edit/orderlog/loading/{orderid}")
+	public List<OrderLog> orderLogLoading(HttpSession session
+			, @PathVariable("orderid") int orderid) {
+		
+		Wholesaler wholesalerSession = (Wholesaler) session.getAttribute("wholesalerSession");
+		OrderLog olQuery = new OrderLog();
+		olQuery.getParams().put("company_id", wholesalerSession.getCompany_id());
+		olQuery.getParams().put("order_id", orderid);
+		List<OrderLog> ols = this.orderService.queryOrderLogs(olQuery);
+		
+		return ols;
 	}
 
 }
